@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">MyDocApp</string>
+
+    <string name="forgot_password"><u>FORGET PASSWORD</u></string>
+    <string name="create_new"><u>CREATE NEW ACCOUNT </u></string>
+    <string name="skip"><u>SKIP</u></string>
+    <string name="fb_login">sign in with facebook</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="facebook_app_id">364208140834390</string>
+    <string name="fb_login_protocol_scheme">fb364208140834390</string>
+    <string name="open_msg">Your health care connection</string>
+    <string name="registration">REGISTRATION</string>
+    <string name="forget">FORGET PASSWORD</string>
+
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="edit_text_error">This field is required</string>
+    <string name="invalid_number_error">Invalid mobile number</string>
+    <string name="user_exist_error">This user exists</string>
+
+    <string name="invalid_mail_error">Invalid email</string>
+    <string name="invalid_password_error">Password length must be greater that 6</string>
+
+
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="date_form">DD/MM/YYYY</string>
+    <string name="mobile">Mobile number</string>
+    <string name="create_account">CREATE ACCOUNT</string>
+    <string name="accept_terms"><u>Accept Terms and conditions</u></string>
+    <string name="title_activity_main_screen">MainScreen</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="appointment">Appointments</string>
+    <string name="favorites">Favorites</string>
+    <string name="search">Search</string>
+    <string name="promotions">Promotions</string>
+    <string name="more">More</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="appointment_msg">You must login to \nGet your appointments</string>
+    <string name="favorites_msg">You must login to \nGet your favorites</string>
+
+    <string name="pending">Pending</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="completed">Completed</string>
+    <string name="my_account">MY ACCOUNT</string>
+    <string name="my_family">My Family</string>
+    <string name="notification">notification</string>
+    <string name="privacy">privacy policy</string>
+    <string name="about">about us</string>
+    <string name="contact_us">contact us</string>
+    <string name="settings">settings</string>
+    <string name="log_out">Log out</string>
+    <string name="rate_us">rate us</string>
+    <string name="share">share</string>
+    <string name="log_in">log in</string>
+    <string name="You_must_accept">You must accept to get the services</string>
+    <string name="doctors">Doctors</string>
+    <string name="hospitals">Hospitals</string>
+    <string name="personal_info">personal info</string>
+    <string name="insurance">select insurance</string>
+    <string name="change_pass">change password</string>
+    <string name="national_id">National identity number</string>
+    <string name="save">save</string>
+
+
+</resources>
