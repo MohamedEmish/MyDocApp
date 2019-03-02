@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?android:listPreferredItemHeight"
+    android:layout_gravity="center_vertical"
+    android:layout_marginStart="@dimen/_8dp"
+    android:layout_marginEnd="@dimen/_8dp"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/notification_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/last_name"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryTexts"
+        android:textSize="@dimen/_16sp" />
+
+    <TextView
+        android:id="@+id/notification_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="@string/last_name"
+        android:textAllCaps="false"
+        android:textColor="@color/colorGray"
+        android:textSize="@dimen/_12sp" />
+
+</LinearLayout>

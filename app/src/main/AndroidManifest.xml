@@ -13,7 +13,31 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyAccount"></activity>
+        <activity
+            android:name=".NotificationActivity"
+            android:parentActivityName=".MainScreen"
+            android:theme="@style/RegTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainScreen" />
+        </activity>
+        <activity
+            android:name=".AddNewFamilyMember"
+            android:parentActivityName=".FamilyMembersViewer"
+            android:theme="@style/RegTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".FamilyMembersViewer" />
+        </activity>
+        <activity
+            android:name=".FamilyMembersViewer"
+            android:parentActivityName=".MainScreen"
+            android:theme="@style/RegTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainScreen" />
+        </activity>
+        <activity android:name=".MyAccount" />
         <activity
             android:name=".MainScreen"
             android:label="@string/title_activity_main_screen"

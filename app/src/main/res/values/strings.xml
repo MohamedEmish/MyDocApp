@@ -68,6 +68,10 @@
     <string name="change_pass">change password</string>
     <string name="national_id">National identity number</string>
     <string name="save">save</string>
+    <string name="add_insurance_card">Add insurance card</string>
+    <string name="new_password">New pasword</string>
+    <string name="family_members">Family members</string>
+    <string name="add_new_member">add new member</string>
 
 
 </resources>

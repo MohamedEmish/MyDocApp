@@ -38,6 +38,7 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
     public static final int PICK_IMAGE_FROM_GALLERY = 100;
     public static final int PICK_IMAGE_FROM_CAMERA = 200;
     Calendar myCalendar;
+    private DatePickerDialog.OnDateSetListener mPicker;
     int eyeVisibility = 1;
     Uri mImageUri;
     String mEmail, mFirstName, mLastName, mMobile, mPassword;
@@ -55,7 +56,6 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
     private CircleImageView mSignUpUserImage;
     private RadioGroup mSignUpGenderRadioGroup;
     private ImageView mSignUpEye;
-    private DatePickerDialog.OnDateSetListener mPicker;
 
     public static boolean isValidNumber(EditText text, String error) {
         if (!TextUtils.isEmpty(text.getText()) &&

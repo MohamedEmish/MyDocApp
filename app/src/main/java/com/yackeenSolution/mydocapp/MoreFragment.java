@@ -55,6 +55,21 @@ public class MoreFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        mMoreMyFamily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), FamilyMembersViewer.class);
+                startActivity(intent);
+            }
+        });
+        mMoreNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
         return rootView;
     }
 }

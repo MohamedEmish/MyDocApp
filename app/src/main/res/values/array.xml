@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="array_gender_options">
-        <item>Male</item>
-        <item>Female</item>
+        <item>@string/male</item>
+        <item>@string/female</item>
 
     </array>
+
+    <array name="array_insurance_options">
+        <item>Select an insurance company</item>
+        <item>AXA Gulf</item>
+        <item>AXA Gulf</item>
+        <item>AXA Gulf</item>
+        <item>AXA Gulf</item>
+        <item>AXA Gulf</item>
+    </array>
+
+    <array name="array_family_members_options">
+        <item>@string/son</item>
+        <item>@string/daughter</item>
+        <item>@string/wife</item>
+        <item>@string/husband</item>
+        <item>@string/mother</item>
+        <item>@string/father</item>
+    </array>
+    <string name="son">Son</string>
+    <string name="daughter">Daughter</string>
+    <string name="wife">Wife</string>
+    <string name="husband">Husband</string>
+    <string name="mother">Mother</string>
+    <string name="father">Father</string>
 </resources>

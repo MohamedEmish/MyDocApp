@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".AddNewFamilyMember">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/add_family_member_image"
+        android:layout_width="@dimen/_100dp"
+        android:layout_height="@dimen/_100dp"
+        android:layout_marginTop="@dimen/_32dp"
+        android:src="@drawable/name"
+        app:civ_border_color="@color/colorAccent"
+        app:civ_border_width="@dimen/_1dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16dp"
+        android:paddingTop="@dimen/_8dp"
+        android:paddingBottom="@dimen/_8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4dp"
+                android:layout_marginEnd="@dimen/_4dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_24dp"
+                            android:layout_height="@dimen/_24dp"
+                            android:layout_marginStart="@dimen/_8dp"
+                            android:src="@drawable/name" />
+
+                        <EditText
+                            android:id="@+id/add_family_member_first_name"
+                            android:layout_width="@dimen/_150dp"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:gravity="center_vertical"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/_8dp"
+                            android:paddingRight="@dimen/_8dp"
+                            android:text="@string/first_name"
+                            android:textColor="@color/colorGray"
+                            android:textSize="@dimen/_12sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="@dimen/_8dp"
+                        android:layout_marginTop="@dimen/_8dp"
+                        android:layout_marginRight="@dimen/_8dp"
+                        android:layout_marginBottom="@dimen/_8dp"
+                        android:background="#000000" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/add_family_member_last_name"
+                            android:layout_width="@dimen/_150dp"
+                            android:layout_height="@dimen/_24dp"
+                            android:background="@null"
+                            android:gravity="center_vertical"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/_8dp"
+                            android:paddingRight="@dimen/_8dp"
+                            android:text="@string/last_name"
+                            android:textColor="@color/colorGray"
+                            android:textSize="@dimen/_12sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="@dimen/_8dp"
+                        android:layout_marginTop="@dimen/_8dp"
+                        android:layout_marginRight="@dimen/_8dp"
+                        android:layout_marginBottom="@dimen/_8dp"
+                        android:background="#000000" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4dp"
+                android:layout_marginEnd="@dimen/_4dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_24dp"
+                            android:layout_height="@dimen/_24dp"
+                            android:layout_marginStart="@dimen/_8dp"
+                            android:src="@drawable/date" />
+
+                        <EditText
+                            android:id="@+id/add_family_member_date"
+                            android:layout_width="@dimen/_150dp"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:gravity="center_vertical"
+                            android:inputType="date"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/_8dp"
+                            android:paddingRight="@dimen/_8dp"
+                            android:text="@string/date_form"
+                            android:textColor="@color/colorGray"
+                            android:textSize="@dimen/_12sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="@dimen/_8dp"
+                        android:layout_marginTop="@dimen/_8dp"
+                        android:layout_marginRight="@dimen/_8dp"
+                        android:layout_marginBottom="@dimen/_8dp"
+                        android:background="#000000" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_24dp"
+                            android:layout_height="@dimen/_24dp"
+                            android:layout_marginStart="@dimen/_8dp"
+                            android:src="@drawable/gender" />
+
+
+                        <Spinner
+                            android:id="@+id/add_family_member_gender_spinner"
+                            android:layout_width="@dimen/_132dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="@dimen/_8dp"
+                            android:paddingRight="@dimen/_8dp"
+                            android:spinnerMode="dropdown"
+                            android:textColor="@color/colorGray"
+                            android:theme="@style/spinner_in_text" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="@dimen/_8dp"
+                        android:layout_marginTop="@dimen/_8dp"
+                        android:layout_marginRight="@dimen/_8dp"
+                        android:layout_marginBottom="@dimen/_8dp"
+                        android:background="#000000" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4dp"
+                android:layout_marginEnd="@dimen/_4dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_24dp"
+                        android:layout_height="@dimen/_24dp"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:src="@drawable/mobile" />
+
+                    <EditText
+                        android:id="@+id/add_family_member_mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/_8dp"
+                        android:paddingRight="@dimen/_8dp"
+                        android:text="@string/mobile"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_12sp" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginRight="@dimen/_8dp"
+                    android:layout_marginBottom="@dimen/_8dp"
+                    android:background="#000000" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4dp"
+                android:layout_marginEnd="@dimen/_4dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_24dp"
+                        android:layout_height="@dimen/_24dp"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:src="@drawable/family_member" />
+
+                    <Spinner
+                        android:id="@+id/add_family_member_relation_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/_16dp"
+                        android:paddingLeft="@dimen/_8dp"
+                        android:paddingRight="@dimen/_8dp"
+                        android:textColor="@color/colorGray"
+                        android:textColorHint="@color/colorDivider"
+                        android:textSize="@dimen/_12sp"
+                        android:theme="@style/spinner_in_text" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginRight="@dimen/_8dp"
+                    android:layout_marginBottom="@dimen/_8dp"
+                    android:background="#000000" />
+
+
+                <Button
+                    android:id="@+id/add_family_member_button"
+                    android:layout_width="@dimen/_200dp"
+                    android:layout_height="@dimen/_36dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:layout_marginBottom="@dimen/_16dp"
+                    android:background="@drawable/border_sign_in"
+                    android:backgroundTint="@color/colorDivider"
+                    android:clickable="false"
+                    android:text="@string/add_new_member"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/_12sp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
