@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/background"
+    android:gravity="center"
+    android:padding="@dimen/_16dp"
+    tools:context=".MoreTabActivities.PrivacyPolicyActivity">
+
+
+    <TextView
+        android:id="@+id/privacy_policy_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/last_name"
+        android:textColor="@color/colorPrimaryTexts"
+        android:textSize="@dimen/_36dp" />
+
+</LinearLayout>

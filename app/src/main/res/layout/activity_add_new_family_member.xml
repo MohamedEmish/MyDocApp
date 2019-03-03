@@ -7,7 +7,7 @@
     android:background="@drawable/background"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".AddNewFamilyMember">
+    tools:context=".MoreTabActivities.AddNewFamilyMember">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -195,7 +195,7 @@
                             android:layout_marginStart="@dimen/_8dp"
                             android:src="@drawable/gender" />
 
-
+                        <!-- TODO: spinner style-->
                         <Spinner
                             android:id="@+id/add_family_member_gender_spinner"
                             android:layout_width="@dimen/_132dp"

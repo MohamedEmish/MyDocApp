@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_80dp"
+    android:layout_margin="@dimen/_36dp"
+    android:background="@color/colorBackground"
+    android:orientation="vertical"
+    android:padding="@dimen/_8dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_8dp"
+        android:text="@string/do_you_wanna_go"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryTexts"
+        android:textSize="@dimen/_14sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/alert_dialog_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBackground"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/no"
+            android:textColor="@color/colorAccent" />
+
+        <Button
+            android:id="@+id/alert_dialog_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBackground"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/yes"
+            android:textColor="@color/colorAccent" />
+
+    </LinearLayout>
+</LinearLayout>

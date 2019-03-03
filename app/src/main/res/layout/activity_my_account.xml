@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".MyAccount">
+    tools:context=".MoreTabActivities.MyAccount">
 
     <ImageView
         android:id="@+id/imageView17"
@@ -311,7 +311,7 @@
                                     android:layout_marginStart="@dimen/_8dp"
                                     android:src="@drawable/gender" />
 
-
+                                <!-- TODO: spinner style-->
                                 <Spinner
                                     android:id="@+id/my_account_gender_spinner"
                                     android:layout_width="@dimen/_120dp"
@@ -566,6 +566,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
+                        <!-- TODO: spinner style-->
 
                         <Spinner
                             android:id="@+id/my_account_insurance_spinner"

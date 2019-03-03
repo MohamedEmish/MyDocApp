@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundSecond"
-    tools:context=".FamilyMembersViewer">
+    tools:context=".MoreTabActivities.FamilyMembersViewer">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/family_member_viewer_recycler"

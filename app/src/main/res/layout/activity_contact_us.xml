@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/_16dp"
+    tools:context=".MoreTabActivities.ContactUsActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="@string/we_glad_to_listen"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/_16sp" />
+
+    <!--TODO: edit text indicator follow type -->
+    <EditText
+        android:id="@+id/contact_us_message_text"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150_5dp"
+        android:layout_marginTop="@dimen/_8dp"
+        android:background="@color/colorBackgroundSecond"
+        android:gravity="top"
+        android:hint="@string/message"
+        android:inputType="textMultiLine"
+        android:padding="@dimen/_2dp"
+        android:scrollbars="vertical"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/_12sp" />
+
+    <Button
+        android:id="@+id/contact_us_send_Button"
+        android:layout_width="@dimen/_250dp"
+        android:layout_height="@dimen/_36dp"
+        android:layout_marginTop="@dimen/_16dp"
+        android:layout_marginBottom="@dimen/_16dp"
+        android:background="@drawable/border_sign_in"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/send"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/_12sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="@dimen/_16dp"
+        android:text="@string/follow_us"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/_16sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="?android:listPreferredItemHeight"
+        android:layout_marginBottom="@dimen/_32dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/contact_us_fb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fb" />
+
+        <ImageView
+            android:id="@+id/contact_us_tweeter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16dp"
+            android:layout_marginEnd="@dimen/_16dp"
+            android:src="@drawable/twitter" />
+
+        <ImageView
+            android:id="@+id/contact_us_instgram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/instgram" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="@dimen/_20dp"
+            android:layout_height="@dimen/_20dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/website2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_4dp"
+            android:text="@string/web_site"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_12sp" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

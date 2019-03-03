@@ -6,6 +6,8 @@ import android.preference.PreferenceManager;
 
 public class SaveSharedPreference {
     static final String PREF_USER_NAME = "username";
+    static final String PREF_USER_LANGUAGE = "language";
+
 
 
     static SharedPreferences getSharedPreferences(Context ctx) {
@@ -26,6 +28,16 @@ public class SaveSharedPreference {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_USER_NAME, null);
         editor.commit();
+    }
+
+    public static void setLanguage(Context ctx, String lang) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(PREF_USER_LANGUAGE, lang);
+        editor.commit();
+    }
+
+    public static String getLanguage(Context ctx) {
+        return getSharedPreferences(ctx).getString(PREF_USER_LANGUAGE, "en");
     }
 
 }

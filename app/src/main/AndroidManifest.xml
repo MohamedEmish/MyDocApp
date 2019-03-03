@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".NotificationActivity"
+            android:name=".MoreTabActivities.SettingsActivity"
             android:parentActivityName=".MainScreen"
             android:theme="@style/RegTheme">
             <meta-data
@@ -22,22 +22,54 @@
                 android:value=".MainScreen" />
         </activity>
         <activity
-            android:name=".AddNewFamilyMember"
-            android:parentActivityName=".FamilyMembersViewer"
-            android:theme="@style/RegTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".FamilyMembersViewer" />
-        </activity>
-        <activity
-            android:name=".FamilyMembersViewer"
+            android:name=".MoreTabActivities.ContactUsActivity"
             android:parentActivityName=".MainScreen"
             android:theme="@style/RegTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainScreen" />
         </activity>
-        <activity android:name=".MyAccount" />
+        <activity
+            android:name=".MoreTabActivities.AboutUsActivity"
+            android:parentActivityName=".MainScreen"
+            android:theme="@style/RegTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainScreen" />
+        </activity>
+        <activity
+            android:name=".MoreTabActivities.PrivacyPolicyActivity"
+            android:parentActivityName=".MainScreen"
+            android:theme="@style/RegTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainScreen" />
+        </activity>
+        <activity
+            android:name=".MoreTabActivities.NotificationActivity"
+            android:parentActivityName=".MainScreen"
+            android:theme="@style/RegTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainScreen" />
+        </activity>
+        <activity
+            android:name=".MoreTabActivities.AddNewFamilyMember"
+            android:parentActivityName=".MoreTabActivities.FamilyMembersViewer"
+            android:theme="@style/RegTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MoreTabActivities.FamilyMembersViewer" />
+        </activity>
+        <activity
+            android:name=".MoreTabActivities.FamilyMembersViewer"
+            android:parentActivityName=".MainScreen"
+            android:theme="@style/RegTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainScreen" />
+        </activity>
+        <activity android:name=".MoreTabActivities.MyAccount" />
         <activity
             android:name=".MainScreen"
             android:label="@string/title_activity_main_screen"

@@ -13,6 +13,12 @@ import android.transition.Fade;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.yackeenSolution.mydocapp.Fragments.MainFragments.AppointmentFragment;
+import com.yackeenSolution.mydocapp.Fragments.MainFragments.FavoritesFragment;
+import com.yackeenSolution.mydocapp.Fragments.MainFragments.MoreFragment;
+import com.yackeenSolution.mydocapp.Fragments.MainFragments.PromotionFragment;
+import com.yackeenSolution.mydocapp.Fragments.MainFragments.SearchFragment;
+
 public class MainScreen extends AppCompatActivity {
 
     BottomNavigationView navigation;

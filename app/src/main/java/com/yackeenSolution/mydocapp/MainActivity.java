@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startMainScreenIntent() {
-        // TODO: Main Screen move
+        Intent intent = new Intent(MainActivity.this, MainScreen.class);
+        startActivity(intent);
     }
 
     private void startSignInIntent() {

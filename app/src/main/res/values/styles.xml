@@ -15,9 +15,10 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
         <item name="android:textAllCaps">true</item>
-        <item name="colorControlNormal">@color/colorTexts</item>
+        <item name="colorControlNormal">@color/colorGray</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_arrow</item>
-        <item name="android:textColor">@color/colorTexts</item>
+        <item name="android:textColor">@color/colorPrimaryTexts</item>
     </style>
 
     <style name="Date_Picker" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -28,7 +29,6 @@
 
     <style name="checkBoxStyle" parent="Base.Theme.AppCompat">
         <item name="colorAccent">@color/colorAccent</item>
-
         <item name="android:textSize">@dimen/_12sp</item>
         <item name="android:textColorSecondary">@color/colorGray</item>
     </style>

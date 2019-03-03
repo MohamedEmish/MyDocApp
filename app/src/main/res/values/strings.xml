@@ -72,6 +72,24 @@
     <string name="new_password">New pasword</string>
     <string name="family_members">Family members</string>
     <string name="add_new_member">add new member</string>
+    <string name="edit_family_member">Edit family member</string>
+    <string name="do_you_wanna_go">Do you want to logout ?</string>
+    <string name="no">no</string>
+    <string name="yes">yes</string>
+    <string name="we_glad_to_listen">We glad to listen to you</string>
+    <string name="message">Message</string>
+    <string name="send">Send</string>
+    <string name="follow_us">Follow us</string>
+    <string name="web_site">www.doctory.com.bh</string>
+    <string name="change_language">Change language</string>
+    <string name="english">English</string>
+    <string name="arabic">Arabic</string>
+    <string name="app_remainders">Appointment reminders</string>
+    <string name="promo_notification">Promotion notification</string>
+    <string name="search_message">Better Health .. Better Life</string>
+    <string name="doctor">Doctor</string>
+    <string name="facility">Facility</string>
+    <string name="select_date">Select a Date (optional)</string>
 
 
 </resources>

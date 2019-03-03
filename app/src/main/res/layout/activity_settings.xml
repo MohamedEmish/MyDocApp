@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    android:padding="@dimen/_16dp"
+    tools:context=".MoreTabActivities.SettingsActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/change_language"
+        android:textColor="@color/colorGray" />
+
+    <RadioGroup
+        android:id="@+id/settings_lang_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16dp"
+        android:layout_marginTop="@dimen/_12dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/settings_en_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/english"
+            android:textAllCaps="false"
+            android:textColor="@color/colorGray" />
+
+        <RadioButton
+            android:id="@+id/settings_ar_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/arabic"
+            android:textAllCaps="false"
+            android:textColor="@color/colorGray" />
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/_8dp"
+        android:layout_marginBottom="@dimen/_8dp"
+        android:background="@color/colorPrimaryTexts" />
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/app_remainders"
+        android:textAllCaps="false"
+        android:textColor="@color/colorGray" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/_8dp"
+        android:layout_marginBottom="@dimen/_8dp"
+        android:background="@color/colorPrimaryTexts" />
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/promo_notification"
+        android:textAllCaps="false"
+        android:textColor="@color/colorGray" />
+
+
+</LinearLayout>
