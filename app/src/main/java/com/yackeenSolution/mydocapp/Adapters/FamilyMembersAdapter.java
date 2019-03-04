@@ -46,8 +46,13 @@ public class FamilyMembersAdapter extends ListAdapter<FamilyMember, FamilyMember
         String name = getItem(position).getFirstName();
         String relation = getItem(position).getRelation();
         String imageUri = getItem(position).getImageUri();
+        Uri uri;
 
-        Uri uri = Uri.parse(imageUri);
+        if (imageUri.equals("")) {
+            uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor");
+        } else {
+            uri = Uri.parse(imageUri);
+        }
 
         holder.nameTextView.setText(name);
         holder.relationTextView.setText(relation);

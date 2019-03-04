@@ -184,9 +184,6 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 String myFormat = "DD/MM/YYYY"; //In which you need put here
                 SimpleDateFormat format = new SimpleDateFormat(myFormat, Locale.getDefault());
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, month);
-                myCalendar.set(Calendar.DAY_OF_MONTH, day);
 
                 mSignUpDate.setText(format.format(myCalendar.getTime()));
             }
@@ -196,6 +193,9 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
                 R.style.Date_Picker,
                 mPicker,
                 2000, 0, 1);
+
+        DatePicker datePicker = dialog.getDatePicker();
+        datePicker.setMaxDate(myCalendar.getTimeInMillis());
 
         dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setGravity(Gravity.CENTER);

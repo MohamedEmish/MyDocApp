@@ -19,10 +19,11 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="@dimen/_280dp"
-        android:layout_height="@dimen/_400dp"
+        android:layout_height="@dimen/_370dp"
         android:background="@drawable/border_search"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:layout_marginBottom="@dimen/_16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,17 +48,17 @@
             android:textColor="@color/colorAccent" />
 
         <RadioGroup
-            android:id="@+id/settings_lang_radio_group"
+            android:id="@+id/search_type_radio_group"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30dp"
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginEnd="@dimen/_20dp"
-            android:layout_marginBottom="@dimen/_20dp"
+            android:layout_marginBottom="@dimen/_16dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/settings_en_radio_button"
+                android:id="@+id/search_doctor_radio_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -67,7 +68,7 @@
                 android:textColor="@color/colorGray" />
 
             <RadioButton
-                android:id="@+id/settings_ar_radio_button"
+                android:id="@+id/search_facility_radio_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -83,7 +84,7 @@
             android:layout_height="@dimen/_32dp"
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginEnd="@dimen/_20dp"
-            android:layout_marginBottom="@dimen/_20dp"
+            android:layout_marginBottom="@dimen/_16dp"
             android:background="@drawable/border_home"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -106,7 +107,7 @@
             android:layout_height="@dimen/_32dp"
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginEnd="@dimen/_20dp"
-            android:layout_marginBottom="@dimen/_20dp"
+            android:layout_marginBottom="@dimen/_16dp"
             android:background="@drawable/border_home"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -129,7 +130,7 @@
             android:layout_height="@dimen/_32dp"
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginEnd="@dimen/_20dp"
-            android:layout_marginBottom="@dimen/_20dp"
+            android:layout_marginBottom="@dimen/_16dp"
             android:background="@drawable/border_home"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -156,7 +157,7 @@
             android:layout_height="@dimen/_32dp"
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginEnd="@dimen/_20dp"
-            android:layout_marginBottom="@dimen/_20dp"
+            android:layout_marginBottom="@dimen/_16dp"
             android:background="@drawable/border_home"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -177,14 +178,15 @@
     </LinearLayout>
 
     <Button
-        android:layout_width="@dimen/_200dp"
+        android:id="@+id/search_frag_button"
         android:layout_height="@dimen/_42dp"
-        android:layout_marginTop="@dimen/_380dp"
+        android:layout_width="@dimen/_240dp"
         android:background="@drawable/border_sign_in"
         android:backgroundTint="@color/colorAccent"
         android:text="@string/search"
         android:textColor="#ffffff"
         android:textSize="@dimen/_12sp"
+        android:layout_marginTop="@dimen/_350dp"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="@+id/linearLayout2"

@@ -4,7 +4,7 @@
     <string name="forgot_password"><u>FORGET PASSWORD</u></string>
     <string name="create_new"><u>CREATE NEW ACCOUNT </u></string>
     <string name="skip"><u>SKIP</u></string>
-    <string name="fb_login">sign in with facebook</string>
+    <string name="fb_login">Sign in with facebook</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="sign_in">SIGN IN</string>
@@ -41,7 +41,6 @@
     <string name="promotions">Promotions</string>
     <string name="more">More</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="appointment_msg">You must login to \nGet your appointments</string>
     <string name="favorites_msg">You must login to \nGet your favorites</string>
@@ -51,31 +50,31 @@
     <string name="completed">Completed</string>
     <string name="my_account">MY ACCOUNT</string>
     <string name="my_family">My Family</string>
-    <string name="notification">notification</string>
-    <string name="privacy">privacy policy</string>
-    <string name="about">about us</string>
-    <string name="contact_us">contact us</string>
-    <string name="settings">settings</string>
+    <string name="notification">Notification</string>
+    <string name="privacy">Privacy policy</string>
+    <string name="about">About us</string>
+    <string name="contact_us">Contact us</string>
+    <string name="settings">Settings</string>
     <string name="log_out">Log out</string>
-    <string name="rate_us">rate us</string>
-    <string name="share">share</string>
-    <string name="log_in">log in</string>
+    <string name="rate_us">Rate us</string>
+    <string name="share">Share</string>
+    <string name="log_in">Log in</string>
     <string name="You_must_accept">You must accept to get the services</string>
     <string name="doctors">Doctors</string>
     <string name="hospitals">Hospitals</string>
-    <string name="personal_info">personal info</string>
-    <string name="insurance">select insurance</string>
-    <string name="change_pass">change password</string>
+    <string name="personal_info">Personal information</string>
+    <string name="insurance">Select insurance</string>
+    <string name="change_pass">Change password</string>
     <string name="national_id">National identity number</string>
-    <string name="save">save</string>
+    <string name="save">Save</string>
     <string name="add_insurance_card">Add insurance card</string>
     <string name="new_password">New pasword</string>
     <string name="family_members">Family members</string>
-    <string name="add_new_member">add new member</string>
+    <string name="add_new_member">Add new member</string>
     <string name="edit_family_member">Edit family member</string>
     <string name="do_you_wanna_go">Do you want to logout ?</string>
-    <string name="no">no</string>
-    <string name="yes">yes</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
     <string name="we_glad_to_listen">We glad to listen to you</string>
     <string name="message">Message</string>
     <string name="send">Send</string>
@@ -90,6 +89,32 @@
     <string name="doctor">Doctor</string>
     <string name="facility">Facility</string>
     <string name="select_date">Select a Date (optional)</string>
+    <string name="filter">Filter</string>
+    <string name="search_for">Search for ..</string>
+    <string name="request_appointment">Request appointment</string>
+    <string name="choose_specific_doctor">Choose specific doctor</string>
+    <string name="appointment_request">Appointment request</string>
+    <string name="appointment_schedule">Appointment schedule</string>
+    <string name="speciality">Speciality</string>
+    <string name="preferred_date">Preferred date</string>
+    <string name="preferred_time">Preferred time</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="salamat">Salamat ...</string>
+    <string name="request_received">Your request is received</string>
+    <string name="booking_number">Booking number :</string>
+    <string name="patient_name">Patient name :</string>
+    <string name="doctor_name">Doctor name :</string>
+    <string name="clinic_name">Clinic name :</string>
+    <string name="speciality_c">Speciality :</string>
+    <string name="date">Date :</string>
+    <string name="time">Time :</string>
+    <string name="confirmation_msg">Thanks for booking with us, facility representative will contact you shortly to confirm your appointment</string>
+    <string name="health_facility">Healthcare facilities</string>
+    <string name="call"><u>Call</u></string>
+    <string name="location"><u>Location</u></string>
+    <string name="web_site_lined"><u>Website</u></string>
+    <string name="advanced_search">Advanced search</string>
+    <string name="choose_specific_facility">Choose specific facility</string>
 
 
 </resources>

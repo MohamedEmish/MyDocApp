@@ -22,7 +22,6 @@ import com.yackeenSolution.mydocapp.Fragments.MainFragments.SearchFragment;
 public class MainScreen extends AppCompatActivity {
 
     BottomNavigationView navigation;
-    private TextView tvTitle;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -33,32 +32,27 @@ public class MainScreen extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_appointments:
 
-                    tvTitle.setText(R.string.appointment);
                     AppointmentFragment appointmentFragment = new AppointmentFragment();
                     FragmentTransaction(appointmentFragment);
                     return true;
 
                 case R.id.navigation_favorites:
 
-                    tvTitle.setText(R.string.favorites);
                     FavoritesFragment favoritesFragment = new FavoritesFragment();
                     FragmentTransaction(favoritesFragment);
                     return true;
 
                 case R.id.navigation_search:
-                    tvTitle.setText(R.string.search);
                     SearchFragment searchFragment = new SearchFragment();
                     FragmentTransaction(searchFragment);
                     return true;
 
                 case R.id.navigation_promotions:
-                    tvTitle.setText(R.string.promotions);
                     PromotionFragment promotionFragment = new PromotionFragment();
                     FragmentTransaction(promotionFragment);
                     return true;
 
                 case R.id.navigation_more:
-                    tvTitle.setText(R.string.more);
                     MoreFragment moreFragment = new MoreFragment();
                     FragmentTransaction(moreFragment);
                     return true;
@@ -82,10 +76,6 @@ public class MainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.reg_action_bar);
-        tvTitle = findViewById(R.id.tvTitle);
 
         navigation = findViewById(R.id.navigation);
 

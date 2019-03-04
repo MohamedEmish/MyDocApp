@@ -12,9 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginTop="8dp"
         android:gravity="start"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50dp"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:background="@color/colorAccent"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:text="@string/more"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBackground" />
 
 
         <android.support.constraint.ConstraintLayout

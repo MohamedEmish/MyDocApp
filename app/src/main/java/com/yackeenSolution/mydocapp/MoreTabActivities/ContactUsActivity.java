@@ -3,6 +3,7 @@ package com.yackeenSolution.mydocapp.MoreTabActivities;
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.yackeenSolution.mydocapp.R;
@@ -20,5 +21,7 @@ public class ContactUsActivity extends AppCompatActivity {
 
         TextView tvTitle = findViewById(R.id.tvTitle);
         tvTitle.setText(R.string.contact_us);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 }

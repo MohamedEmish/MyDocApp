@@ -12,8 +12,10 @@ public class PromotionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final ViewGroup nullParent = null;
 
-        View rootView = inflater.inflate(R.layout.promotion_frag, null);
+
+        View rootView = inflater.inflate(R.layout.promotion_frag, nullParent);
 
         return rootView;
     }

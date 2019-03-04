@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.yackeenSolution.mydocapp.BottomSheet;
 import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.RegistrationActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -68,6 +69,8 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
             tvTitle.setText(R.string.edit_family_member);
             int id = Integer.valueOf(intent.getStringExtra("id").trim());
         }
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         mAddFamilyMemberGenderSpinner = findViewById(R.id.add_family_member_gender_spinner);
         setupGenderSpinner();
@@ -114,9 +117,6 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 String myFormat = "DD/MM/YYYY"; //In which you need put here
                 SimpleDateFormat format = new SimpleDateFormat(myFormat, Locale.getDefault());
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, month);
-                myCalendar.set(Calendar.DAY_OF_MONTH, day);
 
                 mAddFamilyMemberDate.setText(format.format(myCalendar.getTime()));
             }
@@ -126,6 +126,9 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
                 R.style.Date_Picker,
                 mPicker,
                 2000, 0, 1);
+
+        DatePicker datePicker = dialog.getDatePicker();
+        datePicker.setMaxDate(myCalendar.getTimeInMillis());
 
         dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setGravity(Gravity.CENTER);

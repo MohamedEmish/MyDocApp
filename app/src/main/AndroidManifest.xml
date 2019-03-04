@@ -13,6 +13,13 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".FacilityDetailsActivity"></activity>
+        <activity android:name=".SearchFilterFacility" />
+        <activity android:name=".SearchResultsFacilityActivity" />
+        <activity android:name=".ConfirmationActivity" />
+        <activity android:name=".AppointmentRequestActivity" />
+        <activity android:name=".SearchFilterDoctor" />
+        <activity android:name=".SearchResultDoctorActivity" />
         <activity
             android:name=".MoreTabActivities.SettingsActivity"
             android:parentActivityName=".MainScreen"
@@ -73,7 +80,7 @@
         <activity
             android:name=".MainScreen"
             android:label="@string/title_activity_main_screen"
-            android:theme="@style/RegTheme" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ForgetPasswordActivity"
             android:label="@string/forgot_password"
