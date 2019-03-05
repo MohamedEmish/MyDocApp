@@ -249,7 +249,7 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         } else if (requestCode == PICK_IMAGE_FROM_CAMERA && resultCode == Activity.RESULT_OK) {
 
             if (resultData != null) {
-                Bitmap photo = (Bitmap) resultData.getExtras().get("data");
+                Bitmap photo = (Bitmap) resultData.getExtras().get("doctorData");
                 mSignUpUserImage.setImageBitmap(photo);
             }
 

@@ -1,4 +1,4 @@
-package com.yackeenSolution.mydocapp;
+package com.yackeenSolution.mydocapp.SearchTabActivites;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yackeenSolution.mydocapp.Adapters.DoctorResultAdapter;
+import com.yackeenSolution.mydocapp.MainScreen;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
+import com.yackeenSolution.mydocapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +94,16 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
             @Override
             public void onItemClick(DoctorResult DoctorResult) {
                 Intent intent = new Intent(SearchResultDoctorActivity.this, AppointmentRequestActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        doctorResultAdapter.setOnItemClickListener(new DoctorResultAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DoctorResult DoctorResult) {
+                Intent intent = new Intent(SearchResultDoctorActivity.this, DoctorDetailsActivity.class);
+                intent.putExtra("id", String.valueOf(DoctorResult.getId()));
+                intent.putExtra("source", "SRDA");
                 startActivity(intent);
             }
         });

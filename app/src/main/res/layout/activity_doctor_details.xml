@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/facility_details_back"
+            android:id="@+id/doctor_details_back"
             android:layout_width="@dimen/_50dp"
             android:layout_height="match_parent"
             android:padding="@dimen/_12dp"
@@ -31,13 +31,13 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/facility_details_title"
+            android:id="@+id/doctor_details_name"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_50dp"
             android:background="@color/colorAccent"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
-            android:text="@string/facility"
+            android:text="@string/first_name"
             android:textAllCaps="true"
             android:textColor="@color/colorBackground"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -70,18 +70,31 @@
                 android:background="@color/colorBackground"
                 android:orientation="vertical">
 
+                <Button
+                    android:id="@+id/doctor_detail_request"
+                    android:layout_width="@dimen/_250dp"
+                    android:layout_height="@dimen/_36dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_50dp"
+                    android:layout_marginBottom="@dimen/_16dp"
+                    android:background="@drawable/border_sign_in"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="@string/request_appointment"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/_12sp" />
+
+
                 <ImageView
-                    android:id="@+id/facility_detail_location-image"
+                    android:id="@+id/doctor_detail_location-image"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_150dp"
                     android:layout_marginStart="@dimen/_16dp"
-                    android:layout_marginTop="@dimen/_30dp"
                     android:layout_marginEnd="@dimen/_16dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/map_image" />
 
                 <TextView
-                    android:id="@+id/facility_detail_location_text"
+                    android:id="@+id/doctor_detail_location_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
@@ -99,96 +112,22 @@
                 android:background="@color/colorBackground"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:padding="@dimen/_4dp"
-                    android:text="@string/speciality_u"
-                    android:textColor="@color/colorAccent" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/facility_detail_speciality_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </android.support.v7.widget.RecyclerView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4dp"
-                android:background="@color/colorBackground"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:padding="@dimen/_4dp"
-                    android:text="@string/doctors_u"
-                    android:textColor="@color/colorAccent" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/facility_detail_doctor_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </android.support.v7.widget.RecyclerView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4dp"
-                android:background="@color/colorBackground"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:padding="@dimen/_4dp"
-                    android:text="@string/insurance_u"
-                    android:textColor="@color/colorAccent" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/facility_detail_insurance_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </android.support.v7.widget.RecyclerView>
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4dp"
-                android:background="@color/colorBackground"
-                android:orientation="vertical">
-
                 <android.support.design.widget.TabLayout
-                    android:id="@+id/facility_details_tabs_layout"
+                    android:id="@+id/doctor_details_tabs_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/colorBackground"
                     android:theme="@style/AppTabLayout">
 
                     <android.support.design.widget.TabItem
-                        android:id="@+id/about_us_tab"
+                        android:id="@+id/profile_tab"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:paddingStart="@dimen/_1dp"
                         android:paddingEnd="@dimen/_1dp" />
 
                     <android.support.design.widget.TabItem
-                        android:id="@+id/general_info_tab"
+                        android:id="@+id/clinic_info_tab"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:paddingStart="@dimen/_1dp"
@@ -196,9 +135,9 @@
                 </android.support.design.widget.TabLayout>
 
                 <android.support.v4.view.ViewPager
-                    android:id="@+id/facility_details_view_pager"
+                    android:id="@+id/doctor_details_view_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200dp"
+                    android:layout_height="@dimen/_300dp"
                     android:layout_margin="@dimen/_36dp">
 
                 </android.support.v4.view.ViewPager>
@@ -225,17 +164,17 @@
     </LinearLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/facility_detail_web"
+        android:id="@+id/doctor_detail_web"
         android:layout_width="@dimen/_48dp"
         android:layout_height="@dimen/_48dp"
         android:layout_marginTop="@dimen/_8dp"
         android:layout_marginEnd="@dimen/_24dp"
-        android:src="@drawable/hospital_website"
-        app:layout_constraintEnd_toStartOf="@+id/facility_detail_call"
+        android:src="@drawable/send_message"
+        app:layout_constraintEnd_toStartOf="@+id/doctor_detail_mail"
         app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/facility_detail_call"
+        android:id="@+id/doctor_detail_mail"
         android:layout_width="@dimen/_48dp"
         android:layout_height="@dimen/_48dp"
         android:layout_marginTop="@dimen/_8dp"
@@ -245,17 +184,17 @@
         app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/facility_detail_share"
+        android:id="@+id/doctor_detail_share"
         android:layout_width="@dimen/_48dp"
         android:layout_height="@dimen/_48dp"
         android:layout_marginStart="@dimen/_24dp"
         android:layout_marginTop="@dimen/_8dp"
         android:src="@drawable/share_doctor"
-        app:layout_constraintStart_toEndOf="@+id/facility_detail_fav"
+        app:layout_constraintStart_toEndOf="@+id/doctor_detail_fav"
         app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/facility_detail_fav"
+        android:id="@+id/doctor_detail_fav"
         android:layout_width="@dimen/_48dp"
         android:layout_height="@dimen/_48dp"
         android:layout_marginStart="@dimen/_16dp"
@@ -271,7 +210,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="@dimen/_48dp"
         android:layout_marginEnd="8dp"
-        android:src="@drawable/hospital_default"
+        android:src="@drawable/doctor_default"
         app:civ_border_color="@color/colorAccent"
         app:civ_border_width="@dimen/_1dp"
         app:layout_constraintEnd_toEndOf="parent"

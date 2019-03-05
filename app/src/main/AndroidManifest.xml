@@ -13,13 +13,14 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FacilityDetailsActivity"></activity>
-        <activity android:name=".SearchFilterFacility" />
-        <activity android:name=".SearchResultsFacilityActivity" />
-        <activity android:name=".ConfirmationActivity" />
-        <activity android:name=".AppointmentRequestActivity" />
-        <activity android:name=".SearchFilterDoctor" />
-        <activity android:name=".SearchResultDoctorActivity" />
+        <activity android:name=".SearchTabActivites.DoctorDetailsActivity"></activity>
+        <activity android:name=".SearchTabActivites.FacilityDetailsActivity" />
+        <activity android:name=".SearchTabActivites.SearchFilterFacility" />
+        <activity android:name=".SearchTabActivites.SearchResultsFacilityActivity" />
+        <activity android:name=".SearchTabActivites.ConfirmationActivity" />
+        <activity android:name=".SearchTabActivites.AppointmentRequestActivity" />
+        <activity android:name=".SearchTabActivites.SearchFilterDoctor" />
+        <activity android:name=".SearchTabActivites.SearchResultDoctorActivity" />
         <activity
             android:name=".MoreTabActivities.SettingsActivity"
             android:parentActivityName=".MainScreen"

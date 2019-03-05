@@ -1,6 +1,7 @@
 package com.yackeenSolution.mydocapp.Adapters;
 
 import android.net.Uri;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +33,7 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
     };
     private OnItemFavClickListener favListener;
     private OnItemReqClickListener reqListener;
+    private OnItemClickListener listener;
 
 
     public DoctorResultAdapter() {
@@ -92,11 +94,19 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
         this.reqListener = reqListener;
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     public interface OnItemFavClickListener {
         void onItemClick(DoctorResult DoctorResult);
     }
 
     public interface OnItemReqClickListener {
+        void onItemClick(DoctorResult DoctorResult);
+    }
+
+    public interface OnItemClickListener {
         void onItemClick(DoctorResult DoctorResult);
     }
 
@@ -109,6 +119,7 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
         public ImageView doctorImageVew;
         public ImageView favoriteButton;
         public Button request;
+        ConstraintLayout layout;
 
         public DoctorResultViewHolder(View itemView) {
             super(itemView);
@@ -136,6 +147,17 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
                     int position = getAdapterPosition();
                     if (reqListener != null && position != RecyclerView.NO_POSITION) {
                         reqListener.onItemClick(getItem(position));
+                    }
+                }
+            });
+
+            layout = itemView.findViewById(R.id.result_doctor_layout);
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(getItem(position));
                     }
                 }
             });

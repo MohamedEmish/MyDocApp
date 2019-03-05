@@ -75,10 +75,9 @@
 
         <ImageView
             android:id="@+id/facility_result_favorite_indicator"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="@dimen/_32dp"
+            android:layout_height="@dimen/_32dp"
+            android:padding="@dimen/_8dp"
             android:src="@drawable/unfavorite2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -131,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_regular"
-                android:text="@string/location"
+                android:text="@string/location_u"
                 android:textColor="@color/colorAccent" />
         </LinearLayout>
 

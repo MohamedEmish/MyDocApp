@@ -11,8 +11,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SearchResultDoctorActivity;
-import com.yackeenSolution.mydocapp.SearchResultsFacilityActivity;
+import com.yackeenSolution.mydocapp.SearchTabActivites.SearchResultDoctorActivity;
+import com.yackeenSolution.mydocapp.SearchTabActivites.SearchResultsFacilityActivity;
 
 public class SearchFragment extends Fragment {
     RadioButton doctor;

@@ -1,4 +1,4 @@
-package com.yackeenSolution.mydocapp;
+package com.yackeenSolution.mydocapp.SearchTabActivites;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.yackeenSolution.mydocapp.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -39,6 +41,7 @@ public class AppointmentRequestActivity extends AppCompatActivity {
     private TextView mAppointRequestDoctorClinic;
     private EditText mAppointRequestUserNationalId;
     private Button mRequestButton;
+    String source;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +49,21 @@ public class AppointmentRequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_appointment_request);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
+        Intent intent = getIntent();
+        if (intent.hasExtra("source")) {
+            source = intent.getStringExtra("source");
+        } else {
+            source = "";
+        }
+
+
         mAppointRequestBack = findViewById(R.id.appoint_request_back);
         mAppointRequestUserMobile = findViewById(R.id.appoint_request_user_mobile);
         mAppointRequestDoctorVisitTypeSpinner = findViewById(R.id.appoint_request_doctor_visit_type_spinner);
         mAppointRequestDoctorName = findViewById(R.id.appoint_request_doctor_name);
         mAppointRequestDate = findViewById(R.id.appoint_request_date);
         mAppointRequestTime = findViewById(R.id.appoint_request_time);
-        mSearchResultTitle = findViewById(R.id.search_result_title);
+        mSearchResultTitle = findViewById(R.id.facility_details_title);
         mAppointRequestDoctorSpeciality = findViewById(R.id.appoint_request_doctor_speciality);
         mAppointRequestUserNameSpinner = findViewById(R.id.appoint_request_user_name_spinner);
         mAppointRequestDoctorClinic = findViewById(R.id.appoint_request_doctor_clinic);
@@ -95,13 +106,18 @@ public class AppointmentRequestActivity extends AppCompatActivity {
     private void confirmation() {
         // TODO: check date,time,visit type
         Intent intent = new Intent(AppointmentRequestActivity.this, ConfirmationActivity.class);
-        // TODO: data to be attached
+        // TODO: doctorData to be attached
         startActivity(intent);
     }
 
     private void goBack() {
-        Intent intent = new Intent(AppointmentRequestActivity.this, SearchResultDoctorActivity.class);
-        startActivity(intent);
+        if (source.equals("DDA")) {
+            Intent intent = new Intent(AppointmentRequestActivity.this, DoctorDetailsActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(AppointmentRequestActivity.this, SearchResultDoctorActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void pickTime() {

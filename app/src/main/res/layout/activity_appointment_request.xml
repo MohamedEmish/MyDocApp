@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/search_result_title"
+            android:id="@+id/facility_details_title"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_50dp"
             android:layout_marginEnd="@dimen/_50dp"

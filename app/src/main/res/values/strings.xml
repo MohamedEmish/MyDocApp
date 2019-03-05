@@ -111,10 +111,17 @@
     <string name="confirmation_msg">Thanks for booking with us, facility representative will contact you shortly to confirm your appointment</string>
     <string name="health_facility">Healthcare facilities</string>
     <string name="call"><u>Call</u></string>
-    <string name="location"><u>Location</u></string>
+    <string name="location_u"><u>Location</u></string>
     <string name="web_site_lined"><u>Website</u></string>
     <string name="advanced_search">Advanced search</string>
     <string name="choose_specific_facility">Choose specific facility</string>
+    <string name="speciality_u"><u>Speciality</u></string>
+    <string name="doctors_u"><u>Doctors</u></string>
+    <string name="insurance_u"><u>Insurance</u></string>
+    <string name="general_info">General info</string>
+    <string name="location">Location</string>
+    <string name="profile_text">Profile</string>
+    <string name="clinic_info">Clinic info</string>
 
 
 </resources>

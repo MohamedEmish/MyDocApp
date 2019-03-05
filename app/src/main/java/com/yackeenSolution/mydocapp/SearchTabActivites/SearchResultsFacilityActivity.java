@@ -1,4 +1,4 @@
-package com.yackeenSolution.mydocapp;
+package com.yackeenSolution.mydocapp.SearchTabActivites;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yackeenSolution.mydocapp.Adapters.DoctorResultAdapter;
 import com.yackeenSolution.mydocapp.Adapters.FacilityResultAdapter;
-import com.yackeenSolution.mydocapp.Objects.DoctorResult;
+import com.yackeenSolution.mydocapp.MainScreen;
 import com.yackeenSolution.mydocapp.Objects.FacilityResult;
+import com.yackeenSolution.mydocapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,8 +126,9 @@ public class SearchResultsFacilityActivity extends AppCompatActivity {
     }
 
     private void openFacilityPage(int id) {
-        // TODO : detail intent
-        Toast.makeText(this, "this All", Toast.LENGTH_SHORT).show();
+        // TODO : attach facility id
+        Intent intent = new Intent(SearchResultsFacilityActivity.this, FacilityDetailsActivity.class);
+        startActivity(intent);
     }
 
     private void seeLocation(String location) {

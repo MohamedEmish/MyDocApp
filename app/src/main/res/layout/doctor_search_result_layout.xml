@@ -13,6 +13,7 @@
         android:layout_height="@dimen/_100dp"
         android:layout_marginTop="@dimen/_4dp"
         android:layout_marginBottom="@dimen/_4dp"
+        android:id="@+id/result_doctor_layout"
         android:background="@color/colorBackground"
         android:paddingStart="@dimen/_8dp"
         android:paddingEnd="@dimen/_8dp">
@@ -97,10 +98,9 @@
 
         <ImageView
             android:id="@+id/doctor_result_favorite_indicator"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="@dimen/_32dp"
+            android:layout_height="@dimen/_32dp"
+            android:padding="@dimen/_8dp"
             android:src="@drawable/unfavorite2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

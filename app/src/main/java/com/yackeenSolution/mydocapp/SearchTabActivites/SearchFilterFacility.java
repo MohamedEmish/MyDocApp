@@ -1,4 +1,4 @@
-package com.yackeenSolution.mydocapp;
+package com.yackeenSolution.mydocapp.SearchTabActivites;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.yackeenSolution.mydocapp.R;
 
 public class SearchFilterFacility extends AppCompatActivity {
 
@@ -27,7 +29,7 @@ public class SearchFilterFacility extends AppCompatActivity {
             }
         });
 
-        back = findViewById(R.id.filter_back);
+        back = findViewById(R.id.facility_details_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

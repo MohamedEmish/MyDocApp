@@ -1,4 +1,4 @@
-package com.yackeenSolution.mydocapp;
+package com.yackeenSolution.mydocapp.SearchTabActivites;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.yackeenSolution.mydocapp.MainScreen;
+import com.yackeenSolution.mydocapp.R;
 
 public class ConfirmationActivity extends AppCompatActivity {
 
@@ -29,7 +32,7 @@ public class ConfirmationActivity extends AppCompatActivity {
         mConfirmationButton = findViewById(R.id.confirmation_button);
         mConfirmationDoctorName = findViewById(R.id.confirmation_doctor_name);
         mConfirmationPatientName = findViewById(R.id.confirmation_patient_name);
-        mSearchResultTitle = findViewById(R.id.search_result_title);
+        mSearchResultTitle = findViewById(R.id.facility_details_title);
         mConfirmationSpeciality = findViewById(R.id.confirmation_speciality);
         mConfirmationDate = findViewById(R.id.confirmation_date);
         mConfirmationBookingNumber = findViewById(R.id.confirmation_booking_number);

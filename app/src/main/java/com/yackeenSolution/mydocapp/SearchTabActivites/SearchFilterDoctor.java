@@ -1,4 +1,4 @@
-package com.yackeenSolution.mydocapp;
+package com.yackeenSolution.mydocapp.SearchTabActivites;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.yackeenSolution.mydocapp.R;
 
 public class SearchFilterDoctor extends AppCompatActivity {
 
@@ -32,10 +34,10 @@ public class SearchFilterDoctor extends AppCompatActivity {
         setContentView(R.layout.activity_search_filter_doctor);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        mFilterBack = findViewById(R.id.filter_back);
+        mFilterBack = findViewById(R.id.facility_details_back);
         mFilterButton = findViewById(R.id.filter_button);
         mSearchFilterFemaleRadio = findViewById(R.id.search_filter_female_radio);
-        mSearchResultTitle = findViewById(R.id.search_result_title);
+        mSearchResultTitle = findViewById(R.id.facility_details_title);
         mSearchFilterJobTitleSpinner = findViewById(R.id.search_filter_job_title_spinner);
         mSignUpGenderRadioGroup = findViewById(R.id.sign_up_gender_radio_group);
         mSearchFilterMaleRadio = findViewById(R.id.search_filter_male_radio);
@@ -55,7 +57,7 @@ public class SearchFilterDoctor extends AppCompatActivity {
         mFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO :: get filter data
+                // TODO :: get filter doctorData
                 Intent intent = new Intent(SearchFilterDoctor.this, SearchResultDoctorActivity.class);
                 // TODO : attach new url
                 startActivity(intent);
