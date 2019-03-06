@@ -1,10 +1,23 @@
 package com.yackeenSolution.mydocapp.Objects;
 
-public class MyNotification {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    int id;
-    String title;
-    String description;
+public class MyNotification implements Parcelable {
+
+    public static final Parcelable.Creator<MyNotification> CREATOR = new Parcelable.Creator<MyNotification>() {
+        @Override
+        public MyNotification createFromParcel(Parcel source) {
+            return new MyNotification(source);
+        }
+
+        @Override
+        public MyNotification[] newArray(int size) {
+            return new MyNotification[size];
+        }
+    };
+    private int id;
+    private String title;
 
     public MyNotification(String title, String description) {
         this.title = title;
@@ -25,5 +38,25 @@ public class MyNotification {
 
     public String getDescription() {
         return description;
+    }
+
+    private String description;
+
+    protected MyNotification(Parcel in) {
+        this.id = in.readInt();
+        this.title = in.readString();
+        this.description = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.description);
     }
 }

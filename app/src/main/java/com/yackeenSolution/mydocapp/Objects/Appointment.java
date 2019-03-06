@@ -1,6 +1,9 @@
 package com.yackeenSolution.mydocapp.Objects;
 
-public class Appointment {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Appointment implements Parcelable {
     private int id;
     private String doctorName;
     private int bookingNumber;
@@ -60,5 +63,47 @@ public class Appointment {
 
     public String getDirection() {
         return direction;
+    }
+
+    public static final Parcelable.Creator<Appointment> CREATOR = new Parcelable.Creator<Appointment>() {
+        @Override
+        public Appointment createFromParcel(Parcel source) {
+            return new Appointment(source);
+        }
+
+        @Override
+        public Appointment[] newArray(int size) {
+            return new Appointment[size];
+        }
+    };
+
+    protected Appointment(Parcel in) {
+        this.id = in.readInt();
+        this.doctorName = in.readString();
+        this.bookingNumber = in.readInt();
+        this.speciality = in.readString();
+        this.facility = in.readString();
+        this.date = in.readString();
+        this.time = in.readString();
+        this.phoneNumber = in.readInt();
+        this.direction = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.doctorName);
+        dest.writeInt(this.bookingNumber);
+        dest.writeString(this.speciality);
+        dest.writeString(this.facility);
+        dest.writeString(this.date);
+        dest.writeString(this.time);
+        dest.writeInt(this.phoneNumber);
+        dest.writeString(this.direction);
     }
 }

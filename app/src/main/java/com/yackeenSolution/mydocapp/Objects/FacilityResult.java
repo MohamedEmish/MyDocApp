@@ -1,15 +1,28 @@
 package com.yackeenSolution.mydocapp.Objects;
 
-public class FacilityResult {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    int id;
-    String name;
-    String area;
-    int phone;
-    String locationUri;
-    String imageUri;
-    String webUri;
-    boolean isFavorite;
+public class FacilityResult implements Parcelable {
+
+    public static final Parcelable.Creator<FacilityResult> CREATOR = new Parcelable.Creator<FacilityResult>() {
+        @Override
+        public FacilityResult createFromParcel(Parcel source) {
+            return new FacilityResult(source);
+        }
+
+        @Override
+        public FacilityResult[] newArray(int size) {
+            return new FacilityResult[size];
+        }
+    };
+    private int id;
+    private String name;
+    private String area;
+    private int phone;
+    private String locationUri;
+    private String imageUri;
+    private String webUri;
 
     public FacilityResult(String name, String area, int phone, String locationUri, String imageUri, String webUri, boolean isFavorite) {
         this.name = name;
@@ -59,5 +72,35 @@ public class FacilityResult {
 
     public void setFavorite(boolean favorite) {
         isFavorite = favorite;
+    }
+
+    private boolean isFavorite;
+
+    protected FacilityResult(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.area = in.readString();
+        this.phone = in.readInt();
+        this.locationUri = in.readString();
+        this.imageUri = in.readString();
+        this.webUri = in.readString();
+        this.isFavorite = in.readByte() != 0;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.area);
+        dest.writeInt(this.phone);
+        dest.writeString(this.locationUri);
+        dest.writeString(this.imageUri);
+        dest.writeString(this.webUri);
+        dest.writeByte(this.isFavorite ? (byte) 1 : (byte) 0);
     }
 }
