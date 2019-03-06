@@ -40,7 +40,7 @@ public class DoctorSmallAdapter extends ListAdapter<DoctorResult, DoctorSmallAda
     @Override
     public DoctorSmallViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.docor_small_item, parent, false);
+        View view = inflater.inflate(R.layout.doctor_small_item, parent, false);
         return new DoctorSmallViewHolder(view);
     }
 

@@ -1,22 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@drawable/background"
-    android:gravity="center"
-    android:padding="@dimen/_16dp"
-    tools:context=".MoreTabActivities.PrivacyPolicyActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-
-    <TextView
-        android:id="@+id/about_us_text"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/last_name"
-        android:textColor="@color/colorPrimaryTexts"
-        android:textSize="@dimen/_36dp" />
+        android:layout_height="@dimen/_50dp"
+        android:background="@color/colorAccent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:textAllCaps="true">
+
+        <ImageView
+            android:id="@+id/about_back"
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_12dp"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_50dp"
+            android:background="@color/colorAccent"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:text="@string/about"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:orientation="vertical"
+        android:padding="@dimen/_16dp">
+
+        <TextView
+            android:id="@+id/about_us_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/about"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryTexts"
+            android:textSize="@dimen/_16dp" />
+
+    </LinearLayout>
 
 </LinearLayout>

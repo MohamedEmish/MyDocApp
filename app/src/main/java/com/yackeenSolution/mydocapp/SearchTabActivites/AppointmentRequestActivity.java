@@ -111,13 +111,7 @@ public class AppointmentRequestActivity extends AppCompatActivity {
     }
 
     private void goBack() {
-        if (source.equals("DDA")) {
-            Intent intent = new Intent(AppointmentRequestActivity.this, DoctorDetailsActivity.class);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(AppointmentRequestActivity.this, SearchResultDoctorActivity.class);
-            startActivity(intent);
-        }
+        finish();
     }
 
     private void pickTime() {

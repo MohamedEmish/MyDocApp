@@ -73,8 +73,7 @@ public class FacilityDetailsActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FacilityDetailsActivity.this, SearchResultsFacilityActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 

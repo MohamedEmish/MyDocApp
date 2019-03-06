@@ -32,7 +32,7 @@
             android:theme="@style/AppTabLayout">
 
             <android.support.design.widget.TabItem
-                android:id="@+id/dash_tab"
+                android:id="@+id/fav_doctor_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:paddingStart="@dimen/_1dp"
@@ -40,7 +40,7 @@
                 android:text="@string/doctors" />
 
             <android.support.design.widget.TabItem
-                android:id="@+id/notify_tab"
+                android:id="@+id/fav_facility_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:paddingStart="@dimen/_1dp"
@@ -54,6 +54,7 @@
         android:id="@+id/appointment_frame"
         android:layout_width="match_parent"
         android:layout_margin="@dimen/_8dp"
+        android:layout_marginBottom="@dimen/_30dp"
         android:layout_height="match_parent">
 
         <TextView

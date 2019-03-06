@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yackeenSolution.mydocapp.Adapters.NotificationAdapter;
@@ -22,17 +24,21 @@ public class NotificationActivity extends AppCompatActivity {
     NotificationAdapter notificationAdapter;
     List<MyNotification> data = new ArrayList<>();
 
+    ImageView back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.forget_pass_action_bar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        TextView tvTitle = findViewById(R.id.tvTitle);
-        tvTitle.setText(R.string.notification);
+        back = findViewById(R.id.notification_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         notificationRecycleView = findViewById(R.id.notification_recycler);
         notificationRecycleView.setLayoutManager(new LinearLayoutManager(this));

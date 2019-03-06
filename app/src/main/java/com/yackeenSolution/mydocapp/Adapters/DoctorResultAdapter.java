@@ -130,7 +130,7 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
             workPlaceTextView = itemView.findViewById(R.id.result_doctor_work_place);
             doctorImageVew = itemView.findViewById(R.id.result_doctor_image);
 
-            favoriteButton = itemView.findViewById(R.id.doctor_result_favorite_indicator);
+            favoriteButton = itemView.findViewById(R.id.appointment_small_call);
             favoriteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

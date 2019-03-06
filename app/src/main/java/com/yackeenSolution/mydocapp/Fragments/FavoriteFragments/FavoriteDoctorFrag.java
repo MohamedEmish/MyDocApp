@@ -1,61 +1,60 @@
-package com.yackeenSolution.mydocapp.SearchTabActivites;
+package com.yackeenSolution.mydocapp.Fragments.FavoriteFragments;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.ViewGroup;
 
 import com.yackeenSolution.mydocapp.Adapters.DoctorResultAdapter;
-import com.yackeenSolution.mydocapp.MainScreen;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
 import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.SearchTabActivites.AppointmentRequestActivity;
+import com.yackeenSolution.mydocapp.SearchTabActivites.DoctorDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchResultDoctorActivity extends AppCompatActivity {
-
+public class FavoriteDoctorFrag extends Fragment {
 
     RecyclerView doctorResultRecycleView;
     DoctorResultAdapter doctorResultAdapter;
-
     List<DoctorResult> data = new ArrayList<>();
 
-    ImageView back;
-    TextView filter;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_result_doctor);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        final ViewGroup nullParent = null;
 
-        back = findViewById(R.id.search_results_back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goBack();
-            }
-        });
 
-        filter = findViewById(R.id.search_result_facility_filter);
-        filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doFilter();
-            }
-        });
+        View rootView = inflater.inflate(R.layout.favorites_doc_frag, nullParent);
 
-        doctorResultRecycleView = findViewById(R.id.search_results_recycler);
-        doctorResultRecycleView.setLayoutManager(new LinearLayoutManager(this));
+        doctorResultRecycleView = rootView.findViewById(R.id.fav_doctor_recycler);
+        doctorResultRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         doctorResultRecycleView.setHasFixedSize(true);
         doctorResultAdapter = new DoctorResultAdapter();
         doctorResultRecycleView.setAdapter(doctorResultAdapter);
+
+        data.add(new DoctorResult(
+                "Ahmed Alaa",
+                "Cairo",
+                "Android developer",
+                "Yackeen Solution",
+                "",
+                true)
+        );
+
+        data.add(new DoctorResult(
+                "Ahmed Alaa",
+                "Cairo",
+                "Android developer",
+                "Yackeen Solution",
+                "",
+                false)
+        );
 
         data.add(new DoctorResult(
                 "Ahmed Alaa",
@@ -93,7 +92,7 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
         doctorResultAdapter.setOnItemReqClickListener(new DoctorResultAdapter.OnItemReqClickListener() {
             @Override
             public void onItemClick(DoctorResult DoctorResult) {
-                Intent intent = new Intent(SearchResultDoctorActivity.this, AppointmentRequestActivity.class);
+                Intent intent = new Intent(getContext(), AppointmentRequestActivity.class);
                 startActivity(intent);
             }
         });
@@ -101,22 +100,12 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
         doctorResultAdapter.setOnItemClickListener(new DoctorResultAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DoctorResult DoctorResult) {
-                Intent intent = new Intent(SearchResultDoctorActivity.this, DoctorDetailsActivity.class);
-                intent.putExtra("id", String.valueOf(DoctorResult.getId()));
-                intent.putExtra("source", "SRDA");
+                Intent intent = new Intent(getContext(), DoctorDetailsActivity.class);
                 startActivity(intent);
             }
         });
 
-    }
 
-    private void goBack() {
-        finish();
+        return rootView;
     }
-
-    private void doFilter() {
-        Intent intent = new Intent(SearchResultDoctorActivity.this, SearchFilterDoctor.class);
-        startActivity(intent);
-    }
-
 }

@@ -122,6 +122,8 @@
     <string name="location">Location</string>
     <string name="profile_text">Profile</string>
     <string name="clinic_info">Clinic info</string>
+    <string name="cancel_appointment">Cancel appointment</string>
+    <string name="get_direction">Get direction</string>
 
 
 </resources>

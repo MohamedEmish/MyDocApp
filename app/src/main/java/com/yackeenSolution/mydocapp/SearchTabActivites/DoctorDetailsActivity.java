@@ -20,7 +20,6 @@ public class DoctorDetailsActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
     ImageView back;
-    String source;
     Button request;
 
     @Override
@@ -28,13 +27,6 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_details);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-        Intent intent = getIntent();
-        if (intent.hasExtra("source")) {
-            source = intent.getStringExtra("source");
-        } else {
-            source = "";
-        }
 
         tabLayout = findViewById(R.id.doctor_details_tabs_layout);
         View root = tabLayout.getChildAt(0);
@@ -58,17 +50,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (source.equals("FDA")) {
-                    Intent i = new Intent(DoctorDetailsActivity.this, FacilityDetailsActivity.class);
-                    startActivity(i);
-                } else if (source.equals("SRDA")) {
-                    Intent i = new Intent(DoctorDetailsActivity.this, SearchResultDoctorActivity.class);
-                    startActivity(i);
-                } else {
-                    // TODO : SOLVE TRANSACTION
-                    Intent i = new Intent(DoctorDetailsActivity.this, SearchResultDoctorActivity.class);
-                    startActivity(i);
-                }
+                finish();
             }
         });
 

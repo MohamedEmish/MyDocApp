@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,19 +50,16 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
     private EditText mAddFamilyMemberFirstName;
     private EditText mAddFamilyMemberMobile;
     private EditText mAddFamilyMemberLastName;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_family_member);
 
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.forget_pass_action_bar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         TextView tvTitle = findViewById(R.id.tvTitle);
-
         Intent intent = getIntent();
+
         String type = intent.getStringExtra("type");
         if (type.equals("add")) {
             tvTitle.setText(R.string.add_new_member);
@@ -71,6 +69,14 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
         }
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        back = findViewById(R.id.add_new_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mAddFamilyMemberGenderSpinner = findViewById(R.id.add_family_member_gender_spinner);
         setupGenderSpinner();

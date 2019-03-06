@@ -49,8 +49,7 @@ public class SearchFilterDoctor extends AppCompatActivity {
         mFilterBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SearchFilterDoctor.this, SearchResultDoctorActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 

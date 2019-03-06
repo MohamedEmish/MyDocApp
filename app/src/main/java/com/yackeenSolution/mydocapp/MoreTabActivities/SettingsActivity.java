@@ -3,6 +3,8 @@ package com.yackeenSolution.mydocapp.MoreTabActivities;
 import android.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -14,22 +16,24 @@ public class SettingsActivity extends AppCompatActivity {
 
     RadioGroup languageGroup;
     RadioButton ar, en;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.forget_pass_action_bar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        TextView tvTitle = findViewById(R.id.tvTitle);
-        tvTitle.setText(R.string.settings);
-
         languageGroup = findViewById(R.id.settings_lang_radio_group);
         ar = findViewById(R.id.settings_ar_radio_button);
         en = findViewById(R.id.settings_en_radio_button);
+
+        back = findViewById(R.id.settings_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         String lang = SaveSharedPreference.getLanguage(this);
         if (lang.equals("ar")) {

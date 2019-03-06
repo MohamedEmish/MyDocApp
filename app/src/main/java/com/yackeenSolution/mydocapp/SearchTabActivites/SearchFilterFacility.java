@@ -33,8 +33,7 @@ public class SearchFilterFacility extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SearchFilterFacility.this, SearchResultsFacilityActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
     }

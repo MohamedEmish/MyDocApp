@@ -39,7 +39,7 @@
             android:paddingEnd="@dimen/_8dp"
             android:paddingBottom="@dimen/_8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/doctor_result_favorite_indicator"
+            app:layout_constraintEnd_toStartOf="@+id/appointment_small_call"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/result_doctor_image"
             app:layout_constraintTop_toTopOf="parent">
@@ -97,7 +97,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/doctor_result_favorite_indicator"
+            android:id="@+id/appointment_small_call"
             android:layout_width="@dimen/_32dp"
             android:layout_height="@dimen/_32dp"
             android:padding="@dimen/_8dp"

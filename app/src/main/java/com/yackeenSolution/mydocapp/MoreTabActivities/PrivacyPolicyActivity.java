@@ -3,6 +3,9 @@ package com.yackeenSolution.mydocapp.MoreTabActivities;
 import android.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yackeenSolution.mydocapp.R;
@@ -10,19 +13,20 @@ import com.yackeenSolution.mydocapp.R;
 public class PrivacyPolicyActivity extends AppCompatActivity {
 
     TextView privacyText;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy_policy);
 
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.forget_pass_action_bar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        TextView tvTitle = findViewById(R.id.tvTitle);
-        tvTitle.setText(R.string.privacy);
-
-        privacyText = findViewById(R.id.privacy_policy_text);
+        privacyText = findViewById(R.id.privacy_text);
+        back = findViewById(R.id.privacy_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

@@ -3,14 +3,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="@dimen/_16dp"
     tools:context=".MoreTabActivities.SettingsActivity">
 
-    <TextView
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50dp"
+        android:background="@color/colorAccent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:textAllCaps="true">
+
+        <ImageView
+            android:id="@+id/settings_back"
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_12dp"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_50dp"
+            android:background="@color/colorAccent"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:text="@string/settings"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:orientation="vertical"
+        android:padding="@dimen/_16dp">
+
+
+        <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="@string/change_language"
         android:textColor="@color/colorGray" />
@@ -70,6 +112,8 @@
         android:text="@string/promo_notification"
         android:textAllCaps="false"
         android:textColor="@color/colorGray" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

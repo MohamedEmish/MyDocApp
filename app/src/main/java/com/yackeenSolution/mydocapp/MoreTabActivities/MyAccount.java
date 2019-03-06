@@ -90,9 +90,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyAccount.this, MainScreen.class);
-                intent.putExtra("source", "more");
-                startActivity(intent);
+                finish();
             }
         });
 
