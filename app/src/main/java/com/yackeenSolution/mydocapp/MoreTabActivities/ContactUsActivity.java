@@ -1,12 +1,11 @@
 package com.yackeenSolution.mydocapp.MoreTabActivities;
 
-import android.app.ActionBar;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.yackeenSolution.mydocapp.R;
 

@@ -24,14 +24,14 @@
         android:background="@color/colorBackgroundSecond"
         android:orientation="vertical">
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/appointment_tabs_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorBackground"
             android:theme="@style/AppTabLayout">
 
-            <android.support.design.widget.TabItem
+            <com.google.android.material.tabs.TabItem
                 android:id="@+id/home_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -39,7 +39,7 @@
                 android:paddingEnd="@dimen/_1dp"
                 android:text="@string/pending" />
 
-            <android.support.design.widget.TabItem
+            <com.google.android.material.tabs.TabItem
                 android:id="@+id/dash_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -47,14 +47,14 @@
                 android:paddingEnd="@dimen/_1dp"
                 android:text="@string/confirmed" />
 
-            <android.support.design.widget.TabItem
+            <com.google.android.material.tabs.TabItem
                 android:id="@+id/notify_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:paddingStart="@dimen/_1dp"
                 android:paddingEnd="@dimen/_1dp"
                 android:text="@string/completed" />
-        </android.support.design.widget.TabLayout>
+        </com.google.android.material.tabs.TabLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,7 +66,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatSpinner
+            <androidx.appcompat.widget.AppCompatSpinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_16dp"

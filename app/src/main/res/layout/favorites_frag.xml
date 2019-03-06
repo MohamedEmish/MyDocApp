@@ -24,14 +24,14 @@
         android:background="@color/colorBackgroundSecond"
         android:orientation="vertical">
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/favorites_tabs_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorBackground"
             android:theme="@style/AppTabLayout">
 
-            <android.support.design.widget.TabItem
+            <com.google.android.material.tabs.TabItem
                 android:id="@+id/fav_doctor_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -39,14 +39,14 @@
                 android:paddingEnd="@dimen/_1dp"
                 android:text="@string/doctors" />
 
-            <android.support.design.widget.TabItem
+            <com.google.android.material.tabs.TabItem
                 android:id="@+id/fav_facility_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:paddingStart="@dimen/_1dp"
                 android:paddingEnd="@dimen/_1dp"
                 android:text="@string/hospitals" />
-        </android.support.design.widget.TabLayout>
+        </com.google.android.material.tabs.TabLayout>
 
     </LinearLayout>
 

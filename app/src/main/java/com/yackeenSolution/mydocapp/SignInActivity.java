@@ -1,11 +1,9 @@
 package com.yackeenSolution.mydocapp;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
 
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;

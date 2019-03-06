@@ -6,7 +6,7 @@
     android:background="@color/colorTexts"
     android:orientation="vertical">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50dp"
         android:background="@color/colorAccent"
@@ -41,7 +41,7 @@
             app:layout_constraintStart_toEndOf="@+id/facility_details_back"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <LinearLayout

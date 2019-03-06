@@ -86,15 +86,8 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ForgetPasswordActivity"
-            android:label="@string/forgot_password"
-            android:parentActivityName=".SignInActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:theme="@style/RegTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SignInActivity" />
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RegistrationActivity"
             android:label="@string/registration"

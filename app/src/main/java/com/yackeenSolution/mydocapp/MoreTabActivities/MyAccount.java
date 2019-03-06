@@ -8,8 +8,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -28,9 +29,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.yackeenSolution.mydocapp.BottomSheet;
-import com.yackeenSolution.mydocapp.MainScreen;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.RegistrationActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

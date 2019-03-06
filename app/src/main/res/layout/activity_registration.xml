@@ -152,7 +152,7 @@
                     android:textColor="@color/colorGray"
                     android:textSize="12sp" />
 
-                <android.support.v7.widget.AppCompatRadioButton
+                <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/sign_up_male_radio"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -162,7 +162,7 @@
                     android:theme="@style/checkBoxStyle" />
 
 
-                <android.support.v7.widget.AppCompatRadioButton
+                <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/sign_up_female_radio"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -313,7 +313,7 @@
             android:gravity="start"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatCheckBox
+            <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/sign_up_terms_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
