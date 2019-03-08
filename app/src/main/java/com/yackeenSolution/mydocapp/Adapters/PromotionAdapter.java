@@ -49,7 +49,7 @@ public class PromotionAdapter extends ListAdapter<Promotion, PromotionAdapter.Pr
     @Override
     public PromotionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.doctor_small_item, parent, false);
+        View view = inflater.inflate(R.layout.promotion_item_layout, parent, false);
         return new PromotionViewHolder(view);
     }
 
