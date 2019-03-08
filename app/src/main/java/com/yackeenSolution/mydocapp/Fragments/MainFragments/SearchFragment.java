@@ -33,7 +33,9 @@ public class SearchFragment extends Fragment {
         type = rootView.findViewById(R.id.search_type_radio_group);
         doctor = rootView.findViewById(R.id.search_doctor_radio_button);
         doctor.setChecked(true);
+
         facility = rootView.findViewById(R.id.search_facility_radio_button);
+
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

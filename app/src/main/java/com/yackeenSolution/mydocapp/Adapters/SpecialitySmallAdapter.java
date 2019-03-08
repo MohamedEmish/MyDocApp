@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.Adapters;
 
+/*
+   Last edit :: March 8,2019
+   ALL DONE :)
+ */
+
 import android.net.Uri;
 
 import androidx.recyclerview.widget.ListAdapter;
@@ -68,7 +73,7 @@ public class SpecialitySmallAdapter extends ListAdapter<Speciality, SpecialitySm
 
 
     public interface OnItemClickListener {
-        void onItemClick(Speciality Speciality);
+        void onItemClick(Speciality speciality);
     }
 
 

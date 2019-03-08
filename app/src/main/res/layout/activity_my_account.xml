@@ -49,7 +49,7 @@
         android:layout_marginTop="@dimen/_8dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/_16dp"
+        android:layout_marginBottom="@dimen/_32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_account_image_view">
@@ -68,22 +68,23 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:paddingStart="@dimen/_4dp"
+            android:paddingEnd="@dimen/_4dp"
             android:text="@string/last_name"
             android:textColor="@color/colorAccent" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_16dp"
+        android:layout_height="0dp"
+        android:paddingBottom="@dimen/_30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout">
-
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_weight="1">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -756,6 +757,7 @@
 
 
         </LinearLayout>
+
 
     </ScrollView>
 

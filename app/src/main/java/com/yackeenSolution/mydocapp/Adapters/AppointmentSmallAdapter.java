@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.Adapters;
 
+/*
+   Last edit :: March 8,2019
+   ALL DONE :)
+ */
+
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -78,15 +83,15 @@ public class AppointmentSmallAdapter extends ListAdapter<Appointment, Appointmen
     }
 
     public interface OnItemCallClickListener {
-        void onItemClick(Appointment Appointment);
+        void onItemClick(Appointment appointment);
     }
 
     public interface OnItemCancelClickListener {
-        void onItemClick(Appointment Appointment);
+        void onItemClick(Appointment appointment);
     }
 
     public interface OnItemDirectionClickListener {
-        void onItemClick(Appointment Appointment);
+        void onItemClick(Appointment appointment);
     }
 
     public class AppointmentSmallViewHolder extends RecyclerView.ViewHolder {

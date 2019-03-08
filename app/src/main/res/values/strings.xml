@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyDocApp</string>
+    <string name="app_name" translatable="false">MyDocApp</string>
 
     <string name="forgot_password"><u>FORGET PASSWORD</u></string>
     <string name="create_new"><u>CREATE NEW ACCOUNT </u></string>
@@ -8,8 +8,8 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="sign_in">SIGN IN</string>
-    <string name="facebook_app_id">364208140834390</string>
-    <string name="fb_login_protocol_scheme">fb364208140834390</string>
+    <string name="facebook_app_id" translatable="false">364208140834390</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb364208140834390</string>
     <string name="open_msg">Your health care connection</string>
     <string name="registration">REGISTRATION</string>
     <string name="forget">FORGET PASSWORD</string>
@@ -27,13 +27,13 @@
     <string name="gender">Gender</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="date_form">DD/MM/YYYY</string>
+    <string name="date_form" translatable="false">DD/MM/YYYY</string>
     <string name="mobile">Mobile number</string>
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="accept_terms"><u>Accept Terms and conditions</u></string>
     <string name="title_activity_main_screen">MainScreen</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="appointment">Appointments</string>
     <string name="favorites">Favorites</string>
@@ -41,7 +41,6 @@
     <string name="promotions">Promotions</string>
     <string name="more">More</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="appointment_msg">You must login to \nGet your appointments</string>
     <string name="favorites_msg">You must login to \nGet your favorites</string>
 
@@ -79,7 +78,7 @@
     <string name="message">Message</string>
     <string name="send">Send</string>
     <string name="follow_us">Follow us</string>
-    <string name="web_site">www.doctory.com.bh</string>
+    <string name="web_site" translatable="false">www.doctory.com.bh</string>
     <string name="change_language">Change language</string>
     <string name="english">English</string>
     <string name="arabic">Arabic</string>
@@ -124,6 +123,17 @@
     <string name="clinic_info">Clinic info</string>
     <string name="cancel_appointment">Cancel appointment</string>
     <string name="get_direction">Get direction</string>
+    <string name="title_activity_google_maps">Map</string>
+    <string name="user_not_exist_error">No such user email exists \nCreate new account</string>
+    <string name="incorrect_password">Incorrect password</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="please_choose_visit_type">Please choose visit type</string>
+    <string name="confirm">Confirm</string>
+    <string name="code">Code</string>
+    <string name="reset_pass">Reset password</string>
+    <string name="confirm_pass">Confirm password</string>
+    <string name="book_now">Book now</string>
 
 
 </resources>

@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.Adapters;
 
+/*
+   Last edit :: March 8,2019
+   ALL DONE :)
+ */
+
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +29,7 @@ public class NotificationAdapter extends ListAdapter<MyNotification, Notificatio
                     && oldItem.getDescription().equals(newItem.getDescription());
         }
     };
-    private FamilyMembersAdapter.OnItemClickListener listener;
+    private NotificationAdapter.OnItemClickListener listener;
 
     public NotificationAdapter() {
         super(DIFF_CALLBACK);
@@ -47,6 +52,15 @@ public class NotificationAdapter extends ListAdapter<MyNotification, Notificatio
         holder.descriptionTextView.setText(description);
 
 
+    }
+
+    public void setOnItemClickListener(NotificationAdapter.OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+
+    public interface OnItemClickListener {
+        void onItemClick(MyNotification notification);
     }
 
     public MyNotification getMemberAt(int position) {

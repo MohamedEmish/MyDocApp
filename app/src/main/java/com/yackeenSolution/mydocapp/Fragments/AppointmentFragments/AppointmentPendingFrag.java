@@ -74,23 +74,23 @@ public class AppointmentPendingFrag extends Fragment {
 
         adapter.setOnItemCallClickListener(new AppointmentSmallAdapter.OnItemCallClickListener() {
             @Override
-            public void onItemClick(Appointment Appointment) {
-                call(Appointment.getPhoneNumber());
+            public void onItemClick(Appointment appointment) {
+                call(appointment.getPhoneNumber());
             }
         });
 
         adapter.setOnItemDirectionClickListener(new AppointmentSmallAdapter.OnItemDirectionClickListener() {
             @Override
-            public void onItemClick(Appointment Appointment) {
-                direction(Appointment.getDirection());
+            public void onItemClick(Appointment appointment) {
+                direction(appointment.getDirection());
             }
         });
 
 
         adapter.setOnItemCancelClickListener(new AppointmentSmallAdapter.OnItemCancelClickListener() {
             @Override
-            public void onItemClick(Appointment Appointment) {
-                cancel(Appointment.getId());
+            public void onItemClick(Appointment appointment) {
+                cancel(appointment.getId());
             }
         });
 

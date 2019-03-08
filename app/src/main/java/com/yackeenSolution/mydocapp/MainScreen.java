@@ -1,6 +1,14 @@
 package com.yackeenSolution.mydocapp;
 
-import android.content.Intent;
+/*
+   Last edit :: March 8,2019
+   ALL DONE :)
+ */
+
+import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +19,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.preference.PreferenceManager;
 import android.transition.Fade;
 import android.view.MenuItem;
 
@@ -19,6 +29,8 @@ import com.yackeenSolution.mydocapp.Fragments.MainFragments.FavoritesFragment;
 import com.yackeenSolution.mydocapp.Fragments.MainFragments.MoreFragment;
 import com.yackeenSolution.mydocapp.Fragments.MainFragments.PromotionFragment;
 import com.yackeenSolution.mydocapp.Fragments.MainFragments.SearchFragment;
+
+import java.util.Locale;
 
 public class MainScreen extends AppCompatActivity {
 
@@ -73,22 +85,33 @@ public class MainScreen extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    private Context updateResources(Context context, String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Resources res = context.getResources();
+        Configuration config = new Configuration(res.getConfiguration());
+        config.setLocale(locale);
+        return context.createConfigurationContext(config);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+            super.attachBaseContext(updateResources(newBase, PreferenceManager.getDefaultSharedPreferences(newBase).getString("lang", "en")));
+        } else {
+            super.attachBaseContext(newBase);
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(this, SaveSharedPreference.getLanguage(this));
         setContentView(R.layout.activity_main_screen);
 
         navigation = findViewById(R.id.navigation);
-
-        Intent intent = getIntent();
-        String source = intent.getStringExtra("source");
-        if (source != null) {
-            if (source.equals("more")) {
-                setNavigatorLayout(R.id.navigation_more);
-            }
-        } else {
-            setNavigatorLayout(R.id.navigation_search);
-        }
+        setNavigatorLayout(R.id.navigation_search);
     }
 
     public void setNavigatorLayout(int id) {

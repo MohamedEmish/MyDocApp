@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.Adapters;
 
+/*
+   Last edit :: March 8,2019
+   ALL DONE :)
+ */
+
 import android.net.Uri;
 
 import androidx.recyclerview.widget.ListAdapter;
@@ -9,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -76,12 +82,23 @@ public class InsuranceSmallAdapter extends ListAdapter<Insurance, InsuranceSmall
 
         public TextView nameTextView;
         public ImageView insuranceImageVew;
+        public LinearLayout linearLayout;
 
         public InsuranceViewHolder(View itemView) {
             super(itemView);
 
             nameTextView = itemView.findViewById(R.id.insurance_small_item_name);
             insuranceImageVew = itemView.findViewById(R.id.insurance_small_item_image);
+            linearLayout = itemView.findViewById(R.id.insurance_small_item_layout);
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(getItem(position));
+                    }
+                }
+            });
 
         }
     }

@@ -59,23 +59,59 @@
 
             <RadioButton
                 android:id="@+id/search_doctor_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableStart="@drawable/doctor_text_draw"
-                android:text="@string/doctor"
-                android:textAllCaps="false"
-                android:textColor="@color/colorGray" />
+                android:gravity="center_vertical">
+
+
+                <ImageView
+                    android:layout_width="@dimen/_20dp"
+                    android:layout_height="@dimen/_20dp"
+                    android:src="@drawable/doctor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/doctor"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/_14sp" />
+
+            </LinearLayout>
 
             <RadioButton
                 android:id="@+id/search_facility_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableStart="@drawable/facility_text_draw"
-                android:text="@string/facility"
-                android:textAllCaps="false"
-                android:textColor="@color/colorGray" />
+                android:gravity="center_vertical">
+
+
+                <ImageView
+                    android:layout_width="@dimen/_20dp"
+                    android:layout_height="@dimen/_20dp"
+                    android:src="@drawable/facilities" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/facility"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/_12sp" />
+
+            </LinearLayout>
 
         </RadioGroup>
 

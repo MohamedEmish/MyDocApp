@@ -80,12 +80,12 @@ public class FavoriteFacilityFrag extends Fragment {
 
         facilityResultAdapter.setOnItemFavClickListener(new FacilityResultAdapter.OnItemFavClickListener() {
             @Override
-            public void onItemClick(FacilityResult FacilityResult) {
-                if (FacilityResult.isFavorite()) {
-                    FacilityResult.setFavorite(false);
+            public void onItemClick(FacilityResult facilityResult) {
+                if (facilityResult.isFavorite()) {
+                    facilityResult.setFavorite(false);
                     facilityResultAdapter.notifyDataSetChanged();
                 } else {
-                    FacilityResult.setFavorite(true);
+                    facilityResult.setFavorite(true);
                     facilityResultAdapter.notifyDataSetChanged();
                 }
             }
@@ -93,8 +93,8 @@ public class FavoriteFacilityFrag extends Fragment {
 
         facilityResultAdapter.setOnItemCallClickListener(new FacilityResultAdapter.OnItemCallClickListener() {
             @Override
-            public void onItemClick(FacilityResult FacilityResult) {
-                int number = FacilityResult.getPhone();
+            public void onItemClick(FacilityResult facilityResult) {
+                int number = facilityResult.getPhone();
                 phoneCall(number);
             }
         });

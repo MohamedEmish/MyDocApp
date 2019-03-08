@@ -1,12 +1,20 @@
 package com.yackeenSolution.mydocapp.SearchTabActivites;
 
+import android.content.Context;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -14,11 +22,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yackeenSolution.mydocapp.Adapters.FacilityResultAdapter;
+import com.yackeenSolution.mydocapp.GoogleMapsActivity;
 import com.yackeenSolution.mydocapp.Objects.FacilityResult;
 import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.SaveSharedPreference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SearchResultsFacilityActivity extends AppCompatActivity {
 
@@ -30,9 +41,29 @@ public class SearchResultsFacilityActivity extends AppCompatActivity {
     ImageView back;
     TextView filter;
 
+    private Context updateResources(Context context, String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Resources res = context.getResources();
+        Configuration config = new Configuration(res.getConfiguration());
+        config.setLocale(locale);
+        return context.createConfigurationContext(config);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+            super.attachBaseContext(updateResources(newBase, PreferenceManager.getDefaultSharedPreferences(newBase).getString("lang", "en")));
+        } else {
+            super.attachBaseContext(newBase);
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(this, SaveSharedPreference.getLanguage(this));
         setContentView(R.layout.activity_search_results_facility);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -82,12 +113,12 @@ public class SearchResultsFacilityActivity extends AppCompatActivity {
 
         facilityResultAdapter.setOnItemFavClickListener(new FacilityResultAdapter.OnItemFavClickListener() {
             @Override
-            public void onItemClick(FacilityResult FacilityResult) {
-                if (FacilityResult.isFavorite()) {
-                    FacilityResult.setFavorite(false);
+            public void onItemClick(FacilityResult facilityResult) {
+                if (facilityResult.isFavorite()) {
+                    facilityResult.setFavorite(false);
                     facilityResultAdapter.notifyDataSetChanged();
                 } else {
-                    FacilityResult.setFavorite(true);
+                    facilityResult.setFavorite(true);
                     facilityResultAdapter.notifyDataSetChanged();
                 }
             }
@@ -95,8 +126,8 @@ public class SearchResultsFacilityActivity extends AppCompatActivity {
 
         facilityResultAdapter.setOnItemCallClickListener(new FacilityResultAdapter.OnItemCallClickListener() {
             @Override
-            public void onItemClick(FacilityResult FacilityResult) {
-                int number = FacilityResult.getPhone();
+            public void onItemClick(FacilityResult facilityResult) {
+                int number = facilityResult.getPhone();
                 phoneCall(number);
             }
         });
@@ -133,18 +164,26 @@ public class SearchResultsFacilityActivity extends AppCompatActivity {
     }
 
     private void seeLocation(String location) {
-        // TODO : location
+        // TODO : Attach location
         Toast.makeText(this, "This is location", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(SearchResultsFacilityActivity.this, GoogleMapsActivity.class);
+        startActivity(intent);
+
     }
 
     private void openWeb(String web) {
-        // TODO : web
-        Toast.makeText(this, "this is web", Toast.LENGTH_SHORT).show();
+        if (web.contains("https://") || web.contains("http://")) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(web));
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://" + web));
+            startActivity(intent);
+        }
     }
 
     private void phoneCall(int number) {
-        // TODO : call
-        Toast.makeText(this, "this is call", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", String.valueOf(number), null));
+        startActivity(intent);
     }
 
     private void goBack() {

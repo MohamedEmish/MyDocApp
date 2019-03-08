@@ -1,7 +1,6 @@
 package com.yackeenSolution.mydocapp;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,7 +25,6 @@ public class BottomSheet extends BottomSheetDialogFragment {
     private LinearLayout mGalleryLayout;
     private Button mGalleryButton;
     private LinearLayout mCameraLayout;
-    private Uri imageUri;
 
     @Nullable
     @Override

@@ -1,11 +1,18 @@
 package com.yackeenSolution.mydocapp;
+ /*
+   Last edit :: March 7,2019
+   ALL DONE :)
+ */
 
+import android.content.Context;
 import android.content.Intent;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
-
+import android.preference.PreferenceManager;
 import android.text.method.PasswordTransformationMethod;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -26,25 +33,50 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.Locale;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private static final String EMAIL = "email";
+    private static final String EMAIL = "emailText";
+    private static final String PROFILE = "public_profile";
+
     ImageView eye;
     int eyeVisibility = 1;
-    EditText mEmail, mPassword;
+    EditText mEmailEditText, mPasswordEditText;
     TextView createNew, forgetPassword, skip;
     CallbackManager callbackManager;
     LoginButton fbLogin;
     Button myFBLogin;
+    Button signIn;
 
+    private Context updateResources(Context context, String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Resources res = context.getResources();
+        Configuration config = new Configuration(res.getConfiguration());
+        config.setLocale(locale);
+        return context.createConfigurationContext(config);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+            super.attachBaseContext(updateResources(newBase, PreferenceManager.getDefaultSharedPreferences(newBase).getString("lang", "en")));
+        } else {
+            super.attachBaseContext(newBase);
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        callbackManager = CallbackManager.Factory.create();
+        updateResources(this, SaveSharedPreference.getLanguage(this));
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+        callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_sign_in);
-
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         skip = findViewById(R.id.skip);
@@ -55,9 +87,18 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        mEmail = findViewById(R.id.sign_in_email);
-        mPassword = findViewById(R.id.sign_in_password);
+        mEmailEditText = findViewById(R.id.sign_in_email);
+        mPasswordEditText = findViewById(R.id.sign_in_password);
 
+        Intent intent = getIntent();
+        if (intent.hasExtra("emailText")) {
+            String mEmail = intent.getStringExtra("mail");
+            mEmailEditText.setText(mEmail);
+        }
+        if (intent.hasExtra("password")) {
+            String pass = intent.getStringExtra("password");
+            mPasswordEditText.setText(pass);
+        }
 
         eye = findViewById(R.id.sign_in_eye);
         eye.setOnClickListener(new View.OnClickListener() {
@@ -84,9 +125,7 @@ public class SignInActivity extends AppCompatActivity {
         });
 
         fbLogin = findViewById(R.id.facebook_main_button);
-
-        fbLogin.setReadPermissions(Arrays.asList(EMAIL));
-
+        fbLogin.setReadPermissions(Arrays.asList(EMAIL, PROFILE));
         fbLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -96,7 +135,7 @@ public class SignInActivity extends AppCompatActivity {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
                                 try {
-                                    String email = object.getString("email");
+                                    String email = object.getString("emailText");
                                     goForRegister(email);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -104,7 +143,7 @@ public class SignInActivity extends AppCompatActivity {
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "name,email");
+                parameters.putString("fields", "name,emailText");
                 request.setParameters(parameters);
                 request.executeAsync();
             }
@@ -127,6 +166,51 @@ public class SignInActivity extends AppCompatActivity {
                 goForRegister();
             }
         });
+
+        signIn = findViewById(R.id.sign_in_button);
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logIn(mEmailEditText, mPasswordEditText);
+            }
+        });
+    }
+
+    private void logIn(EditText email, EditText password) {
+        boolean isAllOk = true;
+
+        // Email set,validation and existence check
+
+        if (!Utils.isValueSet(email, getResources().getString(R.string.edit_text_error))) {
+            isAllOk = false;
+        } else if (!Utils.isValidEmail(email, getResources().getString(R.string.invalid_mail_error))) {
+            isAllOk = false;
+        } else if (!Utils.isOldUser(email)) {
+            email.setError(getResources().getString(R.string.user_not_exist_error));
+            isAllOk = false;
+        }
+
+        // Password set,validation and correctness check
+
+        if (!Utils.isValueSet(password, getResources().getString(R.string.edit_text_error))) {
+            isAllOk = false;
+        } else if (!Utils.isValidPassword(password, getResources().getString(R.string.invalid_password_error))) {
+            isAllOk = false;
+        } else if (Utils.isOldUser(email)) {
+            String pass = Utils.userPassword(email);
+            if (!pass.equals(password.getText().toString().trim())) {
+                // TODO : true to test after test set false
+                password.setError(getResources().getString(R.string.incorrect_password));
+                isAllOk = true;
+            }
+        }
+
+        if (isAllOk) {
+            Intent intent = new Intent(SignInActivity.this, MainScreen.class);
+            SaveSharedPreference.setUserEmail(this, email.getText().toString().trim());
+            startActivity(intent);
+        }
+
     }
 
     private void goForMainScreen() {
@@ -159,15 +243,12 @@ public class SignInActivity extends AppCompatActivity {
     private void eyeAction() {
         if (eyeVisibility == 1) {
             eyeVisibility = 0;
-            mPassword.setTransformationMethod(null);
+            mPasswordEditText.setTransformationMethod(null);
             eye.setImageDrawable(getResources().getDrawable(R.drawable.eye_visible));
         } else {
             eyeVisibility = 1;
-            mPassword.setTransformationMethod(new PasswordTransformationMethod());
+            mPasswordEditText.setTransformationMethod(new PasswordTransformationMethod());
             eye.setImageDrawable(getResources().getDrawable(R.drawable.eye_invisible));
         }
     }
-
-    // plapla
-
 }

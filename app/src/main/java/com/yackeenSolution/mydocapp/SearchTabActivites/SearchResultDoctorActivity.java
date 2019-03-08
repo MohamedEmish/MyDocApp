@@ -1,12 +1,19 @@
 package com.yackeenSolution.mydocapp.SearchTabActivites;
 
+import android.content.Context;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -15,9 +22,11 @@ import android.widget.TextView;
 import com.yackeenSolution.mydocapp.Adapters.DoctorResultAdapter;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
 import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.SaveSharedPreference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SearchResultDoctorActivity extends AppCompatActivity {
 
@@ -30,9 +39,29 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
     ImageView back;
     TextView filter;
 
+    private Context updateResources(Context context, String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Resources res = context.getResources();
+        Configuration config = new Configuration(res.getConfiguration());
+        config.setLocale(locale);
+        return context.createConfigurationContext(config);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+            super.attachBaseContext(updateResources(newBase, PreferenceManager.getDefaultSharedPreferences(newBase).getString("lang", "en")));
+        } else {
+            super.attachBaseContext(newBase);
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(this, SaveSharedPreference.getLanguage(this));
         setContentView(R.layout.activity_search_result_doctor);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -80,12 +109,12 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
 
         doctorResultAdapter.setOnItemFavClickListener(new DoctorResultAdapter.OnItemFavClickListener() {
             @Override
-            public void onItemClick(DoctorResult DoctorResult) {
-                if (DoctorResult.getFavorite()) {
-                    DoctorResult.setFavorite(false);
+            public void onItemClick(DoctorResult doctorResult) {
+                if (doctorResult.getFavorite()) {
+                    doctorResult.setFavorite(false);
                     doctorResultAdapter.notifyDataSetChanged();
                 } else {
-                    DoctorResult.setFavorite(true);
+                    doctorResult.setFavorite(true);
                     doctorResultAdapter.notifyDataSetChanged();
                 }
             }
@@ -93,7 +122,7 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
 
         doctorResultAdapter.setOnItemReqClickListener(new DoctorResultAdapter.OnItemReqClickListener() {
             @Override
-            public void onItemClick(DoctorResult DoctorResult) {
+            public void onItemClick(DoctorResult doctorResult) {
                 Intent intent = new Intent(SearchResultDoctorActivity.this, AppointmentRequestActivity.class);
                 startActivity(intent);
             }
@@ -101,10 +130,9 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
 
         doctorResultAdapter.setOnItemClickListener(new DoctorResultAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(DoctorResult DoctorResult) {
+            public void onItemClick(DoctorResult doctorResult) {
+                // TODO : attach doctor id
                 Intent intent = new Intent(SearchResultDoctorActivity.this, DoctorDetailsActivity.class);
-                intent.putExtra("id", String.valueOf(DoctorResult.getId()));
-                intent.putExtra("source", "SRDA");
                 startActivity(intent);
             }
         });

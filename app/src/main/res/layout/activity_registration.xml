@@ -294,12 +294,11 @@
 
         <ImageView
             android:id="@+id/sign_up_eye"
-            android:layout_width="@dimen/_24dp"
-            android:layout_height="@dimen/_24dp"
+            android:layout_width="@dimen/_40dp"
+            android:layout_height="@dimen/_40dp"
             android:layout_gravity="end"
             android:layout_marginEnd="@dimen/_8dp"
-            android:paddingStart="@dimen/_16dp"
-            android:paddingEnd="@dimen/_16dp"
+            android:padding="@dimen/_8dp"
             android:scaleType="centerCrop"
             android:src="@drawable/eye_invisible" />
 
@@ -341,12 +340,12 @@
             android:id="@+id/sign_up_create_account"
             android:layout_width="@dimen/_250dp"
             android:layout_height="@dimen/_36dp"
-            android:layout_marginTop="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_24dp"
             android:layout_marginBottom="@dimen/_16dp"
             android:background="@drawable/border_sign_in"
             android:backgroundTint="@color/colorAccent"
             android:text="@string/create_account"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorBackground"
             android:textSize="@dimen/_12sp" />
 
     </LinearLayout>

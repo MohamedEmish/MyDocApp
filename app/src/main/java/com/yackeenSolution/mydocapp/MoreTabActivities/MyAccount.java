@@ -2,11 +2,16 @@ package com.yackeenSolution.mydocapp.MoreTabActivities;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -29,7 +34,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.yackeenSolution.mydocapp.BottomSheet;
+import com.yackeenSolution.mydocapp.MainScreen;
 import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.SaveSharedPreference;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -73,9 +80,29 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
 
     EditText newFirstName, newLastName, newDate, newMobile, newNationalId;
 
+    private Context updateResources(Context context, String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Resources res = context.getResources();
+        Configuration config = new Configuration(res.getConfiguration());
+        config.setLocale(locale);
+        return context.createConfigurationContext(config);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+            super.attachBaseContext(updateResources(newBase, PreferenceManager.getDefaultSharedPreferences(newBase).getString("lang", "en")));
+        } else {
+            super.attachBaseContext(newBase);
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(this, SaveSharedPreference.getLanguage(this));
         setContentView(R.layout.activity_my_account);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -280,17 +307,24 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         mPicker = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                String myFormat = "DD/MM/YYYY"; //In which you need put here
+                String myFormat = "dd/MM/YYYY"; //In which you need put here
                 SimpleDateFormat format = new SimpleDateFormat(myFormat, Locale.getDefault());
 
+                myCalendar.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+                myCalendar.set(Calendar.YEAR, datePicker.getYear());
+                myCalendar.set(Calendar.MONTH, datePicker.getMonth());
+
                 newDate.setText(format.format(myCalendar.getTime()));
+                newDate.setTextColor(getResources().getColor(R.color.colorGray));
             }
         };
         // start picker with pre-chosen date
         DatePickerDialog dialog = new DatePickerDialog(MyAccount.this,
                 R.style.Date_Picker,
                 mPicker,
-                2000, 0, 1);
+                myCalendar.get(Calendar.YEAR),
+                myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH));
 
         DatePicker datePicker = dialog.getDatePicker();
         datePicker.setMaxDate(myCalendar.getTimeInMillis());

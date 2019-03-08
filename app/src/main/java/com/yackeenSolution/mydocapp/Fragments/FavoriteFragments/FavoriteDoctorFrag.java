@@ -79,12 +79,12 @@ public class FavoriteDoctorFrag extends Fragment {
 
         doctorResultAdapter.setOnItemFavClickListener(new DoctorResultAdapter.OnItemFavClickListener() {
             @Override
-            public void onItemClick(DoctorResult DoctorResult) {
-                if (DoctorResult.getFavorite()) {
-                    DoctorResult.setFavorite(false);
+            public void onItemClick(DoctorResult doctorResult) {
+                if (doctorResult.getFavorite()) {
+                    doctorResult.setFavorite(false);
                     doctorResultAdapter.notifyDataSetChanged();
                 } else {
-                    DoctorResult.setFavorite(true);
+                    doctorResult.setFavorite(true);
                     doctorResultAdapter.notifyDataSetChanged();
                 }
             }
@@ -92,7 +92,7 @@ public class FavoriteDoctorFrag extends Fragment {
 
         doctorResultAdapter.setOnItemReqClickListener(new DoctorResultAdapter.OnItemReqClickListener() {
             @Override
-            public void onItemClick(DoctorResult DoctorResult) {
+            public void onItemClick(DoctorResult doctorResult) {
                 Intent intent = new Intent(getContext(), AppointmentRequestActivity.class);
                 startActivity(intent);
             }
@@ -100,7 +100,7 @@ public class FavoriteDoctorFrag extends Fragment {
 
         doctorResultAdapter.setOnItemClickListener(new DoctorResultAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(DoctorResult DoctorResult) {
+            public void onItemClick(DoctorResult doctorResult) {
                 Intent intent = new Intent(getContext(), DoctorDetailsActivity.class);
                 startActivity(intent);
             }

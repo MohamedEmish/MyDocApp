@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.Adapters;
 
+/*
+   Last edit :: March 8,2019
+   ALL DONE :)
+ */
+
 import android.net.Uri;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -100,15 +105,15 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
     }
 
     public interface OnItemFavClickListener {
-        void onItemClick(DoctorResult DoctorResult);
+        void onItemClick(DoctorResult doctorResult);
     }
 
     public interface OnItemReqClickListener {
-        void onItemClick(DoctorResult DoctorResult);
+        void onItemClick(DoctorResult doctorResult);
     }
 
     public interface OnItemClickListener {
-        void onItemClick(DoctorResult DoctorResult);
+        void onItemClick(DoctorResult doctorResult);
     }
 
     public class DoctorResultViewHolder extends RecyclerView.ViewHolder {

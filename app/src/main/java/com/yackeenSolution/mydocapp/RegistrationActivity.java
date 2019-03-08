@@ -1,20 +1,23 @@
 package com.yackeenSolution.mydocapp;
-
-import android.app.ActionBar;
+ /*
+   Last edit :: March 8,2019
+   ALL DONE :)
+ */
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.appcompat.widget.AppCompatRadioButton;
-import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Patterns;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -28,84 +31,98 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yackeenSolution.mydocapp.Objects.UserData;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatRadioButton;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RegistrationActivity extends AppCompatActivity implements BottomSheet.BottomSheetListener {
 
     public static final int PICK_IMAGE_FROM_GALLERY = 100;
     public static final int PICK_IMAGE_FROM_CAMERA = 200;
-    Calendar myCalendar;
+
+    private Calendar myCalendar;
     private DatePickerDialog.OnDateSetListener mPicker;
+
     int eyeVisibility = 1;
-    Uri mImageUri;
-    String mEmail, mFirstName, mLastName, mMobile, mPassword;
-    TextView checkText;
-    private AppCompatRadioButton mSignUpMaleRadio;
-    private AppCompatRadioButton mSignUpFemaleRadio;
-    private EditText mSignUpFirstName;
-    private EditText mSignUpLastName;
-    private AppCompatCheckBox mSignUpTermsCheck;
-    private EditText mSignUpMobile;
-    private Button mSignUpCreateAccount;
-    private EditText mSignUpEmail;
-    private EditText mSignUpPassword;
-    private EditText mSignUpDate;
-    private CircleImageView mSignUpUserImage;
-    private RadioGroup mSignUpGenderRadioGroup;
     private ImageView mSignUpEye;
 
-    public static boolean isValidNumber(EditText text, String error) {
-        if (!TextUtils.isEmpty(text.getText()) &&
-                Patterns.PHONE.matcher(text.getText()).matches()) {
-            text.setError(null);
-            return true;
-        } else {
-            text.setError(error);
-            return false;
-        }
-    }
+    private CircleImageView mSignUpUserImage;
+    private Uri mImageUri;
 
-    public static boolean isValidPassword(EditText text, String error) {
-        if (!TextUtils.isEmpty(text.getText()) &&
-                text.getText().length() > 6) {
-            text.setError(null);
-            return true;
-        } else {
-            text.setError(error);
-            return false;
-        }
-    }
+    private String
+            mEmail,
+            mFirstName,
+            mLastName,
+            mMobile,
+            mPassword,
+            mDate,
+            mImageString,
+            mGender;
 
-    public static boolean isValidEmail(EditText text, String description) {
-        if (!TextUtils.isEmpty(text.getText()) &&
-                Patterns.EMAIL_ADDRESS.matcher(text.getText()).matches()) {
-            text.setError(null);
-            return true;
-        } else {
-            text.setError("Please Enter " + description);
-            return false;
-        }
+    private EditText
+            mSignUpFirstName,
+            mSignUpLastName,
+            mSignUpEmail,
+            mSignUpPassword,
+            mSignUpDate,
+            mSignUpMobile;
+
+    private TextView checkText;
+    private RadioGroup mSignUpGenderRadioGroup;
+    private AppCompatRadioButton mSignUpMaleRadio, mSignUpFemaleRadio;
+    private AppCompatCheckBox mSignUpTermsCheck;
+
+    private Button mSignUpCreateAccount;
+
+    private Context updateResources(Context context, String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Resources res = context.getResources();
+        Configuration config = new Configuration(res.getConfiguration());
+        config.setLocale(locale);
+        return context.createConfigurationContext(config);
     }
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+            super.attachBaseContext(updateResources(newBase, PreferenceManager.getDefaultSharedPreferences(newBase).getString("lang", "en")));
+        } else {
+            super.attachBaseContext(newBase);
+        }
+
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(this, SaveSharedPreference.getLanguage(this));
         setContentView(R.layout.activity_registration);
-
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.reg_action_bar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            getSupportActionBar().setCustomView(R.layout.reg_action_bar);
+        }
 
-
-        Intent intent = getIntent();
-        mEmail = intent.getStringExtra("mail");
         mSignUpEmail = findViewById(R.id.sign_up_email);
-        if (mEmail != null) {
+        Intent intent = getIntent();
+        if (intent.hasExtra("mail")) {
+            mEmail = intent.getStringExtra("mail");
             mSignUpEmail.setText(mEmail);
         }
 
@@ -130,6 +147,7 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
 
         mSignUpMobile = findViewById(R.id.sign_up_mobile);
         mSignUpPassword = findViewById(R.id.sign_up_password);
+
         mSignUpDate = findViewById(R.id.sign_up_date);
         mSignUpUserImage = findViewById(R.id.sign_up_user_image);
 
@@ -154,16 +172,18 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         mSignUpUserImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                BottomSheet bottomSheet = new BottomSheet();
-                bottomSheet.show(getSupportFragmentManager(), "Example");
+                if (Utils.hasReadPermission(RegistrationActivity.this, RegistrationActivity.this) &&
+                        Utils.hasWritePermission(RegistrationActivity.this, RegistrationActivity.this)) {
+                    BottomSheet bottomSheet = new BottomSheet();
+                    bottomSheet.show(getSupportFragmentManager(), "Example");
+                }
             }
         });
 
         mSignUpCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!addNewUser()) {
+                if (!isAllDataOk()) {
                     Toast.makeText(RegistrationActivity.this, "Check Errors", Toast.LENGTH_SHORT).show();
                 } else {
                     createNewAccount();
@@ -173,6 +193,44 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
     }
 
     private void createNewAccount() {
+
+        mMobile = mSignUpMobile.getText().toString().trim();
+        mPassword = mSignUpPassword.getText().toString().trim();
+        mDate = mSignUpDate.getText().toString().trim();
+        mImageString = mImageUri.toString();
+        mFirstName = mSignUpFirstName.getText().toString().trim();
+        mLastName = mSignUpLastName.getText().toString().trim();
+        if (mSignUpGenderRadioGroup.getCheckedRadioButtonId() == R.id.sign_up_male_radio) {
+            mGender = "male";
+        } else if (mSignUpGenderRadioGroup.getCheckedRadioButtonId() == R.id.sign_up_female_radio) {
+            mGender = "female";
+        } else {
+            mGender = "";
+        }
+
+        if (mSignUpMaleRadio.isChecked()) {
+            mGender = "male";
+        }
+
+        if (mSignUpFemaleRadio.isChecked()) {
+            mGender = "female";
+        }
+
+        UserData user = new UserData(
+                mFirstName,
+                mLastName,
+                mEmail,
+                mDate,
+                mMobile,
+                mGender,
+                mPassword,
+                mImageString
+        );
+        // TODO : upload user to ((API))
+        Intent intent = new Intent(RegistrationActivity.this, SignInActivity.class);
+        intent.putExtra("emailText", mEmail);
+        intent.putExtra("password", mPassword);
+        startActivity(intent);
         Toast.makeText(this, "created", Toast.LENGTH_SHORT).show();
     }
 
@@ -183,8 +241,12 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         mPicker = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                String myFormat = "DD/MM/YYYY"; //In which you need put here
+                String myFormat = "dd/MM/YYYY";
                 SimpleDateFormat format = new SimpleDateFormat(myFormat, Locale.getDefault());
+
+                myCalendar.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+                myCalendar.set(Calendar.YEAR, datePicker.getYear());
+                myCalendar.set(Calendar.MONTH, datePicker.getMonth());
 
                 mSignUpDate.setText(format.format(myCalendar.getTime()));
             }
@@ -193,17 +255,19 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         DatePickerDialog dialog = new DatePickerDialog(RegistrationActivity.this,
                 R.style.Date_Picker,
                 mPicker,
-                2000, 0, 1);
+                myCalendar.get(Calendar.YEAR),
+                myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH));
 
         DatePicker datePicker = dialog.getDatePicker();
         datePicker.setMaxDate(myCalendar.getTimeInMillis());
 
+        dialog.show();
         dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setGravity(Gravity.CENTER);
-
-        dialog.show();
         dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorAccent));
         dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorAccent));
+
     }
 
     private void eyeAction() {
@@ -240,6 +304,7 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
 
+
         if (requestCode == PICK_IMAGE_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
 
             if (resultData != null) {
@@ -250,12 +315,34 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         } else if (requestCode == PICK_IMAGE_FROM_CAMERA && resultCode == Activity.RESULT_OK) {
 
             if (resultData != null) {
-                Bitmap photo = (Bitmap) resultData.getExtras().get("doctorData");
-                mSignUpUserImage.setImageBitmap(photo);
+
+                Uri selectedImage = resultData.getData();
+                Bitmap bitmap = (Bitmap) resultData.getExtras().get("data");
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
+
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+                File destination = new File(Environment.getExternalStorageDirectory() + "/" +
+                        getString(R.string.app_name), "IMG_" + timeStamp + ".jpg");
+                FileOutputStream fo;
+                try {
+                    destination.createNewFile();
+                    fo = new FileOutputStream(destination);
+                    fo.write(bytes.toByteArray());
+                    fo.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                String imgPath = destination.getAbsolutePath();
+                mImageUri = Uri.parse(imgPath);
+                mSignUpUserImage.setImageBitmap(bitmap);
             }
 
         } else {
-            Toast.makeText(this, "unsupported request", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Request cancelled", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -268,51 +355,41 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         }
     }
 
-    private boolean checkIfValueSet(EditText text, String error) {
-        if (TextUtils.isEmpty(text.getText())) {
-            text.setError(error);
-            return false;
-        } else {
-            text.setError(null);
-            return true;
-        }
-    }
-
-    private boolean addNewUser() {
+    private boolean isAllDataOk() {
 
         boolean isAllOk = true;
 
         // Check first name entry
-        if (!checkIfValueSet(mSignUpFirstName, getResources().getString(R.string.edit_text_error))) {
+        if (!Utils.isValueSet(mSignUpFirstName, getResources().getString(R.string.edit_text_error))) {
             isAllOk = false;
         }
 
         // Check last name entry
-        if (!checkIfValueSet(mSignUpLastName, getResources().getString(R.string.edit_text_error))) {
+        if (!Utils.isValueSet(mSignUpLastName, getResources().getString(R.string.edit_text_error))) {
             isAllOk = false;
         }
 
-        // Check email entry , validity and existence
-        if (!checkIfValueSet(mSignUpEmail, getResources().getString(R.string.edit_text_error))) {
+        // Check emailText entry , validity and existence
+        if (!Utils.isValueSet(mSignUpEmail, getResources().getString(R.string.edit_text_error))) {
             isAllOk = false;
-        } else if (!isValidEmail(mSignUpEmail, getResources().getString(R.string.invalid_mail_error))) {
+        } else if (!Utils.isValidEmail(mSignUpEmail, getResources().getString(R.string.invalid_mail_error))) {
             isAllOk = false;
-        } else if (isOldUser(mSignUpEmail.getText().toString().trim())) {
+        } else if (Utils.isOldUser(mSignUpEmail)) {
             mSignUpEmail.setError(getResources().getString(R.string.user_exist_error));
             isAllOk = false;
         }
 
         // Check password entry and validity
-        if (!checkIfValueSet(mSignUpPassword, getResources().getString(R.string.edit_text_error))) {
+        if (!Utils.isValueSet(mSignUpPassword, getResources().getString(R.string.edit_text_error))) {
             isAllOk = false;
-        } else if (!isValidPassword(mSignUpPassword, getResources().getString(R.string.invalid_password_error))) {
+        } else if (!Utils.isValidPassword(mSignUpPassword, getResources().getString(R.string.invalid_password_error))) {
             isAllOk = false;
         }
 
         // Check mobile number entry and validity
-        if (!checkIfValueSet(mSignUpMobile, getResources().getString(R.string.edit_text_error))) {
+        if (!Utils.isValueSet(mSignUpMobile, getResources().getString(R.string.edit_text_error))) {
             isAllOk = false;
-        } else if (!isValidNumber(mSignUpMobile, getResources().getString(R.string.invalid_number_error))) {
+        } else if (!Utils.isValidNumber(mSignUpMobile, getResources().getString(R.string.invalid_number_error))) {
             isAllOk = false;
         }
 
@@ -325,9 +402,5 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         return isAllOk;
     }
 
-    private boolean isOldUser(String mail) {
-        // TODO : mail exitence check
-        return false;
-    }
 }
 

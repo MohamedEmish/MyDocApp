@@ -1,5 +1,12 @@
 package com.yackeenSolution.mydocapp.Adapters;
 
+/*
+   Last edit :: March 8,2019
+   ALL DONE :)
+ */
+
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -64,7 +71,6 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
         }
         Picasso.get().load(favUri).into(holder.favoriteButton);
 
-
         String imageUri = getItem(position).getImageUri();
         Uri uri;
         if (imageUri.equals("")) {
@@ -74,6 +80,19 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
         }
         Picasso.get().load(uri).into(holder.FacilityImageVew);
 
+        String phone = String.valueOf(getMemberAt(position).getPhone());
+        if (phone.equals("") || phone.isEmpty()) {
+
+            holder.callText.setTextColor(Color.GRAY);
+        }
+        String web = getMemberAt(position).getWebUri();
+        if (web.isEmpty() || web.equals("")) {
+            holder.webText.setTextColor(Color.GRAY);
+        }
+        String loc = getMemberAt(position).getLocationUri();
+        if (loc.isEmpty() || loc.equals("")) {
+            holder.locText.setTextColor(Color.GRAY);
+        }
         holder.nameTextView.setText(name);
         holder.areaTextView.setText(area);
 
@@ -104,11 +123,11 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
     }
 
     public interface OnItemFavClickListener {
-        void onItemClick(FacilityResult FacilityResult);
+        void onItemClick(FacilityResult facilityResult);
     }
 
     public interface OnItemCallClickListener {
-        void onItemClick(FacilityResult FacilityResult);
+        void onItemClick(FacilityResult facilityResult);
     }
 
     public interface OnItemAllClickListener {
@@ -131,6 +150,7 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
         public ImageView favoriteButton;
         public LinearLayout call, location, web;
         public ConstraintLayout item;
+        public TextView callText, locText, webText;
 
         public FacilityResultViewHolder(View itemView) {
             super(itemView);
@@ -138,6 +158,10 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
             nameTextView = itemView.findViewById(R.id.result_facility_name);
             areaTextView = itemView.findViewById(R.id.result_facility_area);
             FacilityImageVew = itemView.findViewById(R.id.result_facility_image);
+
+            callText = itemView.findViewById(R.id.result_facility_call_text);
+            locText = itemView.findViewById(R.id.result_facility_location_text);
+            webText = itemView.findViewById(R.id.result_facility_website_text);
 
             call = itemView.findViewById(R.id.result_facility_call);
             call.setOnClickListener(new View.OnClickListener() {

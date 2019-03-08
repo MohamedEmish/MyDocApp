@@ -23,6 +23,13 @@
         <item>@string/mother</item>
         <item>@string/father</item>
     </array>
+
+    <array name="visit_type">
+        <item>Visit type</item>
+        <item>First time</item>
+        <item>Follow-up</item>
+    </array>
+
     <string name="son">Son</string>
     <string name="daughter">Daughter</string>
     <string name="wife">Wife</string>

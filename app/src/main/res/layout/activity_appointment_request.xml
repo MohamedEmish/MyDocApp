@@ -339,18 +339,21 @@
                         android:scaleType="centerInside"
                         android:src="@drawable/date" />
 
-                    <TextView
+                    <EditText
+                        android:background="@null"
                         android:id="@+id/appoint_request_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_4dp"
                         android:layout_marginEnd="@dimen/_4dp"
-                        android:text="@string/preferred_date"
-                        android:textColor="@color/colorDivider"
+                        android:hint="@string/preferred_date"
+                        android:textColorHint="@color/colorDivider"
                         android:textSize="@dimen/_12sp">
 
-                    </TextView>
+                    </EditText>
 
                 </LinearLayout>
 
@@ -375,18 +378,21 @@
                         android:scaleType="centerInside"
                         android:src="@drawable/appointment" />
 
-                    <TextView
+                    <EditText
+                        android:background="@null"
                         android:id="@+id/appoint_request_time"
                         android:layout_width="match_parent"
+                        android:clickable="true"
+                        android:focusable="false"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_4dp"
                         android:layout_marginEnd="@dimen/_4dp"
-                        android:text="@string/preferred_time"
-                        android:textColor="@color/colorDivider"
+                        android:hint="@string/preferred_time"
+                        android:textColorHint="@color/colorDivider"
                         android:textSize="@dimen/_12sp">
 
-                    </TextView>
+                    </EditText>
 
                 </LinearLayout>
 
