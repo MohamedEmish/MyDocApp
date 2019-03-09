@@ -29,29 +29,16 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     Button forgetButton, confirmCode, resetPass;
     String emailText, codeText, passText, newPassText;
 
-    private Context updateResources(Context context, String language) {
-        Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-
-        Resources res = context.getResources();
-        Configuration config = new Configuration(res.getConfiguration());
-        config.setLocale(locale);
-        return context.createConfigurationContext(config);
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
-            super.attachBaseContext(updateResources(newBase, PreferenceManager.getDefaultSharedPreferences(newBase).getString("lang", "en")));
-        } else {
-            super.attachBaseContext(newBase);
-        }
-
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        updateResources(this, SaveSharedPreference.getLanguage(this));
+// Localization
+        String language = SaveSharedPreference.getLanguage(this);
+        Locale locale = new Locale(language);
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
         setContentView(R.layout.activity_forget_password);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -67,16 +54,22 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         emailText = mail.getText().toString().trim();
 
         code = findViewById(R.id.forget_pass_code);
+        code.setEnabled(false);
         codeText = code.getText().toString().trim();
 
         newPass = findViewById(R.id.forget_new_pass);
+        newPass.setEnabled(false);
         passText = newPass.getText().toString().trim();
 
         confirmPass = findViewById(R.id.forget_new_pass_confirm);
+        confirmPass.setEnabled(false);
         newPassText = confirmPass.getText().toString().trim();
 
         confirmCode = findViewById(R.id.forget_confirm_button);
         resetPass = findViewById(R.id.forget_reset_button);
+
+        confirmCode.setEnabled(false);
+        resetPass.setEnabled(false);
 
         forgetButton = findViewById(R.id.forget_button);
         forgetButton.setOnClickListener(new View.OnClickListener() {
@@ -105,14 +98,16 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     }
 
     private void activateResetPass() {
-        newPass.setFocusable(true);
-        confirmPass.setFocusable(true);
+        newPass.setEnabled(true);
+        confirmPass.setEnabled(true);
         resetPass.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+        resetPass.setEnabled(true);
     }
 
     private void activateConfirmCode() {
-        code.setFocusable(true);
+        code.setEnabled(true);
         confirmCode.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+        confirmCode.setEnabled(true);
     }
 
     private void getNewPass(String email) {

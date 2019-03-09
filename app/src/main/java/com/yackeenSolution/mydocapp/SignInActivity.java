@@ -4,15 +4,10 @@ package com.yackeenSolution.mydocapp;
    ALL DONE :)
  */
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.method.PasswordTransformationMethod;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -51,31 +46,20 @@ public class SignInActivity extends AppCompatActivity {
     Button myFBLogin;
     Button signIn;
 
-    private Context updateResources(Context context, String language) {
-        Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-
-        Resources res = context.getResources();
-        Configuration config = new Configuration(res.getConfiguration());
-        config.setLocale(locale);
-        return context.createConfigurationContext(config);
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
-            super.attachBaseContext(updateResources(newBase, PreferenceManager.getDefaultSharedPreferences(newBase).getString("lang", "en")));
-        } else {
-            super.attachBaseContext(newBase);
-        }
-
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        updateResources(this, SaveSharedPreference.getLanguage(this));
+        // Localization
+        String language = SaveSharedPreference.getLanguage(this);
+        Locale locale = new Locale(language);
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        // animation
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+
         callbackManager = CallbackManager.Factory.create();
+
         setContentView(R.layout.activity_sign_in);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
