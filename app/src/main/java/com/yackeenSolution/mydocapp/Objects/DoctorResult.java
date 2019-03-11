@@ -23,6 +23,7 @@ public class DoctorResult implements Parcelable {
     private String workPlace;
     private String imageUrl;
 
+    // TODO: Remove this Constructor after clear Dummy Data and ((API)) connection
     public DoctorResult(String name, String area, String jobTitle, String workPlace, String imageUrl, boolean isFavorite) {
         this.name = name;
         this.area = area;
@@ -30,6 +31,29 @@ public class DoctorResult implements Parcelable {
         this.workPlace = workPlace;
         this.imageUrl = imageUrl;
         this.isFavorite = isFavorite;
+    }
+
+    public DoctorResult() {
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public void setWorkPlace(String workPlace) {
+        this.workPlace = workPlace;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Boolean getFavorite() {

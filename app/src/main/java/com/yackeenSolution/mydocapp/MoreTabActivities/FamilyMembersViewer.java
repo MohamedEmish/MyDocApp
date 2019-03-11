@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ import com.yackeenSolution.mydocapp.Adapters.FamilyMembersAdapter;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.SaveSharedPreference;
+import com.yackeenSolution.mydocapp.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,14 +43,11 @@ public class FamilyMembersViewer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-// Localization
-        String language = SaveSharedPreference.getLanguage(this);
-        Locale locale = new Locale(language);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
+        // Localization
+        Utils.setLocale(this);
         setContentView(R.layout.activity_family_members_viewer);
+        ConstraintLayout constraintLayout = findViewById(R.id.family_member_viewer_root);
+        Utils.RTLSupport(this, constraintLayout);
 
         back = findViewById(R.id.family_member_back);
         back.setOnClickListener(new View.OnClickListener() {

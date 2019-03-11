@@ -27,7 +27,7 @@
     <string name="gender">الجنس</string>
     <string name="male">ذكر</string>
     <string name="female">أنثى</string>
-    <string name="mobile">رقم الحمول</string>
+    <string name="mobile">رقم المحمول</string>
     <string name="create_account">أنشئ حساب</string>
     <string name="accept_terms"><u>قبول الشروط و التعليمات</u></string>
     <string name="title_activity_main_screen">الشاشة الرئيسية</string>

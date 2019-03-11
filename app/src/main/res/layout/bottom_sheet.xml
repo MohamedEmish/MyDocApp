@@ -17,8 +17,8 @@
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingLeft="32dp"
-        android:paddingRight="32dp">
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp">
 
         <ImageView
             android:id="@+id/camera_image"
@@ -54,8 +54,8 @@
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingLeft="32dp"
-        android:paddingRight="32dp">
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp">
 
         <ImageView
             android:id="@+id/gallery_image"

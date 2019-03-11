@@ -6,12 +6,17 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.EditText;
+
+import java.util.Locale;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 
 
 public class Utils {
@@ -153,4 +158,19 @@ public class Utils {
     }
 
 
+    public static void setLocale(Context mContext) {
+        String language = SaveSharedPreference.getLanguage(mContext);
+        Locale locale = new Locale(language);
+        Configuration config = mContext.getApplicationContext().getResources().getConfiguration();
+        config.locale = locale;
+        mContext.getApplicationContext().getResources().updateConfiguration(config, mContext.getApplicationContext().getResources().getDisplayMetrics());
+    }
+
+    public static void RTLSupport(Context mContext, View view) {
+        if (SaveSharedPreference.getLanguage(mContext).equals("ar")) {
+            ViewCompat.setLayoutDirection(view, ViewCompat.LAYOUT_DIRECTION_RTL);
+        } else if (SaveSharedPreference.getLanguage(mContext).equals("en")) {
+            ViewCompat.setLayoutDirection(view, ViewCompat.LAYOUT_DIRECTION_LTR);
+        }
+    }
 }

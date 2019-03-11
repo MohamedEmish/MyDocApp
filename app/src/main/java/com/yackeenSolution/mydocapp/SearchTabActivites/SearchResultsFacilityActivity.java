@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.yackeenSolution.mydocapp.GoogleMapsActivity;
 import com.yackeenSolution.mydocapp.Objects.FacilityResult;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.SaveSharedPreference;
+import com.yackeenSolution.mydocapp.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,13 +46,11 @@ public class SearchResultsFacilityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-// Localization
-        String language = SaveSharedPreference.getLanguage(this);
-        Locale locale = new Locale(language);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        // Localization
+        Utils.setLocale(this);
         setContentView(R.layout.activity_search_results_facility);
+        LinearLayout linearLayout = findViewById(R.id.search_result_facility_root);
+        Utils.RTLSupport(this, linearLayout);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         back = findViewById(R.id.search_results_facility_back);

@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import java.util.Locale;
 
@@ -32,14 +33,11 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-// Localization
-        String language = SaveSharedPreference.getLanguage(this);
-        Locale locale = new Locale(language);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
+        // Localization
+        Utils.setLocale(this);
         setContentView(R.layout.activity_forget_password);
+        LinearLayout linearLayout = findViewById(R.id.forget_root);
+        Utils.RTLSupport(this, linearLayout);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         back = findViewById(R.id.forget_back);

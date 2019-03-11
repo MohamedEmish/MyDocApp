@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/my_account_root"
     android:background="@drawable/background"
     tools:context=".MoreTabActivities.MyAccount">
 
@@ -116,8 +117,8 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/_8dp"
-                    android:paddingRight="@dimen/_8dp"
+                    android:paddingStart="@dimen/_8dp"
+                    android:paddingEnd="@dimen/_8dp"
                     android:text="@string/personal_info"
                     android:textAllCaps="true"
                     android:textColor="@color/colorGray"
@@ -181,8 +182,8 @@
                                     android:gravity="center_vertical"
                                     android:inputType="text"
                                     android:maxLines="1"
-                                    android:paddingLeft="@dimen/_8dp"
-                                    android:paddingRight="@dimen/_8dp"
+                                    android:paddingStart="@dimen/_8dp"
+                                    android:paddingEnd="@dimen/_8dp"
                                     android:text="@string/first_name"
                                     android:textColor="@color/colorGray"
                                     android:textSize="@dimen/_12sp" />
@@ -192,9 +193,9 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="0.5dp"
-                                android:layout_marginLeft="@dimen/_8dp"
+                                android:layout_marginStart="@dimen/_8dp"
                                 android:layout_marginTop="@dimen/_8dp"
-                                android:layout_marginRight="@dimen/_8dp"
+                                android:layout_marginEnd="@dimen/_8dp"
                                 android:layout_marginBottom="@dimen/_8dp"
                                 android:background="#000000" />
 
@@ -221,8 +222,8 @@
                                     android:gravity="center_vertical"
                                     android:inputType="text"
                                     android:maxLines="1"
-                                    android:paddingLeft="@dimen/_8dp"
-                                    android:paddingRight="@dimen/_8dp"
+                                    android:paddingStart="@dimen/_8dp"
+                                    android:paddingEnd="@dimen/_8dp"
                                     android:text="@string/first_name"
                                     android:textColor="@color/colorGray"
                                     android:textSize="@dimen/_12sp" />
@@ -232,9 +233,9 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="0.5dp"
-                                android:layout_marginLeft="@dimen/_8dp"
+                                android:layout_marginStart="@dimen/_8dp"
                                 android:layout_marginTop="@dimen/_8dp"
-                                android:layout_marginRight="@dimen/_8dp"
+                                android:layout_marginEnd="@dimen/_8dp"
                                 android:layout_marginBottom="@dimen/_8dp"
                                 android:background="#000000" />
 
@@ -274,8 +275,8 @@
                                     android:gravity="center_vertical"
                                     android:inputType="date"
                                     android:maxLines="1"
-                                    android:paddingLeft="@dimen/_8dp"
-                                    android:paddingRight="@dimen/_8dp"
+                                    android:paddingStart="@dimen/_8dp"
+                                    android:paddingEnd="@dimen/_8dp"
                                     android:text="@string/date_form"
                                     android:textColor="@color/colorGray"
                                     android:textSize="@dimen/_12sp" />
@@ -285,9 +286,9 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="0.5dp"
-                                android:layout_marginLeft="@dimen/_8dp"
+                                android:layout_marginStart="@dimen/_8dp"
                                 android:layout_marginTop="@dimen/_8dp"
-                                android:layout_marginRight="@dimen/_8dp"
+                                android:layout_marginEnd="@dimen/_8dp"
                                 android:layout_marginBottom="@dimen/_8dp"
                                 android:background="#000000" />
 
@@ -326,9 +327,9 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="0.5dp"
-                                android:layout_marginLeft="@dimen/_8dp"
+                                android:layout_marginStart="@dimen/_8dp"
                                 android:layout_marginTop="@dimen/_8dp"
-                                android:layout_marginRight="@dimen/_8dp"
+                                android:layout_marginEnd="@dimen/_8dp"
                                 android:layout_marginBottom="@dimen/_8dp"
                                 android:background="#000000" />
 
@@ -361,8 +362,8 @@
                                 android:gravity="center_vertical"
                                 android:inputType="number"
                                 android:maxLines="1"
-                                android:paddingLeft="@dimen/_8dp"
-                                android:paddingRight="@dimen/_8dp"
+                                android:paddingStart="@dimen/_8dp"
+                                android:paddingEnd="@dimen/_8dp"
                                 android:text="@string/mobile"
                                 android:textColor="@color/colorGray"
                                 android:textSize="@dimen/_12sp" />
@@ -373,9 +374,9 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
-                            android:layout_marginLeft="@dimen/_8dp"
+                            android:layout_marginStart="@dimen/_8dp"
                             android:layout_marginTop="@dimen/_8dp"
-                            android:layout_marginRight="@dimen/_8dp"
+                            android:layout_marginEnd="@dimen/_8dp"
                             android:layout_marginBottom="@dimen/_8dp"
                             android:background="#000000" />
 
@@ -407,8 +408,8 @@
                                 android:gravity="center_vertical"
                                 android:inputType="none"
                                 android:maxLines="1"
-                                android:paddingLeft="@dimen/_8dp"
-                                android:paddingRight="@dimen/_8dp"
+                                android:paddingStart="@dimen/_8dp"
+                                android:paddingEnd="@dimen/_8dp"
                                 android:text="@string/email"
                                 android:textColor="@color/colorGray"
                                 android:textSize="@dimen/_12sp" />
@@ -419,9 +420,9 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
-                            android:layout_marginLeft="@dimen/_8dp"
+                            android:layout_marginStart="@dimen/_8dp"
                             android:layout_marginTop="@dimen/_8dp"
-                            android:layout_marginRight="@dimen/_8dp"
+                            android:layout_marginEnd="@dimen/_8dp"
                             android:layout_marginBottom="@dimen/_8dp"
                             android:background="#000000" />
 
@@ -453,8 +454,8 @@
                                 android:hint="@string/national_id"
                                 android:inputType="number"
                                 android:maxLines="1"
-                                android:paddingLeft="@dimen/_8dp"
-                                android:paddingRight="@dimen/_8dp"
+                                android:paddingStart="@dimen/_8dp"
+                                android:paddingEnd="@dimen/_8dp"
                                 android:textColor="@color/colorGray"
                                 android:textColorHint="@color/colorDivider"
                                 android:textSize="@dimen/_12sp" />
@@ -465,9 +466,9 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
-                            android:layout_marginLeft="@dimen/_8dp"
+                            android:layout_marginStart="@dimen/_8dp"
                             android:layout_marginTop="@dimen/_8dp"
-                            android:layout_marginRight="@dimen/_8dp"
+                            android:layout_marginEnd="@dimen/_8dp"
                             android:layout_marginBottom="@dimen/_8dp"
                             android:background="#000000" />
 
@@ -496,8 +497,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_marginLeft="@dimen/_8dp"
-                android:layout_marginRight="@dimen/_8dp"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
                 android:layout_marginBottom="@dimen/_8dp"
                 android:background="#000000" />
 
@@ -527,8 +528,8 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/_8dp"
-                    android:paddingRight="@dimen/_8dp"
+                    android:paddingStart="@dimen/_8dp"
+                    android:paddingEnd="@dimen/_8dp"
                     android:text="@string/insurance"
                     android:textAllCaps="true"
                     android:textColor="@color/colorGray"
@@ -575,8 +576,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/_8dp"
-                            android:paddingRight="@dimen/_8dp"
+                            android:paddingStart="@dimen/_8dp"
+                            android:paddingEnd="@dimen/_8dp"
                             android:spinnerMode="dropdown"
                             android:textColor="@color/colorGray" />
 
@@ -584,9 +585,9 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
-                            android:layout_marginLeft="@dimen/_8dp"
+                            android:layout_marginStart="@dimen/_8dp"
                             android:layout_marginTop="@dimen/_8dp"
-                            android:layout_marginRight="@dimen/_8dp"
+                            android:layout_marginEnd="@dimen/_8dp"
                             android:layout_marginBottom="@dimen/_8dp"
                             android:background="#000000" />
 
@@ -606,8 +607,8 @@
                             android:layout_marginEnd="8dp"
                             android:background="@null"
                             android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/_8dp"
-                            android:paddingRight="@dimen/_8dp"
+                            android:paddingStart="@dimen/_8dp"
+                            android:paddingEnd="@dimen/_8dp"
                             android:text="@string/add_insurance_card"
                             android:textColor="@color/colorGray"
                             android:textSize="@dimen/_12sp"
@@ -639,8 +640,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_marginLeft="@dimen/_8dp"
-                android:layout_marginRight="@dimen/_8dp"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
                 android:layout_marginBottom="@dimen/_8dp"
                 android:background="#000000" />
 
@@ -671,8 +672,8 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/_8dp"
-                    android:paddingRight="@dimen/_8dp"
+                    android:paddingStart="@dimen/_8dp"
+                    android:paddingEnd="@dimen/_8dp"
                     android:text="@string/change_pass"
                     android:textAllCaps="true"
                     android:textColor="@color/colorGray"
@@ -728,8 +729,8 @@
                             android:hint="@string/new_password"
                             android:inputType="textPassword"
                             android:maxLines="1"
-                            android:paddingLeft="@dimen/_8dp"
-                            android:paddingRight="@dimen/_8dp"
+                            android:paddingStart="@dimen/_8dp"
+                            android:paddingEnd="@dimen/_8dp"
                             android:textColor="@color/colorAccent"
                             android:textColorHint="@android:color/darker_gray"
                             android:textSize="@dimen/_12sp" />

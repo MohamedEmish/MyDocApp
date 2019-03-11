@@ -11,12 +11,14 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.yackeenSolution.mydocapp.MainScreen;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.SaveSharedPreference;
+import com.yackeenSolution.mydocapp.Utils;
 
 import java.util.Locale;
 
@@ -27,6 +29,7 @@ public class SettingsActivity extends AppCompatActivity {
     ImageView back;
     String language;
     String lang;
+    LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,9 @@ public class SettingsActivity extends AppCompatActivity {
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
 
         setContentView(R.layout.activity_settings);
+
+        linearLayout = findViewById(R.id.settings_root);
+        Utils.RTLSupport(this, linearLayout);
 
         languageGroup = findViewById(R.id.settings_lang_radio_group);
         ar = findViewById(R.id.settings_ar_radio_button);

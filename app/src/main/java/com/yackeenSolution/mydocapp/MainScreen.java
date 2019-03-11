@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -23,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.preference.PreferenceManager;
 import android.transition.Fade;
 import android.view.MenuItem;
+import android.widget.ScrollView;
 
 import com.yackeenSolution.mydocapp.Fragments.MainFragments.AppointmentFragment;
 import com.yackeenSolution.mydocapp.Fragments.MainFragments.FavoritesFragment;
@@ -89,13 +92,11 @@ public class MainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Localization
-        String language = SaveSharedPreference.getLanguage(this);
-        Locale locale = new Locale(language);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
+        Utils.setLocale(this);
         setContentView(R.layout.activity_main_screen);
+        ConstraintLayout constraintLayout = findViewById(R.id.container);
+        Utils.RTLSupport(this, constraintLayout);
+
 
         navigation = findViewById(R.id.navigation);
         setNavigatorLayout(R.id.navigation_search);

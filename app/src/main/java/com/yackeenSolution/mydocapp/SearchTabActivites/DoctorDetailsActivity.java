@@ -8,6 +8,7 @@ import android.graphics.drawable.GradientDrawable;
 
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +24,7 @@ import android.widget.LinearLayout;
 import com.yackeenSolution.mydocapp.Adapters.DoctorDetailsFragmentAdapter;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.SaveSharedPreference;
+import com.yackeenSolution.mydocapp.Utils;
 
 import java.util.Locale;
 
@@ -36,14 +38,11 @@ public class DoctorDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-// Localization
-        String language = SaveSharedPreference.getLanguage(this);
-        Locale locale = new Locale(language);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
+        // Localization
+        Utils.setLocale(this);
         setContentView(R.layout.activity_doctor_details);
+        ConstraintLayout constraintLayout = findViewById(R.id.doctor_detail_root);
+        Utils.RTLSupport(this, constraintLayout);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         tabLayout = findViewById(R.id.doctor_details_tabs_layout);

@@ -18,9 +18,21 @@ public class Speciality implements Parcelable {
     private int id;
     private String imageUri;
 
+    // TODO: Remove this Constructor after clear Dummy Data and ((API)) connection
     public Speciality(String name, String imageUri) {
         this.name = name;
         this.imageUri = imageUri;
+    }
+
+    public Speciality() {
+    }
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getId() {

@@ -1,23 +1,19 @@
 package com.yackeenSolution.mydocapp.SearchTabActivites;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
 
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -32,11 +28,10 @@ import com.yackeenSolution.mydocapp.Objects.DoctorResult;
 import com.yackeenSolution.mydocapp.Objects.Insurance;
 import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SaveSharedPreference;
+import com.yackeenSolution.mydocapp.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class FacilityDetailsActivity extends AppCompatActivity {
 
@@ -60,14 +55,11 @@ public class FacilityDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-// Localization
-        String language = SaveSharedPreference.getLanguage(this);
-        Locale locale = new Locale(language);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
+        // Localization
+        Utils.setLocale(this);
         setContentView(R.layout.activity_facility_details);
+        ConstraintLayout constraintLayout = findViewById(R.id.facility_detail_root);
+        Utils.RTLSupport(this, constraintLayout);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         tabLayout = findViewById(R.id.facility_details_tabs_layout);
@@ -101,7 +93,7 @@ public class FacilityDetailsActivity extends AppCompatActivity {
         setUpInsuranceData();
         setUpSpecialityData();
 
-        back = findViewById(R.id.facility_details_back);
+        back = findViewById(R.id.facility_filter_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

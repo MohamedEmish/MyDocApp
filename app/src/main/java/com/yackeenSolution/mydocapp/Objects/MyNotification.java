@@ -19,8 +19,20 @@ public class MyNotification implements Parcelable {
     private int id;
     private String title;
 
+    // TODO: Remove this Constructor after clear Dummy Data and ((API)) connection
     public MyNotification(String title, String description) {
         this.title = title;
+        this.description = description;
+    }
+
+    public MyNotification() {
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
     }
 

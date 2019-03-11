@@ -20,9 +20,25 @@ public class Promotion implements Parcelable {
     private String subText;
     private String imageUri;
 
+    public Promotion() {
+    }
+
+    // TODO: Remove this Constructor after clear Dummy Data and ((API)) connection
     public Promotion(String mainText, String subText, String imageUri) {
         this.mainText = mainText;
         this.subText = subText;
+        this.imageUri = imageUri;
+    }
+
+    public void setMainText(String mainText) {
+        this.mainText = mainText;
+    }
+
+    public void setSubText(String subText) {
+        this.subText = subText;
+    }
+
+    public void setImageUri(String imageUri) {
         this.imageUri = imageUri;
     }
 

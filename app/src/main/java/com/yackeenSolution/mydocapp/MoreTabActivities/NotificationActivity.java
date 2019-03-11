@@ -15,11 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.yackeenSolution.mydocapp.Adapters.NotificationAdapter;
 import com.yackeenSolution.mydocapp.Objects.MyNotification;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.SaveSharedPreference;
+import com.yackeenSolution.mydocapp.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,15 +40,11 @@ public class NotificationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-// Localization
-        String language = SaveSharedPreference.getLanguage(this);
-        Locale locale = new Locale(language);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
+        // Localization
+        Utils.setLocale(this);
         setContentView(R.layout.activity_notification);
-
+        LinearLayout linearLayout = findViewById(R.id.notification_root);
+        Utils.RTLSupport(this, linearLayout);
 
         back = findViewById(R.id.notification_back);
         back.setOnClickListener(new View.OnClickListener() {

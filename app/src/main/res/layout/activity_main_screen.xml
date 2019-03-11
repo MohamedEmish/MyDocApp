@@ -24,8 +24,8 @@
         app:itemTextAppearanceActive="@style/bottom_nav_active"
         app:itemTextAppearanceInactive="@style/bottom_nav_inactive"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

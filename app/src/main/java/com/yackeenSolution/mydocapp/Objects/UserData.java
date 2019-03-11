@@ -25,6 +25,7 @@ public class UserData implements Parcelable {
     private String password;
     private String imageUri;
 
+    // TODO: Remove this Constructor after clear Dummy Data and ((API)) connection
     public UserData(String firstName, String lastName, String email, String birthDate, String mobileNumber, String gender, String password, String imageUri) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -34,6 +35,10 @@ public class UserData implements Parcelable {
         this.gender = gender;
         this.password = password;
         this.imageUri = imageUri;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public UserData() {

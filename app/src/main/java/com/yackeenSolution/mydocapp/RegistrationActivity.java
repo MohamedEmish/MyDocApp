@@ -28,6 +28,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -92,13 +93,10 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Localization
-        String language = SaveSharedPreference.getLanguage(this);
-        Locale locale = new Locale(language);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
+        Utils.setLocale(this);
         setContentView(R.layout.activity_registration);
+        ScrollView scrollView = findViewById(R.id.sign_up_root);
+        Utils.RTLSupport(this, scrollView);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         if (getSupportActionBar() != null) {

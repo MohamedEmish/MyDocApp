@@ -1,23 +1,17 @@
 package com.yackeenSolution.mydocapp.SearchTabActivites;
 
-import android.content.Context;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SaveSharedPreference;
-
-import java.util.Locale;
+import com.yackeenSolution.mydocapp.Utils;
 
 public class SearchFilterFacility extends AppCompatActivity {
 
@@ -28,16 +22,13 @@ public class SearchFilterFacility extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-// Localization
-        String language = SaveSharedPreference.getLanguage(this);
-        Locale locale = new Locale(language);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
+        // Localization
+        Utils.setLocale(this);
         setContentView(R.layout.activity_search_filter_facility);
+        LinearLayout linearLayout = findViewById(R.id.facility_filter_root);
+        Utils.RTLSupport(this, linearLayout);
 
-        search = findViewById(R.id.filter_button);
+        search = findViewById(R.id.doctor_filter_button);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +38,7 @@ public class SearchFilterFacility extends AppCompatActivity {
             }
         });
 
-        back = findViewById(R.id.facility_details_back);
+        back = findViewById(R.id.facility_filter_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

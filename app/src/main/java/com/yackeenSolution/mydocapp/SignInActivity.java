@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,17 +51,15 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Localization
-        String language = SaveSharedPreference.getLanguage(this);
-        Locale locale = new Locale(language);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        Utils.setLocale(this);
         // animation
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 
         callbackManager = CallbackManager.Factory.create();
 
         setContentView(R.layout.activity_sign_in);
+        ScrollView scrollView = findViewById(R.id.sign_in_root);
+        Utils.RTLSupport(this, scrollView);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         skip = findViewById(R.id.skip);

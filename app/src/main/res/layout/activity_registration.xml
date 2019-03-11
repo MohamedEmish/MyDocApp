@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/sign_up_root"
     android:layout_gravity="center_horizontal"
     android:background="@color/colorBackgroundSecond"
     android:fillViewport="true"
@@ -53,8 +54,8 @@
                 android:hint="@string/first_name"
                 android:inputType="text"
                 android:maxLines="1"
-                android:paddingLeft="@dimen/_8dp"
-                android:paddingRight="@dimen/_8dp"
+                android:paddingStart="@dimen/_8dp"
+                android:paddingEnd="@dimen/_8dp"
                 android:textColor="@color/colorAccent"
                 android:textColorHint="@android:color/darker_gray"
                 android:textSize="@dimen/_12sp" />
@@ -69,8 +70,8 @@
                 android:hint="@string/last_name"
                 android:inputType="text"
                 android:maxLines="1"
-                android:paddingLeft="@dimen/_8dp"
-                android:paddingRight="@dimen/_8dp"
+                android:paddingStart="@dimen/_8dp"
+                android:paddingEnd="@dimen/_8dp"
                 android:textColor="@color/colorAccent"
                 android:textColorHint="@android:color/darker_gray"
                 android:textSize="@dimen/_12sp" />
@@ -79,8 +80,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/_8dp"
-            android:layout_marginRight="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_8dp"
             android:background="#000000" />
 
@@ -107,8 +108,8 @@
                 android:clickable="true"
                 android:focusable="false"
                 android:maxLines="1"
-                android:paddingLeft="@dimen/_8dp"
-                android:paddingRight="@dimen/_8dp"
+                android:paddingStart="@dimen/_8dp"
+                android:paddingEnd="@dimen/_8dp"
                 android:text="@string/date_form"
                 android:textColor="@color/colorGray"
                 android:textSize="@dimen/_12sp" />
@@ -118,8 +119,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/_8dp"
-            android:layout_marginRight="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_8dp"
             android:background="#000000" />
 
@@ -176,8 +177,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/_8dp"
-            android:layout_marginRight="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_8dp"
             android:background="#000000" />
 
@@ -203,8 +204,8 @@
                 android:hint="@string/mobile"
                 android:inputType="phone"
                 android:maxLines="1"
-                android:paddingLeft="@dimen/_8dp"
-                android:paddingRight="@dimen/_8dp"
+                android:paddingStart="@dimen/_8dp"
+                android:paddingEnd="@dimen/_8dp"
                 android:textColor="@color/colorAccent"
                 android:textColorHint="@android:color/darker_gray"
                 android:textSize="@dimen/_12sp" />
@@ -213,8 +214,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/_8dp"
-            android:layout_marginRight="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_8dp"
             android:background="#000000" />
 
@@ -241,8 +242,8 @@
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:paddingLeft="@dimen/_8dp"
-                android:paddingRight="@dimen/_8dp"
+                android:paddingStart="@dimen/_8dp"
+                android:paddingEnd="@dimen/_8dp"
                 android:textColor="@color/colorAccent"
                 android:textColorHint="@android:color/darker_gray"
                 android:textSize="@dimen/_12sp" />
@@ -251,8 +252,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/_8dp"
-            android:layout_marginRight="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_8dp"
             android:background="#000000" />
 
@@ -278,8 +279,8 @@
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:paddingLeft="@dimen/_8dp"
-                android:paddingRight="@dimen/_8dp"
+                android:paddingStart="@dimen/_8dp"
+                android:paddingEnd="@dimen/_8dp"
                 android:textColor="@color/colorAccent"
                 android:textColorHint="@android:color/darker_gray"
                 android:textSize="@dimen/_12sp" />
@@ -288,8 +289,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/_8dp"
-            android:layout_marginRight="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:background="#000000" />
 
         <ImageView

@@ -78,7 +78,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
                     android:text="@string/doctor"
+                    android:layout_marginStart="2dp"
                     android:textAllCaps="false"
                     android:textColor="@color/colorGray"
                     android:textSize="@dimen/_14sp" />
@@ -106,6 +108,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_2dp"
                     android:text="@string/facility"
                     android:textAllCaps="false"
                     android:textColor="@color/colorGray"

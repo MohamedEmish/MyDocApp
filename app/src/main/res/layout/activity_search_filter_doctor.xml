@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/doctor_filter_root"
     android:layout_height="match_parent"
     android:background="@color/colorTexts"
     android:orientation="vertical">
@@ -16,7 +17,7 @@
         android:textAllCaps="true">
 
         <ImageView
-            android:id="@+id/facility_details_back"
+            android:id="@+id/facility_filter_back"
             android:layout_width="@dimen/_50dp"
             android:layout_height="match_parent"
             android:padding="@dimen/_12dp"
@@ -29,8 +30,6 @@
             android:id="@+id/facility_details_title"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="@dimen/_50dp"
             android:background="@color/colorAccent"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
@@ -39,7 +38,7 @@
             android:textColor="@color/colorBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/facility_details_back"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -94,8 +93,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/_8dp"
-            android:layout_marginRight="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_8dp"
             android:background="#000000" />
 
@@ -127,8 +126,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/_8dp"
-            android:layout_marginRight="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_8dp"
             android:background="#000000" />
 
@@ -185,8 +184,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/_8dp"
-            android:layout_marginRight="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_8dp"
             android:background="#000000" />
 
@@ -217,8 +216,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/_8dp"
-            android:layout_marginRight="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_8dp"
             android:background="#000000" />
 
@@ -250,8 +249,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/_8dp"
-            android:layout_marginRight="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_8dp"
             android:background="#000000" />
 
@@ -282,14 +281,14 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/_8dp"
-            android:layout_marginRight="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_8dp"
             android:background="#000000" />
 
 
         <Button
-            android:id="@+id/filter_button"
+            android:id="@+id/doctor_filter_button"
             android:layout_width="@dimen/_250dp"
             android:layout_height="@dimen/_36dp"
             android:layout_marginTop="@dimen/_16dp"

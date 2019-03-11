@@ -18,8 +18,20 @@ public class Insurance implements Parcelable {
     private int id;
     private String name;
 
+    // TODO: Remove this Constructor after clear Dummy Data and ((API)) connection
     public Insurance(String name, String imageUri) {
         this.name = name;
+        this.imageUri = imageUri;
+    }
+
+    public Insurance() {
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImageUri(String imageUri) {
         this.imageUri = imageUri;
     }
 

@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ import android.widget.Toast;
 import com.yackeenSolution.mydocapp.BottomSheet;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.SaveSharedPreference;
+import com.yackeenSolution.mydocapp.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -61,13 +63,11 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-// Localization
-        String language = SaveSharedPreference.getLanguage(this);
-        Locale locale = new Locale(language);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        // Localization
+        Utils.setLocale(this);
         setContentView(R.layout.activity_add_new_family_member);
+        LinearLayout linearLayout = findViewById(R.id.add_family_member_root);
+        Utils.RTLSupport(this, linearLayout);
 
         TextView tvTitle = findViewById(R.id.tvTitle);
         Intent intent = getIntent();

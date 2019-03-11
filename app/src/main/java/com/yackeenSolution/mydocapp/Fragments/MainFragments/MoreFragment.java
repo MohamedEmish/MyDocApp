@@ -7,11 +7,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +51,8 @@ public class MoreFragment extends Fragment {
 
 
         View rootView = inflater.inflate(R.layout.more_frag, nullParent);
+
+
         logInOut = rootView.findViewById(R.id.more_log_in_out);
 
         if (SaveSharedPreference.getUserName(getContext()).length() == 0) {

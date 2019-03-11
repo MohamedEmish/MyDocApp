@@ -14,6 +14,7 @@ public class Appointment implements Parcelable {
     private int phoneNumber;
     private String direction;
 
+    // TODO: Remove this Constructor after clear Dummy Data and ((API)) connection
     public Appointment(String doctorName, int appointmentNumber, String speciality, String place, String date, String time, int phoneNumber, String direction) {
         this.doctorName = doctorName;
         this.bookingNumber = appointmentNumber;
@@ -22,6 +23,41 @@ public class Appointment implements Parcelable {
         this.date = date;
         this.time = time;
         this.phoneNumber = phoneNumber;
+        this.direction = direction;
+    }
+
+    public Appointment() {
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public void setBookingNumber(int bookingNumber) {
+        this.bookingNumber = bookingNumber;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
+    public void setFacility(String facility) {
+        this.facility = facility;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setDirection(String direction) {
         this.direction = direction;
     }
 

@@ -24,6 +24,7 @@ public class FacilityResult implements Parcelable {
     private String imageUri;
     private String webUri;
 
+    // TODO: Remove this Constructor after clear Dummy Data and ((API)) connection
     public FacilityResult(String name, String area, int phone, String locationUri, String imageUri, String webUri, boolean isFavorite) {
         this.name = name;
         this.area = area;
@@ -32,6 +33,29 @@ public class FacilityResult implements Parcelable {
         this.imageUri = imageUri;
         this.webUri = webUri;
         this.isFavorite = isFavorite;
+    }
+
+    public FacilityResult() {
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
+    }
+
+    public void setLocationUri(String locationUri) {
+        this.locationUri = locationUri;
+    }
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
     }
 
     public int getId() {
@@ -90,6 +114,10 @@ public class FacilityResult implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    public void setWebUri(String webUri) {
+        this.webUri = webUri;
     }
 
     @Override

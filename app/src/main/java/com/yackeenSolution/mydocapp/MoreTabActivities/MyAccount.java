@@ -37,6 +37,7 @@ import com.yackeenSolution.mydocapp.BottomSheet;
 import com.yackeenSolution.mydocapp.MainScreen;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.SaveSharedPreference;
+import com.yackeenSolution.mydocapp.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -84,14 +85,13 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-// Localization
-        String language = SaveSharedPreference.getLanguage(this);
-        Locale locale = new Locale(language);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
+        // Localization
+        Utils.setLocale(this);
         setContentView(R.layout.activity_my_account);
+
+        ConstraintLayout constraintLayout = findViewById(R.id.my_account_root);
+        Utils.RTLSupport(this, constraintLayout);
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         genderSpinner = findViewById(R.id.my_account_gender_spinner);

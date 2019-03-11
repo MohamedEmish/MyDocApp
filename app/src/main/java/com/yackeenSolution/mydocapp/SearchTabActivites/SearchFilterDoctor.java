@@ -1,68 +1,38 @@
 package com.yackeenSolution.mydocapp.SearchTabActivites;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatRadioButton;
 
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SaveSharedPreference;
-
-import java.util.Locale;
+import com.yackeenSolution.mydocapp.Utils;
 
 public class SearchFilterDoctor extends AppCompatActivity {
 
     private ImageView mFilterBack;
     private Button mFilterButton;
-    private AppCompatRadioButton mSearchFilterFemaleRadio;
-    private TextView mSearchResultTitle;
-    private Spinner mSearchFilterJobTitleSpinner;
-    private RadioGroup mSignUpGenderRadioGroup;
-    private AppCompatRadioButton mSearchFilterMaleRadio;
-    private Spinner mSearchFilterLanguageSpinner;
-    private Spinner mSearchFilterNationalitySpinner;
-    private Spinner mSearchFilterAreaSpinner;
-    private Spinner mSearchFilterInsuranceSpinner;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-// Localization
-        String language = SaveSharedPreference.getLanguage(this);
-        Locale locale = new Locale(language);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
+        // Localization
+        Utils.setLocale(this);
         setContentView(R.layout.activity_search_filter_doctor);
+        LinearLayout linearLayout = findViewById(R.id.doctor_filter_root);
+        Utils.RTLSupport(this, linearLayout);
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        mFilterBack = findViewById(R.id.facility_details_back);
-        mFilterButton = findViewById(R.id.filter_button);
-        mSearchFilterFemaleRadio = findViewById(R.id.search_filter_female_radio);
-        mSearchResultTitle = findViewById(R.id.facility_details_title);
-        mSearchFilterJobTitleSpinner = findViewById(R.id.search_filter_job_title_spinner);
-        mSignUpGenderRadioGroup = findViewById(R.id.sign_up_gender_radio_group);
-        mSearchFilterMaleRadio = findViewById(R.id.search_filter_male_radio);
-        mSearchFilterLanguageSpinner = findViewById(R.id.search_filter_language_spinner);
-        mSearchFilterNationalitySpinner = findViewById(R.id.search_filter_nationality_spinner);
-        mSearchFilterAreaSpinner = findViewById(R.id.search_filter_area_spinner);
-        mSearchFilterInsuranceSpinner = findViewById(R.id.search_filter_insurance_spinner);
+        mFilterBack = findViewById(R.id.facility_filter_back);
+        mFilterButton = findViewById(R.id.doctor_filter_button);
 
         mFilterBack.setOnClickListener(new View.OnClickListener() {
             @Override

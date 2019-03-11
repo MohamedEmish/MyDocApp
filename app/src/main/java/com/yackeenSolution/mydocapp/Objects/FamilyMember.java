@@ -24,7 +24,10 @@ public class FamilyMember implements Parcelable {
     private String mobile;
     private String relation;
 
+    public FamilyMember() {
+    }
 
+    // TODO: Remove this Constructor after clear Dummy Data and ((API)) connection
     public FamilyMember(String firstName, String lastName, String date, int gender, String mobile, String relation, String imageUri) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -32,6 +35,34 @@ public class FamilyMember implements Parcelable {
         this.gender = gender;
         this.mobile = mobile;
         this.relation = relation;
+        this.imageUri = imageUri;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public void setRelation(String relation) {
+        this.relation = relation;
+    }
+
+    public void setImageUri(String imageUri) {
         this.imageUri = imageUri;
     }
 
