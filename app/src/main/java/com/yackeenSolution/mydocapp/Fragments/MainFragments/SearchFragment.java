@@ -143,7 +143,5 @@ public class SearchFragment extends Fragment {
         dialog.getWindow().setGravity(Gravity.CENTER);
         dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorAccent));
         dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorAccent));
-
     }
-
 }
