@@ -356,7 +356,7 @@
                 android:backgroundTint="@color/colorDivider"
                 android:clickable="false"
                 android:text="@string/add_new_member"
-                android:textColor="#ffffff"
+                android:textColor="@color/colorBackground"
                 android:textSize="@dimen/_12sp" />
 
 
