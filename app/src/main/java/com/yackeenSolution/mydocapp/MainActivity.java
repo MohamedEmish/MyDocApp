@@ -6,17 +6,10 @@ package com.yackeenSolution.mydocapp;
  */
 
 import android.animation.Animator;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
@@ -24,6 +17,8 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.Locale;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -93,13 +88,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startMainScreenIntent() {
-        Intent intent = new Intent(MainActivity.this, MainScreen.class);
-        startActivity(intent);
+        new Handler().postDelayed(new Runnable() {
+                                      @Override
+                                      public void run() {
+                                          Intent intent = new Intent(MainActivity.this, MainScreen.class);
+                                          startActivity(intent);
+                                          finish();
+                                      }
+                                  }, 0
+        );
     }
 
     private void startSignInIntent() {
-        Intent intent = new Intent(MainActivity.this, SignInActivity.class);
-        startActivity(intent);
+        new Handler().postDelayed(new Runnable() {
+                                      @Override
+                                      public void run() {
+                                          Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+                                          startActivity(intent);
+                                          finish();
+                                      }
+                                  }, 0
+        );
     }
 
 }

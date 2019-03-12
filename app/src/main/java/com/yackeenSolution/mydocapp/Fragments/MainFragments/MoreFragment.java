@@ -184,6 +184,7 @@ public class MoreFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 SaveSharedPreference.clearUserName(getActivity());
+                SaveSharedPreference.clearUserEmail(getActivity());
                 logInOut.setText(getResources().getText(R.string.log_in));
                 alertDialog.cancel();
             }

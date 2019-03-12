@@ -30,6 +30,14 @@ public class SettingsActivity extends AppCompatActivity {
     String language;
     String lang;
     LinearLayout linearLayout;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(SettingsActivity.this, MainScreen.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

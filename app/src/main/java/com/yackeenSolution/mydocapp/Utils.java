@@ -5,12 +5,19 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.yackeenSolution.mydocapp.MoreTabActivities.MyAccount;
 
 import java.util.Locale;
 
@@ -20,7 +27,6 @@ import androidx.core.view.ViewCompat;
 
 
 public class Utils {
-
 
     private static int STORAGE_READ_PERMISSION = 1;
     private static int STORAGE_WRITE_PERMISSION = 2;
@@ -75,7 +81,7 @@ public class Utils {
         }
     }
 
-    static String userPassword(EditText mail) {
+    public static String userPassword(EditText mail) {
         String password = "";
         String email;
         email = mail.getText().toString().trim();
@@ -83,7 +89,7 @@ public class Utils {
         return password;
     }
 
-    private static void getPassWord() {
+    public static void getPassWord() {
         // TODO : get user password ((APT))
     }
 
@@ -97,7 +103,7 @@ public class Utils {
         return false;
     }
 
-    private static void requestReadStoragePermission(Context context, final Activity activity) {
+    public static void requestReadStoragePermission(Context context, final Activity activity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(
                 activity, Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
@@ -132,7 +138,7 @@ public class Utils {
         return false;
     }
 
-    private static void requestWriteStoragePermission(Context context, final Activity activity) {
+    public static void requestWriteStoragePermission(Context context, final Activity activity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(
                 activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
@@ -157,7 +163,6 @@ public class Utils {
         }
     }
 
-
     public static void setLocale(Context mContext) {
         String language = SaveSharedPreference.getLanguage(mContext);
         Locale locale = new Locale(language);
@@ -173,4 +178,36 @@ public class Utils {
             ViewCompat.setLayoutDirection(view, ViewCompat.LAYOUT_DIRECTION_LTR);
         }
     }
+
+    public static void setupSpinner(final Context context, String[] array, Spinner spinner) {
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, array) {
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        };
+
+        spinnerAdapter.setDropDownViewResource(R.layout.my_spinner_layout);
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) view).setTextColor(context.getResources().getColor(R.color.colorGray));
+                ((TextView) view).setTextSize(context.getResources().getDimension(R.dimen.spinner_text_size));
+                String selection = (String) parent.getItemAtPosition(position);
+                if (!TextUtils.isEmpty(selection)) {
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
 }

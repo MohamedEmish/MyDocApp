@@ -94,9 +94,12 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         super.onCreate(savedInstanceState);
         // Localization
         Utils.setLocale(this);
+
         setContentView(R.layout.activity_registration);
+
         ScrollView scrollView = findViewById(R.id.sign_up_root);
         Utils.RTLSupport(this, scrollView);
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         if (getSupportActionBar() != null) {

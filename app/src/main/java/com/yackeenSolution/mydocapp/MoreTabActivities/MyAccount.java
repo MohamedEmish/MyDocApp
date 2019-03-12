@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
@@ -21,6 +23,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -31,6 +34,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yackeenSolution.mydocapp.BottomSheet;
@@ -95,10 +99,12 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         genderSpinner = findViewById(R.id.my_account_gender_spinner);
-        setupGenderSpinner();
+        String[] gender = MyAccount.this.getResources().getStringArray(R.array.array_gender_options);
+        Utils.setupSpinner(this, gender, genderSpinner);
 
         insuranceSpinner = findViewById(R.id.my_account_insurance_spinner);
-        setupInsuranceSpinner();
+        String[] insurance = MyAccount.this.getResources().getStringArray(R.array.array_insurance_options);
+        Utils.setupSpinner(this, insurance, insuranceSpinner);
 
         back = findViewById(R.id.my_account_back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -324,68 +330,6 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorAccent));
         dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorAccent));
     }
-
-
-    private void setupGenderSpinner() {
-
-        ArrayAdapter notificationSpinnerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.array_gender_options, android.R.layout.simple_spinner_item);
-
-        notificationSpinnerAdapter.setDropDownViewResource(R.layout.my_spinner_layout);
-
-        genderSpinner.setAdapter(notificationSpinnerAdapter);
-
-        genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals("Male")) {
-                        // TODO: male choice
-                    } else {
-                        // TODO: male choice
-
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-
-    }
-
-    private void setupInsuranceSpinner() {
-
-        ArrayAdapter notificationSpinnerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.array_insurance_options, android.R.layout.simple_spinner_item);
-
-        notificationSpinnerAdapter.setDropDownViewResource(R.layout.my_spinner_layout);
-
-        insuranceSpinner.setAdapter(notificationSpinnerAdapter);
-
-        insuranceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals("Select an insurance company")) {
-                        // TODO: male choice
-                    } else {
-                        // TODO: male choice
-
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
-
 
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);

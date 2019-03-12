@@ -66,7 +66,7 @@ public class SignInActivity extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goForMainScreen();
+                Transactions(MainScreen.class);
             }
         });
 
@@ -95,7 +95,7 @@ public class SignInActivity extends AppCompatActivity {
         forgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                forgetPassword();
+                Transactions(ForgetPasswordActivity.class);
             }
         });
 
@@ -146,7 +146,7 @@ public class SignInActivity extends AppCompatActivity {
         createNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goForRegister();
+                Transactions(RegistrationActivity.class);
             }
         });
 
@@ -189,31 +189,20 @@ public class SignInActivity extends AppCompatActivity {
         }
 
         if (isAllOk) {
-            Intent intent = new Intent(SignInActivity.this, MainScreen.class);
             SaveSharedPreference.setUserEmail(this, email.getText().toString().trim());
-            startActivity(intent);
+            Transactions(MainScreen.class);
         }
 
     }
 
-    private void goForMainScreen() {
-        Intent intent = new Intent(SignInActivity.this, MainScreen.class);
+    private void Transactions(Class c) {
+        Intent intent = new Intent(SignInActivity.this, c);
         startActivity(intent);
     }
 
     private void goForRegister(String email) {
         Intent intent = new Intent(SignInActivity.this, RegistrationActivity.class);
         intent.putExtra("mail", email);
-        startActivity(intent);
-    }
-
-    private void forgetPassword() {
-        Intent intent = new Intent(SignInActivity.this, ForgetPasswordActivity.class);
-        startActivity(intent);
-    }
-
-    private void goForRegister() {
-        Intent intent = new Intent(SignInActivity.this, RegistrationActivity.class);
         startActivity(intent);
     }
 

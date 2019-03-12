@@ -93,7 +93,7 @@
     <string name="preferred_date">التاريخ المفضل</string>
     <string name="preferred_time">التوقيت المفضل</string>
     <string name="confirmation">التأكيد</string>
-    <string name="salamat">ســـلامــــات ...</string>
+    <string name="salamat">ســـلامــــات …</string>
     <string name="request_received">تم قبول طلبك</string>
     <string name="booking_number">رقم الحجز :</string>
     <string name="patient_name">اسم المريض :</string>
@@ -129,4 +129,5 @@
     <string name="reset_pass">اعادة تعيين كلمة المرور</string>
     <string name="confirm_pass">تأكيد كلمة المرور</string>
     <string name="book_now">احجز الآن</string>
+    <string name="select_gender">حدد الجنس</string>
 </resources>

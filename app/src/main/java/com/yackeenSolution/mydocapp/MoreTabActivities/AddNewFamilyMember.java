@@ -91,9 +91,11 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
         });
 
         mAddFamilyMemberGenderSpinner = findViewById(R.id.add_family_member_gender_spinner);
-        setupGenderSpinner();
+        String[] gender = AddNewFamilyMember.this.getResources().getStringArray(R.array.array_gender_options);
+        Utils.setupSpinner(this, gender, mAddFamilyMemberGenderSpinner);
         mAddFamilyMemberRelationSpinner = findViewById(R.id.add_family_member_relation_spinner);
-        setupRelationSpinner();
+        String[] relation = AddNewFamilyMember.this.getResources().getStringArray(R.array.array_family_members_options);
+        Utils.setupSpinner(this, relation, mAddFamilyMemberRelationSpinner);
 
         mAddFamilyMemberImage = findViewById(R.id.add_family_member_image);
         mAddFamilyMemberImage.setOnClickListener(new View.OnClickListener() {
@@ -154,68 +156,6 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
         dialog.show();
         dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorAccent));
         dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorAccent));
-    }
-
-    private void setupGenderSpinner() {
-
-        ArrayAdapter notificationSpinnerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.array_gender_options, android.R.layout.simple_spinner_item);
-
-        notificationSpinnerAdapter.setDropDownViewResource(R.layout.my_spinner_layout);
-
-        mAddFamilyMemberGenderSpinner.setAdapter(notificationSpinnerAdapter);
-
-        mAddFamilyMemberGenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals("Male")) {
-                        // TODO: male choice
-                    } else {
-                        // TODO: male choice
-
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-
-    }
-
-    private void setupRelationSpinner() {
-
-        ArrayAdapter notificationSpinnerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.array_family_members_options, android.R.layout.simple_spinner_item);
-
-        notificationSpinnerAdapter.setDropDownViewResource(R.layout.my_spinner_layout);
-
-        mAddFamilyMemberRelationSpinner.setAdapter(notificationSpinnerAdapter);
-
-        mAddFamilyMemberRelationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals("Son")) {
-                        // TODO: son choice
-                    } else {
-                        // TODO: others choice
-
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-
     }
 
     private void openGallery() {

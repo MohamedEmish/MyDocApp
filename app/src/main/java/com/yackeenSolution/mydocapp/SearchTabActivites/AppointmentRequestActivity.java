@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.yackeenSolution.mydocapp.MoreTabActivities.MyAccount;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils;
@@ -69,11 +70,12 @@ public class AppointmentRequestActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
+        mAppointRequestDoctorVisitTypeSpinner = findViewById(R.id.appoint_request_doctor_visit_type_spinner);
+        String[] visitType = AppointmentRequestActivity.this.getResources().getStringArray(R.array.visit_type);
+        Utils.setupSpinner(this, visitType, mAppointRequestDoctorVisitTypeSpinner);
 
         mAppointRequestBack = findViewById(R.id.appoint_request_back);
         mAppointRequestUserMobile = findViewById(R.id.appoint_request_user_mobile);
-        mAppointRequestDoctorVisitTypeSpinner = findViewById(R.id.appoint_request_doctor_visit_type_spinner);
-        setupVisitTypeSpinner();
         mAppointRequestDoctorName = findViewById(R.id.appoint_request_doctor_name);
         mAppointRequestDate = findViewById(R.id.appoint_request_date);
         mAppointRequestTime = findViewById(R.id.appoint_request_time);
@@ -232,37 +234,4 @@ public class AppointmentRequestActivity extends AppCompatActivity {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
-
-    private void setupVisitTypeSpinner() {
-
-        ArrayAdapter visitSpinnerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.visit_type, android.R.layout.simple_spinner_item);
-
-        visitSpinnerAdapter.setDropDownViewResource(R.layout.my_spinner_layout);
-
-        mAppointRequestDoctorVisitTypeSpinner.setAdapter(visitSpinnerAdapter);
-
-        mAppointRequestDoctorVisitTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals("First time")) {
-                        mAppointmentType = "First time";
-                    } else if (selection.equals("Follow-up")) {
-                        mAppointmentType = "Follow-up";
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-
-    }
-
-
-
 }
