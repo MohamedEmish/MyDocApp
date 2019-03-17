@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +34,9 @@ public class PromotionAdapter extends ListAdapter<Promotion, PromotionAdapter.Pr
 
         @Override
         public boolean areContentsTheSame(Promotion oldItem, Promotion newItem) {
-            return oldItem.getMainText().equals(newItem.getMainText())
-                    && oldItem.getSubText().equals(newItem.getSubText())
-                    && oldItem.getImageUri().equals(newItem.getImageUri())
+            return oldItem.getName().equals(newItem.getName())
+                    && oldItem.getDescription().equals(newItem.getDescription())
+                    && oldItem.getImageUrl().equals(newItem.getImageUrl())
                     && oldItem.getId() == newItem.getId();
         }
     };
@@ -55,9 +56,9 @@ public class PromotionAdapter extends ListAdapter<Promotion, PromotionAdapter.Pr
 
     @Override
     public void onBindViewHolder(PromotionViewHolder holder, int position) {
-        String mainText = getItem(position).getMainText();
-        String subText = getItem(position).getSubText();
-        String imageUri = getItem(position).getImageUri();
+        String mainText = getItem(position).getName();
+        String subText = getItem(position).getDescription();
+        String imageUri = getItem(position).getImageUrl();
         Uri uri;
         if (!imageUri.equals("")) {
             uri = Uri.parse(imageUri);
@@ -65,7 +66,7 @@ public class PromotionAdapter extends ListAdapter<Promotion, PromotionAdapter.Pr
         }
 
         holder.mainText.setText(mainText);
-        holder.subText.setText(subText);
+        holder.subText.setText(Html.fromHtml(subText));
     }
 
     public Promotion getMemberAt(int position) {

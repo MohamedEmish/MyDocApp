@@ -8,6 +8,8 @@ package com.yackeenSolution.mydocapp.Adapters;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +51,7 @@ public class NotificationAdapter extends ListAdapter<MyNotification, Notificatio
 
 
         holder.titleTextView.setText(title);
-        holder.descriptionTextView.setText(description);
+        holder.descriptionTextView.setText(Html.fromHtml(description));
 
 
     }

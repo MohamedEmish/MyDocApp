@@ -3,6 +3,9 @@ package com.yackeenSolution.mydocapp.Objects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class MyNotification implements Parcelable {
 
     public static final Parcelable.Creator<MyNotification> CREATOR = new Parcelable.Creator<MyNotification>() {
@@ -16,14 +19,15 @@ public class MyNotification implements Parcelable {
             return new MyNotification[size];
         }
     };
+    @SerializedName("Id")
+    @Expose
     private int id;
+    @SerializedName("Title")
+    @Expose
     private String title;
-
-    // TODO: Remove this Constructor after clear Dummy Data and ((API)) connection
-    public MyNotification(String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
+    @SerializedName("Body")
+    @Expose
+    private String description;
 
     public MyNotification() {
     }
@@ -51,8 +55,6 @@ public class MyNotification implements Parcelable {
     public String getDescription() {
         return description;
     }
-
-    private String description;
 
     protected MyNotification(Parcel in) {
         this.id = in.readInt();

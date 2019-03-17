@@ -3,6 +3,9 @@ package com.yackeenSolution.mydocapp.Objects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Insurance implements Parcelable {
     public static final Parcelable.Creator<Insurance> CREATOR = new Parcelable.Creator<Insurance>() {
         @Override
@@ -15,7 +18,15 @@ public class Insurance implements Parcelable {
             return new Insurance[size];
         }
     };
+
+    @SerializedName("Id")
+    @Expose
     private int id;
+    @SerializedName("ImageUrl")
+    @Expose
+    private String imageUri;
+    @SerializedName("Name")
+    @Expose
     private String name;
 
     // TODO: Remove this Constructor after clear Dummy Data and ((API)) connection
@@ -51,7 +62,6 @@ public class Insurance implements Parcelable {
         return imageUri;
     }
 
-    private String imageUri;
 
     protected Insurance(Parcel in) {
         this.id = in.readInt();

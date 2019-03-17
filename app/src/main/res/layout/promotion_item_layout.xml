@@ -36,7 +36,7 @@
         android:layout_width="@dimen/_250dp"
         android:layout_height="@dimen/_36dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/_16dp"
+        android:layout_marginTop="@dimen/_8dp"
         android:layout_marginBottom="@dimen/_16dp"
         android:background="@drawable/border_sign_in"
         android:backgroundTint="@color/colorAccent"

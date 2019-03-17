@@ -16,9 +16,27 @@
         android:textAllCaps="true"
         android:textColor="@color/colorBackground" />
 
-    <FrameLayout
-        android:id="@+id/appointment_frame"
+    <LinearLayout
+        android:id="@+id/promotion_frag_bar_layout"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/progress_animation_details"
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="@dimen/_50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/progress_animation" />
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/promotion_frame"
+        android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/_8dp">
 

@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import com.yackeenSolution.mydocapp.MoreTabActivities.MyAccount;
 
+import java.util.List;
 import java.util.Locale;
 
 import androidx.core.app.ActivityCompat;
@@ -179,6 +181,37 @@ public class Utils {
         }
     }
 
+    public static void setupSpinner(final Context context, List<String> array, Spinner spinner) {
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, array) {
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        };
+
+        spinnerAdapter.setDropDownViewResource(R.layout.my_spinner_layout);
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) view).setTextColor(context.getResources().getColor(R.color.colorGray));
+                ((TextView) view).setTextSize(context.getResources().getDimension(R.dimen.spinner_text_size));
+                String selection = (String) parent.getItemAtPosition(position);
+                if (!TextUtils.isEmpty(selection)) {
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
     public static void setupSpinner(final Context context, String[] array, Spinner spinner) {
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, array) {
@@ -208,6 +241,16 @@ public class Utils {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+    }
+
+    public static void openBrowser(String webString, Context context) {
+        if (webString.contains("https://") || webString.contains("http://")) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(webString));
+            context.startActivity(intent);
+        } else {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://" + webString));
+            context.startActivity(intent);
+        }
     }
 
 }

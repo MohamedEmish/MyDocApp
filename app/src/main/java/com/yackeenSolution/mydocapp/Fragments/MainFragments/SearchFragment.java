@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,15 +21,19 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.yackeenSolution.mydocapp.MoreTabActivities.MyAccount;
+import com.yackeenSolution.mydocapp.Data.DataViewModel;
+import com.yackeenSolution.mydocapp.Objects.Insurance;
+import com.yackeenSolution.mydocapp.Objects.MyArea;
+import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.RegistrationActivity;
 import com.yackeenSolution.mydocapp.SearchTabActivites.SearchResultDoctorActivity;
 import com.yackeenSolution.mydocapp.SearchTabActivites.SearchResultsFacilityActivity;
 import com.yackeenSolution.mydocapp.Utils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class SearchFragment extends Fragment {
@@ -40,6 +46,8 @@ public class SearchFragment extends Fragment {
     private Spinner specialitySpinner, areaSpinner, insuranceSpinner;
     private Calendar myCalendar;
     private DatePickerDialog.OnDateSetListener mPicker;
+    private DataViewModel dataViewModel;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,16 +86,8 @@ public class SearchFragment extends Fragment {
         });
 
         specialitySpinner = rootView.findViewById(R.id.search_speciality_spinner);
-        String[] speciality = getContext().getResources().getStringArray(R.array.array_speciality_options);
-        Utils.setupSpinner(getContext(), speciality, specialitySpinner);
-
         insuranceSpinner = rootView.findViewById(R.id.search_insurance_spinner);
-        String[] insurance = getContext().getResources().getStringArray(R.array.array_insurance_options);
-        Utils.setupSpinner(getContext(), insurance, insuranceSpinner);
-
         areaSpinner = rootView.findViewById(R.id.search_area_spinner);
-        String[] area = getContext().getResources().getStringArray(R.array.array_area_options);
-        Utils.setupSpinner(getContext(), area, areaSpinner);
 
         date = rootView.findViewById(R.id.search_date_text);
         date.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +97,65 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
+        dataViewModel.getSpecialities();
+        dataViewModel.getMyAreaList();
+        dataViewModel.getMyInsuranceList();
+        setUpSpinnersData();
+
         return rootView;
+
+    }
+
+    private void setUpSpinnersData() {
+
+        dataViewModel.getSpecialities().observe(this, new Observer<List<Speciality>>() {
+            @Override
+            public void onChanged(List<Speciality> specialities) {
+
+                List<String> strings = new ArrayList<>();
+                strings.add(getContext().getResources().getString(R.string.select_speciality));
+                if (specialities.size() > 0) {
+                    for (Speciality speciality : specialities) {
+                        strings.add(speciality.getName());
+                    }
+                    Utils.setupSpinner(getContext(), strings, specialitySpinner);
+                }
+
+            }
+        });
+
+        dataViewModel.getMyInsuranceList().observe(this, new Observer<List<Insurance>>() {
+            @Override
+            public void onChanged(List<Insurance> insurances) {
+
+                List<String> strings = new ArrayList<>();
+                strings.add(getContext().getResources().getString(R.string.select_insurance));
+                if (insurances.size() > 0) {
+                    for (Insurance insurance : insurances) {
+                        strings.add(insurance.getName());
+                    }
+                    Utils.setupSpinner(getContext(), strings, insuranceSpinner);
+                }
+
+            }
+        });
+
+        dataViewModel.getMyAreaList().observe(this, new Observer<List<MyArea>>() {
+            @Override
+            public void onChanged(List<MyArea> areas) {
+
+                List<String> strings = new ArrayList<>();
+                strings.add(getContext().getResources().getString(R.string.select_area));
+                if (areas.size() > 0) {
+                    for (MyArea area : areas) {
+                        strings.add(area.getName());
+                    }
+                    Utils.setupSpinner(getContext(), strings, areaSpinner);
+                }
+
+            }
+        });
     }
 
     private void openSearchResults() {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MyDocApp</string>
     <string name="son">ابن</string>
     <string name="daughter">ابنة</string>
     <string name="wife">زوجة</string>
@@ -130,4 +129,8 @@
     <string name="confirm_pass">تأكيد كلمة المرور</string>
     <string name="book_now">احجز الآن</string>
     <string name="select_gender">حدد الجنس</string>
+    <string name="select_speciality">اختر التخصص</string>
+    <string name="select_insurance">اختر شركة التأمين (اختيارى)</string>
+    <string name="select_area">اختر المنطقة (اختيارى)</string>
+    <string name="sent_successfully">تم الارسال .. شكرا لك</string>
 </resources>

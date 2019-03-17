@@ -1,29 +1,30 @@
 package com.yackeenSolution.mydocapp.MoreTabActivities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.yackeenSolution.mydocapp.Data.DataViewModel;
+import com.yackeenSolution.mydocapp.Objects.MyAboutUs;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils;
 
-import java.util.Locale;
+import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 public class AboutUsActivity extends AppCompatActivity {
 
-    TextView aboutUs;
-    ImageView back;
-
+    public static final String TAG = AboutUsActivity.class.getCanonicalName();
+    private TextView aboutUsTitle;
+    private TextView aboutUsContent;
+    private ImageView back;
+    private DataViewModel dataViewModel;
+    private LinearLayout progress, data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +35,40 @@ public class AboutUsActivity extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(R.id.about_us_root);
         Utils.RTLSupport(this, linearLayout);
 
-        aboutUs = findViewById(R.id.about_us_text);
+        aboutUsTitle = findViewById(R.id.about_us_text_title);
+        aboutUsContent = findViewById(R.id.about_us_text_content);
+        progress = findViewById(R.id.about_us_progress_bar_layout);
+        data = findViewById(R.id.about_us_data_layout);
+
         back = findViewById(R.id.about_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
+        dataViewModel.getMyAboutUsLive();
+        setUpData();
+    }
+
+    private void setUpData() {
+
+        dataViewModel.getMyAboutUsLive().observe(this, new Observer<List<MyAboutUs>>() {
+            @Override
+            public void onChanged(List<MyAboutUs> myAboutUses) {
+
+                if (myAboutUses.size() > 0) {
+                    progress.setVisibility(View.GONE);
+                    data.setVisibility(View.VISIBLE);
+
+                    String content = myAboutUses.get(0).getContent();
+                    aboutUsContent.setText(content);
+
+                    String title = myAboutUses.get(0).getTitle();
+                    aboutUsTitle.setText(title.toUpperCase());
+                }
             }
         });
     }

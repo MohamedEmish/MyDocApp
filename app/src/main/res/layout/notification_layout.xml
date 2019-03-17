@@ -5,6 +5,8 @@
     android:layout_gravity="center_vertical"
     android:layout_marginStart="@dimen/_8dp"
     android:layout_marginEnd="@dimen/_8dp"
+    android:layout_marginTop="@dimen/_8dp"
+    android:paddingTop="@dimen/_8dp"
     android:gravity="center_vertical"
     android:orientation="vertical">
 

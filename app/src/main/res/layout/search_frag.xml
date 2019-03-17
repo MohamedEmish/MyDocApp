@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg">
 
+
     <ImageView
         android:id="@+id/search_call"
         android:layout_width="@dimen/_56dp"
