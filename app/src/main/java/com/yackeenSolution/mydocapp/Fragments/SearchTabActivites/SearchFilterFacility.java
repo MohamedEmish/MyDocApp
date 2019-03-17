@@ -1,4 +1,4 @@
-package com.yackeenSolution.mydocapp.SearchTabActivites;
+package com.yackeenSolution.mydocapp.Fragments.SearchTabActivites;
 
 import android.content.Intent;
 
@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.Utils;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 public class SearchFilterFacility extends AppCompatActivity {
 

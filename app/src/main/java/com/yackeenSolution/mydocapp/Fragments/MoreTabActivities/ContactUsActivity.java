@@ -1,7 +1,5 @@
-package com.yackeenSolution.mydocapp.MoreTabActivities;
+package com.yackeenSolution.mydocapp.Fragments.MoreTabActivities;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,8 +16,8 @@ import com.yackeenSolution.mydocapp.Data.RetrofitClass;
 import com.yackeenSolution.mydocapp.Objects.Advice;
 import com.yackeenSolution.mydocapp.Objects.MyAboutUs;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SaveSharedPreference;
-import com.yackeenSolution.mydocapp.Utils;
+import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.util.List;
 

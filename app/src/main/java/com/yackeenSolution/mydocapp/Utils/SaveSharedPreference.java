@@ -1,4 +1,4 @@
-package com.yackeenSolution.mydocapp;
+package com.yackeenSolution.mydocapp.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

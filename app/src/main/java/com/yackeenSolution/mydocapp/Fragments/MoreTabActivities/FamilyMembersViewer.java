@@ -1,34 +1,27 @@
-package com.yackeenSolution.mydocapp.MoreTabActivities;
+package com.yackeenSolution.mydocapp.Fragments.MoreTabActivities;
 
-import android.content.Context;
 import android.content.Intent;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.yackeenSolution.mydocapp.Adapters.FamilyMembersAdapter;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SaveSharedPreference;
-import com.yackeenSolution.mydocapp.Utils;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class FamilyMembersViewer extends AppCompatActivity {
 

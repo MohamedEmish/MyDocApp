@@ -1,4 +1,4 @@
-package com.yackeenSolution.mydocapp;
+package com.yackeenSolution.mydocapp.Utils;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.yackeenSolution.mydocapp.R;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

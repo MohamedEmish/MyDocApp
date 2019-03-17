@@ -1,4 +1,4 @@
-package com.yackeenSolution.mydocapp;
+package com.yackeenSolution.mydocapp.LogActivities;
 
 /*
    Last edit :: March 8,2019
@@ -7,13 +7,8 @@ package com.yackeenSolution.mydocapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -21,7 +16,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import java.util.Locale;
+import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
 

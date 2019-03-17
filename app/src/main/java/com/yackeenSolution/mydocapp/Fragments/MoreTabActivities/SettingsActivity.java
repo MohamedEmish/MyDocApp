@@ -1,24 +1,20 @@
-package com.yackeenSolution.mydocapp.MoreTabActivities;
+package com.yackeenSolution.mydocapp.Fragments.MoreTabActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.yackeenSolution.mydocapp.MainScreen;
+import com.yackeenSolution.mydocapp.LogActivities.MainScreen;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SaveSharedPreference;
-import com.yackeenSolution.mydocapp.Utils;
+import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.util.Locale;
 

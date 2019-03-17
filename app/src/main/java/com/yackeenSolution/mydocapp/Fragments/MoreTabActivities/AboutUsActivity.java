@@ -1,4 +1,4 @@
-package com.yackeenSolution.mydocapp.MoreTabActivities;
+package com.yackeenSolution.mydocapp.Fragments.MoreTabActivities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.MyAboutUs;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.Utils;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.util.List;
 

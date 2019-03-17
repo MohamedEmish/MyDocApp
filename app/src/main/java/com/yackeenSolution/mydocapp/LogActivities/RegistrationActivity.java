@@ -1,23 +1,17 @@
-package com.yackeenSolution.mydocapp;
+package com.yackeenSolution.mydocapp.LogActivities;
  /*
    Last edit :: March 8,2019
    ALL DONE :)
  */
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -33,6 +27,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yackeenSolution.mydocapp.Objects.UserData;
+import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.Utils.BottomSheet;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

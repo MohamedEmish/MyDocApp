@@ -1,4 +1,4 @@
-package com.yackeenSolution.mydocapp;
+package com.yackeenSolution.mydocapp.Fragments.SearchTabActivites;
 
 /*
    Last edit :: March 8,2019
@@ -8,14 +8,9 @@ package com.yackeenSolution.mydocapp;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,6 +23,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.util.Locale;
 

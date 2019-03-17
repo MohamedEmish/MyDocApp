@@ -18,7 +18,7 @@ import com.yackeenSolution.mydocapp.Fragments.AppointmentFragments.AppointmentCo
 import com.yackeenSolution.mydocapp.Fragments.AppointmentFragments.AppointmentConfirmedFrag;
 import com.yackeenSolution.mydocapp.Fragments.AppointmentFragments.AppointmentPendingFrag;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SaveSharedPreference;
+import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 
 public class AppointmentFragment extends Fragment {
 

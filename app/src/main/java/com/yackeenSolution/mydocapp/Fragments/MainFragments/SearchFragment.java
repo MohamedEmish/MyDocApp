@@ -26,9 +26,9 @@ import com.yackeenSolution.mydocapp.Objects.Insurance;
 import com.yackeenSolution.mydocapp.Objects.MyArea;
 import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SearchTabActivites.SearchResultDoctorActivity;
-import com.yackeenSolution.mydocapp.SearchTabActivites.SearchResultsFacilityActivity;
-import com.yackeenSolution.mydocapp.Utils;
+import com.yackeenSolution.mydocapp.Fragments.SearchTabActivites.SearchResultDoctorActivity;
+import com.yackeenSolution.mydocapp.Fragments.SearchTabActivites.SearchResultsFacilityActivity;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

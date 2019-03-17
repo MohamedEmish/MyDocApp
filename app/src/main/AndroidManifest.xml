@@ -33,84 +33,84 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".GoogleMapsActivity"
+            android:name=".Fragments.SearchTabActivites.GoogleMapsActivity"
             android:label="@string/title_activity_google_maps"></activity>
         <activity
-            android:name=".SearchTabActivites.DoctorDetailsActivity"
+            android:name=".Fragments.SearchTabActivites.DoctorDetailsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SearchTabActivites.FacilityDetailsActivity"
+            android:name=".Fragments.SearchTabActivites.FacilityDetailsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SearchTabActivites.SearchFilterFacility"
+            android:name=".Fragments.SearchTabActivites.SearchFilterFacility"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SearchTabActivites.SearchResultsFacilityActivity"
+            android:name=".Fragments.SearchTabActivites.SearchResultsFacilityActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SearchTabActivites.ConfirmationActivity"
+            android:name=".Fragments.SearchTabActivites.ConfirmationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SearchTabActivites.AppointmentRequestActivity"
+            android:name=".Fragments.SearchTabActivites.AppointmentRequestActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SearchTabActivites.SearchFilterDoctor"
+            android:name=".Fragments.SearchTabActivites.SearchFilterDoctor"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SearchTabActivites.SearchResultDoctorActivity"
+            android:name=".Fragments.SearchTabActivites.SearchResultDoctorActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MoreTabActivities.SettingsActivity"
+            android:name=".Fragments.MoreTabActivities.SettingsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MoreTabActivities.ContactUsActivity"
+            android:name=".Fragments.MoreTabActivities.ContactUsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MoreTabActivities.AboutUsActivity"
+            android:name=".Fragments.MoreTabActivities.AboutUsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MoreTabActivities.PrivacyPolicyActivity"
+            android:name=".Fragments.MoreTabActivities.PrivacyPolicyActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MoreTabActivities.NotificationActivity"
+            android:name=".Fragments.MoreTabActivities.NotificationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MoreTabActivities.AddNewFamilyMember"
+            android:name=".Fragments.MoreTabActivities.AddNewFamilyMember"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MoreTabActivities.FamilyMembersViewer"
+            android:name=".Fragments.MoreTabActivities.FamilyMembersViewer"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MoreTabActivities.MyAccount"
+            android:name=".Fragments.MoreTabActivities.MyAccount"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainScreen"
+            android:name=".LogActivities.MainScreen"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_main_screen"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ForgetPasswordActivity"
+            android:name=".LogActivities.ForgetPasswordActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RegistrationActivity"
+            android:name=".LogActivities.RegistrationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/registration"
             android:screenOrientation="portrait"
@@ -123,11 +123,11 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name=".SignInActivity"
+            android:name=".LogActivities.SignInActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LogActivities.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
             <intent-filter>

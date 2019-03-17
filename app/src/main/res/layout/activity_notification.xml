@@ -6,7 +6,7 @@
     android:id="@+id/notification_root"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".MoreTabActivities.NotificationActivity">
+    tools:context=".Fragments.MoreTabActivities.NotificationActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

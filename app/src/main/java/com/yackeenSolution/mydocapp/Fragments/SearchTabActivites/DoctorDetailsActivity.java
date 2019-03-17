@@ -1,9 +1,6 @@
-package com.yackeenSolution.mydocapp.SearchTabActivites;
+package com.yackeenSolution.mydocapp.Fragments.SearchTabActivites;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
 
 import com.google.android.material.tabs.TabLayout;
@@ -12,9 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -23,10 +18,7 @@ import android.widget.LinearLayout;
 
 import com.yackeenSolution.mydocapp.Adapters.DoctorDetailsFragmentAdapter;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SaveSharedPreference;
-import com.yackeenSolution.mydocapp.Utils;
-
-import java.util.Locale;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 public class DoctorDetailsActivity extends AppCompatActivity {
 

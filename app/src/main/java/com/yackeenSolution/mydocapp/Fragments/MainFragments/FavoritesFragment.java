@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import com.yackeenSolution.mydocapp.Fragments.FavoriteFragments.FavoriteDoctorFrag;
 import com.yackeenSolution.mydocapp.Fragments.FavoriteFragments.FavoriteFacilityFrag;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SaveSharedPreference;
+import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 
 
 public class FavoritesFragment extends Fragment {

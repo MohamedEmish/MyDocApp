@@ -7,26 +7,24 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yackeenSolution.mydocapp.MoreTabActivities.AboutUsActivity;
-import com.yackeenSolution.mydocapp.MoreTabActivities.ContactUsActivity;
-import com.yackeenSolution.mydocapp.MoreTabActivities.FamilyMembersViewer;
-import com.yackeenSolution.mydocapp.MoreTabActivities.MyAccount;
-import com.yackeenSolution.mydocapp.MoreTabActivities.NotificationActivity;
-import com.yackeenSolution.mydocapp.MoreTabActivities.PrivacyPolicyActivity;
-import com.yackeenSolution.mydocapp.MoreTabActivities.SettingsActivity;
+import com.yackeenSolution.mydocapp.Fragments.MoreTabActivities.AboutUsActivity;
+import com.yackeenSolution.mydocapp.Fragments.MoreTabActivities.ContactUsActivity;
+import com.yackeenSolution.mydocapp.Fragments.MoreTabActivities.FamilyMembersViewer;
+import com.yackeenSolution.mydocapp.Fragments.MoreTabActivities.MyAccount;
+import com.yackeenSolution.mydocapp.Fragments.MoreTabActivities.NotificationActivity;
+import com.yackeenSolution.mydocapp.Fragments.MoreTabActivities.PrivacyPolicyActivity;
+import com.yackeenSolution.mydocapp.Fragments.MoreTabActivities.SettingsActivity;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SaveSharedPreference;
-import com.yackeenSolution.mydocapp.SignInActivity;
+import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
+import com.yackeenSolution.mydocapp.LogActivities.SignInActivity;
 
 public class MoreFragment extends Fragment {
     private ConstraintLayout mMoreMyFamily;

@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.yackeenSolution.mydocapp.Adapters.FacilityResultAdapter;
 import com.yackeenSolution.mydocapp.Objects.FacilityResult;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SearchTabActivites.FacilityDetailsActivity;
+import com.yackeenSolution.mydocapp.Fragments.SearchTabActivites.FacilityDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;

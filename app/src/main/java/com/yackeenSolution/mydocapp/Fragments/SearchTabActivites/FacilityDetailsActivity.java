@@ -1,4 +1,4 @@
-package com.yackeenSolution.mydocapp.SearchTabActivites;
+package com.yackeenSolution.mydocapp.Fragments.SearchTabActivites;
 
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
@@ -23,12 +23,11 @@ import com.yackeenSolution.mydocapp.Adapters.DoctorSmallAdapter;
 import com.yackeenSolution.mydocapp.Adapters.FacilityDetailsFragmentAdapter;
 import com.yackeenSolution.mydocapp.Adapters.InsuranceSmallAdapter;
 import com.yackeenSolution.mydocapp.Adapters.SpecialitySmallAdapter;
-import com.yackeenSolution.mydocapp.GoogleMapsActivity;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
 import com.yackeenSolution.mydocapp.Objects.Insurance;
 import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.Utils;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,10 @@
-package com.yackeenSolution.mydocapp;
+package com.yackeenSolution.mydocapp.LogActivities;
  /*
    Last edit :: March 7,2019
    ALL DONE :)
  */
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -24,12 +23,14 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
-import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
 

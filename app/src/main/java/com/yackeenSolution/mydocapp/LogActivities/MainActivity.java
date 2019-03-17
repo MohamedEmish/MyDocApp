@@ -1,4 +1,4 @@
-package com.yackeenSolution.mydocapp;
+package com.yackeenSolution.mydocapp.LogActivities;
 
 /*
    Last edit :: March 8,2019
@@ -15,6 +15,8 @@ import android.view.animation.LinearInterpolator;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 
 import java.util.Locale;
 

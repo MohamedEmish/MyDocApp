@@ -1,20 +1,15 @@
-package com.yackeenSolution.mydocapp.SearchTabActivites;
+package com.yackeenSolution.mydocapp.Fragments.SearchTabActivites;
 
-import android.content.Context;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -23,15 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yackeenSolution.mydocapp.Adapters.FacilityResultAdapter;
-import com.yackeenSolution.mydocapp.GoogleMapsActivity;
 import com.yackeenSolution.mydocapp.Objects.FacilityResult;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SaveSharedPreference;
-import com.yackeenSolution.mydocapp.Utils;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class SearchResultsFacilityActivity extends AppCompatActivity {
 

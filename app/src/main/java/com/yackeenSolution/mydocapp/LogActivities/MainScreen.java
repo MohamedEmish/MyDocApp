@@ -1,14 +1,10 @@
-package com.yackeenSolution.mydocapp;
+package com.yackeenSolution.mydocapp.LogActivities;
 
 /*
    Last edit :: March 8,2019
    ALL DONE :)
  */
 
-import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,24 +12,21 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.preference.PreferenceManager;
 import android.transition.Fade;
 import android.view.MenuItem;
-import android.widget.ScrollView;
 
 import com.yackeenSolution.mydocapp.Fragments.MainFragments.AppointmentFragment;
 import com.yackeenSolution.mydocapp.Fragments.MainFragments.FavoritesFragment;
 import com.yackeenSolution.mydocapp.Fragments.MainFragments.MoreFragment;
 import com.yackeenSolution.mydocapp.Fragments.MainFragments.PromotionFragment;
 import com.yackeenSolution.mydocapp.Fragments.MainFragments.SearchFragment;
-
-import java.util.Locale;
+import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 public class MainScreen extends AppCompatActivity {
 

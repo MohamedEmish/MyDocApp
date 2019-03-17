@@ -1,4 +1,4 @@
-package com.yackeenSolution.mydocapp;
+package com.yackeenSolution.mydocapp.Utils;
 
 import android.Manifest;
 import android.app.Activity;
@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.yackeenSolution.mydocapp.MoreTabActivities.MyAccount;
+import com.yackeenSolution.mydocapp.R;
 
 import java.util.List;
 import java.util.Locale;

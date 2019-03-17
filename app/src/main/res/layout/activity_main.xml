@@ -8,7 +8,7 @@
     android:background="@color/colorAccent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".LogActivities.MainActivity">
 
     <ImageView
         android:id="@+id/open_splash_logo"

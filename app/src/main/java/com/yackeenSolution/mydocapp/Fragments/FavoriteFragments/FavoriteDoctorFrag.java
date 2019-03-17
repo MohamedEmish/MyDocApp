@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import com.yackeenSolution.mydocapp.Adapters.DoctorResultAdapter;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.SearchTabActivites.AppointmentRequestActivity;
-import com.yackeenSolution.mydocapp.SearchTabActivites.DoctorDetailsActivity;
+import com.yackeenSolution.mydocapp.Fragments.SearchTabActivites.AppointmentRequestActivity;
+import com.yackeenSolution.mydocapp.Fragments.SearchTabActivites.DoctorDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
