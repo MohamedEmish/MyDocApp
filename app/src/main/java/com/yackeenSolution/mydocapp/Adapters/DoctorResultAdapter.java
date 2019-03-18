@@ -85,7 +85,6 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
         holder.workPlaceTextView.setText(workPlace);
         holder.areaTextView.setText(area);
 
-
     }
 
     public DoctorResult getMemberAt(int position) {
