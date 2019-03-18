@@ -3,6 +3,9 @@ package com.yackeenSolution.mydocapp.Objects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class FamilyMember implements Parcelable {
 
     public static final Parcelable.Creator<FamilyMember> CREATOR = new Parcelable.Creator<FamilyMember>() {
@@ -16,103 +19,135 @@ public class FamilyMember implements Parcelable {
             return new FamilyMember[size];
         }
     };
-    private int id;
-    private String firstName;
-    private String lastName;
-    private String date;
-    private int gender;
-    private String mobile;
-    private String relation;
+    @SerializedName("Name")
+    @Expose
+    String name;
+    @SerializedName("Relationship")
+    @Expose
+    String relationship;
+    @SerializedName("RelationshipId")
+    @Expose
+    int relationshipId;
+    @SerializedName("DOB")
+    @Expose
+    String birthDate;
+    @SerializedName("Id")
+    @Expose
+    int id;
+    @SerializedName("FamilyMemberId")
+    @Expose
+    int familyMemberId;
+    @SerializedName("ParentId")
+    @Expose
+    int parentId;
+    @SerializedName("PhoneNumber")
+    @Expose
+    String phoneNumber;
+    @SerializedName("Email")
+    @Expose
+    String email;
+    @SerializedName("Image")
+    @Expose
+    String imageUrl;
+    @SerializedName("Gender")
+    @Expose
+    String gender;
 
     public FamilyMember() {
     }
 
-    // TODO: Remove this Constructor after clear Dummy Data and ((API)) connection
-    public FamilyMember(String firstName, String lastName, String date, int gender, String mobile, String relation, String imageUri) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.date = date;
-        this.gender = gender;
-        this.mobile = mobile;
-        this.relation = relation;
-        this.imageUri = imageUri;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public void setRelation(String relation) {
-        this.relation = relation;
-    }
-
-    public void setImageUri(String imageUri) {
-        this.imageUri = imageUri;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public int getGender() {
-        return gender;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public String getRelation() {
-        return relation;
-    }
-
-    public String getImageUri() {
-        return imageUri;
-    }
-
-    public int getId() {
-        return id;
+    protected FamilyMember(Parcel in) {
+        this.name = in.readString();
+        this.relationship = in.readString();
+        this.relationshipId = in.readInt();
+        this.birthDate = in.readString();
+        this.id = in.readInt();
+        this.familyMemberId = in.readInt();
+        this.parentId = in.readInt();
+        this.phoneNumber = in.readString();
+        this.email = in.readString();
+        this.imageUrl = in.readString();
+        this.gender = in.readString();
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    private String imageUri;
+    public String getName() {
+        return name;
+    }
 
-    protected FamilyMember(Parcel in) {
-        this.id = in.readInt();
-        this.firstName = in.readString();
-        this.lastName = in.readString();
-        this.date = in.readString();
-        this.gender = in.readInt();
-        this.mobile = in.readString();
-        this.relation = in.readString();
-        this.imageUri = in.readString();
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRelationship() {
+        return relationship;
+    }
+
+    public void setRelationship(String relationship) {
+        this.relationship = relationship;
+    }
+
+    public int getRelationshipId() {
+        return relationshipId;
+    }
+
+    public void setRelationshipId(int relationshipId) {
+        this.relationshipId = relationshipId;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public int getFamilyMemberId() {
+        return familyMemberId;
+    }
+
+    public void setFamilyMemberId(int familyMemberId) {
+        this.familyMemberId = familyMemberId;
+    }
+
+    public int getParentId() {
+        return parentId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @Override
@@ -120,15 +155,26 @@ public class FamilyMember implements Parcelable {
         return 0;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.relationship);
+        dest.writeInt(this.relationshipId);
+        dest.writeString(this.birthDate);
         dest.writeInt(this.id);
-        dest.writeString(this.firstName);
-        dest.writeString(this.lastName);
-        dest.writeString(this.date);
-        dest.writeInt(this.gender);
-        dest.writeString(this.mobile);
-        dest.writeString(this.relation);
-        dest.writeString(this.imageUri);
+        dest.writeInt(this.familyMemberId);
+        dest.writeInt(this.parentId);
+        dest.writeString(this.phoneNumber);
+        dest.writeString(this.email);
+        dest.writeString(this.imageUrl);
+        dest.writeString(this.gender);
     }
 }

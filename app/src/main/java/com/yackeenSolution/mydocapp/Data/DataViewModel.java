@@ -2,13 +2,18 @@ package com.yackeenSolution.mydocapp.Data;
 
 import android.app.Application;
 
+import com.yackeenSolution.mydocapp.Objects.DoctorResult;
+import com.yackeenSolution.mydocapp.Objects.FamilyMember;
+import com.yackeenSolution.mydocapp.Objects.FamilyRelation;
 import com.yackeenSolution.mydocapp.Objects.Insurance;
 import com.yackeenSolution.mydocapp.Objects.MyAboutUs;
 import com.yackeenSolution.mydocapp.Objects.MyArea;
 import com.yackeenSolution.mydocapp.Objects.MyNotification;
 import com.yackeenSolution.mydocapp.Objects.Promotion;
 import com.yackeenSolution.mydocapp.Objects.Speciality;
+import com.yackeenSolution.mydocapp.Objects.UserData;
 
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -26,6 +31,15 @@ public class DataViewModel extends AndroidViewModel {
     private LiveData<List<MyAboutUs>> mySocialAccounts;
     private LiveData<List<Promotion>> mAllPromotionList;
     private LiveData<List<MyNotification>> mNotificationsList;
+    private LiveData<UserData> mUserDataList;
+    private LiveData<UserData> mUserAccountDataList;
+    private LiveData<List<FamilyMember>> mMyFamilyMembersList;
+    private LiveData<FamilyMember> mSpecificFamilyMember;
+    private LiveData<FamilyMember> mAddEditFamilyMember;
+    private LiveData<List<FamilyRelation>> myFamilyRelationsList;
+    private LiveData<List<DoctorResult>> mMyFavDoctorsList;
+
+
 
 
     public DataViewModel(@NonNull Application application) {
@@ -95,5 +109,61 @@ public class DataViewModel extends AndroidViewModel {
         }
         return mNotificationsList;
     }
+
+    public LiveData<UserData> getUserData(HashMap<String, String> fields) {
+        return mUserDataList = retrofitClass.getUserData(fields);
+    }
+
+    public LiveData<UserData> getUserAccountData(int id) {
+
+        if (mUserAccountDataList == null) {
+            mUserAccountDataList = retrofitClass.getUserAccountData(id);
+        }
+        return mUserAccountDataList;
+    }
+
+    public LiveData<UserData> editUserData(HashMap<String, String> fields) {
+        return mUserDataList = retrofitClass.editUserData(fields);
+    }
+
+    public LiveData<List<FamilyMember>> getMyFamilyMembersList(int id) {
+
+        if (mMyFamilyMembersList == null) {
+            mMyFamilyMembersList = retrofitClass.getMyFamilyMembers(id);
+        }
+        return mMyFamilyMembersList;
+    }
+
+    public LiveData<FamilyMember> getSpecificFamilyMember(int userId, int memberId) {
+
+        if (mSpecificFamilyMember == null) {
+            mSpecificFamilyMember = retrofitClass.getSpecificFamilyMember(userId, memberId);
+        }
+        return mSpecificFamilyMember;
+    }
+
+    public LiveData<FamilyMember> addEditFamilyMember(HashMap<String, String> fields) {
+        if (mAddEditFamilyMember == null) {
+            mAddEditFamilyMember = retrofitClass.addEditFamilyMemberData(fields);
+        }
+        return mAddEditFamilyMember;
+    }
+
+    public LiveData<List<FamilyRelation>> getFamilyRelations() {
+
+        if (myFamilyRelationsList == null) {
+            myFamilyRelationsList = retrofitClass.getFamilyRelationsLive();
+        }
+        return myFamilyRelationsList;
+    }
+
+    public LiveData<List<DoctorResult>> getMyFavDoctorsList(int id) {
+
+        if (mMyFavDoctorsList == null) {
+            mMyFavDoctorsList = retrofitClass.getMyFavDoctors(id);
+        }
+        return mMyFavDoctorsList;
+    }
+
 
 }

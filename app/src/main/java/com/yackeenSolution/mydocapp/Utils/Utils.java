@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.R;
 
 import java.util.List;
@@ -44,6 +45,19 @@ public class Utils {
         }
     }
 
+    public static String dateNewFormat(String oldFormat) {
+
+        // Dividing date string into date and time
+        String[] onSplitTextPhaseOne = oldFormat.split("T");
+        String date = onSplitTextPhaseOne[0];
+        String[] onSplitTextPhaseTwo = date.split("-");
+        String year = onSplitTextPhaseTwo[0];
+        String month = onSplitTextPhaseTwo[1];
+        String day = onSplitTextPhaseTwo[2];
+
+        return day + "/" + month + "/" + year;
+    }
+
     public static boolean isValidPassword(EditText text, String error) {
         if (!TextUtils.isEmpty(text.getText()) &&
                 text.getText().length() > 6) {
@@ -68,7 +82,6 @@ public class Utils {
 
     public static boolean isOldUser(EditText mail) {
         // TODO : mail existence check ((API))
-
         // TODO : true to test after test set false
         return true;
     }
@@ -193,6 +206,7 @@ public class Utils {
                 }
             }
         };
+
 
         spinnerAdapter.setDropDownViewResource(R.layout.my_spinner_layout);
         spinner.setAdapter(spinnerAdapter);

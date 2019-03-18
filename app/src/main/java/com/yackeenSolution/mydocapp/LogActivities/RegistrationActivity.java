@@ -201,16 +201,16 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
             mGender = "female";
         }
 
-        UserData user = new UserData(
-                mFirstName,
-                mLastName,
-                mEmail,
-                mDate,
-                mMobile,
-                mGender,
-                mPassword,
-                mImageString
-        );
+//        UserData user = new UserData(
+//                mFirstName,
+//                mLastName,
+//                mEmail,
+//                mDate,
+//                mMobile,
+//                mGender,
+//                mPassword,
+//                mImageString
+//        );
         // TODO : upload user to ((API))
         Intent intent = new Intent(RegistrationActivity.this, SignInActivity.class);
         intent.putExtra("emailText", mEmail);

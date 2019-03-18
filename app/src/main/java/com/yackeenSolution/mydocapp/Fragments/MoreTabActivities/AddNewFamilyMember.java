@@ -23,14 +23,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+import com.yackeenSolution.mydocapp.Data.DataViewModel;
+import com.yackeenSolution.mydocapp.Objects.FamilyMember;
+import com.yackeenSolution.mydocapp.Objects.FamilyRelation;
+import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.Utils.BottomSheet;
 import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet.BottomSheetListener {
@@ -50,7 +61,9 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
     private EditText mAddFamilyMemberMobile;
     private EditText mAddFamilyMemberLastName;
     private ImageView back;
-
+    DataViewModel dataViewModel;
+    String type;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +74,23 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
         LinearLayout linearLayout = findViewById(R.id.add_family_member_root);
         Utils.RTLSupport(this, linearLayout);
 
+        mAddFamilyMemberButton = findViewById(R.id.add_family_member_button);
+        int userId = Integer.parseInt(SaveSharedPreference.getUserId(this));
+
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
+
         TextView tvTitle = findViewById(R.id.tvTitle);
         Intent intent = getIntent();
 
-        String type = intent.getStringExtra("type");
+        type = intent.getStringExtra("type");
         if (type.equals("add")) {
             tvTitle.setText(R.string.add_new_member);
+            mAddFamilyMemberButton.setText(R.string.add_new_member);
         } else {
             tvTitle.setText(R.string.edit_family_member);
-            int id = Integer.valueOf(intent.getStringExtra("id").trim());
+            mAddFamilyMemberButton.setText(R.string.edit_family_member);
+            id = Integer.valueOf(intent.getStringExtra("id").trim());
+            setUpMemberData(userId, id);
         }
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -86,8 +107,7 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
         String[] gender = AddNewFamilyMember.this.getResources().getStringArray(R.array.array_gender_options);
         Utils.setupSpinner(this, gender, mAddFamilyMemberGenderSpinner);
         mAddFamilyMemberRelationSpinner = findViewById(R.id.add_family_member_relation_spinner);
-        String[] relation = AddNewFamilyMember.this.getResources().getStringArray(R.array.array_family_members_options);
-        Utils.setupSpinner(this, relation, mAddFamilyMemberRelationSpinner);
+        setUpSpinnersData();
 
         mAddFamilyMemberImage = findViewById(R.id.add_family_member_image);
         mAddFamilyMemberImage.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +120,6 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
         });
 
 
-        mAddFamilyMemberButton = findViewById(R.id.add_family_member_button);
         mAddFamilyMemberFirstName = findViewById(R.id.add_family_member_first_name);
         mAddFamilyMemberLastName = findViewById(R.id.add_family_member_last_name);
         mAddFamilyMemberMobile = findViewById(R.id.add_family_member_mobile);
@@ -113,6 +132,69 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
                 pickDate();
             }
         });
+
+        mAddFamilyMemberButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadData();
+            }
+        });
+    }
+
+    private void uploadData() {
+        HashMap<String, String> fields = new HashMap<>();
+        if (!type.equals("add")) {
+            fields.put("FamilyMemberId", String.valueOf(id));
+        }
+        String firstName = mAddFamilyMemberFirstName.getText().toString().trim();
+        String lastName = mAddFamilyMemberLastName.getText().toString().trim();
+
+        fields.put("Name", firstName + " " + lastName);
+        fields.put("DOB", mAddFamilyMemberDate.getText().toString().trim());
+        fields.put("PhoneNumber", mAddFamilyMemberMobile.getText().toString().trim());
+
+        long id = mAddFamilyMemberGenderSpinner.getSelectedItemId();
+        String g = "";
+        if (id == 1) {
+            g = "true";
+        } else if (id == 2) {
+            g = "false";
+        }
+
+        fields.put("Gender", g);
+        fields.put("Image", mImageUri.toString().trim());
+        fields.put("Id", SaveSharedPreference.getUserId(this));
+
+        dataViewModel.addEditFamilyMember(fields);
+    }
+
+    private void setUpMemberData(int userId, int memberId) {
+
+        dataViewModel.getSpecificFamilyMember(userId, memberId).observe(this, new Observer<FamilyMember>() {
+            @Override
+            public void onChanged(FamilyMember familyMember) {
+                if (familyMember != null) {
+
+                    String proPicUrl = familyMember.getImageUrl();
+                    mImageUri = Uri.parse(proPicUrl);
+                    Picasso.get().load(Uri.parse(proPicUrl)).into(mAddFamilyMemberImage);
+
+                    mAddFamilyMemberFirstName.setText(familyMember.getName());
+                    mAddFamilyMemberLastName.setVisibility(View.GONE);
+                    mAddFamilyMemberDate.setText(Utils.dateNewFormat(familyMember.getBirthDate()));
+                    String gender = familyMember.getGender();
+                    if (gender.equals("true")) {
+                        mAddFamilyMemberGenderSpinner.setSelection(1);
+                    } else if (gender.equals("false")) {
+                        mAddFamilyMemberGenderSpinner.setSelection(2);
+                    } else {
+                        mAddFamilyMemberGenderSpinner.setSelection(0);
+                    }
+                    mAddFamilyMemberMobile.setText(familyMember.getPhoneNumber());
+                }
+            }
+        });
+
     }
 
     public void hideKeyboard(View view) {
@@ -129,6 +211,10 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 String myFormat = "DD/MM/YYYY"; //In which you need put here
                 SimpleDateFormat format = new SimpleDateFormat(myFormat, Locale.getDefault());
+
+                myCalendar.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+                myCalendar.set(Calendar.YEAR, datePicker.getYear());
+                myCalendar.set(Calendar.MONTH, datePicker.getMonth());
 
                 mAddFamilyMemberDate.setText(format.format(myCalendar.getTime()));
             }
@@ -194,6 +280,27 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
             openCamera();
         }
     }
+
+    private void setUpSpinnersData() {
+
+        dataViewModel.getFamilyRelations().observe(this, new Observer<List<FamilyRelation>>() {
+            @Override
+            public void onChanged(List<FamilyRelation> familyRelations) {
+
+                List<String> strings = new ArrayList<>();
+                strings.add(AddNewFamilyMember.this.getResources().getString(R.string.select_relation));
+                if (familyRelations.size() > 0) {
+                    for (FamilyRelation relation : familyRelations) {
+                        strings.add(relation.getName());
+                    }
+                    Utils.setupSpinner(AddNewFamilyMember.this, strings, mAddFamilyMemberRelationSpinner);
+                }
+
+            }
+        });
+
+    }
+
 
 
 }

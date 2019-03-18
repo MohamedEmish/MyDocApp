@@ -195,42 +195,42 @@ public class FacilityDetailsActivity extends AppCompatActivity {
 
     private void setUpDoctorData() {
 
-        doctorData.add(new DoctorResult(
-                "Ahmed Alaa",
-                "Cairo",
-                "Android developer",
-                "Yackeen Solution",
-                "",
-                true)
-        );
-
-        doctorData.add(new DoctorResult(
-                "Ahmed Alaa",
-                "Cairo",
-                "Android developer",
-                "Yackeen Solution",
-                "",
-                false)
-        );
-
-        doctorData.add(new DoctorResult(
-                "Ahmed Alaa",
-                "Cairo",
-                "Android developer",
-                "Yackeen Solution",
-                "",
-                false)
-        );
-
-
-        doctorData.add(new DoctorResult(
-                "Ahmed Alaa",
-                "Cairo",
-                "Android developer",
-                "Yackeen Solution",
-                "",
-                false)
-        );
+//        doctorData.add(new DoctorResult(
+//                "Ahmed Alaa",
+//                "Cairo",
+//                "Android developer",
+//                "Yackeen Solution",
+//                "",
+//                true)
+//        );
+//
+//        doctorData.add(new DoctorResult(
+//                "Ahmed Alaa",
+//                "Cairo",
+//                "Android developer",
+//                "Yackeen Solution",
+//                "",
+//                false)
+//        );
+//
+//        doctorData.add(new DoctorResult(
+//                "Ahmed Alaa",
+//                "Cairo",
+//                "Android developer",
+//                "Yackeen Solution",
+//                "",
+//                false)
+//        );
+//
+//
+//        doctorData.add(new DoctorResult(
+//                "Ahmed Alaa",
+//                "Cairo",
+//                "Android developer",
+//                "Yackeen Solution",
+//                "",
+//                false)
+//        );
 
         doctorRecycle = findViewById(R.id.facility_detail_doctor_recycler);
         doctorRecycle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));

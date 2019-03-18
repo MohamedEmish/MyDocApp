@@ -9,15 +9,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.yackeenSolution.mydocapp.Adapters.FamilyMembersAdapter;
+import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
 import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.util.ArrayList;
@@ -29,9 +34,7 @@ public class FamilyMembersViewer extends AppCompatActivity {
     FamilyMembersAdapter familyMembersAdapter;
     FloatingActionButton fab;
     ImageView back;
-
-    List<FamilyMember> data = new ArrayList<>();
-
+    DataViewModel dataViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,24 +59,6 @@ public class FamilyMembersViewer extends AppCompatActivity {
         familyMembersAdapter = new FamilyMembersAdapter();
         memberRecycleView.setAdapter(familyMembersAdapter);
 
-        data.add(new FamilyMember(
-                "ali",
-                "fares",
-                "5/2/1996",
-                1,
-                "01010101",
-                "papa",
-                "android.resource://com.yackeenSolution.mydocapp/drawable/doctor"));
-        data.add(new FamilyMember(
-                "ali",
-                "fares",
-                "5/2/1996",
-                1,
-                "01010101",
-                "papa",
-                "android.resource://com.yackeenSolution.mydocapp/drawable/doctor"));
-        familyMembersAdapter.submitList(data);
-
         familyMembersAdapter.setOnItemClickListener(new FamilyMembersAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(FamilyMember familyMember) {
@@ -91,6 +76,20 @@ public class FamilyMembersViewer extends AppCompatActivity {
                 Intent intent = new Intent(FamilyMembersViewer.this, AddNewFamilyMember.class);
                 intent.putExtra("type", "add");
                 startActivity(intent);
+            }
+        });
+
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
+        setUpData();
+    }
+
+    private void setUpData() {
+        dataViewModel.getMyFamilyMembersList(Integer.parseInt(SaveSharedPreference.getUserId(this))).observe(this, new Observer<List<FamilyMember>>() {
+            @Override
+            public void onChanged(List<FamilyMember> familyMembers) {
+                if (familyMembers.size() > 0) {
+                    familyMembersAdapter.submitList(familyMembers);
+                }
             }
         });
     }

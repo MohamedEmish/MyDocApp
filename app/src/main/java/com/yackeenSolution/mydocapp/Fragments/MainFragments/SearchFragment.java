@@ -47,6 +47,7 @@ public class SearchFragment extends Fragment {
     private Calendar myCalendar;
     private DatePickerDialog.OnDateSetListener mPicker;
     private DataViewModel dataViewModel;
+    LinearLayout dataLayout, progressbar;
 
 
     @Override
@@ -55,6 +56,9 @@ public class SearchFragment extends Fragment {
         final ViewGroup nullParent = null;
 
         View rootView = inflater.inflate(R.layout.search_frag, nullParent);
+
+        dataLayout = rootView.findViewById(R.id.search_frag_data_layout);
+        progressbar = rootView.findViewById(R.id.search_frag_progress_bar_layout);
 
         search = rootView.findViewById(R.id.search_frag_button);
         type = rootView.findViewById(R.id.search_type_radio_group);
@@ -98,9 +102,6 @@ public class SearchFragment extends Fragment {
         });
 
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
-        dataViewModel.getSpecialities();
-        dataViewModel.getMyAreaList();
-        dataViewModel.getMyInsuranceList();
         setUpSpinnersData();
 
         return rootView;
@@ -130,7 +131,7 @@ public class SearchFragment extends Fragment {
             public void onChanged(List<Insurance> insurances) {
 
                 List<String> strings = new ArrayList<>();
-                strings.add(getContext().getResources().getString(R.string.select_insurance));
+                strings.add(getContext().getResources().getString(R.string.select_insurance_op));
                 if (insurances.size() > 0) {
                     for (Insurance insurance : insurances) {
                         strings.add(insurance.getName());
@@ -148,6 +149,8 @@ public class SearchFragment extends Fragment {
                 List<String> strings = new ArrayList<>();
                 strings.add(getContext().getResources().getString(R.string.select_area));
                 if (areas.size() > 0) {
+                    progressbar.setVisibility(View.GONE);
+                    dataLayout.setVisibility(View.VISIBLE);
                     for (MyArea area : areas) {
                         strings.add(area.getName());
                     }

@@ -6,10 +6,6 @@ package com.yackeenSolution.mydocapp.Adapters;
  */
 
 import android.net.Uri;
-
-import androidx.recyclerview.widget.ListAdapter;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +16,10 @@ import com.squareup.picasso.Picasso;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
 import com.yackeenSolution.mydocapp.R;
 
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class FamilyMembersAdapter extends ListAdapter<FamilyMember, FamilyMembersAdapter.FamilyMemberViewHolder> {
     private static final DiffUtil.ItemCallback<FamilyMember> DIFF_CALLBACK = new DiffUtil.ItemCallback<FamilyMember>() {
         @Override
@@ -29,9 +29,9 @@ public class FamilyMembersAdapter extends ListAdapter<FamilyMember, FamilyMember
 
         @Override
         public boolean areContentsTheSame(FamilyMember oldItem, FamilyMember newItem) {
-            return oldItem.getFirstName().equals(newItem.getFirstName())
-                    && oldItem.getLastName().equals(newItem.getLastName())
-                    && oldItem.getDate() == newItem.getDate();
+            return oldItem.getName().equals(newItem.getName())
+                    && oldItem.getRelationship().equals(newItem.getRelationship())
+                    && oldItem.getBirthDate().equals(newItem.getBirthDate());
         }
     };
     private OnItemClickListener listener;
@@ -49,9 +49,9 @@ public class FamilyMembersAdapter extends ListAdapter<FamilyMember, FamilyMember
 
     @Override
     public void onBindViewHolder(FamilyMemberViewHolder holder, int position) {
-        String name = getItem(position).getFirstName();
-        String relation = getItem(position).getRelation();
-        String imageUri = getItem(position).getImageUri();
+        String name = getItem(position).getName();
+        String relation = getItem(position).getRelationship();
+        String imageUri = getItem(position).getImageUrl();
         Uri uri;
 
         if (imageUri.equals("")) {

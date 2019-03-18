@@ -130,7 +130,10 @@
     <string name="book_now">احجز الآن</string>
     <string name="select_gender">حدد الجنس</string>
     <string name="select_speciality">اختر التخصص</string>
-    <string name="select_insurance">اختر شركة التأمين (اختيارى)</string>
+    <string name="select_insurance_op">اختر شركة التأمين (اختيارى)</string>
     <string name="select_area">اختر المنطقة (اختيارى)</string>
     <string name="sent_successfully">تم الارسال .. شكرا لك</string>
+    <string name="select_insurance">اختر شركة التأمين</string>
+    <string name="password_changed">تمت بنجاح</string>
+    <string name="select_relation">اختر صلة القرابة</string>
 </resources>

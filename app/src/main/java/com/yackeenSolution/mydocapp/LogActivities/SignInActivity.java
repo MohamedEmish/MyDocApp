@@ -23,6 +23,8 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.yackeenSolution.mydocapp.Data.DataViewModel;
+import com.yackeenSolution.mydocapp.Objects.UserData;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils.Utils;
@@ -31,8 +33,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -46,6 +53,7 @@ public class SignInActivity extends AppCompatActivity {
     CallbackManager callbackManager;
     LoginButton fbLogin;
     Button myFBLogin;
+    DataViewModel dataViewModel;
     Button signIn;
 
     @Override
@@ -155,24 +163,55 @@ public class SignInActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logIn(mEmailEditText, mPasswordEditText);
+                check(mEmailEditText, mPasswordEditText);
             }
         });
     }
 
     private void logIn(EditText email, EditText password) {
+        HashMap<String, String> fields = new HashMap<>();
+        fields.put("Email", email.getText().toString().trim());
+        fields.put("Password", password.getText().toString().trim());
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
+        setupData(fields);
+    }
+
+    private void setupData(HashMap<String, String> fields) {
+        dataViewModel.getUserData(fields).observe(this, new Observer<UserData>() {
+            @Override
+            public void onChanged(UserData userData) {
+
+                if (userData != null) {
+                    SaveSharedPreference.setUserId(SignInActivity.this, String.valueOf(userData.getId()));
+                    SaveSharedPreference.setUserEmail(SignInActivity.this, String.valueOf(userData.getEmail()));
+                    SaveSharedPreference.setUserName(SignInActivity.this, String.valueOf(userData.getFirstName()));
+
+                    Transactions(MainScreen.class);
+                } else {
+                    Toast.makeText(SignInActivity.this, "Email or Password Error", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        // TODO :: after wrong entry it doesn't clear and get new data .. so how to clear ?? ((ALAA))
+    }
+
+    private void check(EditText email, EditText password) {
         boolean isAllOk = true;
 
-        // Email set,validation and existence check
+        // TODO :: how to check existence ((ALAA))
+        // Email set and validation check
 
         if (!Utils.isValueSet(email, getResources().getString(R.string.edit_text_error))) {
             isAllOk = false;
         } else if (!Utils.isValidEmail(email, getResources().getString(R.string.invalid_mail_error))) {
             isAllOk = false;
-        } else if (!Utils.isOldUser(email)) {
-            email.setError(getResources().getString(R.string.user_not_exist_error));
-            isAllOk = false;
         }
+//        else if (!Utils.isOldUser(email)) {
+//            email.setError(getResources().getString(R.string.user_not_exist_error));
+//            isAllOk = false;
+//        }
 
         // Password set,validation and correctness check
 
@@ -180,18 +219,18 @@ public class SignInActivity extends AppCompatActivity {
             isAllOk = false;
         } else if (!Utils.isValidPassword(password, getResources().getString(R.string.invalid_password_error))) {
             isAllOk = false;
-        } else if (Utils.isOldUser(email)) {
-            String pass = Utils.userPassword(email);
-            if (!pass.equals(password.getText().toString().trim())) {
-                // TODO : true to test after test set false
-                password.setError(getResources().getString(R.string.incorrect_password));
-                isAllOk = true;
-            }
         }
+//        else if (Utils.isOldUser(email)) {
+//            String pass = Utils.userPassword(email);
+//            if (!pass.equals(password.getText().toString().trim())) {
+//                // TODO : true to test after test set false
+//                password.setError(getResources().getString(R.string.incorrect_password));
+//                isAllOk = true;
+//            }
+//        }
 
         if (isAllOk) {
-            SaveSharedPreference.setUserEmail(this, email.getText().toString().trim());
-            Transactions(MainScreen.class);
+            logIn(email, password);
         }
 
     }

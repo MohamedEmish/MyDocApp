@@ -8,6 +8,8 @@ public class SaveSharedPreference {
     static final String PREF_USER_NAME = "username";
     static final String PREF_USER_LANGUAGE = "language";
     static final String PREF_USER_EMAIL = "emailText";
+    static final String PREF_USER_ID = "ID";
+
 
     static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -26,6 +28,22 @@ public class SaveSharedPreference {
     public static void clearUserName(Context ctx) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_USER_NAME, null);
+        editor.commit();
+    }
+
+    public static void setUserId(Context ctx, String id) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(PREF_USER_ID, id);
+        editor.commit();
+    }
+
+    public static String getUserId(Context ctx) {
+        return getSharedPreferences(ctx).getString(PREF_USER_ID, "");
+    }
+
+    public static void clearUserId(Context ctx) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(PREF_USER_ID, null);
         editor.commit();
     }
 

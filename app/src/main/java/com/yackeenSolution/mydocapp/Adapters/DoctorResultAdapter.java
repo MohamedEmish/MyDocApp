@@ -32,8 +32,8 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
         @Override
         public boolean areContentsTheSame(DoctorResult oldItem, DoctorResult newItem) {
             return oldItem.getName().equals(newItem.getName())
-                    && oldItem.getJobTitle().equals(newItem.getJobTitle())
-                    && oldItem.getWorkPlace().equals(newItem.getWorkPlace())
+                    && oldItem.getTitle().equals(newItem.getTitle())
+                    && oldItem.getAddress().equals(newItem.getAddress())
                     && oldItem.getId() == newItem.getId();
         }
     };
@@ -56,23 +56,23 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
     @Override
     public void onBindViewHolder(DoctorResultViewHolder holder, int position) {
         String name = getItem(position).getName();
-        String jobTitle = getItem(position).getJobTitle();
+        String jobTitle = getItem(position).getTitle();
         String area = getMemberAt(position).getArea();
-        String workPlace = getMemberAt(position).getWorkPlace();
+        String workPlace = getMemberAt(position).getAddress();
 
         Uri favUri;
-        boolean isFav = getMemberAt(position).getFavorite();
+        boolean isFav = getMemberAt(position).getIsFav();
         if (isFav) {
             favUri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/fav2");
         } else {
-            favUri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/unfavorite2");
+            favUri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/fav2");
         }
         Picasso.get().load(favUri).into(holder.favoriteButton);
 
 
         String imageUri = getItem(position).getImageUrl();
         Uri uri;
-        if (imageUri.equals("")) {
+        if (imageUri.equals("http://yakensolution.cloudapp.net/doctoryadmin/")) {
             uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
         } else {
             uri = Uri.parse(imageUri);

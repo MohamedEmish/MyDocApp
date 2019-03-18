@@ -37,193 +37,218 @@
             android:paddingBottom="@dimen/_5dp"
             android:src="@drawable/doctory2" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20dp"
-            android:layout_marginBottom="@dimen/_20dp"
-            android:gravity="center_horizontal"
-            android:text="@string/search_message"
-            android:textAllCaps="false"
-            android:textColor="@color/colorAccent" />
-
-        <RadioGroup
-            android:id="@+id/search_type_radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_30dp"
-            android:layout_marginStart="@dimen/_20dp"
-            android:layout_marginEnd="@dimen/_20dp"
-            android:layout_marginBottom="@dimen/_16dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/search_doctor_radio_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:id="@+id/search_doctor_radio_layout"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical">
-
-
-                <ImageView
-                    android:layout_width="@dimen/_20dp"
-                    android:layout_height="@dimen/_20dp"
-                    android:src="@drawable/doctor" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/doctor"
-                    android:layout_marginStart="2dp"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_14sp" />
-
-            </LinearLayout>
-
-            <RadioButton
-                android:id="@+id/search_facility_radio_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:id="@+id/search_facility_radio_layout"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical">
-
-
-                <ImageView
-                    android:layout_width="@dimen/_20dp"
-                    android:layout_height="@dimen/_20dp"
-                    android:src="@drawable/facilities" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_2dp"
-                    android:text="@string/facility"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_12sp" />
-
-            </LinearLayout>
-
-        </RadioGroup>
-
         <LinearLayout
+            android:id="@+id/search_frag_progress_bar_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_32dp"
-            android:layout_marginStart="@dimen/_20dp"
-            android:layout_marginEnd="@dimen/_20dp"
-            android:layout_marginBottom="@dimen/_16dp"
-            android:background="@drawable/border_home"
-            android:gravity="center_vertical"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center">
 
             <ImageView
-                android:layout_width="@dimen/_16dp"
-                android:layout_height="@dimen/_16dp"
-                android:layout_marginStart="@dimen/_8dp"
-                android:src="@drawable/search2" />
+                android:id="@+id/progress_animation_details"
+                android:layout_width="@dimen/_50dp"
+                android:layout_height="@dimen/_50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/progress_animation" />
 
-            <Spinner
-                android:id="@+id/search_speciality_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:spinnerMode="dialog"
-                android:layout_marginStart="@dimen/_4dp"
-                android:layout_marginEnd="@dimen/_8dp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_32dp"
-            android:layout_marginStart="@dimen/_20dp"
-            android:layout_marginEnd="@dimen/_20dp"
-            android:layout_marginBottom="@dimen/_16dp"
-            android:background="@drawable/border_home"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="@dimen/_16dp"
-                android:layout_height="@dimen/_16dp"
-                android:layout_marginStart="@dimen/_8dp"
-                android:src="@drawable/location2" />
-
-            <Spinner
-                android:id="@+id/search_area_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dialog"
-                android:layout_marginStart="@dimen/_4dp"
-                android:layout_marginEnd="@dimen/_8dp" />
-        </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/search_frag_data_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_32dp"
-            android:layout_marginStart="@dimen/_20dp"
-            android:layout_marginEnd="@dimen/_20dp"
-            android:layout_marginBottom="@dimen/_16dp"
-            android:background="@drawable/border_home"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="@dimen/_16dp"
-                android:layout_height="@dimen/_16dp"
-                android:layout_marginStart="@dimen/_8dp"
-                android:src="@drawable/date" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
-                android:id="@+id/search_date_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_4dp"
-                android:layout_marginEnd="@dimen/_8dp"
-                android:text="@string/select_date"
-                android:textColor="@color/colorGray"
-                android:textSize="@dimen/_10sp" />
-        </LinearLayout>
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:gravity="center_horizontal"
+                android:text="@string/search_message"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_32dp"
-            android:layout_marginStart="@dimen/_20dp"
-            android:layout_marginEnd="@dimen/_20dp"
-            android:layout_marginBottom="@dimen/_16dp"
-            android:background="@drawable/border_home"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="@dimen/_16dp"
-                android:layout_height="@dimen/_16dp"
-                android:layout_marginStart="@dimen/_8dp"
-                android:src="@drawable/insurance" />
-
-            <Spinner
-                android:id="@+id/search_insurance_spinner"
+            <RadioGroup
+                android:id="@+id/search_type_radio_group"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_4dp"
-                android:spinnerMode="dialog"
-                android:layout_marginEnd="@dimen/_8dp" />
+                android:layout_height="@dimen/_30dp"
+                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_16dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/search_doctor_radio_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/search_doctor_radio_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+
+                    <ImageView
+                        android:layout_width="@dimen/_20dp"
+                        android:layout_height="@dimen/_20dp"
+                        android:src="@drawable/doctor" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="2dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/doctor"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_14sp" />
+
+                </LinearLayout>
+
+                <RadioButton
+                    android:id="@+id/search_facility_radio_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/search_facility_radio_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+
+                    <ImageView
+                        android:layout_width="@dimen/_20dp"
+                        android:layout_height="@dimen/_20dp"
+                        android:src="@drawable/facilities" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_2dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/facility"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_12sp" />
+
+                </LinearLayout>
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_32dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_16dp"
+                android:background="@drawable/border_home"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_16dp"
+                    android:layout_height="@dimen/_16dp"
+                    android:layout_marginStart="@dimen/_8dp"
+                    android:src="@drawable/search2" />
+
+                <Spinner
+                    android:id="@+id/search_speciality_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_4dp"
+                    android:layout_marginEnd="@dimen/_8dp"
+                    android:gravity="center_vertical"
+                    android:spinnerMode="dialog" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_32dp"
+                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_16dp"
+                android:background="@drawable/border_home"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_16dp"
+                    android:layout_height="@dimen/_16dp"
+                    android:layout_marginStart="@dimen/_8dp"
+                    android:src="@drawable/location2" />
+
+                <Spinner
+                    android:id="@+id/search_area_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4dp"
+                    android:layout_marginEnd="@dimen/_8dp"
+                    android:spinnerMode="dialog" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_32dp"
+                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_16dp"
+                android:background="@drawable/border_home"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_16dp"
+                    android:layout_height="@dimen/_16dp"
+                    android:layout_marginStart="@dimen/_8dp"
+                    android:src="@drawable/date" />
+
+                <TextView
+                    android:id="@+id/search_date_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4dp"
+                    android:layout_marginEnd="@dimen/_8dp"
+                    android:text="@string/select_date"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/_10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_32dp"
+                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_16dp"
+                android:background="@drawable/border_home"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_16dp"
+                    android:layout_height="@dimen/_16dp"
+                    android:layout_marginStart="@dimen/_8dp"
+                    android:src="@drawable/insurance" />
+
+                <Spinner
+                    android:id="@+id/search_insurance_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4dp"
+                    android:layout_marginEnd="@dimen/_8dp"
+                    android:spinnerMode="dialog" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

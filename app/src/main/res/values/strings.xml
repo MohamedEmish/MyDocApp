@@ -135,9 +135,12 @@
     <string name="confirm_pass">Confirm password</string>
     <string name="book_now">Book now</string>
     <string name="select_speciality">Select Speciality</string>
-    <string name="select_insurance">Select insurance (optional)</string>
+    <string name="select_insurance_op">Select insurance (optional)</string>
+    <string name="select_insurance">Select insurance</string>
     <string name="select_area">Select area (optional)</string>
     <string name="sent_successfully">Your message sent successfully .. thanks</string>
+    <string name="password_changed">New password set successfully</string>
+    <string name="select_relation">Select Relation</string>
 
 
 </resources>

@@ -62,7 +62,6 @@
 
     </LinearLayout>
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/family_member_viewer_fab"
         android:layout_width="wrap_content"

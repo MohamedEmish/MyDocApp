@@ -31,8 +31,8 @@ public class DoctorSmallAdapter extends ListAdapter<DoctorResult, DoctorSmallAda
         @Override
         public boolean areContentsTheSame(DoctorResult oldItem, DoctorResult newItem) {
             return oldItem.getName().equals(newItem.getName())
-                    && oldItem.getJobTitle().equals(newItem.getJobTitle())
-                    && oldItem.getWorkPlace().equals(newItem.getWorkPlace())
+                    && oldItem.getQualification().equals(newItem.getQualification())
+                    && oldItem.getAddress().equals(newItem.getAddress())
                     && oldItem.getId() == newItem.getId();
         }
     };
@@ -53,7 +53,7 @@ public class DoctorSmallAdapter extends ListAdapter<DoctorResult, DoctorSmallAda
     @Override
     public void onBindViewHolder(DoctorSmallViewHolder holder, int position) {
         String name = getItem(position).getName();
-        String jobTitle = getItem(position).getJobTitle();
+        String jobTitle = getItem(position).getTitle();
         String imageUri = getItem(position).getImageUrl();
         Uri uri;
         if (imageUri.equals("")) {

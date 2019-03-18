@@ -183,8 +183,11 @@ public class MoreFragment extends Fragment {
             public void onClick(View v) {
                 SaveSharedPreference.clearUserName(getActivity());
                 SaveSharedPreference.clearUserEmail(getActivity());
+                SaveSharedPreference.clearUserId(getActivity());
                 logInOut.setText(getResources().getText(R.string.log_in));
                 alertDialog.cancel();
+                Intent intent = new Intent(getContext(), SignInActivity.class);
+                startActivity(intent);
             }
         });
         no.setOnClickListener(new View.OnClickListener() {

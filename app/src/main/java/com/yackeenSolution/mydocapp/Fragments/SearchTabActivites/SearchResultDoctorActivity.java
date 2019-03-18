@@ -67,38 +67,38 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
         doctorResultAdapter = new DoctorResultAdapter();
         doctorResultRecycleView.setAdapter(doctorResultAdapter);
 
-        data.add(new DoctorResult(
-                "Ahmed Alaa",
-                "Cairo",
-                "Android developer",
-                "Yackeen Solution",
-                "",
-                true)
-        );
-
-        data.add(new DoctorResult(
-                "Ahmed Alaa",
-                "Cairo",
-                "Android developer",
-                "Yackeen Solution",
-                "",
-                false)
-        );
+//        data.add(new DoctorResult(
+//                "Ahmed Alaa",
+//                "Cairo",
+//                "Android developer",
+//                "Yackeen Solution",
+//                "",
+//                true)
+//        );
+//
+//        data.add(new DoctorResult(
+//                "Ahmed Alaa",
+//                "Cairo",
+//                "Android developer",
+//                "Yackeen Solution",
+//                "",
+//                false)
+//        );
 
         doctorResultAdapter.submitList(data);
 
-        doctorResultAdapter.setOnItemFavClickListener(new DoctorResultAdapter.OnItemFavClickListener() {
-            @Override
-            public void onItemClick(DoctorResult doctorResult) {
-                if (doctorResult.getFavorite()) {
-                    doctorResult.setFavorite(false);
-                    doctorResultAdapter.notifyDataSetChanged();
-                } else {
-                    doctorResult.setFavorite(true);
-                    doctorResultAdapter.notifyDataSetChanged();
-                }
-            }
-        });
+//        doctorResultAdapter.setOnItemFavClickListener(new DoctorResultAdapter.OnItemFavClickListener() {
+//            @Override
+//            public void onItemClick(DoctorResult doctorResult) {
+//                if (doctorResult.getFavorite()) {
+//                    doctorResult.setFavorite(false);
+//                    doctorResultAdapter.notifyDataSetChanged();
+//                } else {
+//                    doctorResult.setFavorite(true);
+//                    doctorResultAdapter.notifyDataSetChanged();
+//                }
+//            }
+//        });
 
         doctorResultAdapter.setOnItemReqClickListener(new DoctorResultAdapter.OnItemReqClickListener() {
             @Override
