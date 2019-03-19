@@ -28,8 +28,8 @@ public class AppointmentSmallAdapter extends ListAdapter<Appointment, Appointmen
         @Override
         public boolean areContentsTheSame(Appointment oldItem, Appointment newItem) {
             return oldItem.getDoctorName().equals(newItem.getDoctorName())
-                    && oldItem.getFacility().equals(newItem.getFacility())
-                    && oldItem.getDate().equals(newItem.getDate())
+                    && oldItem.getClinicName().equals(newItem.getClinicName())
+                    && oldItem.getClinicLocation().equals(newItem.getClinicLocation())
                     && oldItem.getId() == newItem.getId();
         }
     };
@@ -52,10 +52,10 @@ public class AppointmentSmallAdapter extends ListAdapter<Appointment, Appointmen
     @Override
     public void onBindViewHolder(AppointmentSmallViewHolder holder, int position) {
         String doctorName = getItem(position).getDoctorName();
-        String bookingNumber = String.valueOf(getItem(position).getBookingNumber());
+        String bookingNumber = String.valueOf(getItem(position).getId());
         String speciality = getItem(position).getSpeciality();
-        String facility = getMemberAt(position).getFacility();
-        String date = getMemberAt(position).getDate();
+        String facility = getMemberAt(position).getClinicName();
+        String date = getMemberAt(position).getDateTime();
         String time = getMemberAt(position).getTime();
 
         holder.doctorName.setText(doctorName);

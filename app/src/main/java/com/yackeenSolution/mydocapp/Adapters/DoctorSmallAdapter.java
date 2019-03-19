@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
+import com.yackeenSolution.mydocapp.Objects.DoctorResult;
 import com.yackeenSolution.mydocapp.R;
 
 public class DoctorSmallAdapter extends ListAdapter<DoctorResult, DoctorSmallAdapter.DoctorSmallViewHolder> {
@@ -56,7 +57,7 @@ public class DoctorSmallAdapter extends ListAdapter<DoctorResult, DoctorSmallAda
         String jobTitle = getItem(position).getTitle();
         String imageUri = getItem(position).getImageUrl();
         Uri uri;
-        if (imageUri.equals("")) {
+        if (imageUri.equals("http://yakensolution.cloudapp.net/doctoryadmin/")) {
             uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
         } else {
             uri = Uri.parse(imageUri);
@@ -77,7 +78,7 @@ public class DoctorSmallAdapter extends ListAdapter<DoctorResult, DoctorSmallAda
 
 
     public interface OnItemClickListener {
-        void onItemClick(DoctorResult doctorResult);
+        void onItemClick(DoctorResult DoctorResult);
     }
 
 

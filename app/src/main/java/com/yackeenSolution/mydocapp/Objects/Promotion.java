@@ -44,7 +44,7 @@ public class Promotion implements Parcelable {
     String expiryDate;
     @SerializedName("Doctors")
     @Expose
-    List<DoctorResult> doctorsList;
+    List<FavouriteDoctor> doctorsList;
 
     public Promotion() {
     }
@@ -65,7 +65,7 @@ public class Promotion implements Parcelable {
         this.specialityId = in.readInt();
         this.facilityId = in.readInt();
         this.expiryDate = in.readString();
-        this.doctorsList = in.createTypedArrayList(DoctorResult.CREATOR);
+        this.doctorsList = in.createTypedArrayList(FavouriteDoctor.CREATOR);
         this.imageUrl = in.readString();
     }
 
@@ -121,11 +121,11 @@ public class Promotion implements Parcelable {
         this.expiryDate = expiryDate;
     }
 
-    public List<DoctorResult> getDoctorsList() {
+    public List<FavouriteDoctor> getDoctorsList() {
         return doctorsList;
     }
 
-    public void setDoctorsList(List<DoctorResult> doctorsList) {
+    public void setDoctorsList(List<FavouriteDoctor> doctorsList) {
         this.doctorsList = doctorsList;
     }
 

@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.yackeenSolution.mydocapp.Fragments.NonMainFragments.ClinicInfoFragment;
-import com.yackeenSolution.mydocapp.Fragments.NonMainFragments.ProfileFragment;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.NonMainFragments.ClinicInfoFragment;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.NonMainFragments.ProfileFragment;
 
 public class DoctorDetailsFragmentAdapter extends FragmentPagerAdapter {
     public DoctorDetailsFragmentAdapter(FragmentManager fm) {

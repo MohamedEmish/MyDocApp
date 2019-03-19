@@ -9,7 +9,7 @@
     android:focusableInTouchMode="true"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".Fragments.MoreTabActivities.AddNewFamilyMember">
+    tools:context=".ActivitiesAndFragments.MoreTabActivities.AddNewFamilyMember">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

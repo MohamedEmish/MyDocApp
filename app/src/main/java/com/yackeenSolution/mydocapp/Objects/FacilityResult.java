@@ -3,9 +3,15 @@ package com.yackeenSolution.mydocapp.Objects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class FacilityResult implements Parcelable {
 
-    public static final Parcelable.Creator<FacilityResult> CREATOR = new Parcelable.Creator<FacilityResult>() {
+    public static final Creator<FacilityResult> CREATOR = new Creator<FacilityResult>() {
         @Override
         public FacilityResult createFromParcel(Parcel source) {
             return new FacilityResult(source);
@@ -16,47 +22,60 @@ public class FacilityResult implements Parcelable {
             return new FacilityResult[size];
         }
     };
-    private int id;
-    private String name;
-    private String area;
-    private int phone;
-    private String locationUri;
-    private String imageUri;
-    private String webUri;
-
-    // TODO: Remove this Constructor after clear Dummy Data and ((API)) connection
-    public FacilityResult(String name, String area, int phone, String locationUri, String imageUri, String webUri, boolean isFavorite) {
-        this.name = name;
-        this.area = area;
-        this.phone = phone;
-        this.locationUri = locationUri;
-        this.imageUri = imageUri;
-        this.webUri = webUri;
-        this.isFavorite = isFavorite;
-    }
-
-    public FacilityResult() {
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-    public void setPhone(int phone) {
-        this.phone = phone;
-    }
-
-    public void setLocationUri(String locationUri) {
-        this.locationUri = locationUri;
-    }
-
-    public void setImageUri(String imageUri) {
-        this.imageUri = imageUri;
-    }
+    @SerializedName("Id")
+    @Expose
+    int id;
+    @SerializedName("Name")
+    @Expose
+    String name;
+    @SerializedName("Address")
+    @Expose
+    String address;
+    @SerializedName("Rating")
+    @Expose
+    int rating;
+    @SerializedName("ContactNumber")
+    @Expose
+    String phoneNumber;
+    @SerializedName("Location")
+    @Expose
+    String location;
+    @SerializedName("WebSite")
+    @Expose
+    String webSite;
+    @SerializedName("IsFav")
+    @Expose
+    boolean isFav;
+    @SerializedName("Doctors")
+    @Expose
+    List<DoctorResult> doctorsList;
+    @SerializedName("InsuranceCompanies")
+    @Expose
+    List<Insurance> insuranceList;
+    @SerializedName("ImageUrl")
+    @Expose
+    String ImageUrl;
+    @SerializedName("Images")
+    @Expose
+    List<String> bannersUrlList;
+    @SerializedName("GeneralInfo")
+    @Expose
+    String generalInfo;
+    @SerializedName("Services")
+    @Expose
+    String services;
+    @SerializedName("FacilitySpecialities")
+    @Expose
+    List<Speciality> specialityList;
+    @SerializedName("Area")
+    @Expose
+    String area;
+    @SerializedName("Lang")
+    @Expose
+    String language;
+    @SerializedName("AreaId")
+    @Expose
+    int areaId;
 
     public int getId() {
         return id;
@@ -70,45 +89,166 @@ public class FacilityResult implements Parcelable {
         return name;
     }
 
-    public String getArea() {
-        return area;
-    }
+    @SerializedName("Email")
+    @Expose
+    String email;
 
-    public int getPhone() {
-        return phone;
+    public FacilityResult() {
     }
-
-    public String getLocationUri() {
-        return locationUri;
-    }
-
-    public String getImageUri() {
-        return imageUri;
-    }
-
-    public String getWebUri() {
-        return webUri;
-    }
-
-    public boolean isFavorite() {
-        return isFavorite;
-    }
-
-    public void setFavorite(boolean favorite) {
-        isFavorite = favorite;
-    }
-
-    private boolean isFavorite;
 
     protected FacilityResult(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
+        this.address = in.readString();
+        this.rating = in.readInt();
+        this.phoneNumber = in.readString();
+        this.location = in.readString();
+        this.webSite = in.readString();
+        this.isFav = in.readByte() != 0;
+        this.doctorsList = new ArrayList<DoctorResult>();
+        in.readList(this.doctorsList, DoctorResult.class.getClassLoader());
+        this.insuranceList = in.createTypedArrayList(Insurance.CREATOR);
+        this.ImageUrl = in.readString();
+        this.bannersUrlList = in.createStringArrayList();
+        this.generalInfo = in.readString();
+        this.services = in.readString();
+        this.specialityList = in.createTypedArrayList(Speciality.CREATOR);
         this.area = in.readString();
-        this.phone = in.readInt();
-        this.locationUri = in.readString();
-        this.imageUri = in.readString();
-        this.webUri = in.readString();
-        this.isFavorite = in.readByte() != 0;
+        this.language = in.readString();
+        this.areaId = in.readInt();
+        this.email = in.readString();
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getWebSite() {
+        return webSite;
+    }
+
+    public void setWebSite(String webSite) {
+        this.webSite = webSite;
+    }
+
+    public boolean isFav() {
+        return isFav;
+    }
+
+    public void setFav(boolean fav) {
+        isFav = fav;
+    }
+
+    public List<DoctorResult> getDoctorsList() {
+        return doctorsList;
+    }
+
+    public void setDoctorsList(List<DoctorResult> doctorsList) {
+        this.doctorsList = doctorsList;
+    }
+
+    public List<Insurance> getInsuranceList() {
+        return insuranceList;
+    }
+
+    public void setInsuranceList(List<Insurance> insuranceList) {
+        this.insuranceList = insuranceList;
+    }
+
+    public String getImageUrl() {
+        return ImageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        ImageUrl = imageUrl;
+    }
+
+    public List<String> getBannersUrlList() {
+        return bannersUrlList;
+    }
+
+    public void setBannersUrlList(List<String> bannersUrlList) {
+        this.bannersUrlList = bannersUrlList;
+    }
+
+    public String getGeneralInfo() {
+        return generalInfo;
+    }
+
+    public void setGeneralInfo(String generalInfo) {
+        this.generalInfo = generalInfo;
+    }
+
+    public String getServices() {
+        return services;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setServices(String services) {
+        this.services = services;
+    }
+
+    public List<Speciality> getSpecialityList() {
+        return specialityList;
+    }
+
+    public void setSpecialityList(List<Speciality> specialityList) {
+        this.specialityList = specialityList;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public int getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(int areaId) {
+        this.areaId = areaId;
     }
 
     @Override
@@ -116,19 +256,34 @@ public class FacilityResult implements Parcelable {
         return 0;
     }
 
-    public void setWebUri(String webUri) {
-        this.webUri = webUri;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
         dest.writeString(this.name);
+        dest.writeString(this.address);
+        dest.writeInt(this.rating);
+        dest.writeString(this.phoneNumber);
+        dest.writeString(this.location);
+        dest.writeString(this.webSite);
+        dest.writeByte(this.isFav ? (byte) 1 : (byte) 0);
+        dest.writeList(this.doctorsList);
+        dest.writeTypedList(this.insuranceList);
+        dest.writeString(this.ImageUrl);
+        dest.writeStringList(this.bannersUrlList);
+        dest.writeString(this.generalInfo);
+        dest.writeString(this.services);
+        dest.writeTypedList(this.specialityList);
         dest.writeString(this.area);
-        dest.writeInt(this.phone);
-        dest.writeString(this.locationUri);
-        dest.writeString(this.imageUri);
-        dest.writeString(this.webUri);
-        dest.writeByte(this.isFavorite ? (byte) 1 : (byte) 0);
+        dest.writeString(this.language);
+        dest.writeInt(this.areaId);
+        dest.writeString(this.email);
     }
 }

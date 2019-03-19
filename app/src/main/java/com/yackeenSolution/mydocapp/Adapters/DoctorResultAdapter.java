@@ -19,18 +19,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.yackeenSolution.mydocapp.Objects.DoctorResult;
+import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
 import com.yackeenSolution.mydocapp.R;
 
-public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultAdapter.DoctorResultViewHolder> {
-    private static final DiffUtil.ItemCallback<DoctorResult> DIFF_CALLBACK = new DiffUtil.ItemCallback<DoctorResult>() {
+public class DoctorResultAdapter extends ListAdapter<FavouriteDoctor, DoctorResultAdapter.DoctorResultViewHolder> {
+    private static final DiffUtil.ItemCallback<FavouriteDoctor> DIFF_CALLBACK = new DiffUtil.ItemCallback<FavouriteDoctor>() {
         @Override
-        public boolean areItemsTheSame(DoctorResult oldItem, DoctorResult newItem) {
+        public boolean areItemsTheSame(FavouriteDoctor oldItem, FavouriteDoctor newItem) {
             return oldItem.getId() == newItem.getId();
         }
 
         @Override
-        public boolean areContentsTheSame(DoctorResult oldItem, DoctorResult newItem) {
+        public boolean areContentsTheSame(FavouriteDoctor oldItem, FavouriteDoctor newItem) {
             return oldItem.getName().equals(newItem.getName())
                     && oldItem.getTitle().equals(newItem.getTitle())
                     && oldItem.getAddress().equals(newItem.getAddress())
@@ -65,7 +65,7 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
         if (isFav) {
             favUri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/fav2");
         } else {
-            favUri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/fav2");
+            favUri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/unfavorite2");
         }
         Picasso.get().load(favUri).into(holder.favoriteButton);
 
@@ -86,7 +86,7 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
 
     }
 
-    public DoctorResult getMemberAt(int position) {
+    public FavouriteDoctor getMemberAt(int position) {
         return getItem(position);
     }
 
@@ -103,15 +103,15 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
     }
 
     public interface OnItemFavClickListener {
-        void onItemClick(DoctorResult doctorResult);
+        void onItemClick(FavouriteDoctor favouriteDoctor);
     }
 
     public interface OnItemReqClickListener {
-        void onItemClick(DoctorResult doctorResult);
+        void onItemClick(FavouriteDoctor favouriteDoctor);
     }
 
     public interface OnItemClickListener {
-        void onItemClick(DoctorResult doctorResult);
+        void onItemClick(FavouriteDoctor favouriteDoctor);
     }
 
     public class DoctorResultViewHolder extends RecyclerView.ViewHolder {
@@ -133,17 +133,8 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
             areaTextView = itemView.findViewById(R.id.result_doctor_work_area);
             workPlaceTextView = itemView.findViewById(R.id.result_doctor_work_place);
             doctorImageVew = itemView.findViewById(R.id.result_doctor_image);
-
             favoriteButton = itemView.findViewById(R.id.appointment_small_call);
-            favoriteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (favListener != null && position != RecyclerView.NO_POSITION) {
-                        favListener.onItemClick(getItem(position));
-                    }
-                }
-            });
+
             request = itemView.findViewById(R.id.doctor_search_request);
             request.setOnClickListener(new View.OnClickListener() {
                 @Override

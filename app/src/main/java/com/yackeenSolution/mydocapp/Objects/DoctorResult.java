@@ -9,8 +9,15 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class DoctorResult implements Parcelable {
+    @SerializedName("Id")
+    @Expose
+    int id;
 
-    public static final Creator<DoctorResult> CREATOR = new Creator<DoctorResult>() {
+    @SerializedName("Name")
+    @Expose
+    String name;
+
+    public static final Parcelable.Creator<DoctorResult> CREATOR = new Parcelable.Creator<DoctorResult>() {
         @Override
         public DoctorResult createFromParcel(Parcel source) {
             return new DoctorResult(source);
@@ -21,82 +28,99 @@ public class DoctorResult implements Parcelable {
             return new DoctorResult[size];
         }
     };
-    @SerializedName("Id")
-    @Expose
-    int id;
-    @SerializedName("Name")
-    @Expose
-    String name;
-    @SerializedName("PhoneNumber")
-    @Expose
-    String phoneNumber;
     @SerializedName("Gender")
     @Expose
-    String gender;
+    boolean gender;
     @SerializedName("Nationality")
     @Expose
-    List<String> nationality;
-    @SerializedName("Language")
+    List<String> nationalityList;
+    @SerializedName("Status")
     @Expose
-    List<String> languages;
+    String status;
+
     @SerializedName("Title")
     @Expose
     String title;
+
     @SerializedName("Qualification")
     @Expose
     String qualification;
-    @SerializedName("Specialty")
+    @SerializedName("Language")
+    @Expose
+    List<String> languageList;
+    @SerializedName("Speciality")
     @Expose
     String speciality;
-    @SerializedName("SpecialtyId")
+    @SerializedName("rating")
     @Expose
-    int specialityId;
-    @SerializedName("Rating")
+    int ratting;
+    @SerializedName("NumberOfRaters")
     @Expose
-    int rating;
-    @SerializedName("Area")
-    @Expose
-    String area;
-    @SerializedName("FacilityId")
-    @Expose
-    int facilityId;
-    @SerializedName("FacilityName")
-    @Expose
-    String facilityName;
-    @SerializedName("Address")
-    @Expose
-    String address;
+    int numberOfRaters;
     @SerializedName("IsFav")
     @Expose
     boolean isFav;
-    @SerializedName("ImageUrl")
+    @SerializedName("Email")
     @Expose
-    String ImageUrl;
+    String mail;
+    @SerializedName("ContactNumber")
+    @Expose
+    String phoneNumber;
+
+    @SerializedName("Address")
+    @Expose
+    String address;
+    @SerializedName("Reviews")
+    @Expose
+    List<Review> reviewList;
+    @SerializedName("FacilityName")
+    @Expose
+    String facilityName;
+    @SerializedName("FacilityId")
+    @Expose
+    int facilityId;
+    @SerializedName("SpecialityId")
+    @Expose
+    int specialityId;
+
     @SerializedName("Info")
     @Expose
     String info;
+
     @SerializedName("FacilityLocation")
     @Expose
     String facilityLocation;
+
     @SerializedName("FacilityInfo")
     @Expose
     String facilityInfo;
+
     @SerializedName("ClinicInfo")
     @Expose
     String clinicInfo;
-    @SerializedName("DoctorTypeId")
+    @SerializedName("ImageUrl")
     @Expose
-    int doctorTypeId;
-    @SerializedName("NextDateTime")
+    String imageUrl;
+    @SerializedName("DoctorFacilities")
     @Expose
-    String nextDate;
-    @SerializedName("GetDoctorSlots")
+    List<FacilityResult> facilityResultList;
+    @SerializedName("AppointmentRemainder")
     @Expose
-    List<DoctorSlots> doctorSlots;
+    boolean appointmentRemainder;
+    @SerializedName("EnableNotification")
+    @Expose
+    boolean enableNotification;
+    @SerializedName("Area")
+    @Expose
+    String area;
 
     public void setName(String name) {
         this.name = name;
     }
+
+    @SerializedName("DoctorTypeId")
+    @Expose
+    int doctorTypeId;
 
     public DoctorResult() {
     }
@@ -104,68 +128,53 @@ public class DoctorResult implements Parcelable {
     protected DoctorResult(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
-        this.phoneNumber = in.readString();
-        this.gender = in.readString();
-        this.nationality = in.createStringArrayList();
-        this.languages = in.createStringArrayList();
+        this.gender = in.readByte() != 0;
+        this.nationalityList = in.createStringArrayList();
+        this.status = in.readString();
+        this.languageList = in.createStringArrayList();
         this.title = in.readString();
         this.qualification = in.readString();
         this.speciality = in.readString();
-        this.specialityId = in.readInt();
-        this.rating = in.readInt();
-        this.area = in.readString();
-        this.facilityId = in.readInt();
-        this.facilityName = in.readString();
-        this.address = in.readString();
+        this.ratting = in.readInt();
+        this.numberOfRaters = in.readInt();
         this.isFav = in.readByte() != 0;
-        this.ImageUrl = in.readString();
+        this.mail = in.readString();
+        this.phoneNumber = in.readString();
+        this.reviewList = in.createTypedArrayList(Review.CREATOR);
+        this.address = in.readString();
+        this.facilityName = in.readString();
+        this.facilityId = in.readInt();
+        this.specialityId = in.readInt();
+        this.imageUrl = in.readString();
         this.info = in.readString();
         this.facilityLocation = in.readString();
         this.facilityInfo = in.readString();
         this.clinicInfo = in.readString();
+        this.facilityResultList = in.createTypedArrayList(FacilityResult.CREATOR);
+        this.appointmentRemainder = in.readByte() != 0;
+        this.enableNotification = in.readByte() != 0;
+        this.area = in.readString();
         this.doctorTypeId = in.readInt();
-        this.nextDate = in.readString();
-        this.doctorSlots = in.createTypedArrayList(DoctorSlots.CREATOR);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getName() {
+        return name;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getGender() {
+    public boolean isGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
-    }
-
-    public List<String> getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(List<String> nationality) {
-        this.nationality = nationality;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-    public List<String> getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(List<String> languages) {
-        this.languages = languages;
     }
 
     public String getTitle() {
@@ -192,6 +201,78 @@ public class DoctorResult implements Parcelable {
         this.speciality = speciality;
     }
 
+    public List<String> getNationalityList() {
+        return nationalityList;
+    }
+
+    public void setNationalityList(List<String> nationalityList) {
+        this.nationalityList = nationalityList;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<String> getLanguageList() {
+        return languageList;
+    }
+
+    public void setLanguageList(List<String> languageList) {
+        this.languageList = languageList;
+    }
+
+    public int getRatting() {
+        return ratting;
+    }
+
+    public void setRatting(int ratting) {
+        this.ratting = ratting;
+    }
+
+    public int getNumberOfRaters() {
+        return numberOfRaters;
+    }
+
+    public void setNumberOfRaters(int numberOfRaters) {
+        this.numberOfRaters = numberOfRaters;
+    }
+
+    public boolean isFav() {
+        return isFav;
+    }
+
+    public void setFav(boolean fav) {
+        isFav = fav;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public List<Review> getReviewList() {
+        return reviewList;
+    }
+
+    public void setReviewList(List<Review> reviewList) {
+        this.reviewList = reviewList;
+    }
+
     public int getSpecialityId() {
         return specialityId;
     }
@@ -200,64 +281,12 @@ public class DoctorResult implements Parcelable {
         this.specialityId = specialityId;
     }
 
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getFacilityId() {
-        return facilityId;
-    }
-
-    public void setFacilityId(int facilityId) {
-        this.facilityId = facilityId;
-    }
-
-    public String getFacilityName() {
-        return facilityName;
-    }
-
-    public void setFacilityName(String facilityName) {
-        this.facilityName = facilityName;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public boolean getIsFav() {
-        return isFav;
-    }
-
-    public void setIsFav(boolean isFav) {
-        this.isFav = isFav;
-    }
-
-    public String getImageUrl() {
-        return ImageUrl;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        ImageUrl = imageUrl;
     }
 
     public String getInfo() {
@@ -292,6 +321,38 @@ public class DoctorResult implements Parcelable {
         this.clinicInfo = clinicInfo;
     }
 
+    public String getFacilityName() {
+        return facilityName;
+    }
+
+    public void setFacilityName(String facilityName) {
+        this.facilityName = facilityName;
+    }
+
+    public int getFacilityId() {
+        return facilityId;
+    }
+
+    public void setFacilityId(int facilityId) {
+        this.facilityId = facilityId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public List<FacilityResult> getFacilityResultList() {
+        return facilityResultList;
+    }
+
+    public void setFacilityResultList(List<FacilityResult> facilityResultList) {
+        this.facilityResultList = facilityResultList;
+    }
+
     public int getDoctorTypeId() {
         return doctorTypeId;
     }
@@ -300,12 +361,20 @@ public class DoctorResult implements Parcelable {
         this.doctorTypeId = doctorTypeId;
     }
 
-    public String getNextDate() {
-        return nextDate;
+    public boolean isAppointmentRemainder() {
+        return appointmentRemainder;
     }
 
-    public void setNextDate(String nextDate) {
-        this.nextDate = nextDate;
+    public void setAppointmentRemainder(boolean appointmentRemainder) {
+        this.appointmentRemainder = appointmentRemainder;
+    }
+
+    public boolean isEnableNotification() {
+        return enableNotification;
+    }
+
+    public void setEnableNotification(boolean enableNotification) {
+        this.enableNotification = enableNotification;
     }
 
     @Override
@@ -313,39 +382,44 @@ public class DoctorResult implements Parcelable {
         return 0;
     }
 
-    public List<DoctorSlots> getDoctorSlots() {
-        return doctorSlots;
+    public String getArea() {
+        return area;
     }
 
-    public void setDoctorSlots(List<DoctorSlots> doctorSlots) {
-        this.doctorSlots = doctorSlots;
+    public void setArea(String area) {
+        this.area = area;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
         dest.writeString(this.name);
-        dest.writeString(this.phoneNumber);
-        dest.writeString(this.gender);
-        dest.writeStringList(this.nationality);
-        dest.writeStringList(this.languages);
+        dest.writeByte(this.gender ? (byte) 1 : (byte) 0);
+        dest.writeStringList(this.nationalityList);
+        dest.writeString(this.status);
+        dest.writeStringList(this.languageList);
         dest.writeString(this.title);
         dest.writeString(this.qualification);
         dest.writeString(this.speciality);
-        dest.writeInt(this.specialityId);
-        dest.writeInt(this.rating);
-        dest.writeString(this.area);
-        dest.writeInt(this.facilityId);
-        dest.writeString(this.facilityName);
-        dest.writeString(this.address);
+        dest.writeInt(this.ratting);
+        dest.writeInt(this.numberOfRaters);
         dest.writeByte(this.isFav ? (byte) 1 : (byte) 0);
-        dest.writeString(this.ImageUrl);
+        dest.writeString(this.mail);
+        dest.writeString(this.phoneNumber);
+        dest.writeTypedList(this.reviewList);
+        dest.writeString(this.address);
+        dest.writeString(this.facilityName);
+        dest.writeInt(this.facilityId);
+        dest.writeInt(this.specialityId);
+        dest.writeString(this.imageUrl);
         dest.writeString(this.info);
         dest.writeString(this.facilityLocation);
         dest.writeString(this.facilityInfo);
         dest.writeString(this.clinicInfo);
+        dest.writeTypedList(this.facilityResultList);
+        dest.writeByte(this.appointmentRemainder ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.enableNotification ? (byte) 1 : (byte) 0);
+        dest.writeString(this.area);
         dest.writeInt(this.doctorTypeId);
-        dest.writeString(this.nextDate);
-        dest.writeTypedList(this.doctorSlots);
     }
 }

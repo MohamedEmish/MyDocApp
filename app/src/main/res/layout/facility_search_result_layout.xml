@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/_4dp"
+    android:paddingTop="@dimen/_4dp"
     android:background="@color/colorBackground"
     android:orientation="vertical">
 
@@ -47,10 +48,9 @@
             <TextView
                 android:id="@+id/result_facility_name"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="@dimen/_4dp"
-                android:layout_weight="1"
                 android:fontFamily="@font/montserrat_bold"
                 android:gravity="bottom"
                 android:text="@string/first_name"
@@ -61,9 +61,8 @@
             <TextView
                 android:id="@+id/result_facility_area"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
                 android:fontFamily="@font/montserrat_regular"
                 android:gravity="top"
                 android:text="@string/last_name"

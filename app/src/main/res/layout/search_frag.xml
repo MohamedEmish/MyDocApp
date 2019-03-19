@@ -42,6 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:visibility="gone"
             android:gravity="center">
 
             <ImageView
@@ -59,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:layout_width="match_parent"
@@ -218,11 +219,11 @@
                     android:id="@+id/search_date_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_4dp"
+                    android:layout_marginStart="@dimen/_12dp"
                     android:layout_marginEnd="@dimen/_8dp"
                     android:text="@string/select_date"
                     android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sp" />
+                    android:textSize="@dimen/_12sp" />
             </LinearLayout>
 
             <LinearLayout

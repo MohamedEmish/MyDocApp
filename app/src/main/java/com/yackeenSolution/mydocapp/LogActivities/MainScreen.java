@@ -20,11 +20,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.transition.Fade;
 import android.view.MenuItem;
 
-import com.yackeenSolution.mydocapp.Fragments.MainFragments.AppointmentFragment;
-import com.yackeenSolution.mydocapp.Fragments.MainFragments.FavoritesFragment;
-import com.yackeenSolution.mydocapp.Fragments.MainFragments.MoreFragment;
-import com.yackeenSolution.mydocapp.Fragments.MainFragments.PromotionFragment;
-import com.yackeenSolution.mydocapp.Fragments.MainFragments.SearchFragment;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.MainFragments.AppointmentFragment;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.MainFragments.FavoritesFragment;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.MainFragments.MoreFragment;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.MainFragments.PromotionFragment;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.MainFragments.SearchFragment;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.Utils.Utils;
 

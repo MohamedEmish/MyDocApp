@@ -1,29 +1,22 @@
 package com.yackeenSolution.mydocapp.Data;
 
-import android.content.Context;
-import android.util.Log;
-
-import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import com.yackeenSolution.mydocapp.Objects.Appointment;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
+import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
+import com.yackeenSolution.mydocapp.Objects.FacilityResult;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
 import com.yackeenSolution.mydocapp.Objects.FamilyRelation;
 import com.yackeenSolution.mydocapp.Objects.Insurance;
@@ -77,52 +70,10 @@ public class RetrofitClass {
         return getRetrofitInstance().create(DocApi.class);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //GETS
 
-    public LiveData<List<MyAboutUs>> getAboutUsLive() {
-        final MutableLiveData<List<MyAboutUs>> myAboutUsMutableLiveData = new MutableLiveData<>();
-        final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getAboutUs().enqueue(new Callback<List<MyAboutUs>>() {
-            @Override
-            public void onResponse(Call<List<MyAboutUs>> call, Response<List<MyAboutUs>> response) {
-                Log.d(TAG, "onResponse: About US " + response);
-
-                List<MyAboutUs> myAboutUs = response.body();
-                myAboutUsMutableLiveData.setValue(myAboutUs);
-
-            }
-
-            @Override
-            public void onFailure(Call<List<MyAboutUs>> call, Throwable t) {
-                Log.d(TAG, "onFailure: About US " + t.getMessage());
-
-            }
-        });
-
-        return myAboutUsMutableLiveData;
-    }
-
-    public LiveData<List<MyAboutUs>> getPolicyLive() {
-        final MutableLiveData<List<MyAboutUs>> myAboutUsMutableLiveData = new MutableLiveData<>();
-        final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getPolicy().enqueue(new Callback<List<MyAboutUs>>() {
-            @Override
-            public void onResponse(Call<List<MyAboutUs>> call, Response<List<MyAboutUs>> response) {
-                Log.d(TAG, "onResponse: Policy " + response);
-
-                List<MyAboutUs> policy = response.body();
-                myAboutUsMutableLiveData.setValue(policy);
-
-            }
-
-            @Override
-            public void onFailure(Call<List<MyAboutUs>> call, Throwable t) {
-                Log.d(TAG, "onFailure: Policy" + t.getMessage());
-
-            }
-        });
-
-        return myAboutUsMutableLiveData;
-    }
+    // Spinners Data
 
     public LiveData<List<Speciality>> getSpecialityLive() {
         final MutableLiveData<List<Speciality>> SpecialityMutableLiveData = new MutableLiveData<>();
@@ -193,28 +144,77 @@ public class RetrofitClass {
         return listMutableLiveData;
     }
 
-    public LiveData<List<Promotion>> getAllPromotions() {
-
-        final MutableLiveData<List<Promotion>> listMutableLiveData = new MutableLiveData<>();
+    public LiveData<List<FamilyRelation>> getFamilyRelationsLive() {
+        final MutableLiveData<List<FamilyRelation>> SpecialityMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getAllPromotions().enqueue(new Callback<List<Promotion>>() {
+        docApi.getAllRelations().enqueue(new Callback<List<FamilyRelation>>() {
             @Override
-            public void onResponse(Call<List<Promotion>> call, Response<List<Promotion>> response) {
-                Log.d(TAG, "onResponse: Promotion " + response);
+            public void onResponse(Call<List<FamilyRelation>> call, Response<List<FamilyRelation>> response) {
+                Log.d(TAG, "onResponse: FamilyRelations " + response);
 
-                List<Promotion> promotions = response.body();
-                listMutableLiveData.setValue(promotions);
+                List<FamilyRelation> policy = response.body();
+                SpecialityMutableLiveData.setValue(policy);
 
             }
 
             @Override
-            public void onFailure(Call<List<Promotion>> call, Throwable t) {
-                Log.d(TAG, "onFailure: Promotion" + t.getMessage());
+            public void onFailure(Call<List<FamilyRelation>> call, Throwable t) {
+                Log.d(TAG, "onFailure: FamilyRelations" + t.getMessage());
 
             }
         });
 
-        return listMutableLiveData;
+        return SpecialityMutableLiveData;
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////
+
+    // More Tab Activities GETS
+    public LiveData<List<MyAboutUs>> getAboutUsLive() {
+        final MutableLiveData<List<MyAboutUs>> myAboutUsMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.getAboutUs().enqueue(new Callback<List<MyAboutUs>>() {
+            @Override
+            public void onResponse(Call<List<MyAboutUs>> call, Response<List<MyAboutUs>> response) {
+                Log.d(TAG, "onResponse: About US " + response);
+
+                List<MyAboutUs> myAboutUs = response.body();
+                myAboutUsMutableLiveData.setValue(myAboutUs);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<MyAboutUs>> call, Throwable t) {
+                Log.d(TAG, "onFailure: About US " + t.getMessage());
+
+            }
+        });
+
+        return myAboutUsMutableLiveData;
+    }
+
+    public LiveData<List<MyAboutUs>> getPolicyLive() {
+        final MutableLiveData<List<MyAboutUs>> myAboutUsMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.getPolicy().enqueue(new Callback<List<MyAboutUs>>() {
+            @Override
+            public void onResponse(Call<List<MyAboutUs>> call, Response<List<MyAboutUs>> response) {
+                Log.d(TAG, "onResponse: Policy " + response);
+
+                List<MyAboutUs> policy = response.body();
+                myAboutUsMutableLiveData.setValue(policy);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<MyAboutUs>> call, Throwable t) {
+                Log.d(TAG, "onFailure: Policy" + t.getMessage());
+
+            }
+        });
+
+        return myAboutUsMutableLiveData;
     }
 
     public LiveData<List<MyAboutUs>> getSocialAccounts() {
@@ -267,28 +267,6 @@ public class RetrofitClass {
 
     }
 
-    public LiveData<UserData> getUserData(HashMap<String, String> fields) {
-
-        final MutableLiveData<UserData> listMutableLiveData = new MutableLiveData<>();
-        final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.userLogin(fields).enqueue(new Callback<UserData>() {
-            @Override
-            public void onResponse(Call<UserData> call, Response<UserData> response) {
-                Log.d(TAG, "onResponse: UserData " + response);
-
-                UserData userData = response.body();
-                listMutableLiveData.setValue(userData);
-            }
-
-            @Override
-            public void onFailure(Call<UserData> call, Throwable t) {
-                Log.d(TAG, "onFailure: UserData" + t.getMessage());
-
-            }
-        });
-        return listMutableLiveData;
-    }
-
     public LiveData<UserData> getUserAccountData(int id) {
 
         final MutableLiveData<UserData> listMutableLiveData = new MutableLiveData<>();
@@ -305,28 +283,6 @@ public class RetrofitClass {
             @Override
             public void onFailure(Call<UserData> call, Throwable t) {
                 Log.d(TAG, "onFailure: UserAccountData" + t.getMessage());
-
-            }
-        });
-        return listMutableLiveData;
-    }
-
-    public LiveData<UserData> editUserData(HashMap<String, String> fields) {
-
-        final MutableLiveData<UserData> listMutableLiveData = new MutableLiveData<>();
-        final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.userLogin(fields).enqueue(new Callback<UserData>() {
-            @Override
-            public void onResponse(Call<UserData> call, Response<UserData> response) {
-                Log.d(TAG, "onResponse: EditUserData " + response);
-
-                UserData userData = response.body();
-                listMutableLiveData.setValue(userData);
-            }
-
-            @Override
-            public void onFailure(Call<UserData> call, Throwable t) {
-                Log.d(TAG, "onFailure: EditUserData" + t.getMessage());
 
             }
         });
@@ -358,11 +314,11 @@ public class RetrofitClass {
 
     }
 
-    public LiveData<FamilyMember> getSpecificFamilyMember(int userId, int memberId) {
+    public LiveData<FamilyMember> getSpecificFamilyMember(int memberId) {
 
         final MutableLiveData<FamilyMember> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getSpecificFamilyMembers(userId, memberId).enqueue(new Callback<FamilyMember>() {
+        docApi.getSpecificFamilyMembers(memberId).enqueue(new Callback<FamilyMember>() {
             @Override
             public void onResponse(Call<FamilyMember> call, Response<FamilyMember> response) {
                 Log.d(TAG, "onResponse: SpecificFamilyMember " + response);
@@ -379,6 +335,211 @@ public class RetrofitClass {
             }
         });
 
+        return listMutableLiveData;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+
+    // Promotion Tab
+    public LiveData<List<Promotion>> getAllPromotions() {
+
+        final MutableLiveData<List<Promotion>> listMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.getAllPromotions().enqueue(new Callback<List<Promotion>>() {
+            @Override
+            public void onResponse(Call<List<Promotion>> call, Response<List<Promotion>> response) {
+                Log.d(TAG, "onResponse: Promotion " + response);
+
+                List<Promotion> promotions = response.body();
+                listMutableLiveData.setValue(promotions);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Promotion>> call, Throwable t) {
+                Log.d(TAG, "onFailure: Promotion" + t.getMessage());
+
+            }
+        });
+
+        return listMutableLiveData;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+
+    // Favourites
+    public LiveData<List<FavouriteDoctor>> getMyFavDoctors(int id) {
+
+        final MutableLiveData<List<FavouriteDoctor>> listMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.getMyFavDoctors(id).enqueue(new Callback<List<FavouriteDoctor>>() {
+            @Override
+            public void onResponse(Call<List<FavouriteDoctor>> call, Response<List<FavouriteDoctor>> response) {
+                Log.d(TAG, "onResponse: MyFavDoctors " + response);
+
+                List<FavouriteDoctor> familyMembers = response.body();
+                listMutableLiveData.setValue(familyMembers);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<FavouriteDoctor>> call, Throwable t) {
+                Log.d(TAG, "onFailure: MyFavDoctors" + t.getMessage());
+
+            }
+        });
+
+        return listMutableLiveData;
+
+    }
+
+    public LiveData<List<FacilityResult>> getMyFavFacilities(int id) {
+
+        final MutableLiveData<List<FacilityResult>> listMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.getMyFavFacilities(id).enqueue(new Callback<List<FacilityResult>>() {
+            @Override
+            public void onResponse(Call<List<FacilityResult>> call, Response<List<FacilityResult>> response) {
+                Log.d(TAG, "onResponse: MyFavDoctors " + response);
+
+                List<FacilityResult> facilityResults = response.body();
+                listMutableLiveData.setValue(facilityResults);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<FacilityResult>> call, Throwable t) {
+                Log.d(TAG, "onFailure: MyFavDoctors" + t.getMessage());
+
+            }
+        });
+
+        return listMutableLiveData;
+
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+
+    // Appointment Tab
+    public LiveData<List<Appointment>> getMyAppointments(int userId, int statusId) {
+
+        final MutableLiveData<List<Appointment>> listMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.getMyAppointments(userId, statusId).enqueue(new Callback<List<Appointment>>() {
+            @Override
+            public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
+                Log.d(TAG, "onResponse: Appointment " + response);
+
+                List<Appointment> appointments = response.body();
+                listMutableLiveData.setValue(appointments);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Appointment>> call, Throwable t) {
+                Log.d(TAG, "onFailure: MyFavDoctors" + t.getMessage());
+
+            }
+        });
+
+        return listMutableLiveData;
+
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////
+
+    // Details
+    public LiveData<List<DoctorResult>> getSpecificDoctorData(int doctorId) {
+
+        final MutableLiveData<List<DoctorResult>> listMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.getSpecificDoctorData(doctorId).enqueue(new Callback<List<DoctorResult>>() {
+            @Override
+            public void onResponse(Call<List<DoctorResult>> call, Response<List<DoctorResult>> response) {
+                Log.d(TAG, "onResponse: SpecificDoctorResultData " + response);
+
+                List<DoctorResult> favouriteDoctor = response.body();
+                listMutableLiveData.setValue(favouriteDoctor);
+            }
+
+            @Override
+            public void onFailure(Call<List<DoctorResult>> call, Throwable t) {
+                Log.d(TAG, "onFailure: SpecificDoctorResultData" + t.getMessage());
+
+            }
+        });
+        return listMutableLiveData;
+    }
+
+    public LiveData<FacilityResult> getSpecificFacilityData(int facilityId, int userId) {
+
+        final MutableLiveData<FacilityResult> listMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.getSpecificFacilityData(facilityId, userId).enqueue(new Callback<FacilityResult>() {
+            @Override
+            public void onResponse(Call<FacilityResult> call, Response<FacilityResult> response) {
+                Log.d(TAG, "onResponse: SpecificFacilityResultData " + response);
+
+                FacilityResult facilityResult = response.body();
+                listMutableLiveData.setValue(facilityResult);
+            }
+
+            @Override
+            public void onFailure(Call<FacilityResult> call, Throwable t) {
+                Log.d(TAG, "onFailure: SpecificFacilityResultData" + t.getMessage());
+
+            }
+        });
+        return listMutableLiveData;
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // POSTS :)
+
+    public LiveData<UserData> userLogin(HashMap<String, String> fields) {
+
+        final MutableLiveData<UserData> listMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.userLogin(fields).enqueue(new Callback<UserData>() {
+            @Override
+            public void onResponse(Call<UserData> call, Response<UserData> response) {
+                Log.d(TAG, "onResponse: UserData " + response);
+
+                UserData userData = response.body();
+                listMutableLiveData.setValue(userData);
+            }
+
+            @Override
+            public void onFailure(Call<UserData> call, Throwable t) {
+                Log.d(TAG, "onFailure: UserData" + t.getMessage());
+
+            }
+        });
+        return listMutableLiveData;
+    }
+
+    public LiveData<UserData> editUserData(HashMap<String, String> fields) {
+
+        final MutableLiveData<UserData> listMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.userLogin(fields).enqueue(new Callback<UserData>() {
+            @Override
+            public void onResponse(Call<UserData> call, Response<UserData> response) {
+                Log.d(TAG, "onResponse: EditUserData " + response);
+
+                UserData userData = response.body();
+                listMutableLiveData.setValue(userData);
+            }
+
+            @Override
+            public void onFailure(Call<UserData> call, Throwable t) {
+                Log.d(TAG, "onFailure: EditUserData" + t.getMessage());
+
+            }
+        });
         return listMutableLiveData;
     }
 
@@ -404,53 +565,7 @@ public class RetrofitClass {
         return listMutableLiveData;
     }
 
-    public LiveData<List<FamilyRelation>> getFamilyRelationsLive() {
-        final MutableLiveData<List<FamilyRelation>> SpecialityMutableLiveData = new MutableLiveData<>();
-        final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getAllRelations().enqueue(new Callback<List<FamilyRelation>>() {
-            @Override
-            public void onResponse(Call<List<FamilyRelation>> call, Response<List<FamilyRelation>> response) {
-                Log.d(TAG, "onResponse: FamilyRelations " + response);
 
-                List<FamilyRelation> policy = response.body();
-                SpecialityMutableLiveData.setValue(policy);
-
-            }
-
-            @Override
-            public void onFailure(Call<List<FamilyRelation>> call, Throwable t) {
-                Log.d(TAG, "onFailure: FamilyRelations" + t.getMessage());
-
-            }
-        });
-
-        return SpecialityMutableLiveData;
-    }
-
-    public LiveData<List<DoctorResult>> getMyFavDoctors(int id) {
-
-        final MutableLiveData<List<DoctorResult>> listMutableLiveData = new MutableLiveData<>();
-        final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getMyFavDoctors(id).enqueue(new Callback<List<DoctorResult>>() {
-            @Override
-            public void onResponse(Call<List<DoctorResult>> call, Response<List<DoctorResult>> response) {
-                Log.d(TAG, "onResponse: MyFavDoctors " + response);
-
-                List<DoctorResult> familyMembers = response.body();
-                listMutableLiveData.setValue(familyMembers);
-
-            }
-
-            @Override
-            public void onFailure(Call<List<DoctorResult>> call, Throwable t) {
-                Log.d(TAG, "onFailure: MyFavDoctors" + t.getMessage());
-
-            }
-        });
-
-        return listMutableLiveData;
-
-    }
 
 
 }

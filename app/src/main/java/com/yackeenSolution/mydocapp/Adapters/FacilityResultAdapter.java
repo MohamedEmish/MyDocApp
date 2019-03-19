@@ -34,8 +34,8 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
         @Override
         public boolean areContentsTheSame(FacilityResult oldItem, FacilityResult newItem) {
             return oldItem.getName().equals(newItem.getName())
-                    && oldItem.getWebUri().equals(newItem.getWebUri())
-                    && oldItem.getLocationUri().equals(newItem.getLocationUri())
+                    && oldItem.getWebSite().equals(newItem.getWebSite())
+                    && oldItem.getLocation().equals(newItem.getLocation())
                     && oldItem.getId() == newItem.getId();
         }
     };
@@ -63,7 +63,7 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
         String area = getMemberAt(position).getArea();
 
         Uri favUri;
-        boolean isFav = getMemberAt(position).isFavorite();
+        boolean isFav = getMemberAt(position).isFav();
         if (isFav) {
             favUri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/fav2");
         } else {
@@ -71,7 +71,7 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
         }
         Picasso.get().load(favUri).into(holder.favoriteButton);
 
-        String imageUri = getItem(position).getImageUri();
+        String imageUri = getItem(position).getImageUrl();
         Uri uri;
         if (imageUri.equals("")) {
             uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/hospital_default");
@@ -80,16 +80,16 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
         }
         Picasso.get().load(uri).into(holder.FacilityImageVew);
 
-        String phone = String.valueOf(getMemberAt(position).getPhone());
+        String phone = String.valueOf(getMemberAt(position).getPhoneNumber());
         if (phone.equals("") || phone.isEmpty()) {
 
             holder.callText.setTextColor(Color.GRAY);
         }
-        String web = getMemberAt(position).getWebUri();
+        String web = getMemberAt(position).getWebSite();
         if (web.isEmpty() || web.equals("")) {
             holder.webText.setTextColor(Color.GRAY);
         }
-        String loc = getMemberAt(position).getLocationUri();
+        String loc = getMemberAt(position).getLocation();
         if (loc.isEmpty() || loc.equals("")) {
             holder.locText.setTextColor(Color.GRAY);
         }

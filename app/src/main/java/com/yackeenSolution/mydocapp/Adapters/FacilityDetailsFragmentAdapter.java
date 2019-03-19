@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.yackeenSolution.mydocapp.Fragments.NonMainFragments.AboutUsFragment;
-import com.yackeenSolution.mydocapp.Fragments.NonMainFragments.GeneralInfoFragment;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.NonMainFragments.AboutUsFragment;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.NonMainFragments.GeneralInfoFragment;
 
 public class FacilityDetailsFragmentAdapter extends FragmentPagerAdapter {
     public FacilityDetailsFragmentAdapter(FragmentManager fm) {

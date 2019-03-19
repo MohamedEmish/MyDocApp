@@ -2,7 +2,10 @@ package com.yackeenSolution.mydocapp.Data;
 
 import android.app.Application;
 
+import com.yackeenSolution.mydocapp.Objects.Appointment;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
+import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
+import com.yackeenSolution.mydocapp.Objects.FacilityResult;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
 import com.yackeenSolution.mydocapp.Objects.FamilyRelation;
 import com.yackeenSolution.mydocapp.Objects.Insurance;
@@ -31,13 +34,19 @@ public class DataViewModel extends AndroidViewModel {
     private LiveData<List<MyAboutUs>> mySocialAccounts;
     private LiveData<List<Promotion>> mAllPromotionList;
     private LiveData<List<MyNotification>> mNotificationsList;
-    private LiveData<UserData> mUserDataList;
-    private LiveData<UserData> mUserAccountDataList;
+    private LiveData<UserData> mUserData;
+    private LiveData<UserData> mUserAccountData;
     private LiveData<List<FamilyMember>> mMyFamilyMembersList;
     private LiveData<FamilyMember> mSpecificFamilyMember;
     private LiveData<FamilyMember> mAddEditFamilyMember;
     private LiveData<List<FamilyRelation>> myFamilyRelationsList;
-    private LiveData<List<DoctorResult>> mMyFavDoctorsList;
+    private LiveData<List<FavouriteDoctor>> mMyFavDoctorsList;
+    private LiveData<List<FacilityResult>> mMyFavFacilitiesList;
+    private LiveData<List<Appointment>> mMyAppointments;
+    private LiveData<List<DoctorResult>> mSpecificDoctorData;
+    private LiveData<FacilityResult> mSpecificFacilityData;
+
+
 
 
 
@@ -46,22 +55,10 @@ public class DataViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public LiveData<List<MyAboutUs>> getMyAboutUsLive() {
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //GETS
 
-        if (myAboutUsLiveData == null) {
-            myAboutUsLiveData = retrofitClass.getAboutUsLive();
-        }
-        return myAboutUsLiveData;
-    }
-
-    public LiveData<List<MyAboutUs>> getMyPolicyLiveData() {
-
-        if (myPolicyLiveData == null) {
-            myPolicyLiveData = retrofitClass.getPolicyLive();
-        }
-        return myPolicyLiveData;
-    }
-
+    // Spinners Data
     public LiveData<List<Speciality>> getSpecialities() {
 
         if (mySpecialityList == null) {
@@ -86,12 +83,31 @@ public class DataViewModel extends AndroidViewModel {
         return myAreaList;
     }
 
-    public LiveData<List<Promotion>> getAllPromotionList() {
+    public LiveData<List<FamilyRelation>> getFamilyRelations() {
 
-        if (mAllPromotionList == null) {
-            mAllPromotionList = retrofitClass.getAllPromotions();
+        if (myFamilyRelationsList == null) {
+            myFamilyRelationsList = retrofitClass.getFamilyRelationsLive();
         }
-        return mAllPromotionList;
+        return myFamilyRelationsList;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+
+    // More Tab Activities GETS
+    public LiveData<List<MyAboutUs>> getMyAboutUsLive() {
+
+        if (myAboutUsLiveData == null) {
+            myAboutUsLiveData = retrofitClass.getAboutUsLive();
+        }
+        return myAboutUsLiveData;
+    }
+
+    public LiveData<List<MyAboutUs>> getMyPolicyLiveData() {
+
+        if (myPolicyLiveData == null) {
+            myPolicyLiveData = retrofitClass.getPolicyLive();
+        }
+        return myPolicyLiveData;
     }
 
     public LiveData<List<MyAboutUs>> getSocialAccounts() {
@@ -110,20 +126,12 @@ public class DataViewModel extends AndroidViewModel {
         return mNotificationsList;
     }
 
-    public LiveData<UserData> getUserData(HashMap<String, String> fields) {
-        return mUserDataList = retrofitClass.getUserData(fields);
-    }
-
     public LiveData<UserData> getUserAccountData(int id) {
 
-        if (mUserAccountDataList == null) {
-            mUserAccountDataList = retrofitClass.getUserAccountData(id);
+        if (mUserAccountData == null) {
+            mUserAccountData = retrofitClass.getUserAccountData(id);
         }
-        return mUserAccountDataList;
-    }
-
-    public LiveData<UserData> editUserData(HashMap<String, String> fields) {
-        return mUserDataList = retrofitClass.editUserData(fields);
+        return mUserAccountData;
     }
 
     public LiveData<List<FamilyMember>> getMyFamilyMembersList(int id) {
@@ -137,27 +145,26 @@ public class DataViewModel extends AndroidViewModel {
     public LiveData<FamilyMember> getSpecificFamilyMember(int userId, int memberId) {
 
         if (mSpecificFamilyMember == null) {
-            mSpecificFamilyMember = retrofitClass.getSpecificFamilyMember(userId, memberId);
+            mSpecificFamilyMember = retrofitClass.getSpecificFamilyMember(memberId);
         }
         return mSpecificFamilyMember;
     }
 
-    public LiveData<FamilyMember> addEditFamilyMember(HashMap<String, String> fields) {
-        if (mAddEditFamilyMember == null) {
-            mAddEditFamilyMember = retrofitClass.addEditFamilyMemberData(fields);
+    ///////////////////////////////////////////////////////////////////////
+
+    // Promotion Tab
+    public LiveData<List<Promotion>> getAllPromotionList() {
+
+        if (mAllPromotionList == null) {
+            mAllPromotionList = retrofitClass.getAllPromotions();
         }
-        return mAddEditFamilyMember;
+        return mAllPromotionList;
     }
 
-    public LiveData<List<FamilyRelation>> getFamilyRelations() {
+    ///////////////////////////////////////////////////////////////////////
 
-        if (myFamilyRelationsList == null) {
-            myFamilyRelationsList = retrofitClass.getFamilyRelationsLive();
-        }
-        return myFamilyRelationsList;
-    }
-
-    public LiveData<List<DoctorResult>> getMyFavDoctorsList(int id) {
+    // Favourites
+    public LiveData<List<FavouriteDoctor>> getMyFavDoctorsList(int id) {
 
         if (mMyFavDoctorsList == null) {
             mMyFavDoctorsList = retrofitClass.getMyFavDoctors(id);
@@ -165,5 +172,64 @@ public class DataViewModel extends AndroidViewModel {
         return mMyFavDoctorsList;
     }
 
+    public LiveData<List<FacilityResult>> getMyFavFacilitiesList(int id) {
 
+        if (mMyFavFacilitiesList == null) {
+            mMyFavFacilitiesList = retrofitClass.getMyFavFacilities(id);
+        }
+        return mMyFavFacilitiesList;
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////
+
+    // Appointments Tab
+    public LiveData<List<Appointment>> getMyAppointments(int userId, int statusId) {
+
+        if (mMyAppointments == null) {
+            mMyAppointments = retrofitClass.getMyAppointments(userId, statusId);
+        }
+        return mMyAppointments;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+
+    // Details
+    public LiveData<List<DoctorResult>> getSpecificDoctorData(int userId) {
+
+        if (mSpecificDoctorData == null) {
+            mSpecificDoctorData = retrofitClass.getSpecificDoctorData(userId);
+        }
+        return mSpecificDoctorData;
+    }
+
+    public LiveData<FacilityResult> getSpecificFacilityData(int facilityId, int userId) {
+
+        if (mSpecificFacilityData == null) {
+            mSpecificFacilityData = retrofitClass.getSpecificFacilityData(facilityId, userId);
+        }
+        return mSpecificFacilityData;
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // POSTS :)
+
+
+    public LiveData<UserData> userLogin(HashMap<String, String> fields) {
+        return mUserData = retrofitClass.userLogin(fields);
+    }
+
+
+    public LiveData<UserData> editUserData(HashMap<String, String> fields) {
+        return mUserData = retrofitClass.editUserData(fields);
+    }
+
+
+    public LiveData<FamilyMember> addEditFamilyMember(HashMap<String, String> fields) {
+        if (mAddEditFamilyMember == null) {
+            mAddEditFamilyMember = retrofitClass.addEditFamilyMemberData(fields);
+        }
+        return mAddEditFamilyMember;
+    }
 }

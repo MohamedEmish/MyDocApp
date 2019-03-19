@@ -9,8 +9,26 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fav_facility_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/fav_facility_frag_progress_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/progress_animation_details"
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="@dimen/_50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/progress_animation" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

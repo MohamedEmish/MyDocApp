@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.yackeenSolution.mydocapp.Data.DataViewModel;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.SearchTabActivites.GoogleMapsActivity;
 import com.yackeenSolution.mydocapp.R;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class Utils {
         }
     }
 
-    public static String dateNewFormat(String oldFormat) {
+    public static String dateAppFormat(String oldFormat) {
 
         // Dividing date string into date and time
         String[] onSplitTextPhaseOne = oldFormat.split("T");
@@ -56,6 +56,16 @@ public class Utils {
         String day = onSplitTextPhaseTwo[2];
 
         return day + "/" + month + "/" + year;
+    }
+
+    public static String dateToApiFormat(String oldFormat) {
+        // Dividing date string into date and time
+        String[] onSplitTextPhaseOne = oldFormat.split("/");
+        String day = onSplitTextPhaseOne[0];
+        String month = onSplitTextPhaseOne[1];
+        String year = onSplitTextPhaseOne[2];
+
+        return month + "-" + day + "-" + year;
     }
 
     public static boolean isValidPassword(EditText text, String error) {
@@ -207,7 +217,6 @@ public class Utils {
             }
         };
 
-
         spinnerAdapter.setDropDownViewResource(R.layout.my_spinner_layout);
         spinner.setAdapter(spinnerAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -258,13 +267,59 @@ public class Utils {
     }
 
     public static void openBrowser(String webString, Context context) {
-        if (webString.contains("https://") || webString.contains("http://")) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(webString));
-            context.startActivity(intent);
-        } else {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://" + webString));
+        if (!webString.equals("") || !webString.equals(null)) {
+            if (webString.contains("https://") || webString.contains("http://")) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(webString));
+                context.startActivity(intent);
+            } else {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://" + webString));
+                context.startActivity(intent);
+            }
+        }
+    }
+
+    public static void performCall(String callNumber, Context context) {
+        if (!callNumber.equals("") || !callNumber.equals(null)) {
+
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", callNumber, null));
             context.startActivity(intent);
         }
     }
 
+    public static void googleLocation(String location, Context context, String imageUri) {
+        if (!location.equals("") || !location.equals(null)) {
+            String[] onSplitTextPhaseOne = location.split(",");
+            String v = onSplitTextPhaseOne[0];
+            String v1 = onSplitTextPhaseOne[1];
+            Intent intent = new Intent(context, GoogleMapsActivity.class);
+            intent.putExtra("v", v);
+            intent.putExtra("v1", v1);
+            intent.putExtra("image", imageUri);
+            context.startActivity(intent);
+        }
+    }
+
+    public static void sendMail(String eMail, Context context) {
+        if (!eMail.equals("") || !eMail.equals(null)) {
+
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:" + eMail));
+            if (intent.resolveActivity(context.getPackageManager()) != null) {
+                context.startActivity(intent);
+            }
+
+        }
+    }
+
+    private void shareDirection(String direction, Context context) {
+
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        String shareBody = direction;
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Location");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        context.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+    }
+
 }
+

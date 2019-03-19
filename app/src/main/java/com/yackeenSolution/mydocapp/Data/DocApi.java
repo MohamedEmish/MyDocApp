@@ -1,7 +1,10 @@
 package com.yackeenSolution.mydocapp.Data;
 
 import com.yackeenSolution.mydocapp.Objects.Advice;
+import com.yackeenSolution.mydocapp.Objects.Appointment;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
+import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
+import com.yackeenSolution.mydocapp.Objects.FacilityResult;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
 import com.yackeenSolution.mydocapp.Objects.FamilyRelation;
 import com.yackeenSolution.mydocapp.Objects.Insurance;
@@ -17,8 +20,6 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -44,34 +45,61 @@ public interface DocApi {
 
     ///////////////////////////////////////////////////////////////////////
 
+    // More Tab Activities GETS
     @GET("api/AboutUs/GetAboutUs")
     Call<List<MyAboutUs>> getAboutUs();
 
     @GET("api/AboutUs/GetPolicy")
     Call<List<MyAboutUs>> getPolicy();
 
-    @GET("api/Promotions/GetAll")
-    Call<List<Promotion>> getAllPromotions();
-
     @GET("api/AboutUs/GetSocialAccounts")
     Call<List<MyAboutUs>> getSocialAccounts();
-
-    @GET("api/Notifications/GetAll")
-    Call<List<MyNotification>> getAllNotifications();
 
     @GET("api/User/GetAccount")
     Call<UserData> userAccountData(@Query("UserId") int id);
 
+    @GET("api/Family/Get/{id}")
+    Call<FamilyMember> getSpecificFamilyMembers(@Path("id") int memberId);
+
     @GET("api/Family/GetMyFamily")
     Call<List<FamilyMember>> getMyFamilyMembers(@Query("UserId") int id);
 
-    @GET("api/Doctors/GetFavoriteDoctors")
-    Call<List<DoctorResult>> getMyFavDoctors(@Query("UserId") int id);
+    @GET("api/Notifications/GetAll")
+    Call<List<MyNotification>> getAllNotifications();
 
-    @GET("api/Family/Get/{id}")
-    Call<FamilyMember> getSpecificFamilyMembers(
-            @Query("UserId") int id,
-            @Path("id") int memberId);
+    ///////////////////////////////////////////////////////////////////////
+
+    // Promotion Tab
+    @GET("api/Promotions/GetAll")
+    Call<List<Promotion>> getAllPromotions();
+
+    ///////////////////////////////////////////////////////////////////////
+
+    // Favourites
+    @GET("api/Doctors/GetFavoriteDoctors")
+    Call<List<FavouriteDoctor>> getMyFavDoctors(@Query("UserId") int id);
+
+    @GET("api/Facilities/GetFavoriteFacilities")
+    Call<List<FacilityResult>> getMyFavFacilities(@Query("UserId") int id);
+
+    ///////////////////////////////////////////////////////////////////////
+
+    // Appointment Tab
+    @GET("api/Appointments/GetMyAppointments")
+    Call<List<Appointment>> getMyAppointments(
+            @Query("UserId") int userId,
+            @Query("StatusId") int statusId);
+
+    ///////////////////////////////////////////////////////////////////////
+
+    // Details
+    @GET("api/Doctors/GetDoctorInfo")
+    Call<List<DoctorResult>> getSpecificDoctorData(@Query("DoctorId") int doctorId);
+
+    @GET("api/Facilities/GetFacilityDetails")
+    Call<FacilityResult> getSpecificFacilityData(
+            @Query("FacilityId") int facilityId,
+            @Query("UserId") int userId);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // POSTS :)
