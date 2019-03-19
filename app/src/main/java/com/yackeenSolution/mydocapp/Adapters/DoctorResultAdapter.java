@@ -69,7 +69,7 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
         }
         Picasso.get().load(favUri).into(holder.favoriteButton);
 
-
+        
         String imageUri = getItem(position).getImageUrl();
         Uri uri;
         if (imageUri.equals("http://yakensolution.cloudapp.net/doctoryadmin/")) {
