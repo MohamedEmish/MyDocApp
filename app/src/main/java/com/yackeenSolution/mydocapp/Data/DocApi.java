@@ -43,6 +43,16 @@ public interface DocApi {
     @GET("api/Collection/GetAllRelations")
     Call<List<FamilyRelation>> getAllRelations();
 
+    @GET("api/Collection/GetAllQualifications")
+    Call<List<Speciality>> getAllQualifications();
+
+    @GET("api/Collection/GetAllNationalities")
+    Call<List<Speciality>> getAllNationalities();
+
+    @GET("api/Collection/GetAllLanguages")
+    Call<List<Speciality>> getAllLanguages();
+
+
     ///////////////////////////////////////////////////////////////////////
 
     // More Tab Activities GETS
@@ -88,7 +98,8 @@ public interface DocApi {
     @GET("api/Appointments/GetMyAppointments")
     Call<List<Appointment>> getMyAppointments(
             @Query("UserId") int userId,
-            @Query("StatusId") int statusId);
+            @Query("StatusId") int statusId
+    );
 
     ///////////////////////////////////////////////////////////////////////
 
@@ -99,7 +110,25 @@ public interface DocApi {
     @GET("api/Facilities/GetFacilityDetails")
     Call<FacilityResult> getSpecificFacilityData(
             @Query("FacilityId") int facilityId,
-            @Query("UserId") int userId);
+            @Query("UserId") int userId
+    );
+
+    ///////////////////////////////////////////////////////////////////////
+
+    // Search Results
+    @GET("api/Doctors/GetAll")
+    Call<List<DoctorResult>> getSearchForDoctorResult(
+            @Query("SpecialtyId") int id,
+            @Query("fromDate") String fromDate,
+            @Query("toDate") String toDate,
+            @Query("AreaId") Integer areaId,
+            @Query("InsuranceId") Integer insuranceId,
+            @Query("QualificationId") Integer qualificationId,
+            @Query("LanguageId") Integer languageId,
+            @Query("NationalityId") Integer nationalityId,
+            @Query("gender") Boolean genderState
+
+    );
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // POSTS :)

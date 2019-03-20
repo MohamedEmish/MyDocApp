@@ -3,11 +3,6 @@ package com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfMainScree
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,19 +10,21 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchResults.SearchResultDoctorActivity;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchResults.SearchResultsFacilityActivity;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.Insurance;
 import com.yackeenSolution.mydocapp.Objects.MyArea;
 import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.R;
-import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchResults.SearchResultDoctorActivity;
-import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchResults.SearchResultsFacilityActivity;
 import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.text.SimpleDateFormat;
@@ -36,18 +33,29 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 public class SearchFragment extends Fragment {
     private RadioButton doctor;
     private RadioGroup type;
     private Button search;
     private RadioButton facility;
     private LinearLayout doctorLayout, facilityLayout;
-    private TextView date;
+    boolean areaDone = false, insuranceDone = false, specialityDone = false;
     private Spinner specialitySpinner, areaSpinner, insuranceSpinner;
     private Calendar myCalendar;
     private DatePickerDialog.OnDateSetListener mPicker;
     private DataViewModel dataViewModel;
-    LinearLayout dataLayout, progressbar;
+    private EditText date;
+    private LinearLayout dataLayout, progressbar;
+    private List<Speciality> mainSpecialityList;
+    private List<MyArea> mainAreaList;
+    private List<Insurance> mainInsuranceList;
+    private List<String> stringsSpeciality;
+    private List<String> stringsInsurance;
+    private List<String> stringsArea;
 
 
     @Override
@@ -107,19 +115,28 @@ public class SearchFragment extends Fragment {
         return rootView;
     }
 
+    private void checkDone() {
+        if (areaDone && insuranceDone && specialityDone) {
+            progressbar.setVisibility(View.GONE);
+            dataLayout.setVisibility(View.VISIBLE);
+        }
+    }
     private void setUpSpinnersData() {
 
         dataViewModel.getSpecialities().observe(this, new Observer<List<Speciality>>() {
             @Override
             public void onChanged(List<Speciality> specialities) {
 
-                List<String> strings = new ArrayList<>();
-                strings.add(getContext().getResources().getString(R.string.select_speciality));
+                mainSpecialityList = specialities;
+                stringsSpeciality = new ArrayList<>();
+                stringsSpeciality.add(getContext().getResources().getString(R.string.select_speciality));
                 if (specialities.size() > 0) {
                     for (Speciality speciality : specialities) {
-                        strings.add(speciality.getName());
+                        stringsSpeciality.add(speciality.getName());
                     }
-                    Utils.setupSpinner(getContext(), strings, specialitySpinner);
+                    Utils.setupSpinner(getContext(), stringsSpeciality, specialitySpinner);
+                    specialityDone = true;
+                    checkDone();
                 }
             }
         });
@@ -128,13 +145,16 @@ public class SearchFragment extends Fragment {
             @Override
             public void onChanged(List<Insurance> insurances) {
 
-                List<String> strings = new ArrayList<>();
-                strings.add(getContext().getResources().getString(R.string.select_insurance_op));
+                mainInsuranceList = insurances;
+                stringsInsurance = new ArrayList<>();
+                stringsInsurance.add(getContext().getResources().getString(R.string.select_insurance_op));
                 if (insurances.size() > 0) {
                     for (Insurance insurance : insurances) {
-                        strings.add(insurance.getName());
+                        stringsInsurance.add(insurance.getName());
                     }
-                    Utils.setupSpinner(getContext(), strings, insuranceSpinner);
+                    Utils.setupSpinner(getContext(), stringsInsurance, insuranceSpinner);
+                    insuranceDone = true;
+                    checkDone();
                 }
             }
         });
@@ -143,27 +163,74 @@ public class SearchFragment extends Fragment {
             @Override
             public void onChanged(List<MyArea> areas) {
 
-                List<String> strings = new ArrayList<>();
-                strings.add(getContext().getResources().getString(R.string.select_area));
+                mainAreaList = areas;
+                stringsArea = new ArrayList<>();
+                stringsArea.add(getContext().getResources().getString(R.string.select_area));
                 if (areas.size() > 0) {
-                    progressbar.setVisibility(View.GONE);
-                    dataLayout.setVisibility(View.VISIBLE);
                     for (MyArea area : areas) {
-                        strings.add(area.getName());
+                        stringsArea.add(area.getName());
                     }
-                    Utils.setupSpinner(getContext(), strings, areaSpinner);
+                    Utils.setupSpinner(getContext(), stringsArea, areaSpinner);
+                    areaDone = true;
+                    checkDone();
                 }
             }
         });
     }
 
     private void openSearchResults() {
-        if (facility.isChecked()) {
-            Intent intent = new Intent(getContext(), SearchResultsFacilityActivity.class);
-            startActivity(intent);
+        if (specialitySpinner.getSelectedItemId() == 0) {
+            Toast.makeText(getContext(), getContext().getResources().getString(R.string.speciality_must_be_selected), Toast.LENGTH_SHORT).show();
+            return;
         } else {
-            Intent intent = new Intent(getContext(), SearchResultDoctorActivity.class);
-            startActivity(intent);
+            String areaId = "null";
+            String specialityId = "null";
+            String insuranceId = "null";
+            String searchDate = "";
+
+            if (areaSpinner.getSelectedItemId() != 0) {
+                String area = stringsArea.get(areaSpinner.getSelectedItemPosition());
+                for (MyArea mArea : mainAreaList) {
+                    if (mArea.getName().equals(area)) {
+                        areaId = String.valueOf(mArea.getId());
+                        break;
+                    }
+                }
+            }
+            if (specialitySpinner.getSelectedItemId() != 0) {
+                String speciality = stringsSpeciality.get(specialitySpinner.getSelectedItemPosition());
+                for (Speciality mSpeciality : mainSpecialityList) {
+                    if (mSpeciality.getName().equals(speciality)) {
+                        specialityId = String.valueOf(mSpeciality.getId());
+                        break;
+                    }
+                }
+            }
+            if (insuranceSpinner.getSelectedItemId() != 0) {
+                String insurance = stringsInsurance.get(insuranceSpinner.getSelectedItemPosition());
+                for (Insurance mInsurance : mainInsuranceList) {
+                    if (mInsurance.getName().equals(insurance)) {
+                        insuranceId = String.valueOf(mInsurance.getId());
+                        break;
+                    }
+                }
+            }
+
+            if (facility.isChecked()) {
+                Intent intent = new Intent(getContext(), SearchResultsFacilityActivity.class);
+                startActivity(intent);
+            } else {
+                if (!date.getText().toString().isEmpty()) {
+                    searchDate = Utils.dateToApiFormat(date.getText().toString().trim());
+                }
+                Intent intent = new Intent(getContext(), SearchResultDoctorActivity.class);
+                intent.putExtra("specialityId", specialityId);
+                intent.putExtra("insuranceId", String.valueOf(insuranceId));
+                intent.putExtra("areaId", String.valueOf(areaId));
+                intent.putExtra("searchDate", searchDate);
+
+                startActivity(intent);
+            }
         }
     }
 
@@ -193,7 +260,7 @@ public class SearchFragment extends Fragment {
                 myCalendar.get(Calendar.DAY_OF_MONTH));
 
         DatePicker datePicker = dialog.getDatePicker();
-        datePicker.setMaxDate(myCalendar.getTimeInMillis());
+        datePicker.setMinDate(myCalendar.getTimeInMillis());
 
         dialog.show();
         dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);

@@ -45,6 +45,9 @@ public class DataViewModel extends AndroidViewModel {
     private LiveData<List<Appointment>> mMyAppointments;
     private LiveData<List<DoctorResult>> mSpecificDoctorData;
     private LiveData<FacilityResult> mSpecificFacilityData;
+    private LiveData<List<DoctorResult>> mDoctorSearchResultsList;
+    private LiveData<List<Speciality>> myQualificationsList, myNationalitiesList, myLanguagesList;
+
 
 
 
@@ -90,6 +93,32 @@ public class DataViewModel extends AndroidViewModel {
         }
         return myFamilyRelationsList;
     }
+
+    public LiveData<List<Speciality>> getQualifications() {
+
+        if (myQualificationsList == null) {
+            myQualificationsList = retrofitClass.getQualificationLive();
+        }
+        return myQualificationsList;
+    }
+
+    public LiveData<List<Speciality>> getNationalities() {
+
+        if (myNationalitiesList == null) {
+            myNationalitiesList = retrofitClass.getNationalitiesLive();
+        }
+        return myNationalitiesList;
+    }
+
+    public LiveData<List<Speciality>> getLanguages() {
+
+        if (myLanguagesList == null) {
+            myLanguagesList = retrofitClass.getLanguagesLive();
+        }
+        return myLanguagesList;
+    }
+
+
 
     ///////////////////////////////////////////////////////////////////////
 
@@ -211,6 +240,35 @@ public class DataViewModel extends AndroidViewModel {
         return mSpecificFacilityData;
     }
 
+    ///////////////////////////////////////////////////////////////////////
+
+    // Search Results
+    public LiveData<List<DoctorResult>> getSearchForDoctorResults(
+            int specialityId,
+            String fromDate,
+            String toDate,
+            Integer areaId,
+            Integer insuranceId,
+            Integer qualificationId,
+            Integer languageId,
+            Integer nationalityId,
+            Boolean gender) {
+
+        if (mDoctorSearchResultsList == null) {
+            mDoctorSearchResultsList = retrofitClass.getSearchForDoctorResults(
+                    specialityId,
+                    fromDate,
+                    toDate,
+                    areaId,
+                    insuranceId,
+                    qualificationId,
+                    languageId,
+                    nationalityId,
+                    gender
+            );
+        }
+        return mDoctorSearchResultsList;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // POSTS :)

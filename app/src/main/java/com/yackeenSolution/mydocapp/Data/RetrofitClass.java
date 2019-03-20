@@ -4,21 +4,12 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 import com.yackeenSolution.mydocapp.Objects.Appointment;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
-import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
 import com.yackeenSolution.mydocapp.Objects.FacilityResult;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
 import com.yackeenSolution.mydocapp.Objects.FamilyRelation;
+import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
 import com.yackeenSolution.mydocapp.Objects.Insurance;
 import com.yackeenSolution.mydocapp.Objects.MyAboutUs;
 import com.yackeenSolution.mydocapp.Objects.MyArea;
@@ -28,13 +19,18 @@ import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.Objects.UserData;
 
 import java.util.HashMap;
-
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClass {
 
@@ -61,8 +57,8 @@ public class RetrofitClass {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(client)
                 .build();
     }
 
@@ -160,6 +156,75 @@ public class RetrofitClass {
             @Override
             public void onFailure(Call<List<FamilyRelation>> call, Throwable t) {
                 Log.d(TAG, "onFailure: FamilyRelations" + t.getMessage());
+
+            }
+        });
+
+        return SpecialityMutableLiveData;
+    }
+
+    public LiveData<List<Speciality>> getQualificationLive() {
+        final MutableLiveData<List<Speciality>> SpecialityMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.getAllQualifications().enqueue(new Callback<List<Speciality>>() {
+            @Override
+            public void onResponse(Call<List<Speciality>> call, Response<List<Speciality>> response) {
+                Log.d(TAG, "onResponse: Speciality " + response);
+
+                List<Speciality> policy = response.body();
+                SpecialityMutableLiveData.setValue(policy);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Speciality>> call, Throwable t) {
+                Log.d(TAG, "onFailure: Speciality" + t.getMessage());
+
+            }
+        });
+
+        return SpecialityMutableLiveData;
+    }
+
+    public LiveData<List<Speciality>> getNationalitiesLive() {
+        final MutableLiveData<List<Speciality>> SpecialityMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.getAllNationalities().enqueue(new Callback<List<Speciality>>() {
+            @Override
+            public void onResponse(Call<List<Speciality>> call, Response<List<Speciality>> response) {
+                Log.d(TAG, "onResponse: Speciality " + response);
+
+                List<Speciality> policy = response.body();
+                SpecialityMutableLiveData.setValue(policy);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Speciality>> call, Throwable t) {
+                Log.d(TAG, "onFailure: Speciality" + t.getMessage());
+
+            }
+        });
+
+        return SpecialityMutableLiveData;
+    }
+
+    public LiveData<List<Speciality>> getLanguagesLive() {
+        final MutableLiveData<List<Speciality>> SpecialityMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.getAllLanguages().enqueue(new Callback<List<Speciality>>() {
+            @Override
+            public void onResponse(Call<List<Speciality>> call, Response<List<Speciality>> response) {
+                Log.d(TAG, "onResponse: Speciality " + response);
+
+                List<Speciality> policy = response.body();
+                SpecialityMutableLiveData.setValue(policy);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Speciality>> call, Throwable t) {
+                Log.d(TAG, "onFailure: Speciality" + t.getMessage());
 
             }
         });
@@ -382,6 +447,7 @@ public class RetrofitClass {
 
             }
 
+
             @Override
             public void onFailure(Call<List<FavouriteDoctor>> call, Throwable t) {
                 Log.d(TAG, "onFailure: MyFavDoctors" + t.getMessage());
@@ -494,6 +560,47 @@ public class RetrofitClass {
         return listMutableLiveData;
     }
 
+    ///////////////////////////////////////////////////////////////////////
+
+    // Search Results
+    public LiveData<List<DoctorResult>> getSearchForDoctorResults(
+            int specialityId,
+            String fromDate,
+            String toDate,
+            Integer areaId,
+            Integer insuranceId,
+            Integer qualificationId,
+            Integer languageId,
+            Integer nationalityId,
+            Boolean gender) {
+
+        final MutableLiveData<List<DoctorResult>> listMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.getSearchForDoctorResult(
+                specialityId,
+                fromDate,
+                toDate,
+                areaId,
+                insuranceId,
+                qualificationId,
+                languageId,
+                nationalityId, gender).enqueue(new Callback<List<DoctorResult>>() {
+            @Override
+            public void onResponse(Call<List<DoctorResult>> call, Response<List<DoctorResult>> response) {
+                Log.d(TAG, "onResponse: SearchForDoctorResultData " + response);
+
+                List<DoctorResult> facilityResult = response.body();
+                listMutableLiveData.setValue(facilityResult);
+            }
+
+            @Override
+            public void onFailure(Call<List<DoctorResult>> call, Throwable t) {
+                Log.d(TAG, "onFailure:SearchForDoctorResultData" + t.getMessage());
+
+            }
+        });
+        return listMutableLiveData;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -564,10 +671,4 @@ public class RetrofitClass {
         });
         return listMutableLiveData;
     }
-
-
-
-
 }
-
-

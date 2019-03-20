@@ -8,6 +8,7 @@
     android:background="@color/colorTexts"
     android:orientation="vertical">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50dp"
@@ -41,7 +42,40 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/search_doctor_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_50dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/colorAccent"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="center"
+            android:text="@string/clear_filter"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/search_doctor_progress_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@color/colorBackgroundSecond"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/progress_animation_details"
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="@dimen/_50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/progress_animation" />
+
+    </LinearLayout>
 
 
     <LinearLayout
@@ -51,6 +85,8 @@
         android:background="@drawable/background"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:id="@+id/search_doctor_data_layout"
+        android:visibility="gone"
         android:paddingStart="@dimen/_16dp"
         android:paddingTop="@dimen/_20dp"
         android:paddingEnd="@dimen/_16dp">
@@ -80,7 +116,7 @@
                 android:src="@drawable/rate2" />
 
             <Spinner
-                android:id="@+id/search_filter_job_title_spinner"
+                android:id="@+id/search_filter_qualification_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4dp"

@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +20,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.yackeenSolution.mydocapp.Objects.DoctorResult;
+import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
 import com.yackeenSolution.mydocapp.R;
 
-public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultAdapter.DoctorResultViewHolder> {
-    private static final DiffUtil.ItemCallback<DoctorResult> DIFF_CALLBACK = new DiffUtil.ItemCallback<DoctorResult>() {
+public class DoctorFavoriteAdapter extends ListAdapter<FavouriteDoctor, DoctorFavoriteAdapter.DoctorFavoriteViewHolder> {
+    private static final DiffUtil.ItemCallback<FavouriteDoctor> DIFF_CALLBACK = new DiffUtil.ItemCallback<FavouriteDoctor>() {
         @Override
-        public boolean areItemsTheSame(DoctorResult oldItem, DoctorResult newItem) {
+        public boolean areItemsTheSame(FavouriteDoctor oldItem, FavouriteDoctor newItem) {
             return oldItem.getId() == newItem.getId();
         }
 
         @Override
-        public boolean areContentsTheSame(DoctorResult oldItem, DoctorResult newItem) {
+        public boolean areContentsTheSame(FavouriteDoctor oldItem, FavouriteDoctor newItem) {
             return oldItem.getName().equals(newItem.getName())
                     && oldItem.getTitle().equals(newItem.getTitle())
                     && oldItem.getAddress().equals(newItem.getAddress())
@@ -42,26 +43,26 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
     private OnItemClickListener listener;
 
 
-    public DoctorResultAdapter() {
+    public DoctorFavoriteAdapter() {
         super(DIFF_CALLBACK);
     }
 
     @Override
-    public DoctorResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DoctorFavoriteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.doctor_search_result_layout, parent, false);
-        return new DoctorResultViewHolder(view);
+        return new DoctorFavoriteViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(DoctorResultViewHolder holder, int position) {
+    public void onBindViewHolder(DoctorFavoriteViewHolder holder, int position) {
         String name = getItem(position).getName();
         String jobTitle = getItem(position).getTitle();
         String area = getMemberAt(position).getArea();
         String workPlace = getMemberAt(position).getAddress();
 
         Uri favUri;
-        boolean isFav = getMemberAt(position).isFav();
+        boolean isFav = getMemberAt(position).getIsFav();
         if (isFav) {
             favUri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/fav2");
         } else {
@@ -86,7 +87,7 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
 
     }
 
-    public DoctorResult getMemberAt(int position) {
+    public FavouriteDoctor getMemberAt(int position) {
         return getItem(position);
     }
 
@@ -103,18 +104,18 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
     }
 
     public interface OnItemFavClickListener {
-        void onItemClick(DoctorResult doctorResult);
+        void onItemClick(FavouriteDoctor favouriteDoctor);
     }
 
     public interface OnItemReqClickListener {
-        void onItemClick(DoctorResult doctorResult);
+        void onItemClick(FavouriteDoctor favouriteDoctor);
     }
 
     public interface OnItemClickListener {
-        void onItemClick(DoctorResult doctorResult);
+        void onItemClick(FavouriteDoctor favouriteDoctor);
     }
 
-    public class DoctorResultViewHolder extends RecyclerView.ViewHolder {
+    public class DoctorFavoriteViewHolder extends RecyclerView.ViewHolder {
 
         public TextView nameTextView;
         public TextView jobTitleTextView;
@@ -125,7 +126,7 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
         public Button request;
         ConstraintLayout layout;
 
-        public DoctorResultViewHolder(View itemView) {
+        public DoctorFavoriteViewHolder(View itemView) {
             super(itemView);
 
             nameTextView = itemView.findViewById(R.id.result_doctor_name);

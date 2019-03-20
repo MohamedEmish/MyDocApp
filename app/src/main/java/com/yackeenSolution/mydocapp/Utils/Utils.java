@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchResults.GoogleMapsActivity;
 import com.yackeenSolution.mydocapp.R;
@@ -267,7 +268,7 @@ public class Utils {
     }
 
     public static void openBrowser(String webString, Context context) {
-        if (!webString.equals("") || !webString.equals(null)) {
+        if (webString != null && !webString.isEmpty()) {
             if (webString.contains("https://") || webString.contains("http://")) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(webString));
                 context.startActivity(intent);
@@ -279,15 +280,16 @@ public class Utils {
     }
 
     public static void performCall(String callNumber, Context context) {
-        if (!callNumber.equals("") || !callNumber.equals(null)) {
-
+        if (callNumber != null && !callNumber.isEmpty()) {
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", callNumber, null));
             context.startActivity(intent);
+        } else {
+            Toast.makeText(context, context.getResources().getString(R.string.no_phone_available), Toast.LENGTH_SHORT).show();
         }
     }
 
     public static void googleLocation(String location, Context context, String imageUri) {
-        if (!location.equals("") || !location.equals(null)) {
+        if (location != null && !location.isEmpty()) {
             String[] onSplitTextPhaseOne = location.split(",");
             String v = onSplitTextPhaseOne[0];
             String v1 = onSplitTextPhaseOne[1];
@@ -296,11 +298,13 @@ public class Utils {
             intent.putExtra("v1", v1);
             intent.putExtra("image", imageUri);
             context.startActivity(intent);
+        } else {
+            Toast.makeText(context, context.getResources().getString(R.string.no_loc_available), Toast.LENGTH_SHORT).show();
         }
     }
 
     public static void sendMail(String eMail, Context context) {
-        if (!eMail.equals("") || !eMail.equals(null)) {
+        if (eMail != null && !eMail.isEmpty()) {
 
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setData(Uri.parse("mailto:" + eMail));
@@ -308,17 +312,22 @@ public class Utils {
                 context.startActivity(intent);
             }
 
+        } else {
+            Toast.makeText(context, context.getResources().getString(R.string.no_mail_available), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void shareDirection(String direction, Context context) {
-
-        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-        sharingIntent.setType("text/plain");
-        String shareBody = direction;
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Location");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-        context.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+        if (direction != null && !direction.isEmpty()) {
+            Toast.makeText(context, context.getResources().getString(R.string.no_direction_available), Toast.LENGTH_SHORT).show();
+        } else {
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBody = direction;
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Location");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            context.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+        }
     }
 
 }

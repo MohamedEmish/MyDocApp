@@ -136,4 +136,5 @@
     <string name="select_insurance">اختر شركة التأمين</string>
     <string name="password_changed">تمت بنجاح</string>
     <string name="select_relation">اختر صلة القرابة</string>
+    <string name="speciality_must_be_selected">يجب تحدد التخصص المطلوب</string>
 </resources>

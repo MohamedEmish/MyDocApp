@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.yackeenSolution.mydocapp.Adapters.DoctorResultAdapter;
+import com.yackeenSolution.mydocapp.Adapters.DoctorFavoriteAdapter;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
 import com.yackeenSolution.mydocapp.R;
@@ -26,7 +26,7 @@ import java.util.List;
 public class FavoriteDoctorFrag extends Fragment {
 
     RecyclerView doctorResultRecycleView;
-    DoctorResultAdapter doctorResultAdapter;
+    DoctorFavoriteAdapter doctorFavoriteAdapter;
     LinearLayout progress;
 
     DataViewModel dataViewModel;
@@ -45,11 +45,11 @@ public class FavoriteDoctorFrag extends Fragment {
         doctorResultRecycleView = rootView.findViewById(R.id.fav_doctor_recycler);
         doctorResultRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         doctorResultRecycleView.setHasFixedSize(true);
-        doctorResultAdapter = new DoctorResultAdapter();
-        doctorResultRecycleView.setAdapter(doctorResultAdapter);
+        doctorFavoriteAdapter = new DoctorFavoriteAdapter();
+        doctorResultRecycleView.setAdapter(doctorFavoriteAdapter);
 
 
-        doctorResultAdapter.setOnItemReqClickListener(new DoctorResultAdapter.OnItemReqClickListener() {
+        doctorFavoriteAdapter.setOnItemReqClickListener(new DoctorFavoriteAdapter.OnItemReqClickListener() {
             @Override
             public void onItemClick(FavouriteDoctor favouriteDoctor) {
                 Intent intent = new Intent(getContext(), AppointmentRequestActivity.class);
@@ -57,7 +57,7 @@ public class FavoriteDoctorFrag extends Fragment {
             }
         });
 
-        doctorResultAdapter.setOnItemClickListener(new DoctorResultAdapter.OnItemClickListener() {
+        doctorFavoriteAdapter.setOnItemClickListener(new DoctorFavoriteAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(FavouriteDoctor favouriteDoctor) {
                 Intent intent = new Intent(getContext(), DoctorDetailsActivity.class);
@@ -65,7 +65,6 @@ public class FavoriteDoctorFrag extends Fragment {
                 startActivity(intent);
             }
         });
-
         setUpData();
 
 
@@ -82,7 +81,7 @@ public class FavoriteDoctorFrag extends Fragment {
                         favouriteDoctor.setIsFav(true);
                     }
                     doctorResultRecycleView.setVisibility(View.VISIBLE);
-                    doctorResultAdapter.submitList(favouriteDoctors);
+                    doctorFavoriteAdapter.submitList(favouriteDoctors);
                 }
             }
         });

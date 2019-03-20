@@ -52,8 +52,8 @@ public class DoctorDetailsActivity extends AppCompatActivity {
     TextView name, location;
     ImageView locationImage;
     DoctorResult mainDoctorResult;
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
     FrameLayout frameLayout;
     ScrollView scrollView;
 
@@ -89,14 +89,10 @@ public class DoctorDetailsActivity extends AppCompatActivity {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
                 frameLayout.getParent().requestDisallowInterceptTouchEvent(false);
-
                 return false;
             }
         });
-
-
 
         tabLayout = findViewById(R.id.doctor_details_tabs_layout);
         TabLayout.Tab tab = tabLayout.getTabAt(0);
@@ -248,7 +244,6 @@ public class DoctorDetailsActivity extends AppCompatActivity {
                         Utils.googleLocation(loc, DoctorDetailsActivity.this, mainDoctorResult.getImageUrl());
                     }
                 });
-
             }
         });
     }
@@ -267,8 +262,6 @@ public class DoctorDetailsActivity extends AppCompatActivity {
             doctorResult.setFav(true);
             fav.setImageDrawable(getResources().getDrawable(R.drawable.favorite));
         }
-
-
     }
 
     private void FragmentTransaction(Fragment fragment) {
@@ -281,6 +274,4 @@ public class DoctorDetailsActivity extends AppCompatActivity {
                 .replace(R.id.doctor_details_frame_layout, fragment);
         fragmentTransaction.commit();
     }
-
-
 }
