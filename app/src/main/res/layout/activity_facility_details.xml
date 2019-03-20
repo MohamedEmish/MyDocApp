@@ -81,6 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_80dp"
+            android:id="@+id/facility_detail_scroll"
             android:background="@color/colorBackgroundSecond"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -138,6 +139,8 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/facility_detail_speciality_recycler"
                         android:layout_width="match_parent"
+                        android:paddingStart="@dimen/_8dp"
+                        android:paddingEnd="@dimen/_8dp"
                         android:layout_height="wrap_content">
 
                     </androidx.recyclerview.widget.RecyclerView>
@@ -148,6 +151,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4dp"
+                    android:paddingStart="@dimen/_8dp"
+                    android:paddingEnd="@dimen/_8dp"
                     android:background="@color/colorBackground"
                     android:orientation="vertical">
 
@@ -210,6 +215,7 @@
 
                         <com.google.android.material.tabs.TabItem
                             android:id="@+id/about_us_tab"
+                            android:text="@string/about"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:paddingStart="@dimen/_1dp"
@@ -219,17 +225,22 @@
                             android:id="@+id/general_info_tab"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:text="@string/general_info"
                             android:paddingStart="@dimen/_1dp"
                             android:paddingEnd="@dimen/_1dp" />
                     </com.google.android.material.tabs.TabLayout>
 
-                    <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/facility_details_view_pager"
+                    <FrameLayout
+                        android:id="@+id/facility_details_frame_layout"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_200dp"
-                        android:layout_margin="@dimen/_36dp">
+                        android:layout_height="@dimen/_300dp"
+                        android:layout_marginLeft="@dimen/_16dp"
+                        android:layout_marginTop="@dimen/_4dp"
+                        android:layout_marginRight="@dimen/_16dp"
+                        android:layout_marginBottom="@dimen/_8dp"
+                        android:scrollbars="vertical">
 
-                    </androidx.viewpager.widget.ViewPager>
+                    </FrameLayout>
 
 
                 </LinearLayout>
@@ -294,10 +305,10 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/facility_details_profile_image"
-            android:layout_width="59dp"
-            android:layout_height="@dimen/_56dp"
+            android:layout_width="@dimen/_72dp"
+            android:layout_height="@dimen/_72dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="@dimen/_48dp"
+            android:layout_marginTop="@dimen/_44dp"
             android:layout_marginEnd="8dp"
             android:src="@drawable/hospital_default"
             app:civ_border_color="@color/colorAccent"

@@ -81,6 +81,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/doctor_detail_scroll"
             android:layout_marginTop="@dimen/_80dp"
             android:background="@color/colorBackgroundSecond"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -170,7 +171,10 @@
                         android:id="@+id/doctor_details_frame_layout"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_300dp"
-                        android:layout_margin="@dimen/_36dp"
+                        android:layout_marginLeft="@dimen/_16dp"
+                        android:layout_marginTop="@dimen/_4dp"
+                        android:layout_marginRight="@dimen/_16dp"
+                        android:layout_marginBottom="@dimen/_8dp"
                         android:scrollbars="vertical">
 
                     </FrameLayout>
@@ -238,10 +242,10 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/facility_details_profile_image"
-            android:layout_width="@dimen/_56dp"
-            android:layout_height="@dimen/_56dp"
+            android:layout_width="@dimen/_72dp"
+            android:layout_height="@dimen/_72dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="@dimen/_48dp"
+            android:layout_marginTop="@dimen/_44dp"
             android:layout_marginEnd="8dp"
             android:src="@drawable/doctor_default"
             app:civ_border_color="@color/colorAccent"

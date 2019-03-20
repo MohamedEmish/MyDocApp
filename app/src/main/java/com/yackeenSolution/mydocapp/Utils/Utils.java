@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.yackeenSolution.mydocapp.ActivitiesAndFragments.SearchTabActivites.GoogleMapsActivity;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchResults.GoogleMapsActivity;
 import com.yackeenSolution.mydocapp.R;
 
 import java.util.List;

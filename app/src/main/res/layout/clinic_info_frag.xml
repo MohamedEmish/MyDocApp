@@ -4,11 +4,14 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:nestedScrollingEnabled="true"
-    android:layout_margin="@dimen/_36dp"
+    android:layout_marginLeft="@dimen/_16dp"
+    android:layout_marginTop="@dimen/_4dp"
+    android:layout_marginRight="@dimen/_16dp"
+    android:layout_marginBottom="@dimen/_8dp"
     android:scrollbars="vertical"
-    android:fontFamily="@font/montserrat_bold"
-    android:text="@string/clinic_info"
+    android:fontFamily="@font/montserrat_regular"
     android:textColor="@color/colorGray"
-    android:textSize="@dimen/_14sp">
+    android:text="@string/clinic_info"
+    android:textSize="@dimen/_12sp">
 
 </TextView>

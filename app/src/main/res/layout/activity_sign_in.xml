@@ -10,7 +10,7 @@
     android:id="@+id/sign_in_root"
     android:orientation="vertical"
     android:padding="@dimen/_8dp"
-    tools:context=".LogActivities.SignInActivity">
+    tools:context=".ActivitiesAndFragments.ActivitiesOfLog.SignInActivity">
 
     <LinearLayout
         android:id="@+id/sign_in_layout"

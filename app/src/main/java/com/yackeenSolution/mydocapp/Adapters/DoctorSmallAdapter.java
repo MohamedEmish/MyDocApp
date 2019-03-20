@@ -54,7 +54,7 @@ public class DoctorSmallAdapter extends ListAdapter<DoctorResult, DoctorSmallAda
     @Override
     public void onBindViewHolder(DoctorSmallViewHolder holder, int position) {
         String name = getItem(position).getName();
-        String jobTitle = getItem(position).getTitle();
+        String jobTitle = getItem(position).getQualification();
         String imageUri = getItem(position).getImageUrl();
         Uri uri;
         if (imageUri.equals("http://yakensolution.cloudapp.net/doctoryadmin/")) {

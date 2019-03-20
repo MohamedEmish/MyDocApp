@@ -3,10 +3,14 @@
     android:id="@+id/general_info_frag_text"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/_36dp"
-    android:fontFamily="@font/montserrat_bold"
+    android:layout_marginLeft="@dimen/_16dp"
+    android:layout_marginTop="@dimen/_4dp"
+    android:layout_marginRight="@dimen/_16dp"
+    android:layout_marginBottom="@dimen/_8dp"
+    android:fontFamily="@font/montserrat_regular"
     android:text="@string/general_info"
+    android:scrollbars="vertical"
     android:textColor="@color/colorGray"
-    android:textSize="@dimen/_14sp">
+    android:textSize="@dimen/_12sp">
 
 </TextView>

@@ -3,7 +3,11 @@ package com.yackeenSolution.mydocapp.ActivitiesAndFragments.NonMainFragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+
+import android.text.Html;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -18,12 +22,25 @@ public class ProfileFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.profile_frag, null);
 
         String info = getArguments().getString("profileInfo");
-        TextView textView = rootView.findViewById(R.id.profile_frag_text);
+        final TextView textView = rootView.findViewById(R.id.profile_frag_text);
         if (!info.equals(null) || !info.equals("null")) {
-            textView.setText(info);
+            textView.setText(Html.fromHtml(info));
         } else {
             textView.setText(getContext().getResources().getString(R.string.profile_text));
         }
+
+        textView.setMovementMethod(new ScrollingMovementMethod());
+
+        textView.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                textView.getParent().requestDisallowInterceptTouchEvent(true);
+
+                return false;
+            }
+        });
 
         return rootView;
     }

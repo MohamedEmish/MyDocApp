@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/my_account_root"
     android:background="@drawable/background"
-    tools:context=".ActivitiesAndFragments.MoreTabActivities.MyAccount">
+    tools:context=".ActivitiesAndFragments.ActivitiesOfMoreTab.MyAccount">
 
     <ImageView
         android:id="@+id/imageView17"
