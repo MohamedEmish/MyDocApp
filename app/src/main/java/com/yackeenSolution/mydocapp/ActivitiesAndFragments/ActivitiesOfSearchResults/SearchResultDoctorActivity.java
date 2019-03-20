@@ -34,7 +34,6 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
     ImageView back;
     TextView filter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
