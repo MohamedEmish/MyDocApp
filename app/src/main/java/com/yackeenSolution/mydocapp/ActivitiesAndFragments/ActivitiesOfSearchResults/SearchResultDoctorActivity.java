@@ -213,6 +213,8 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
                     for (int id : favoriteIdList) {
                         if (docRes.getId() == id) {
                             docRes.setFav(true);
+                        } else {
+                            docRes.setFav(false);
                         }
                     }
                 }

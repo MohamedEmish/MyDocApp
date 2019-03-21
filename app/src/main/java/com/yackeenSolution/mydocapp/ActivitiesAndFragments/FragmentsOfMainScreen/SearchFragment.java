@@ -165,7 +165,7 @@ public class SearchFragment extends Fragment {
 
                 mainAreaList = areas;
                 stringsArea = new ArrayList<>();
-                stringsArea.add(getContext().getResources().getString(R.string.select_area));
+                stringsArea.add(getContext().getResources().getString(R.string.select_area_o));
                 if (areas.size() > 0) {
                     for (MyArea area : areas) {
                         stringsArea.add(area.getName());
@@ -217,9 +217,17 @@ public class SearchFragment extends Fragment {
             }
 
             if (facility.isChecked()) {
+                // Facility Search Activity
+                if (!date.getText().toString().isEmpty()) {
+                    searchDate = Utils.dateToApiFormat(date.getText().toString().trim());
+                }
                 Intent intent = new Intent(getContext(), SearchResultsFacilityActivity.class);
+                intent.putExtra("specialityId", specialityId);
+                intent.putExtra("insuranceId", String.valueOf(insuranceId));
+                intent.putExtra("areaId", String.valueOf(areaId));
                 startActivity(intent);
             } else {
+                // Doctor Search Activity
                 if (!date.getText().toString().isEmpty()) {
                     searchDate = Utils.dateToApiFormat(date.getText().toString().trim());
                 }

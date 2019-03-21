@@ -28,25 +28,41 @@ import java.util.List;
 
 public class SearchFilterDoctor extends AppCompatActivity {
 
-    private ImageView mFilterBack;
-    private Button mFilterButton;
+    ImageView mFilterBack;
+    Button mFilterButton;
 
     int specialityId;
-    String searchDate;
-    String insuranceId, areaId;
-    List<String> stringsInsurance, stringsArea, stringsQualifications, stringsNationalities, stringsLanguages;
-    Boolean gender;
+    String searchDate,
+            insuranceId,
+            areaId;
+    List<String> stringsInsurance,
+            stringsArea,
+            stringsQualifications,
+            stringsNationalities,
+            stringsLanguages;
     List<MyArea> mainAreaList;
     List<Insurance> mainInsuranceList;
-    List<Speciality> mainQualificationList, mainNationalitiesList, mainLanguagesList;
+    List<Speciality> mainQualificationList,
+            mainNationalitiesList,
+            mainLanguagesList;
     TextView clear;
-    boolean insuranceDone = false, qualificationsDone = false, nationalitiesDone = false, areaDone = false, languageDone = false;
+    boolean insuranceDone = false,
+            qualificationsDone = false,
+            nationalitiesDone = false,
+            areaDone = false,
+            languageDone = false;
 
-    RadioButton maleButton, femaleButton;
+    RadioButton maleButton,
+            femaleButton;
 
-    Spinner qualificationSpinner, areaSpinner, langSpinner, nationalitySpinner, insuranceSpinner;
+    Spinner qualificationSpinner,
+            areaSpinner,
+            langSpinner,
+            nationalitySpinner,
+            insuranceSpinner;
     DataViewModel dataViewModel;
-    LinearLayout dataLayout, progress;
+    LinearLayout dataLayout,
+            progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +146,7 @@ public class SearchFilterDoctor extends AppCompatActivity {
             public void onChanged(List<Insurance> insurances) {
                 mainInsuranceList = insurances;
                 stringsInsurance = new ArrayList<>();
-                stringsInsurance.add(SearchFilterDoctor.this.getResources().getString(R.string.select_insurance_op));
+                stringsInsurance.add(SearchFilterDoctor.this.getResources().getString(R.string.select_insurance));
                 if (insurances.size() > 0) {
                     for (Insurance insurance : insurances) {
                         stringsInsurance.add(insurance.getName());

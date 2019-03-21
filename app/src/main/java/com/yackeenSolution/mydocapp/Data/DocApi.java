@@ -52,6 +52,8 @@ public interface DocApi {
     @GET("api/Collection/GetAllLanguages")
     Call<List<Speciality>> getAllLanguages();
 
+    @GET("api/Collection/GetAllFacilityTypes")
+    Call<List<Speciality>> getAllFacilityType();
 
     ///////////////////////////////////////////////////////////////////////
 
@@ -128,6 +130,14 @@ public interface DocApi {
             @Query("NationalityId") Integer nationalityId,
             @Query("gender") Boolean genderState
 
+    );
+
+    @GET("api/Facilities/GetAll")
+    Call<List<FacilityResult>> getSearchForFacilityResult(
+            @Query("SpecialtyId") int id,
+            @Query("AreaId") Integer areaId,
+            @Query("InsuranceId") Integer insuranceId,
+            @Query("FacilityTypeId") Integer facilityTypeId
     );
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

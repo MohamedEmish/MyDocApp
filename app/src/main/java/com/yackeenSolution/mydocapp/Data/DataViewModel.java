@@ -46,7 +46,8 @@ public class DataViewModel extends AndroidViewModel {
     private LiveData<List<DoctorResult>> mSpecificDoctorData;
     private LiveData<FacilityResult> mSpecificFacilityData;
     private LiveData<List<DoctorResult>> mDoctorSearchResultsList;
-    private LiveData<List<Speciality>> myQualificationsList, myNationalitiesList, myLanguagesList;
+    private LiveData<List<FacilityResult>> mFacilitySearchResultsList;
+    private LiveData<List<Speciality>> myQualificationsList, myNationalitiesList, myLanguagesList, myFacilityTypesList;
 
 
 
@@ -116,6 +117,14 @@ public class DataViewModel extends AndroidViewModel {
             myLanguagesList = retrofitClass.getLanguagesLive();
         }
         return myLanguagesList;
+    }
+
+    public LiveData<List<Speciality>> getMyFacilityTypes() {
+
+        if (myFacilityTypesList == null) {
+            myFacilityTypesList = retrofitClass.getFacilityTypeLive();
+        }
+        return myFacilityTypesList;
     }
 
 
@@ -268,6 +277,23 @@ public class DataViewModel extends AndroidViewModel {
             );
         }
         return mDoctorSearchResultsList;
+    }
+
+    public LiveData<List<FacilityResult>> getSearchForFacilityResults(
+            int specialityId,
+            Integer areaId,
+            Integer insuranceId,
+            Integer facilityTypeId) {
+
+        if (mFacilitySearchResultsList == null) {
+            mFacilitySearchResultsList = retrofitClass.getSearchForFacilityResults(
+                    specialityId,
+                    areaId,
+                    insuranceId,
+                    facilityTypeId
+            );
+        }
+        return mFacilitySearchResultsList;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

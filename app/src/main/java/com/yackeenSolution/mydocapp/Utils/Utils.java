@@ -319,14 +319,15 @@ public class Utils {
 
     private void shareDirection(String direction, Context context) {
         if (direction != null && !direction.isEmpty()) {
-            Toast.makeText(context, context.getResources().getString(R.string.no_direction_available), Toast.LENGTH_SHORT).show();
-        } else {
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
             String shareBody = direction;
             sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Location");
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
             context.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+        } else {
+            Toast.makeText(context, context.getResources().getString(R.string.no_direction_available), Toast.LENGTH_SHORT).show();
+
         }
     }
 

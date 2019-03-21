@@ -73,7 +73,7 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
 
         String imageUri = getItem(position).getImageUrl();
         Uri uri;
-        if (imageUri.equals("")) {
+        if (imageUri.equals("") || imageUri.equals("http://yakensolution.cloudapp.net/doctoryadmin/")) {
             uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/hospital_default");
         } else {
             uri = Uri.parse(imageUri);
@@ -81,16 +81,15 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
         Picasso.get().load(uri).into(holder.FacilityImageVew);
 
         String phone = String.valueOf(getMemberAt(position).getPhoneNumber());
-        if (phone.equals("") || phone.isEmpty()) {
-
+        if (phone == null || phone.isEmpty()) {
             holder.callText.setTextColor(Color.GRAY);
         }
         String web = getMemberAt(position).getWebSite();
-        if (web.isEmpty() || web.equals("")) {
+        if (web == null || web.isEmpty()) {
             holder.webText.setTextColor(Color.GRAY);
         }
         String loc = getMemberAt(position).getLocation();
-        if (loc.isEmpty() || loc.equals("")) {
+        if (loc == null || loc.isEmpty()) {
             holder.locText.setTextColor(Color.GRAY);
         }
         holder.nameTextView.setText(name);

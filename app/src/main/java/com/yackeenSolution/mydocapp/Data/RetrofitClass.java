@@ -232,6 +232,28 @@ public class RetrofitClass {
         return SpecialityMutableLiveData;
     }
 
+    public LiveData<List<Speciality>> getFacilityTypeLive() {
+        final MutableLiveData<List<Speciality>> SpecialityMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.getAllFacilityType().enqueue(new Callback<List<Speciality>>() {
+            @Override
+            public void onResponse(Call<List<Speciality>> call, Response<List<Speciality>> response) {
+                Log.d(TAG, "onResponse: FacilityTypes " + response);
+
+                List<Speciality> policy = response.body();
+                SpecialityMutableLiveData.setValue(policy);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Speciality>> call, Throwable t) {
+                Log.d(TAG, "onFailure: FacilityTypes" + t.getMessage());
+
+            }
+        });
+
+        return SpecialityMutableLiveData;
+    }
 
     ///////////////////////////////////////////////////////////////////////
 
@@ -589,13 +611,43 @@ public class RetrofitClass {
             public void onResponse(Call<List<DoctorResult>> call, Response<List<DoctorResult>> response) {
                 Log.d(TAG, "onResponse: SearchForDoctorResultData " + response);
 
-                List<DoctorResult> facilityResult = response.body();
-                listMutableLiveData.setValue(facilityResult);
+                List<DoctorResult> doctorResults = response.body();
+                listMutableLiveData.setValue(doctorResults);
             }
 
             @Override
             public void onFailure(Call<List<DoctorResult>> call, Throwable t) {
                 Log.d(TAG, "onFailure:SearchForDoctorResultData" + t.getMessage());
+
+            }
+        });
+        return listMutableLiveData;
+    }
+
+    public LiveData<List<FacilityResult>> getSearchForFacilityResults(
+            int specialityId,
+            Integer areaId,
+            Integer insuranceId,
+            Integer facilityTyprId) {
+
+        final MutableLiveData<List<FacilityResult>> listMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.getSearchForFacilityResult(
+                specialityId,
+                areaId,
+                insuranceId,
+                facilityTyprId).enqueue(new Callback<List<FacilityResult>>() {
+            @Override
+            public void onResponse(Call<List<FacilityResult>> call, Response<List<FacilityResult>> response) {
+                Log.d(TAG, "onResponse: SearchForFacilityResultData " + response);
+
+                List<FacilityResult> facilityResult = response.body();
+                listMutableLiveData.setValue(facilityResult);
+            }
+
+            @Override
+            public void onFailure(Call<List<FacilityResult>> call, Throwable t) {
+                Log.d(TAG, "onFailure:SearchForFacilityResultData" + t.getMessage());
 
             }
         });
