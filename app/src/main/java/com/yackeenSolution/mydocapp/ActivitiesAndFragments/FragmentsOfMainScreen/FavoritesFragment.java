@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfFavoritesTab.FavoriteDoctorFrag;
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfFavoritesTab.FavoriteFacilityFrag;
@@ -26,6 +27,7 @@ public class FavoritesFragment extends Fragment {
     String name;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    TextView msg;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class FavoritesFragment extends Fragment {
         final ViewGroup nullParent = null;
 
         View rootView = inflater.inflate(R.layout.favorites_frag, nullParent);
+
+        msg = rootView.findViewById(R.id.favo_msg);
 
         tabLayout = rootView.findViewById(R.id.favorites_tabs_layout);
         View root = tabLayout.getChildAt(0);
@@ -49,6 +53,8 @@ public class FavoritesFragment extends Fragment {
         if (!name.equals("")) {
             FavoriteDoctorFrag favoriteDoctorFrag = new FavoriteDoctorFrag();
             FragmentTransaction(favoriteDoctorFrag);
+        } else {
+            msg.setVisibility(View.VISIBLE);
         }
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -57,10 +63,14 @@ public class FavoritesFragment extends Fragment {
                 if (tabLayout.getSelectedTabPosition() == 0) {
                     if (!name.equals("")) {
                         DoctorRecycler();
+                    } else {
+                        msg.setVisibility(View.VISIBLE);
                     }
                 } else if (tabLayout.getSelectedTabPosition() == 1) {
                     if (!name.equals("")) {
                         FacilityRecycler();
+                    } else {
+                        msg.setVisibility(View.VISIBLE);
                     }
                 }
             }

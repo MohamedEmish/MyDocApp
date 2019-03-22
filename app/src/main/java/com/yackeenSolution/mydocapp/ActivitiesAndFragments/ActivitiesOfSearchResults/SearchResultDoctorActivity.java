@@ -111,25 +111,6 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
         doctorResultRecycleView.setHasFixedSize(true);
         doctorResultAdapter = new DoctorResultAdapter();
         doctorResultRecycleView.setAdapter(doctorResultAdapter);
-
-        doctorResultAdapter.setOnItemReqClickListener(new DoctorResultAdapter.OnItemReqClickListener() {
-            @Override
-            public void onItemClick(DoctorResult doctorResult) {
-                Intent intent = new Intent(SearchResultDoctorActivity.this, AppointmentRequestActivity.class);
-                intent.putExtra("doctorId", String.valueOf(doctorResult.getId()));
-                startActivity(intent);
-            }
-        });
-
-        doctorResultAdapter.setOnItemClickListener(
-                new DoctorResultAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(DoctorResult doctorResult) {
-                        Intent intent = new Intent(SearchResultDoctorActivity.this, DoctorDetailsActivity.class);
-                        intent.putExtra("doctorId", String.valueOf(doctorResult.getId()));
-                        startActivity(intent);
-                    }
-                });
         setUpData();
     }
 
@@ -218,6 +199,27 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
                         }
                     }
                 }
+
+
+                doctorResultAdapter.setOnItemReqClickListener(new DoctorResultAdapter.OnItemReqClickListener() {
+                    @Override
+                    public void onItemClick(DoctorResult doctorResult) {
+                        Intent intent = new Intent(SearchResultDoctorActivity.this, AppointmentRequestActivity.class);
+                        intent.putExtra("doctorId", String.valueOf(doctorResult.getId()));
+                        startActivity(intent);
+                    }
+                });
+
+                doctorResultAdapter.setOnItemClickListener(
+                        new DoctorResultAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(DoctorResult doctorResult) {
+                                Intent intent = new Intent(SearchResultDoctorActivity.this, DoctorDetailsActivity.class);
+                                intent.putExtra("doctorId", String.valueOf(doctorResult.getId()));
+                                startActivity(intent);
+                            }
+                        });
+
                 doctorResultAdapter.submitList(doctorResults);
             }
         });

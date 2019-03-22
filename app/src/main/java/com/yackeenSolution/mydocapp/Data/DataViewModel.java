@@ -233,10 +233,10 @@ public class DataViewModel extends AndroidViewModel {
     ///////////////////////////////////////////////////////////////////////
 
     // Details
-    public LiveData<List<DoctorResult>> getSpecificDoctorData(int userId) {
+    public LiveData<List<DoctorResult>> getSpecificDoctorData(int doctorId) {
 
         if (mSpecificDoctorData == null) {
-            mSpecificDoctorData = retrofitClass.getSpecificDoctorData(userId);
+            mSpecificDoctorData = retrofitClass.getSpecificDoctorData(doctorId);
         }
         return mSpecificDoctorData;
     }

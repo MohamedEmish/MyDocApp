@@ -3,6 +3,15 @@ package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchRe
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -48,7 +57,7 @@ import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.util.List;
 
-public class FacilityDetailsActivity extends AppCompatActivity {
+public class FacilityDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     TabLayout tabLayout;
     ImageView back;
@@ -75,7 +84,10 @@ public class FacilityDetailsActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
-    ImageView gMap;
+    GoogleMap mMap;
+    private Double v = 0.0;
+    private Double v1 = 0.1;
+
     String facilityId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +98,10 @@ public class FacilityDetailsActivity extends AppCompatActivity {
         ConstraintLayout constraintLayout = findViewById(R.id.facility_detail_root);
         Utils.RTLSupport(this, constraintLayout);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.facility_detail_map);
+        mapFragment.getMapAsync(this);
 
         Intent intent = getIntent();
         facilityId = intent.getStringExtra("facilityId");
@@ -164,8 +180,6 @@ public class FacilityDetailsActivity extends AppCompatActivity {
             }
         });
 
-
-        gMap = findViewById(R.id.facility_detail_location_image);
         setUpData();
         back = findViewById(R.id.facility_filter_back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -208,6 +222,19 @@ public class FacilityDetailsActivity extends AppCompatActivity {
                     fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
                 }
 
+                String loc = facilityResult.getLocation();
+                if (loc != null) {
+                    String[] values = loc.split(",");
+                    v = Double.valueOf(values[0]);
+                    v1 = Double.valueOf(values[1]);
+                    LatLng latLng = new LatLng(v, v1);
+                    mMap.setLatLngBoundsForCameraTarget(new LatLngBounds(latLng, latLng));
+                    LatLng markLocation = new LatLng(v, v1);
+                    Marker marker = mMap.addMarker(new MarkerOptions()
+                            .position(markLocation)
+                            .draggable(true));
+                }
+
                 share.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -215,10 +242,11 @@ public class FacilityDetailsActivity extends AppCompatActivity {
                     }
                 });
 
-                gMap.setOnClickListener(new View.OnClickListener() {
+                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onMapClick(LatLng latLng) {
                         Utils.googleLocation(facilityResult.getLocation(), FacilityDetailsActivity.this, facilityResult.getImageUrl());
+
                     }
                 });
 
@@ -300,5 +328,23 @@ public class FacilityDetailsActivity extends AppCompatActivity {
                 .replace(R.id.facility_details_frame_layout, fragment);
         fragmentTransaction.commit();
     }
+
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng location = new LatLng(v, v1);
+
+        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(v, v1));
+        CameraUpdate zoom = CameraUpdateFactory.newLatLngZoom(location, 15);
+        mMap.animateCamera(center);
+        mMap.animateCamera(zoom);
+
+        LatLng markLocation = new LatLng(v, v1);
+        Marker marker = mMap.addMarker(new MarkerOptions()
+                .position(markLocation)
+                .draggable(true));
+    }
+
 
 }

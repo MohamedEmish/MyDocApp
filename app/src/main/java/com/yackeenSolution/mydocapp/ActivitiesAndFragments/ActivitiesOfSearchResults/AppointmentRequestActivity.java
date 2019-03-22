@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.view.Gravity;
 import android.view.View;
@@ -18,16 +20,25 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab.AddNewFamilyMember;
+import com.yackeenSolution.mydocapp.Data.DataViewModel;
+import com.yackeenSolution.mydocapp.Objects.DoctorResult;
+import com.yackeenSolution.mydocapp.Objects.FamilyMember;
+import com.yackeenSolution.mydocapp.Objects.UserData;
 import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class AppointmentRequestActivity extends AppCompatActivity {
@@ -46,9 +57,16 @@ public class AppointmentRequestActivity extends AppCompatActivity {
     private Spinner mAppointRequestUserNameSpinner;
     private TextView mAppointRequestDoctorClinic;
     private EditText mAppointRequestUserNationalId;
+    ScrollView dataLayout;
+    LinearLayout progress;
     private Button mRequestButton;
     private EditText mAppointRequestTime;
-
+    DataViewModel dataViewModel;
+    String userFullName;
+    boolean familyMembersDone = false, visitTypeDone = false;
+    String doctorId;
+    private List<String> familyMembersStrings;
+    private List<FamilyMember> mainFamilyList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +79,11 @@ public class AppointmentRequestActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        mAppointRequestDoctorVisitTypeSpinner = findViewById(R.id.appoint_request_doctor_visit_type_spinner);
-        String[] visitType = AppointmentRequestActivity.this.getResources().getStringArray(R.array.visit_type);
-        Utils.setupSpinner(this, visitType, mAppointRequestDoctorVisitTypeSpinner);
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
+        Intent intent = getIntent();
+        doctorId = intent.getStringExtra("doctorId");
 
+        mAppointRequestDoctorVisitTypeSpinner = findViewById(R.id.appoint_request_doctor_visit_type_spinner);
         mAppointRequestBack = findViewById(R.id.appoint_request_back);
         mAppointRequestUserMobile = findViewById(R.id.appoint_request_user_mobile);
         mAppointRequestDoctorName = findViewById(R.id.appoint_request_doctor_name);
@@ -76,6 +95,8 @@ public class AppointmentRequestActivity extends AppCompatActivity {
         mAppointRequestDoctorClinic = findViewById(R.id.appoint_request_doctor_clinic);
         mAppointRequestUserNationalId = findViewById(R.id.appoint_request_user_national_id);
         mRequestButton = findViewById(R.id.appoint_request_button);
+        dataLayout = findViewById(R.id.appoint_request_data_layout);
+        progress = findViewById(R.id.appoint_request_progress_bar_layout);
 
         mAppointRequestDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,8 +127,7 @@ public class AppointmentRequestActivity extends AppCompatActivity {
                 confirmation();
             }
         });
-
-
+        getUserData();
     }
 
     private void confirmation() {
@@ -117,6 +137,54 @@ public class AppointmentRequestActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+    }
+
+    private void getUserData() {
+        dataViewModel.getUserAccountData(Integer.parseInt(SaveSharedPreference.getUserId(this))).observe(this, new Observer<UserData>() {
+                    @Override
+                    public void onChanged(UserData userData) {
+                        userFullName = userData.getFirstName() + " " + userData.getLastName();
+                        mAppointRequestUserMobile.setText(userData.getMobileNumber());
+                        setUpData();
+                    }
+                }
+        );
+
+        dataViewModel.getSpecificDoctorData(Integer.parseInt(doctorId)).observe(this, new Observer<List<DoctorResult>>() {
+            @Override
+            public void onChanged(List<DoctorResult> doctorResults) {
+                mAppointRequestDoctorName.setText(doctorResults.get(0).getName());
+                mAppointRequestDoctorSpeciality.setText(doctorResults.get(0).getSpeciality());
+                mAppointRequestDoctorClinic.setText(doctorResults.get(0).getFacilityName());
+            }
+        });
+    }
+
+    private void setUpData() {
+        dataViewModel.getMyFamilyMembersList(Integer.parseInt(SaveSharedPreference.getUserId(this))).observe(this, new Observer<List<FamilyMember>>() {
+            @Override
+            public void onChanged(List<FamilyMember> familyMembers) {
+                mainFamilyList = familyMembers;
+                familyMembersStrings = new ArrayList<>();
+                familyMembersStrings.add(userFullName);
+                for (FamilyMember member : familyMembers) {
+                    familyMembersStrings.add(member.getName());
+                }
+                Utils.setupSpinner(AppointmentRequestActivity.this, familyMembersStrings, mAppointRequestUserNameSpinner);
+                String[] visitType = AppointmentRequestActivity.this.getResources().getStringArray(R.array.visit_type);
+                Utils.setupSpinner(AppointmentRequestActivity.this, visitType, mAppointRequestDoctorVisitTypeSpinner);
+                familyMembersDone = true;
+                visitTypeDone = true;
+                checkDone();
+            }
+        });
+    }
+
+    private void checkDone() {
+        if (familyMembersDone && visitTypeDone) {
+            progress.setVisibility(View.GONE);
+            dataLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     private boolean isAllDataOk() {
@@ -151,16 +219,16 @@ public class AppointmentRequestActivity extends AppCompatActivity {
         timePicker = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                String myFormat = "HH:MM";
+                String myFormat = "HH:mm";
                 SimpleDateFormat format = new SimpleDateFormat(myFormat, Locale.getDefault());
 
 
                 if (Build.VERSION.SDK_INT >= 23) {
-                    myCalendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
-                    myCalendar.set(Calendar.MINUTE, timePicker.getMinute());
+                    myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    myCalendar.set(Calendar.MINUTE, minute);
                 } else {
-                    myCalendar.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
-                    myCalendar.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+                    myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    myCalendar.set(Calendar.MINUTE, minute);
                 }
 
                 mAppointRequestTime.setText(format.format(myCalendar.getTime()));

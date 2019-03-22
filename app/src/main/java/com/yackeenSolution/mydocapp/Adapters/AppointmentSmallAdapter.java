@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.yackeenSolution.mydocapp.Objects.Appointment;
 import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 public class AppointmentSmallAdapter extends ListAdapter<Appointment, AppointmentSmallAdapter.AppointmentSmallViewHolder> {
     private static final DiffUtil.ItemCallback<Appointment> DIFF_CALLBACK = new DiffUtil.ItemCallback<Appointment>() {
@@ -62,7 +63,7 @@ public class AppointmentSmallAdapter extends ListAdapter<Appointment, Appointmen
         holder.bookingNumber.setText(bookingNumber);
         holder.speciality.setText(speciality);
         holder.facility.setText(facility);
-        holder.date.setText(date);
+        holder.date.setText(Utils.dateAppFormat(date));
         holder.time.setText(time);
     }
 

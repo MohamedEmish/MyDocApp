@@ -61,8 +61,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:id="@+id/favo_msg"
             android:text="@string/favorites_msg"
             android:textAllCaps="false"
+            android:visibility="gone"
             android:textColor="@color/colorPrimaryTexts"
             android:textSize="@dimen/_20sp" />
     </FrameLayout>

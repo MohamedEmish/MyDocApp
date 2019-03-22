@@ -15,6 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
@@ -38,7 +47,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class DoctorDetailsActivity extends AppCompatActivity {
+public class DoctorDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     TabLayout tabLayout;
     ImageView back;
@@ -50,9 +59,11 @@ public class DoctorDetailsActivity extends AppCompatActivity {
     LinearLayout progress;
     CircleImageView mail, call, proPic, fav, share;
     TextView name, location;
-    ImageView locationImage;
     DoctorResult mainDoctorResult;
     FragmentManager fragmentManager;
+    GoogleMap mMap;
+    private Double v = 0.0;
+    private Double v1 = 0.1;
     FragmentTransaction fragmentTransaction;
     FrameLayout frameLayout;
     ScrollView scrollView;
@@ -67,6 +78,10 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         Utils.RTLSupport(this, constraintLayout);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.doctor_detail_map);
+        mapFragment.getMapAsync(this);
+
         Intent intent = getIntent();
         doctorId = intent.getStringExtra("doctorId");
 
@@ -75,7 +90,6 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         dataLayout = findViewById(R.id.doctor_detail_data_layout);
         name = findViewById(R.id.doctor_details_name);
         location = findViewById(R.id.doctor_detail_location_text);
-        locationImage = findViewById(R.id.doctor_detail_location_image);
 
         mail = findViewById(R.id.doctor_detail_mail);
         call = findViewById(R.id.doctor_detail_call);
@@ -152,13 +166,6 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         });
 
         request = findViewById(R.id.doctor_detail_request);
-        request.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(DoctorDetailsActivity.this, AppointmentRequestActivity.class);
-                startActivity(i);
-            }
-        });
         setUp();
     }
 
@@ -194,6 +201,17 @@ public class DoctorDetailsActivity extends AppCompatActivity {
                     fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
                 }
 
+                String loc = doctorResult.get(0).getFacilityLocation();
+                String[] values = loc.split(",");
+                v = Double.valueOf(values[0]);
+                v1 = Double.valueOf(values[1]);
+                LatLng latLng = new LatLng(v, v1);
+                mMap.setLatLngBoundsForCameraTarget(new LatLngBounds(latLng, latLng));
+                LatLng markLocation = new LatLng(v, v1);
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        .position(markLocation)
+                        .draggable(true));
+
                 mail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -224,6 +242,15 @@ public class DoctorDetailsActivity extends AppCompatActivity {
                     }
                 });
 
+                request.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(DoctorDetailsActivity.this, AppointmentRequestActivity.class);
+                        i.putExtra("doctorId", String.valueOf(doctorResult.get(0).getId()));
+                        startActivity(i);
+                    }
+                });
+
                 share.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -237,11 +264,12 @@ public class DoctorDetailsActivity extends AppCompatActivity {
                 profileFragment.setArguments(profile);
                 FragmentTransaction(profileFragment);
 
-                locationImage.setOnClickListener(new View.OnClickListener() {
+                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onMapClick(LatLng latLng) {
                         String loc = doctorResult.get(0).getFacilityLocation();
                         Utils.googleLocation(loc, DoctorDetailsActivity.this, mainDoctorResult.getImageUrl());
+
                     }
                 });
             }
@@ -273,5 +301,22 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         fragmentTransaction = fragmentManager.beginTransaction()
                 .replace(R.id.doctor_details_frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng location = new LatLng(v, v1);
+
+        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(v, v1));
+        CameraUpdate zoom = CameraUpdateFactory.newLatLngZoom(location, 15);
+        mMap.animateCamera(center);
+        mMap.animateCamera(zoom);
+
+        LatLng markLocation = new LatLng(v, v1);
+        Marker marker = mMap.addMarker(new MarkerOptions()
+                .position(markLocation)
+                .draggable(true));
     }
 }

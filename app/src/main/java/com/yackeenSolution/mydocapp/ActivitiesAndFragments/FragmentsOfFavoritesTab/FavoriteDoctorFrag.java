@@ -53,6 +53,7 @@ public class FavoriteDoctorFrag extends Fragment {
             @Override
             public void onItemClick(FavouriteDoctor favouriteDoctor) {
                 Intent intent = new Intent(getContext(), AppointmentRequestActivity.class);
+                intent.putExtra("doctorId", String.valueOf(favouriteDoctor.getId()));
                 startActivity(intent);
             }
         });

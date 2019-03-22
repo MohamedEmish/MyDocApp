@@ -36,8 +36,8 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     private ImageView back;
     private ImageView share;
     private Button getDirection;
-    private Double v = 29.9719740;
-    private Double v1 = 31.2677420;
+    private Double v = 0.0;
+    private Double v1 = 0.1;
     CircleImageView proPic;
     private String imageUri = "";
 

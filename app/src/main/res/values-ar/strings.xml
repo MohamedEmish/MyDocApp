@@ -131,10 +131,20 @@
     <string name="select_gender">حدد الجنس</string>
     <string name="select_speciality">اختر التخصص</string>
     <string name="select_insurance_op">اختر شركة التأمين (اختيارى)</string>
-    <string name="select_area">اختر المنطقة (اختيارى)</string>
+    <string name="select_area">اختر المنطقة</string>
     <string name="sent_successfully">تم الارسال .. شكرا لك</string>
     <string name="select_insurance">اختر شركة التأمين</string>
     <string name="password_changed">تمت بنجاح</string>
     <string name="select_relation">اختر صلة القرابة</string>
     <string name="speciality_must_be_selected">يجب تحدد التخصص المطلوب</string>
+    <string name="no_mail_available">لا بريد الكترونى متوفر</string>
+    <string name="no_direction_available">لا عنوان متوفر</string>
+    <string name="no_loc_available">لا موقع متوفر</string>
+    <string name="no_phone_available">لا رقم اتصال متوفر</string>
+    <string name="select_qualify">اختر المؤهل</string>
+    <string name="select_nationality">اختر الجنسية</string>
+    <string name="select_lang">اختر اللغة</string>
+    <string name="clear_filter">مسح الاختيارات</string>
+    <string name="select_fac_type">اختر نوع المشفى</string>
+    <string name="select_area_o">اختر المنطقة (اختيارى)</string>
 </resources>

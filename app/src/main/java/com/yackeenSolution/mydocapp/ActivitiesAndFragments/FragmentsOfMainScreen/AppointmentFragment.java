@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfAppointmentTab.AppointmentCompletedFrag;
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfAppointmentTab.AppointmentConfirmedFrag;
@@ -27,6 +28,7 @@ public class AppointmentFragment extends Fragment {
     String name;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    TextView msg;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class AppointmentFragment extends Fragment {
         final ViewGroup nullParent = null;
 
         View rootView = inflater.inflate(R.layout.appointment_frag, nullParent);
+
+        msg = rootView.findViewById(R.id.appoint_msg);
 
         tabLayout = rootView.findViewById(R.id.appointment_tabs_layout);
         View root = tabLayout.getChildAt(0);
@@ -50,6 +54,8 @@ public class AppointmentFragment extends Fragment {
         if (!name.equals("")) {
             AppointmentPendingFrag appointmentPendingFrag = new AppointmentPendingFrag();
             FragmentTransaction(appointmentPendingFrag);
+        } else {
+            msg.setVisibility(View.VISIBLE);
         }
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -58,14 +64,20 @@ public class AppointmentFragment extends Fragment {
                 if (tabLayout.getSelectedTabPosition() == 0) {
                     if (!name.equals("")) {
                         PendingRecycler();
+                    } else {
+                        msg.setVisibility(View.VISIBLE);
                     }
                 } else if (tabLayout.getSelectedTabPosition() == 1) {
                     if (!name.equals("")) {
                         ConfirmedRecycler();
+                    } else {
+                        msg.setVisibility(View.VISIBLE);
                     }
                 } else if (tabLayout.getSelectedTabPosition() == 2) {
                     if (!name.equals("")) {
                         CompletedRecycler();
+                    } else {
+                        msg.setVisibility(View.VISIBLE);
                     }
                 }
             }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/appoint_request_root"
     android:layout_height="match_parent"
@@ -44,9 +45,29 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <LinearLayout
+        android:id="@+id/appoint_request_progress_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@color/colorBackgroundSecond"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/progress_animation_details"
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="@dimen/_50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/progress_animation" />
+
+    </LinearLayout>
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/appoint_request_data_layout"
+        android:visibility="gone"
         android:background="@drawable/background"
         android:padding="@dimen/_4dp">
 
@@ -121,8 +142,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_4dp"
-                        android:layout_marginEnd="@dimen/_4dp"
+                        android:layout_marginStart="@dimen/_12dp"
+                        android:layout_marginEnd="@dimen/_12dp"
+                        android:textSize="@dimen/_12sp"
                         android:text="@string/mobile">
 
                     </TextView>
@@ -156,7 +178,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_4dp"
+                        android:layout_marginStart="@dimen/_12dp"
                         android:layout_marginEnd="@dimen/_4dp"
                         android:background="@null"
                         android:hint="@string/national_id"
@@ -205,7 +227,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_4dp"
+                        android:layout_marginStart="@dimen/_12dp"
+                        android:textSize="@dimen/_12sp"
                         android:layout_marginEnd="@dimen/_4dp"
                         android:text="@string/facility">
 
@@ -238,8 +261,9 @@
                         android:id="@+id/appoint_request_doctor_speciality"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_4dp"
+                        android:textSize="@dimen/_12sp"
                         android:layout_marginEnd="@dimen/_4dp"
                         android:text="@string/speciality">
 
@@ -273,7 +297,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_4dp"
+                        android:layout_marginStart="@dimen/_12dp"
+                        android:textSize="@dimen/_12sp"
                         android:layout_marginEnd="@dimen/_4dp"
                         android:text="@string/first_name">
 
@@ -344,7 +369,7 @@
                         android:clickable="true"
                         android:focusable="false"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_4dp"
+                        android:layout_marginStart="@dimen/_12dp"
                         android:layout_marginEnd="@dimen/_4dp"
                         android:hint="@string/preferred_date"
                         android:textColorHint="@color/colorDivider"
@@ -383,7 +408,7 @@
                         android:focusable="false"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_4dp"
+                        android:layout_marginStart="@dimen/_12dp"
                         android:layout_marginEnd="@dimen/_4dp"
                         android:hint="@string/preferred_time"
                         android:textColorHint="@color/colorDivider"

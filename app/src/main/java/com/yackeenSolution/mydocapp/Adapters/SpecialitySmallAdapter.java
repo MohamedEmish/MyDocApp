@@ -5,6 +5,7 @@ package com.yackeenSolution.mydocapp.Adapters;
    ALL DONE :)
  */
 
+import android.graphics.Color;
 import android.net.Uri;
 
 import androidx.recyclerview.widget.ListAdapter;

@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:nestedScrollingEnabled="true"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -113,15 +113,14 @@
                         android:textColor="#ffffff"
                         android:textSize="@dimen/_12sp" />
 
-
-                    <ImageView
-                        android:id="@+id/doctor_detail_location-image"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_150dp"
+                    <fragment xmlns:tools="http://schemas.android.com/tools"
+                        android:id="@+id/doctor_detail_map"
                         android:layout_marginStart="@dimen/_16dp"
                         android:layout_marginEnd="@dimen/_16dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/map_image" />
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_200dp"
+                        tools:context=".ActivitiesAndFragments.ActivitiesOfSearchResults.DoctorDetailsActivity" />
 
                     <TextView
                         android:id="@+id/doctor_detail_location_text"
@@ -197,6 +196,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginBottom="@dimen/_16dp"
+            android:background="@color/colorTexts"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         </LinearLayout>
 
