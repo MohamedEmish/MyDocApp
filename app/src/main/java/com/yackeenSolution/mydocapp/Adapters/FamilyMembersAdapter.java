@@ -54,12 +54,14 @@ public class FamilyMembersAdapter extends ListAdapter<FamilyMember, FamilyMember
         String imageUri = getItem(position).getImageUrl();
         Uri uri;
 
-        if (imageUri.equals("")) {
-            uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor");
+        if (imageUri != null && !imageUri.isEmpty()) {
+            uri = Uri.parse(imageUri.replace("//U", "/U"));
         } else {
-            uri = Uri.parse(imageUri);
+            uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
         }
-
+        if (!imageUri.contains("http://yakensolution.cloudapp.net/doctoryadmin//UploadedImages")) {
+            uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
+        }
         holder.nameTextView.setText(name);
         holder.relationTextView.setText(relation);
         Picasso.get().load(uri).into(holder.memberImageVew);
@@ -91,7 +93,7 @@ public class FamilyMembersAdapter extends ListAdapter<FamilyMember, FamilyMember
 
             nameTextView = itemView.findViewById(R.id.family_member_name);
             relationTextView = itemView.findViewById(R.id.family_member_relation);
-            memberImageVew = itemView.findViewById(R.id.family_member_image);
+            memberImageVew = itemView.findViewById(R.id.family_member_circle_image);
             editButton = itemView.findViewById(R.id.family_member_edit);
 
             editButton.setOnClickListener(new View.OnClickListener() {

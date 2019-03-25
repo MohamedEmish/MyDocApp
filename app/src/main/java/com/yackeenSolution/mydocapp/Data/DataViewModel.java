@@ -2,8 +2,10 @@ package com.yackeenSolution.mydocapp.Data;
 
 import android.app.Application;
 
+import com.yackeenSolution.mydocapp.Objects.Advice;
 import com.yackeenSolution.mydocapp.Objects.Appointment;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
+import com.yackeenSolution.mydocapp.Objects.FamilyMemberToUpload;
 import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
 import com.yackeenSolution.mydocapp.Objects.FacilityResult;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
@@ -12,9 +14,12 @@ import com.yackeenSolution.mydocapp.Objects.Insurance;
 import com.yackeenSolution.mydocapp.Objects.MyAboutUs;
 import com.yackeenSolution.mydocapp.Objects.MyArea;
 import com.yackeenSolution.mydocapp.Objects.MyNotification;
+import com.yackeenSolution.mydocapp.Objects.NewFavDoctor;
+import com.yackeenSolution.mydocapp.Objects.NewFavFacility;
 import com.yackeenSolution.mydocapp.Objects.Promotion;
 import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.Objects.UserData;
+import com.yackeenSolution.mydocapp.Objects.UserDataToUpload;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +27,8 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class DataViewModel extends AndroidViewModel {
 
@@ -38,7 +45,7 @@ public class DataViewModel extends AndroidViewModel {
     private LiveData<UserData> mUserAccountData;
     private LiveData<List<FamilyMember>> mMyFamilyMembersList;
     private LiveData<FamilyMember> mSpecificFamilyMember;
-    private LiveData<FamilyMember> mAddEditFamilyMember;
+    private FamilyMember mAddEditFamilyMember;
     private LiveData<List<FamilyRelation>> myFamilyRelationsList;
     private LiveData<List<FavouriteDoctor>> mMyFavDoctorsList;
     private LiveData<List<FacilityResult>> mMyFavFacilitiesList;
@@ -48,6 +55,7 @@ public class DataViewModel extends AndroidViewModel {
     private LiveData<List<DoctorResult>> mDoctorSearchResultsList;
     private LiveData<List<FacilityResult>> mFacilitySearchResultsList;
     private LiveData<List<Speciality>> myQualificationsList, myNationalitiesList, myLanguagesList, myFacilityTypesList;
+    private LiveData<String> uploadedImageUrlString;
 
 
 
@@ -305,15 +313,28 @@ public class DataViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<UserData> editUserData(HashMap<String, String> fields) {
-        return mUserData = retrofitClass.editUserData(fields);
+    public LiveData<String> uploadedImageUrlString(MultipartBody.Part file, RequestBody description) {
+        return uploadedImageUrlString = retrofitClass.uploadImage(file, description);
     }
 
-
-    public LiveData<FamilyMember> addEditFamilyMember(HashMap<String, String> fields) {
-        if (mAddEditFamilyMember == null) {
-            mAddEditFamilyMember = retrofitClass.addEditFamilyMemberData(fields);
-        }
-        return mAddEditFamilyMember;
+    public LiveData<UserDataToUpload> editUserData(UserDataToUpload user) {
+        return retrofitClass.editUserData(user);
     }
+
+    public void addEditFamilyMember(FamilyMemberToUpload familyMember) {
+        retrofitClass.addEditFamilyMemberData(familyMember);
+    }
+
+    public void postAdvice(Advice advice) {
+        retrofitClass.postAdvice(advice);
+    }
+
+    public void setDoctorFavState(NewFavDoctor doctor) {
+        retrofitClass.setDoctorFavState(doctor);
+    }
+
+    public void setFacilityFavState(NewFavFacility facility) {
+        retrofitClass.setFacilityFavState(facility);
+    }
+
 }

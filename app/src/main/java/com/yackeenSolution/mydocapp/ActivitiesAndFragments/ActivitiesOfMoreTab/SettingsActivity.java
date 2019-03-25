@@ -1,6 +1,8 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -10,8 +12,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfLog.MainScreen;
+import com.yackeenSolution.mydocapp.Data.DataViewModel;
+import com.yackeenSolution.mydocapp.Objects.UserData;
+import com.yackeenSolution.mydocapp.Objects.UserDataToUpload;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils.Utils;
@@ -26,7 +34,10 @@ public class SettingsActivity extends AppCompatActivity {
     String language;
     String lang;
     LinearLayout linearLayout;
-
+    DataViewModel dataViewModel;
+    Switch appointSwitch, notifySwitch;
+    UserData mUserData;
+    TextView save;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -44,6 +55,7 @@ public class SettingsActivity extends AppCompatActivity {
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
 
         setContentView(R.layout.activity_settings);
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
 
         linearLayout = findViewById(R.id.settings_root);
         Utils.RTLSupport(this, linearLayout);
@@ -67,6 +79,16 @@ public class SettingsActivity extends AppCompatActivity {
             en.setChecked(true);
         }
 
+        save = findViewById(R.id.settings_save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveUserData();
+            }
+        });
+        appointSwitch = findViewById(R.id.settings_appoint_switch);
+        notifySwitch = findViewById(R.id.settings_notify_switch);
+
         languageGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -83,7 +105,55 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         });
+        setUpData();
 
+    }
+
+    private void saveUserData() {
+        UserDataToUpload user = new UserDataToUpload();
+        user.setId(Integer.parseInt(SaveSharedPreference.getUserId(this)));
+        user.setAppointmentReminder(appointSwitch.isChecked());
+        user.setEnableNotification(notifySwitch.isChecked());
+        user.setEmail(mUserData.getEmail());
+        user.setPassword(mUserData.getPassword());
+        user.setDoctorId(null);
+        dataViewModel.editUserData(user).observe(this, new Observer<UserDataToUpload>() {
+            @Override
+            public void onChanged(UserDataToUpload userDataToUpload) {
+                Toast.makeText(SettingsActivity.this, getResources().getString(R.string.done), Toast.LENGTH_SHORT).show();
+                backLayout();
+            }
+        });
+    }
+
+    private void setUpData() {
+        dataViewModel.getUserAccountData(Integer.parseInt(SaveSharedPreference.getUserId(this))).observe(this, new Observer<UserData>() {
+            @Override
+            public void onChanged(UserData userData) {
+                String appoint = userData.getAppointmentReminder();
+                String notify = userData.getEnableNotification();
+                mUserData = userData;
+                if (appoint != null && !appoint.isEmpty()) {
+                    if (appoint.equals("true")) {
+                        appointSwitch.setChecked(true);
+                    } else {
+                        appointSwitch.setChecked(false);
+                    }
+                } else {
+                    appointSwitch.setChecked(false);
+                }
+
+                if (notify != null && !notify.isEmpty()) {
+                    if (notify.equals("true")) {
+                        notifySwitch.setChecked(true);
+                    } else {
+                        notifySwitch.setChecked(false);
+                    }
+                } else {
+                    notifySwitch.setChecked(false);
+                }
+            }
+        });
     }
 
     private void backLayout() {

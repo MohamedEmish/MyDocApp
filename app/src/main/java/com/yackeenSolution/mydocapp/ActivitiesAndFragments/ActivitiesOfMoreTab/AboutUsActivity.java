@@ -49,7 +49,6 @@ public class AboutUsActivity extends AppCompatActivity {
         });
 
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
-        dataViewModel.getMyAboutUsLive();
         setUpData();
     }
 
@@ -62,12 +61,16 @@ public class AboutUsActivity extends AppCompatActivity {
                 if (myAboutUses.size() > 0) {
                     progress.setVisibility(View.GONE);
                     data.setVisibility(View.VISIBLE);
-
                     String content = myAboutUses.get(0).getContent();
                     aboutUsContent.setText(content);
 
                     String title = myAboutUses.get(0).getTitle();
                     aboutUsTitle.setText(title.toUpperCase());
+                } else {
+                    progress.setVisibility(View.GONE);
+                    data.setVisibility(View.VISIBLE);
+                    aboutUsContent.setText(getResources().getString(R.string.about));
+                    aboutUsTitle.setText(getResources().getString(R.string.about));
                 }
             }
         });

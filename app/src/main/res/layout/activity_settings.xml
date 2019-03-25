@@ -27,8 +27,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_50dp"
+            android:layout_height="match_parent"
             android:background="@color/colorAccent"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
@@ -38,6 +39,23 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/settings_save"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/_8dp"
+            android:background="@color/colorAccent"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="center"
+            android:paddingStart="@dimen/_8dp"
+            android:paddingEnd="@dimen/_2dp"
+            android:text="@string/save"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -92,6 +110,7 @@
         android:background="@color/colorPrimaryTexts" />
 
     <Switch
+        android:id="@+id/settings_appoint_switch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_bold"
@@ -109,6 +128,7 @@
     <Switch
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/settings_notify_switch"
         android:fontFamily="@font/montserrat_bold"
         android:text="@string/promo_notification"
         android:textAllCaps="false"

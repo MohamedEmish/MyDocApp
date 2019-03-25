@@ -31,6 +31,7 @@ import com.yackeenSolution.mydocapp.ActivitiesAndFragments.NonMainFragments.Clin
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.NonMainFragments.ProfileFragment;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
 import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
+import com.yackeenSolution.mydocapp.Objects.NewFavDoctor;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils.Utils;
@@ -281,13 +282,21 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
     }
 
     private void FavClick(DoctorResult doctorResult) {
-        // TODO :: post to ((API)) fav state change
-
         if (doctorResult.isFav()) {
-            doctorResult.setFav(false);
+            NewFavDoctor doctor = new NewFavDoctor();
+            doctor.setUserId(Integer.parseInt(SaveSharedPreference.getUserId(DoctorDetailsActivity.this)));
+            doctor.setDoctorId(doctorResult.getId());
+            doctor.setFacilityId(doctorResult.getFacilityId());
+            doctor.setFav(false);
+            dataViewModel.setDoctorFavState(doctor);
             fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
         } else {
-            doctorResult.setFav(true);
+            NewFavDoctor doctor = new NewFavDoctor();
+            doctor.setUserId(Integer.parseInt(SaveSharedPreference.getUserId(DoctorDetailsActivity.this)));
+            doctor.setDoctorId(doctorResult.getId());
+            doctor.setFacilityId(doctorResult.getFacilityId());
+            doctor.setFav(true);
+            dataViewModel.setDoctorFavState(doctor);
             fav.setImageDrawable(getResources().getDrawable(R.drawable.favorite));
         }
     }

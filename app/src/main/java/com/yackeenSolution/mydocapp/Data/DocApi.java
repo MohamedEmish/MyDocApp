@@ -3,6 +3,7 @@ package com.yackeenSolution.mydocapp.Data;
 import com.yackeenSolution.mydocapp.Objects.Advice;
 import com.yackeenSolution.mydocapp.Objects.Appointment;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
+import com.yackeenSolution.mydocapp.Objects.FamilyMemberToUpload;
 import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
 import com.yackeenSolution.mydocapp.Objects.FacilityResult;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
@@ -11,17 +12,27 @@ import com.yackeenSolution.mydocapp.Objects.Insurance;
 import com.yackeenSolution.mydocapp.Objects.MyAboutUs;
 import com.yackeenSolution.mydocapp.Objects.MyArea;
 import com.yackeenSolution.mydocapp.Objects.MyNotification;
+import com.yackeenSolution.mydocapp.Objects.NewFavDoctor;
+import com.yackeenSolution.mydocapp.Objects.NewFavFacility;
 import com.yackeenSolution.mydocapp.Objects.Promotion;
 import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.Objects.UserData;
+import com.yackeenSolution.mydocapp.Objects.UserDataToUpload;
 
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -150,8 +161,22 @@ public interface DocApi {
     Call<UserData> userLogin(@Body HashMap<String, String> user);
 
     @POST("api/User/EditProfile")
-    Call<UserData> editUserProfile(@Body HashMap<String, String> user);
+    Call<UserDataToUpload> editUserProfile(@Body UserDataToUpload user);
 
     @POST("api/Family/AddEditFamily")
-    Call<FamilyMember> addEditFamilyMember(@Body HashMap<String, String> familyMember);
+    Call<FamilyMemberToUpload> addEditFamilyMember(@Body FamilyMemberToUpload familyMember);
+
+    @Multipart
+    @POST("api/Collection/UploadImage")
+    Call<ResponseBody> uploadImage(@Part MultipartBody.Part file, @Part("name") RequestBody requestBody);
+
+    @POST("api/Doctors/FavoriteDoctor")
+    Call<NewFavDoctor> setFavDoctorState(@Body NewFavDoctor doctor);
+
+    @POST("api/Facilities/FavoriteFacility")
+    Call<NewFavFacility> setFavFacilityState(@Body NewFavFacility facility);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // PUTS :)
+
 }

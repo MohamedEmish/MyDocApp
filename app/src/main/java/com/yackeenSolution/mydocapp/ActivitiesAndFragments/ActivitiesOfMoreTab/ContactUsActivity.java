@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
+import com.yackeenSolution.mydocapp.Data.DocApi;
 import com.yackeenSolution.mydocapp.Data.RetrofitClass;
 import com.yackeenSolution.mydocapp.Objects.Advice;
 import com.yackeenSolution.mydocapp.Objects.MyAboutUs;
@@ -72,7 +73,7 @@ public class ContactUsActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                sendMessage(message);
+                sendMessage(message);
             }
         });
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
@@ -144,27 +145,15 @@ public class ContactUsActivity extends AppCompatActivity {
 
 
     private void sendMessage(String message) {
-        // TODO :: SOME THING IS WRONG
-        Advice advice = new Advice(message, SaveSharedPreference.getUserEmail(this), "Hello phone");
-        Call<Advice> call = RetrofitClass.getDocApi().postAdvice(advice);
+        Advice advice = new Advice();
+        advice.setMessage(message);
+        advice.setMail(SaveSharedPreference.getUserEmail(this));
+        advice.setPhone(null);
+        // TODO :: NEVER POST ADVICE
+        dataViewModel.postAdvice(advice);
+        Toast.makeText(ContactUsActivity.this, ContactUsActivity.this.getResources().getString(R.string.sent_successfully), Toast.LENGTH_SHORT).show();
+        ContactUsActivity.this.finish();
 
-        call.enqueue(new Callback<Advice>() {
-            @Override
-            public void onResponse(Call<Advice> call, Response<Advice> response) {
-                Log.d(TAG, "onResponse: ADVICE " + response);
-                if (!response.isSuccessful()) {
-                    return;
-                }
-
-                Toast.makeText(ContactUsActivity.this, ContactUsActivity.this.getResources().getString(R.string.sent_successfully), Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onFailure(Call<Advice> call, Throwable t) {
-                Log.d(TAG, "onResponse: ADVICE " + t.getMessage());
-            }
-        });
     }
 
 }

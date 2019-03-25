@@ -44,10 +44,6 @@ public class MoreFragment extends Fragment {
         super.onCreate(savedInstanceState);
         final ViewGroup nullParent = null;
 
-        SaveSharedPreference.setUserEmail(getContext(), "ali");
-        SaveSharedPreference.setUserName(getContext(), "ali");
-
-
         View rootView = inflater.inflate(R.layout.more_frag, nullParent);
 
 

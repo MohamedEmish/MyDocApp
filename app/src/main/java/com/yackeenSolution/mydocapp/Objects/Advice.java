@@ -8,6 +8,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class Advice implements Parcelable {
 
+    @SerializedName("Content")
+    @Expose
+    String message;
+    @SerializedName("Email")
+    @Expose
+    String mail;
+    @SerializedName("PhoneNumber")
+    @Expose
+    String phone;
+
     public static final Parcelable.Creator<Advice> CREATOR = new Parcelable.Creator<Advice>() {
         @Override
         public Advice createFromParcel(Parcel source) {
@@ -19,27 +29,6 @@ public class Advice implements Parcelable {
             return new Advice[size];
         }
     };
-    @SerializedName("Content")
-    @Expose
-    String message;
-    @SerializedName("Email")
-    @Expose
-    String mail;
-    @SerializedName("PhoneNumber")
-    @Expose
-    String phone;
-
-    public Advice(String message, String mail, String phone) {
-        this.message = message;
-        this.mail = mail;
-        this.phone = phone;
-    }
-
-    protected Advice(Parcel in) {
-        this.message = in.readString();
-        this.mail = in.readString();
-        this.phone = in.readString();
-    }
 
     public String getMessage() {
         return message;
@@ -75,5 +64,14 @@ public class Advice implements Parcelable {
         dest.writeString(this.message);
         dest.writeString(this.mail);
         dest.writeString(this.phone);
+    }
+
+    public Advice() {
+    }
+
+    protected Advice(Parcel in) {
+        this.message = in.readString();
+        this.mail = in.readString();
+        this.phone = in.readString();
     }
 }

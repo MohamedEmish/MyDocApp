@@ -1,11 +1,17 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 
@@ -30,11 +36,14 @@ import com.squareup.picasso.Picasso;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.Insurance;
 import com.yackeenSolution.mydocapp.Objects.UserData;
+import com.yackeenSolution.mydocapp.Objects.UserDataToUpload;
 import com.yackeenSolution.mydocapp.Utils.BottomSheet;
 import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.Utils.ImageFilePath;
 import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils.Utils;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,23 +51,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSheetListener {
 
     public static final int PICK_IMAGE_FROM_GALLERY = 100;
     public static final int PICK_IMAGE_FROM_CAMERA = 200;
     public static final int PICK_IMAGE_FROM_GALLERY_FOR_INSURANCE = 300;
+    public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 321;
+    public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
 
 
     Calendar myCalendar;
     DatePickerDialog.OnDateSetListener mPicker;
+    String path;
 
     Spinner genderSpinner;
     Spinner insuranceSpinner;
-
+    String password;
     ImageView personalInfoExpand;
     ImageView insuranceInfoExpand;
     ImageView changePassExpand;
@@ -78,6 +95,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
     CircleImageView profilePic;
     Uri mImageUri, mInsuranceImageUri;
     ImageView back;
+    String oldUri;
 
     EditText newPassword;
     Button changePass, saveChanges;
@@ -90,6 +108,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
 
     LinearLayout progress;
 
+    String proPicUrl;
     ImageView newInsuranceImage;
 
 
@@ -99,7 +118,6 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         // Localization
         Utils.setLocale(this);
         setContentView(R.layout.activity_my_account);
-
         ConstraintLayout constraintLayout = findViewById(R.id.my_account_root);
         Utils.RTLSupport(this, constraintLayout);
 
@@ -136,7 +154,6 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 BottomSheet bottomSheet = new BottomSheet();
                 bottomSheet.show(getSupportFragmentManager(), "Example");
             }
@@ -268,15 +285,13 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         });
 
         saveChanges = findViewById(R.id.my_account_save_button);
+        saveChanges.setClickable(false);
         saveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO :: check internal errorr 500
-                updateProfile();
+                imageUrlToUpload();
             }
         });
-
-        // TODO ((ALAA)) .. set watcher properly
 
         TextWatcher textWatcher = new TextWatcher() {
             @Override
@@ -296,7 +311,6 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
 
             }
         };
-
 
         newFirstName = findViewById(R.id.my_account_first_name_edit_text);
         newFirstName.addTextChangedListener(textWatcher);
@@ -329,73 +343,54 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
     }
 
     private void setNewPass() {
-        // TODO: ::: ::: ::: : : same problem
-        HashMap<String, String> fields = new HashMap<>();
-        fields.put("Password", newPassword.getText().toString().trim());
-        fields.put("Id", SaveSharedPreference.getUserId(this));
-        dataViewModel.editUserData(fields).observe(this, new Observer<UserData>() {
-            @Override
-            public void onChanged(UserData userData) {
-                Toast.makeText(MyAccount.this, MyAccount.this.getResources().getString(R.string.password_changed), Toast.LENGTH_SHORT).show();
-            }
-        });
+        UserDataToUpload user = new UserDataToUpload();
+        user.setPassword(newPassword.getText().toString().trim());
+        user.setId(Integer.parseInt(SaveSharedPreference.getUserId(this)));
+        dataViewModel.editUserData(user);
+        Toast.makeText(this, MyAccount.this.getResources().getString(R.string.done), Toast.LENGTH_SHORT).show();
+        MyAccount.this.finish();
     }
 
-    private void updateProfile() {
-        progress.setVisibility(View.VISIBLE);
-        HashMap<String, String> fields = new HashMap<>();
-        fields.put("Id", SaveSharedPreference.getUserId(this));
-        fields.put("FirstName", newFirstName.getText().toString().trim());
-        fields.put("LastName", newLastName.getText().toString().trim());
-        fields.put("DOB", newDate.getText().toString().trim());
+    private void updateProfile(String image) {
+        final UserDataToUpload user = new UserDataToUpload();
+        user.setId(Integer.parseInt(SaveSharedPreference.getUserId(this)));
+        user.setFirstName(newFirstName.getText().toString().trim());
+        user.setLastName(newLastName.getText().toString().trim());
+        user.setDateOfBirth(Utils.dateToApiFormat(newDate.getText().toString().trim()));
+        user.setEmail(email.getText().toString().trim());
+        user.setPassword(password);
+
         long id = genderSpinner.getSelectedItemId();
-        String g = "";
+        Boolean g;
         if (id == 1) {
-            g = "true";
-        } else if (id == 2) {
-            g = "false";
+            g = true;
+        } else {
+            g = false;
         }
-        fields.put("Gender", g);
-        fields.put("MobileNumber", newMobile.getText().toString().trim());
-        fields.put("Image", mImageUri.toString().trim());
-        long inId = insuranceSpinner.getSelectedItemId();
-        fields.put("InsuranceCompanyId", String.valueOf(inId));
-        String insuranceString = "";
+        user.setGender(g);
+        user.setPhoneNumber(newMobile.getText().toString().trim());
+
+        String img = image.replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
+                .replace("http://yakensolution.cloudapp.net/doctoryadmin//", "")
+                .replace("\"", "");
+
+        user.setImageUri(img);
+
+        int inId = insuranceSpinner.getSelectedItemPosition();
+        user.setInsuranceCompanyId(inId);
+
+        String insuranceString;
         if (mInsuranceImageUri != null) {
             insuranceString = mInsuranceImageUri.toString().trim();
+        } else {
+            insuranceString = null;
         }
-        fields.put("InsuranceCompanyImageUrl", insuranceString);
-
-        dataViewModel.editUserData(fields).observe(this, new Observer<UserData>() {
+        user.setInsuranceCompanyImageUrl(insuranceString);
+        dataViewModel.editUserData(user).observe(this, new Observer<UserDataToUpload>() {
             @Override
-            public void onChanged(UserData userData) {
-
-                if (userData != null) {
-
-                    progress.setVisibility(View.GONE);
-
-                    String proPicUrl = userData.getImageUri();
-                    Picasso.get().load(Uri.parse(proPicUrl)).into(profilePic);
-
-                    newFirstName.setText(userData.getFirstName());
-                    firstName.setText(userData.getFirstName());
-                    newLastName.setText(userData.getLastName());
-                    lastName.setText(userData.getLastName());
-                    String defaultDateFormat = userData.getBirthDate();
-                    newDate.setText(Utils.dateAppFormat(defaultDateFormat));
-                    String gender = userData.getGender();
-                    if (gender.equals("true")) {
-                        genderSpinner.setSelection(1);
-                    } else if (gender.equals("false")) {
-                        genderSpinner.setSelection(2);
-                    } else {
-                        genderSpinner.setSelection(0);
-                    }
-                    newMobile.setText(userData.getMobileNumber());
-                    email.setText(userData.getEmail());
-                    insuranceSpinner.setSelection(userData.getInsuranceId());
-                    saveChanges.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorGray)));
-                }
+            public void onChanged(UserDataToUpload userDataToUpload) {
+                Toast.makeText(MyAccount.this, MyAccount.this.getResources().getString(R.string.done), Toast.LENGTH_SHORT).show();
+                MyAccount.this.finish();
             }
         });
     }
@@ -424,10 +419,8 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
 
                 if (userData != null) {
 
-                    progress.setVisibility(View.GONE);
-
-                    String proPicUrl = userData.getImageUri();
-                    mImageUri = Uri.parse(proPicUrl);
+                    proPicUrl = userData.getImageUri();
+                    oldUri = proPicUrl;
                     Picasso.get().load(Uri.parse(proPicUrl)).into(profilePic);
 
                     newFirstName.setText(userData.getFirstName());
@@ -447,7 +440,9 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
                     newMobile.setText(userData.getMobileNumber());
                     email.setText(userData.getEmail());
                     insuranceSpinner.setSelection(userData.getInsuranceId());
+                    password = userData.getPassword();
                     saveChanges.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorGray)));
+                    progress.setVisibility(View.GONE);
                 }
 
             }
@@ -518,6 +513,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
             if (resultData != null) {
                 mImageUri = resultData.getData();
                 profilePic.setImageURI(mImageUri);
+                path = ImageFilePath.getPath(this, mImageUri);
             }
 
         } else if (requestCode == PICK_IMAGE_FROM_CAMERA && resultCode == Activity.RESULT_OK) {
@@ -538,10 +534,114 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
 
     @Override
     public void onButtonClicked(int request) {
-        if (request == PICK_IMAGE_FROM_GALLERY) {
-            openGallery(PICK_IMAGE_FROM_GALLERY);
-        } else if (request == PICK_IMAGE_FROM_CAMERA) {
-            openCamera(PICK_IMAGE_FROM_CAMERA);
+        if (checkPermissionREAD_EXTERNAL_STORAGE(this)) {
+            if (request == PICK_IMAGE_FROM_GALLERY) {
+                openGallery(PICK_IMAGE_FROM_GALLERY);
+            } else if (request == PICK_IMAGE_FROM_CAMERA) {
+                if (checkPermissionWrite_EXTERNAL_STORAGE(this)) {
+                    openCamera(PICK_IMAGE_FROM_CAMERA);
+                }
+            }
         }
     }
+
+    public boolean checkPermissionREAD_EXTERNAL_STORAGE(final Context context) {
+        int currentAPIVersion = Build.VERSION.SDK_INT;
+        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(context,
+                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        (Activity) context,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    showDialog("External storage", context,
+                            Manifest.permission.READ_EXTERNAL_STORAGE);
+
+                } else {
+                    ActivityCompat
+                            .requestPermissions(
+                                    (Activity) context,
+                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                }
+                return false;
+            } else {
+                return true;
+            }
+
+        } else {
+            return true;
+        }
+    }
+
+    public boolean checkPermissionWrite_EXTERNAL_STORAGE(final Context context) {
+
+        int currentAPIVersion = Build.VERSION.SDK_INT;
+        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(context,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        (Activity) context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    showDialog("External storage", context,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+                } else {
+                    ActivityCompat
+                            .requestPermissions(
+                                    (Activity) context,
+                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                }
+                return false;
+            } else {
+                return true;
+            }
+
+        } else {
+            return true;
+        }
+    }
+
+    public void showDialog(final String msg, final Context context, final String permission) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+        alertBuilder.setCancelable(true);
+        alertBuilder.setTitle("Permission necessary");
+        alertBuilder.setMessage(msg + " permission is necessary");
+        alertBuilder.setPositiveButton(android.R.string.yes,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.requestPermissions((Activity) context,
+                                new String[]{permission},
+                                MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                    }
+                });
+        AlertDialog alert = alertBuilder.create();
+        alert.show();
+    }
+
+    public void imageUrlToUpload() {
+        progress.setVisibility(View.VISIBLE);
+        if (!proPicUrl.equals(oldUri)) {
+            File file = new File(path);
+
+            final RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+
+            MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("InternTest", file.getName(), requestBody);
+
+            RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
+
+            dataViewModel.uploadedImageUrlString(fileToUpload, description).observe(this, new Observer<String>() {
+                @Override
+                public void onChanged(String s) {
+                    oldUri = "::";
+                    updateProfile(s);
+                }
+            });
+        } else {
+            updateProfile(oldUri);
+        }
+
+
+    }
+
 }

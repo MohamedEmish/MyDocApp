@@ -1,30 +1,41 @@
 package com.yackeenSolution.mydocapp.Data;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab.AddNewFamilyMember;
+import com.yackeenSolution.mydocapp.Objects.Advice;
 import com.yackeenSolution.mydocapp.Objects.Appointment;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
 import com.yackeenSolution.mydocapp.Objects.FacilityResult;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
+import com.yackeenSolution.mydocapp.Objects.FamilyMemberToUpload;
 import com.yackeenSolution.mydocapp.Objects.FamilyRelation;
 import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
 import com.yackeenSolution.mydocapp.Objects.Insurance;
 import com.yackeenSolution.mydocapp.Objects.MyAboutUs;
 import com.yackeenSolution.mydocapp.Objects.MyArea;
 import com.yackeenSolution.mydocapp.Objects.MyNotification;
+import com.yackeenSolution.mydocapp.Objects.NewFavDoctor;
+import com.yackeenSolution.mydocapp.Objects.NewFavFacility;
 import com.yackeenSolution.mydocapp.Objects.Promotion;
 import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.Objects.UserData;
+import com.yackeenSolution.mydocapp.Objects.UserDataToUpload;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -680,21 +691,19 @@ public class RetrofitClass {
         return listMutableLiveData;
     }
 
-    public LiveData<UserData> editUserData(HashMap<String, String> fields) {
-
-        final MutableLiveData<UserData> listMutableLiveData = new MutableLiveData<>();
+    public LiveData<UserDataToUpload> editUserData(UserDataToUpload user) {
+        final MutableLiveData<UserDataToUpload> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.userLogin(fields).enqueue(new Callback<UserData>() {
+        docApi.editUserProfile(user).enqueue(new Callback<UserDataToUpload>() {
             @Override
-            public void onResponse(Call<UserData> call, Response<UserData> response) {
+            public void onResponse(Call<UserDataToUpload> call, Response<UserDataToUpload> response) {
                 Log.d(TAG, "onResponse: EditUserData " + response);
-
-                UserData userData = response.body();
+                UserDataToUpload userData = response.body();
                 listMutableLiveData.setValue(userData);
             }
 
             @Override
-            public void onFailure(Call<UserData> call, Throwable t) {
+            public void onFailure(Call<UserDataToUpload> call, Throwable t) {
                 Log.d(TAG, "onFailure: EditUserData" + t.getMessage());
 
             }
@@ -702,22 +711,88 @@ public class RetrofitClass {
         return listMutableLiveData;
     }
 
-    public LiveData<FamilyMember> addEditFamilyMemberData(HashMap<String, String> fields) {
-
-        final MutableLiveData<FamilyMember> listMutableLiveData = new MutableLiveData<>();
+    public void addEditFamilyMemberData(FamilyMemberToUpload familyMember) {
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.addEditFamilyMember(fields).enqueue(new Callback<FamilyMember>() {
+        docApi.addEditFamilyMember(familyMember).enqueue(new Callback<FamilyMemberToUpload>() {
             @Override
-            public void onResponse(Call<FamilyMember> call, Response<FamilyMember> response) {
-                Log.d(TAG, "onResponse: AddEditFamilyMember " + response);
-
-                FamilyMember familyMember = response.body();
-                listMutableLiveData.setValue(familyMember);
+            public void onResponse(Call<FamilyMemberToUpload> call, Response<FamilyMemberToUpload> response) {
+                Log.d(TAG, "onResponse: FamilyMemberToUpload " + response);
             }
 
             @Override
-            public void onFailure(Call<FamilyMember> call, Throwable t) {
-                Log.d(TAG, "onFailure: AddEditFamilyMember" + t.getMessage());
+            public void onFailure(Call<FamilyMemberToUpload> call, Throwable t) {
+                Log.d(TAG, "onFailure: FamilyMemberToUpload" + t.getMessage());
+
+            }
+        });
+    }
+
+    public void postAdvice(Advice advice) {
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.postAdvice(advice).enqueue(new Callback<Advice>() {
+            @Override
+            public void onResponse(Call<Advice> call, Response<Advice> response) {
+                Log.d(TAG, "onResponse: Advice " + response);
+            }
+
+            @Override
+            public void onFailure(Call<Advice> call, Throwable t) {
+                Log.d(TAG, "onFailure: Advice" + t.getMessage());
+
+            }
+        });
+    }
+
+    public void setDoctorFavState(NewFavDoctor doctor) {
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.setFavDoctorState(doctor).enqueue(new Callback<NewFavDoctor>() {
+            @Override
+            public void onResponse(Call<NewFavDoctor> call, Response<NewFavDoctor> response) {
+                Log.d(TAG, "onResponse: SetDoctorFavState " + response);
+            }
+
+            @Override
+            public void onFailure(Call<NewFavDoctor> call, Throwable t) {
+                Log.d(TAG, "onFailure: SetDoctorFavState" + t.getMessage());
+
+            }
+        });
+    }
+
+    public void setFacilityFavState(NewFavFacility facility) {
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.setFavFacilityState(facility).enqueue(new Callback<NewFavFacility>() {
+            @Override
+            public void onResponse(Call<NewFavFacility> call, Response<NewFavFacility> response) {
+                Log.d(TAG, "onResponse: SetFacilityFavState " + response);
+            }
+
+            @Override
+            public void onFailure(Call<NewFavFacility> call, Throwable t) {
+                Log.d(TAG, "onFailure: SetFacilityFavState" + t.getMessage());
+
+            }
+        });
+    }
+
+
+    public LiveData<String> uploadImage(MultipartBody.Part file, RequestBody description) {
+        final MutableLiveData<String> listMutableLiveData = new MutableLiveData<>();
+        DocApi docApi = RetrofitClass.getDocApi();
+        docApi.uploadImage(file, description).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "onResponse: imageUrlToUpload :: " + response);
+                try {
+                    listMutableLiveData.setValue(response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: imageUrlToUpload :: " + t.getMessage());
 
             }
         });

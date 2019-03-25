@@ -152,6 +152,13 @@
     <string name="select_lang">Select language</string>
     <string name="clear_filter">Clear\nFilter</string>
     <string name="select_fac_type">Select facility type</string>
+    <string name="gender_is_must">Please choose gender</string>
+    <string name="relation_is_must">Please choose relation</string>
+    <string name="set_image">Please set image</string>
+    <string name="gender_correct">Please correct gender selection</string>
+    <string name="error">Some error happened \\nTry again</string>
+    <string name="added_successfully">Added successfully</string>
+    <string name="done">Done</string>
 
 
 </resources>

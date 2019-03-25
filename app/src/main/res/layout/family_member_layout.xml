@@ -9,7 +9,7 @@
     android:paddingEnd="@dimen/_8dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/family_member_image"
+        android:id="@+id/family_member_circle_image"
         android:layout_width="@dimen/_60dp"
         android:layout_height="match_parent"
         android:src="@drawable/name"
@@ -28,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/family_member_edit"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/family_member_image"
+        app:layout_constraintStart_toEndOf="@+id/family_member_circle_image"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView

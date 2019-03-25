@@ -50,6 +50,7 @@ import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
 import com.yackeenSolution.mydocapp.Objects.FacilityResult;
 import com.yackeenSolution.mydocapp.Objects.Insurance;
+import com.yackeenSolution.mydocapp.Objects.NewFavFacility;
 import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
@@ -213,7 +214,13 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
                     }
                 });
 
-                Uri uri = Uri.parse(facilityResult.getImageUrl());
+                Uri uri;
+                String imageUri = facilityResult.getImageUrl();
+                if (imageUri.equals("") || imageUri.equals("http://yakensolution.cloudapp.net/doctoryadmin/")) {
+                    uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/hospital_default");
+                } else {
+                    uri = Uri.parse(imageUri);
+                }
                 Picasso.get().load(uri).into(proPic);
 
                 if (facilityResult.isFav()) {
@@ -221,6 +228,12 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
                 } else {
                     fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
                 }
+                fav.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FavClick(facilityResult);
+                    }
+                });
 
                 String loc = facilityResult.getLocation();
                 if (loc != null) {
@@ -266,6 +279,24 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
         });
 
 
+    }
+
+    private void FavClick(FacilityResult facilityResult) {
+        if (facilityResult.isFav()) {
+            NewFavFacility facility = new NewFavFacility();
+            facility.setUserId(Integer.parseInt(SaveSharedPreference.getUserId(FacilityDetailsActivity.this)));
+            facility.setFacilityId(facilityResult.getId());
+            facility.setFav(false);
+            dataViewModel.setFacilityFavState(facility);
+            fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
+        } else {
+            NewFavFacility facility = new NewFavFacility();
+            facility.setUserId(Integer.parseInt(SaveSharedPreference.getUserId(FacilityDetailsActivity.this)));
+            facility.setFacilityId(facilityResult.getId());
+            facility.setFav(true);
+            dataViewModel.setFacilityFavState(facility);
+            fav.setImageDrawable(getResources().getDrawable(R.drawable.favorite));
+        }
     }
 
     private void setUpInsuranceData(List<Insurance> insuranceList) {

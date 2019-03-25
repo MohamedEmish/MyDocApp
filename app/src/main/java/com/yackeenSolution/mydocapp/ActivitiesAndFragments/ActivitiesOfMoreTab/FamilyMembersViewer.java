@@ -1,23 +1,14 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab;
-
+/*
+All Done : Design and Data input @ 25/3/2019
+ */
 import android.content.Intent;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.yackeenSolution.mydocapp.Adapters.FamilyMembersAdapter;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
@@ -27,14 +18,21 @@ import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class FamilyMembersViewer extends AppCompatActivity {
 
-    RecyclerView memberRecycleView;
-    FamilyMembersAdapter familyMembersAdapter;
-    FloatingActionButton fab;
-    ImageView back;
-    DataViewModel dataViewModel;
-    LinearLayout progress;
+    private RecyclerView memberRecycleView;
+    private FamilyMembersAdapter familyMembersAdapter;
+    private FloatingActionButton fab;
+    private ImageView back;
+    private DataViewModel dataViewModel;
+    private LinearLayout progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +64,13 @@ public class FamilyMembersViewer extends AppCompatActivity {
             public void onItemClick(FamilyMember familyMember) {
                 Intent intent = new Intent(FamilyMembersViewer.this, AddNewFamilyMember.class);
                 intent.putExtra("type", "edit");
-                intent.putExtra("id", String.valueOf(familyMember.getId()));
+                intent.putExtra("id", String.valueOf(familyMember.getFamilyMemberId()));
+                intent.putExtra("name", familyMember.getName());
+                intent.putExtra("DOB", familyMember.getBirthDate());
+                intent.putExtra("gender", familyMember.getGender());
+                intent.putExtra("mobile", familyMember.getPhoneNumber());
+                intent.putExtra("relation", String.valueOf(familyMember.getRelationshipId()));
+                intent.putExtra("image", familyMember.getImageUrl());
                 startActivity(intent);
             }
         });
@@ -81,6 +85,23 @@ public class FamilyMembersViewer extends AppCompatActivity {
             }
         });
 
+        memberRecycleView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 0) {
+                    if (fab.isShown()) {
+                        fab.hide();
+                    }
+                } else if (dy < 0) {
+                    if (!fab.isShown()) {
+                        fab.show();
+                    }
+                }
+            }
+        });
+
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
         setUpData();
     }
@@ -91,7 +112,7 @@ public class FamilyMembersViewer extends AppCompatActivity {
             public void onChanged(List<FamilyMember> familyMembers) {
                 memberRecycleView.setVisibility(View.VISIBLE);
                 progress.setVisibility(View.GONE);
-                    familyMembersAdapter.submitList(familyMembers);
+                familyMembersAdapter.submitList(familyMembers);
             }
         });
     }

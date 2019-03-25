@@ -21,48 +21,63 @@ public class UserData implements Parcelable {
     @SerializedName("FBId")
     @Expose
     String facebookId;
+
     @SerializedName("Lang")
     @Expose
     String language;
+
     @SerializedName("AppointmentReminder")
     @Expose
     String appointmentReminder;
+
     @SerializedName("EnableNotification")
     @Expose
     String enableNotification;
+
     @SerializedName("InsuranceCompanyId")
     @Expose
     int insuranceId;
+
     @SerializedName("InsuranceCompanyImageUrl")
     @Expose
     String insuranceImage;
+
     @SerializedName("Id")
     @Expose
     private int id;
+
     @SerializedName("FirstName")
     @Expose
     private String firstName;
+
     @SerializedName("LastName")
     @Expose
     private String lastName;
+
     @SerializedName("DOB")
     @Expose
     private String birthDate;
+
     @SerializedName("Gender")
     @Expose
     private String gender;
+
     @SerializedName("MobileNumber")
     @Expose
     private String mobileNumber;
+
     @SerializedName("Email")
     @Expose
     private String email;
+
     @SerializedName("Password")
     @Expose
     private String password;
+
     @SerializedName("Address")
     @Expose
     private String address;
+
     @SerializedName("Image")
     @Expose
     private String imageUri;
