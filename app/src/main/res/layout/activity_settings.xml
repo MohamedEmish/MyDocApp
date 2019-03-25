@@ -52,6 +52,7 @@
             android:paddingStart="@dimen/_8dp"
             android:paddingEnd="@dimen/_2dp"
             android:text="@string/save"
+            android:textSize="@dimen/_12sp"
             android:textAllCaps="true"
             android:textColor="@color/colorBackground"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -117,6 +117,22 @@ public class SettingsActivity extends AppCompatActivity {
         user.setEmail(mUserData.getEmail());
         user.setPassword(mUserData.getPassword());
         user.setDoctorId(null);
+        user.setLastName(mUserData.getLastName());
+        String imageUrl = mUserData.getImageUri().replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
+                .replace("http://yakensolution.cloudapp.net/doctoryadmin//", "")
+                .replace("\"", "");
+        user.setImageUri(imageUrl);
+        user.setDateOfBirth(mUserData.getBirthDate());
+        user.setPhoneNumber(mUserData.getMobileNumber());
+        user.setFirstName(mUserData.getFirstName());
+        user.setInsuranceCompanyId(mUserData.getInsuranceId());
+        user.setInsuranceCompanyImageUrl(mUserData.getInsuranceImage());
+        String g = mUserData.getGender();
+        if (g.equals("true")) {
+            user.setGender(true);
+        } else {
+            user.setGender(false);
+        }
         dataViewModel.editUserData(user).observe(this, new Observer<UserDataToUpload>() {
             @Override
             public void onChanged(UserDataToUpload userDataToUpload) {

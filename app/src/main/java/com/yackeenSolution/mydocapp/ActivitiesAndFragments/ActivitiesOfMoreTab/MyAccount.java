@@ -73,6 +73,8 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
     DatePickerDialog.OnDateSetListener mPicker;
     String path;
 
+    UserData mUserData;
+
     Spinner genderSpinner;
     Spinner insuranceSpinner;
     String password;
@@ -346,6 +348,38 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         UserDataToUpload user = new UserDataToUpload();
         user.setPassword(newPassword.getText().toString().trim());
         user.setId(Integer.parseInt(SaveSharedPreference.getUserId(this)));
+        String app = mUserData.getAppointmentReminder();
+        if (app.equals("true")) {
+            user.setAppointmentReminder(true);
+        } else {
+            user.setAppointmentReminder(false);
+        }
+        String notify = mUserData.getEnableNotification();
+        if (notify.equals("true")) {
+            user.setEnableNotification(true);
+        } else {
+            user.setEnableNotification(false);
+        }
+        user.setDoctorId(null);
+        user.setEmail(mUserData.getEmail());
+        user.setLastName(mUserData.getLastName());
+        String img = mUserData.getImageUri().
+                replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
+                .replace("http://yakensolution.cloudapp.net/doctoryadmin//", "")
+                .replace("\"", "");
+        user.setImageUri(img);
+        user.setDateOfBirth(mUserData.getBirthDate());
+        user.setPhoneNumber(mUserData.getMobileNumber());
+        user.setFirstName(mUserData.getFirstName());
+        user.setInsuranceCompanyId(mUserData.getInsuranceId());
+        user.setInsuranceCompanyImageUrl(mUserData.getInsuranceImage());
+        String g = mUserData.getGender();
+        if (g.equals("true")) {
+            user.setGender(true);
+        } else {
+            user.setGender(false);
+        }
+
         dataViewModel.editUserData(user);
         Toast.makeText(this, MyAccount.this.getResources().getString(R.string.done), Toast.LENGTH_SHORT).show();
         MyAccount.this.finish();
@@ -358,7 +392,29 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         user.setLastName(newLastName.getText().toString().trim());
         user.setDateOfBirth(Utils.dateToApiFormat(newDate.getText().toString().trim()));
         user.setEmail(email.getText().toString().trim());
-        user.setPassword(password);
+        user.setPassword(mUserData.getPassword());
+
+        String app = mUserData.getAppointmentReminder();
+        if (app.equals("true")) {
+            user.setAppointmentReminder(true);
+        } else {
+            user.setAppointmentReminder(false);
+        }
+        String notify = mUserData.getEnableNotification();
+        if (notify.equals("true")) {
+            user.setEnableNotification(true);
+        } else {
+            user.setEnableNotification(false);
+        }
+        user.setDoctorId(null);
+        String img = mUserData.getImageUri().
+                replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
+                .replace("http://yakensolution.cloudapp.net/doctoryadmin//", "")
+                .replace("\"", "");
+        user.setImageUri(img);
+        user.setPhoneNumber(mUserData.getMobileNumber());
+        user.setInsuranceCompanyId(mUserData.getInsuranceId());
+        user.setInsuranceCompanyImageUrl(mUserData.getInsuranceImage());
 
         long id = genderSpinner.getSelectedItemId();
         Boolean g;
@@ -370,11 +426,11 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         user.setGender(g);
         user.setPhoneNumber(newMobile.getText().toString().trim());
 
-        String img = image.replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
+        String imageUrl = mUserData.getImageUri().replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
                 .replace("http://yakensolution.cloudapp.net/doctoryadmin//", "")
                 .replace("\"", "");
 
-        user.setImageUri(img);
+        user.setImageUri(imageUrl);
 
         int inId = insuranceSpinner.getSelectedItemPosition();
         user.setInsuranceCompanyId(inId);
@@ -419,6 +475,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
 
                 if (userData != null) {
 
+                    mUserData = userData;
                     proPicUrl = userData.getImageUri();
                     oldUri = proPicUrl;
                     Picasso.get().load(Uri.parse(proPicUrl)).into(profilePic);
