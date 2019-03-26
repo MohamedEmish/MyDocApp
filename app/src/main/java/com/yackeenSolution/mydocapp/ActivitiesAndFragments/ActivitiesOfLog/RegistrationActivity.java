@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -33,8 +34,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab.AddNewFamilyMember;
+import com.yackeenSolution.mydocapp.Data.DataViewModel;
+import com.yackeenSolution.mydocapp.Objects.UserDataToUpload;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.Utils.BottomSheet;
+import com.yackeenSolution.mydocapp.Utils.ImageFilePath;
 import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.io.ByteArrayOutputStream;
@@ -53,7 +59,13 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class RegistrationActivity extends AppCompatActivity implements BottomSheet.BottomSheetListener {
 
@@ -61,26 +73,21 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
     public static final int PICK_IMAGE_FROM_CAMERA = 200;
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 321;
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
+    private static final String TAG = RegistrationActivity.class.getCanonicalName();
 
     private Calendar myCalendar;
     private DatePickerDialog.OnDateSetListener mPicker;
 
     int eyeVisibility = 1;
     private ImageView mSignUpEye;
+    private DataViewModel dataViewModel;
 
     private CircleImageView mSignUpUserImage;
     private Uri mImageUri;
-
     private String
-            mEmail,
-            mFirstName,
-            mLastName,
-            mMobile,
-            mPassword,
-            mDate,
-            mImageString,
-            mGender;
-
+            path,
+            mEmail;
+    private Boolean mGender;
     private EditText
             mSignUpFirstName,
             mSignUpLastName,
@@ -93,7 +100,6 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
     private RadioGroup mSignUpGenderRadioGroup;
     private AppCompatRadioButton mSignUpMaleRadio, mSignUpFemaleRadio;
     private AppCompatCheckBox mSignUpTermsCheck;
-
     private Button mSignUpCreateAccount;
 
     @Override
@@ -101,7 +107,6 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         super.onCreate(savedInstanceState);
         // Localization
         Utils.setLocale(this);
-
         setContentView(R.layout.activity_registration);
 
         ScrollView scrollView = findViewById(R.id.sign_up_root);
@@ -114,6 +119,7 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
             getSupportActionBar().setCustomView(R.layout.reg_action_bar);
         }
 
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
         mSignUpEmail = findViewById(R.id.sign_up_email);
         Intent intent = getIntent();
         if (intent.hasExtra("mail")) {
@@ -181,52 +187,78 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
                 if (!isAllDataOk()) {
                     Toast.makeText(RegistrationActivity.this, "Check Errors", Toast.LENGTH_SHORT).show();
                 } else {
-                    createNewAccount();
+                    imageUrlToUpload();
                 }
             }
         });
     }
 
-    private void createNewAccount() {
+    public void imageUrlToUpload() {
+        File file = new File(path);
 
-        mMobile = mSignUpMobile.getText().toString().trim();
-        mPassword = mSignUpPassword.getText().toString().trim();
-        mDate = mSignUpDate.getText().toString().trim();
-        mImageString = mImageUri.toString();
-        mFirstName = mSignUpFirstName.getText().toString().trim();
-        mLastName = mSignUpLastName.getText().toString().trim();
+        final RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+
+        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("InternTest", file.getName(), requestBody);
+
+        RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
+
+        dataViewModel.uploadedImageUrlString(fileToUpload, description).observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                createNewAccount(s);
+            }
+        });
+    }
+
+
+    private void createNewAccount(String image) {
+        UserDataToUpload user = new UserDataToUpload();
+        user.setPhoneNumber(mSignUpMobile.getText().toString().trim());
+        user.setPassword(mSignUpPassword.getText().toString().trim());
+        user.setEmail(mSignUpEmail.getText().toString().trim());
+        user.setDateOfBirth(Utils.dateToApiFormat(mSignUpDate.getText().toString().trim()));
+        image.replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
+                .replace("http://yakensolution.cloudapp.net/doctoryadmin//", "")
+                .replace("\"", "");
+        user.setImageUri(image);
+        user.setFirstName(mSignUpFirstName.getText().toString().trim());
+        user.setLastName(mSignUpLastName.getText().toString().trim());
         if (mSignUpGenderRadioGroup.getCheckedRadioButtonId() == R.id.sign_up_male_radio) {
-            mGender = "male";
+            mGender = true;
         } else if (mSignUpGenderRadioGroup.getCheckedRadioButtonId() == R.id.sign_up_female_radio) {
-            mGender = "female";
+            mGender = false;
         } else {
-            mGender = "";
+            mGender = null;
         }
 
         if (mSignUpMaleRadio.isChecked()) {
-            mGender = "male";
+            mGender = true;
         }
 
         if (mSignUpFemaleRadio.isChecked()) {
-            mGender = "female";
+            mGender = false;
         }
+        user.setGender(mGender);
+        user.setFbId(null);
+        user.setLang(null);
+        user.setAddress(null);
+        user.setAppointmentReminder(true);
+        user.setDoctorId(null);
+        user.setInsuranceCompanyId(null);
+        user.setInsuranceCompanyImageUrl(null);
+        user.setEnableNotification(true);
 
-//        UserData user = new UserData(
-//                mFirstName,
-//                mLastName,
-//                mEmail,
-//                mDate,
-//                mMobile,
-//                mGender,
-//                mPassword,
-//                mImageString
-//        );
-        // TODO : upload user to ((API))
-        Intent intent = new Intent(RegistrationActivity.this, SignInActivity.class);
-        intent.putExtra("emailText", mEmail);
-        intent.putExtra("password", mPassword);
-        startActivity(intent);
-        Toast.makeText(this, "created", Toast.LENGTH_SHORT).show();
+        dataViewModel.addNewUser(user).observe(this, new Observer<UserDataToUpload>() {
+            @Override
+            public void onChanged(UserDataToUpload userDataToUpload) {
+                Intent intent = new Intent(RegistrationActivity.this, SignInActivity.class);
+                intent.putExtra("emailText", mSignUpEmail.getText().toString().trim());
+                intent.putExtra("password", mSignUpPassword.getText().toString().trim());
+                startActivity(intent);
+                Toast.makeText(RegistrationActivity.this, getResources().getString(R.string.welcome), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void pickDate() {
@@ -290,51 +322,50 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
     }
 
     private void openCamera() {
-        Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePicture.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePicture, PICK_IMAGE_FROM_CAMERA);
+        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (pictureIntent.resolveActivity(getPackageManager()) != null) {
+            //Create a file to store the image
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                Log.d(TAG, "onClick: " + ex.getMessage());
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(getApplicationContext(),
+                        "com.yackeenSolution.mydocapp.provider", photoFile);
+                pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(pictureIntent, PICK_IMAGE_FROM_CAMERA);
+            }
         }
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "IMG_" + timeStamp + "_";
+        File storageDir =
+                getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,
+                ".jpg",
+                storageDir);
+        path = image.getAbsolutePath();
+        return image;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
-
-
         if (requestCode == PICK_IMAGE_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
-
             if (resultData != null) {
                 mImageUri = resultData.getData();
                 mSignUpUserImage.setImageURI(mImageUri);
+                path = ImageFilePath.getPath(this, mImageUri);
             }
 
         } else if (requestCode == PICK_IMAGE_FROM_CAMERA && resultCode == Activity.RESULT_OK) {
 
-            if (resultData != null) {
-
-                Uri selectedImage = resultData.getData();
-                Bitmap bitmap = (Bitmap) resultData.getExtras().get("data");
-                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
-
-                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-                File destination = new File(Environment.getExternalStorageDirectory() + "/" +
-                        getString(R.string.app_name), "IMG_" + timeStamp + ".jpg");
-                FileOutputStream fo;
-                try {
-                    destination.createNewFile();
-                    fo = new FileOutputStream(destination);
-                    fo.write(bytes.toByteArray());
-                    fo.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                String imgPath = destination.getAbsolutePath();
-                mImageUri = Uri.parse(imgPath);
-                mSignUpUserImage.setImageBitmap(bitmap);
-            }
+            Glide.with(this).load(path).into(mSignUpUserImage);
+            mImageUri = Uri.parse(path);
 
         } else {
             Toast.makeText(this, "Request cancelled", Toast.LENGTH_SHORT).show();
@@ -406,24 +437,20 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(context,
                     Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        (Activity) context,
+                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context,
                         Manifest.permission.READ_EXTERNAL_STORAGE)) {
                     showDialog("External storage", context,
                             Manifest.permission.READ_EXTERNAL_STORAGE);
 
                 } else {
-                    ActivityCompat
-                            .requestPermissions(
-                                    (Activity) context,
-                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    ActivityCompat.requestPermissions(
+                            (Activity) context, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                                     MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
                 }
                 return false;
             } else {
                 return true;
             }
-
         } else {
             return true;
         }
@@ -435,23 +462,18 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
             if (ContextCompat.checkSelfPermission(context,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        (Activity) context,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    showDialog("External storage", context,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        (Activity) context, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    showDialog("External storage", context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
                 } else {
-                    ActivityCompat
-                            .requestPermissions(
-                                    (Activity) context,
-                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    ActivityCompat.requestPermissions(
+                            (Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                     MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
                 }
                 return false;
             } else {
                 return true;
             }
-
         } else {
             return true;
         }
@@ -465,15 +487,11 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         alertBuilder.setPositiveButton(android.R.string.yes,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        ActivityCompat.requestPermissions((Activity) context,
-                                new String[]{permission},
+                        ActivityCompat.requestPermissions((Activity) context, new String[]{permission},
                                 MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
                     }
                 });
         AlertDialog alert = alertBuilder.create();
         alert.show();
     }
-
-
 }
-

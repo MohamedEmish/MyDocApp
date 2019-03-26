@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,8 @@ import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab.M
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab.NotificationActivity;
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab.PrivacyPolicyActivity;
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab.SettingsActivity;
+import com.yackeenSolution.mydocapp.Data.DataViewModel;
+import com.yackeenSolution.mydocapp.Objects.UserToken;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfLog.SignInActivity;
@@ -38,6 +42,7 @@ public class MoreFragment extends Fragment {
     private ConstraintLayout mMoreNotification;
     private ConstraintLayout mMoreContactUs;
     private TextView logInOut;
+    private DataViewModel dataViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +53,7 @@ public class MoreFragment extends Fragment {
 
 
         logInOut = rootView.findViewById(R.id.more_log_in_out);
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
 
         if (SaveSharedPreference.getUserName(getContext()).length() == 0) {
             logInOut.setText(getResources().getText(R.string.log_in));
@@ -177,6 +183,10 @@ public class MoreFragment extends Fragment {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UserToken token = new UserToken();
+                token.setId(Integer.parseInt(SaveSharedPreference.getUserId(getContext())));
+                token.setEmail(SaveSharedPreference.getUserEmail(getContext()));
+                dataViewModel.logout(token);
                 SaveSharedPreference.clearUserName(getActivity());
                 SaveSharedPreference.clearUserEmail(getActivity());
                 SaveSharedPreference.clearUserId(getActivity());

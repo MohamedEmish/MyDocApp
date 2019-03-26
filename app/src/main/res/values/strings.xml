@@ -159,6 +159,7 @@
     <string name="error">Some error happened \\nTry again</string>
     <string name="added_successfully">Added successfully</string>
     <string name="done">Done</string>
+    <string name="welcome">Welcome</string>
 
 
 </resources>

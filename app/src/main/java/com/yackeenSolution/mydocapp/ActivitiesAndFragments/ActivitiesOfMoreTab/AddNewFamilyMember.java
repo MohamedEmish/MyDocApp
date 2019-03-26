@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.FamilyMemberToUpload;
@@ -43,6 +45,7 @@ import com.yackeenSolution.mydocapp.Utils.Utils;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -72,20 +75,30 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
     private DatePickerDialog.OnDateSetListener datePicker;
     private Uri mImageUri = null;
     private CircleImageView mAddFamilyMemberImage;
-    private Spinner mAddFamilyMemberRelationSpinner;
-    private Spinner mAddFamilyMemberGenderSpinner;
-    private EditText mAddFamilyMemberDate;
+    private Spinner
+            mAddFamilyMemberRelationSpinner,
+            mAddFamilyMemberGenderSpinner;
     private Button mAddFamilyMemberButton;
-    private EditText mAddFamilyMemberFirstName;
-    private EditText mAddFamilyMemberMobile;
-    private EditText mAddFamilyMemberLastName;
+    private EditText
+            mAddFamilyMemberDate,
+            mAddFamilyMemberFirstName,
+            mAddFamilyMemberMobile,
+            mAddFamilyMemberLastName;
     private ImageView back;
     private DataViewModel dataViewModel;
-    private String type;
     private Integer id;
-    private String path;
-    private String name, DOB, gender, mobile, relation, image;
-    private LinearLayout progress, data;
+    private String
+            type,
+            path,
+            name,
+            DOB,
+            gender,
+            mobile,
+            relation,
+            image;
+    private LinearLayout
+            progress,
+            data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -226,6 +239,7 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
             uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
         }
         Picasso.get().load(uri).into(mAddFamilyMemberImage);
+        Glide.with(this).load(uri).into(mAddFamilyMemberImage);
         mImageUri = uri;
         mAddFamilyMemberButton.setClickable(false);
         mAddFamilyMemberButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorGray)));
@@ -429,19 +443,10 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_FROM_GALLERY);
     }
 
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        String imageFileName = "IMG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-        path = image.getAbsolutePath();
-        return image;
-    }
-
     private void openCamera() {
-        // TODO :: last proplem here CAM INTENT
-        Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePicture.resolveActivity(getPackageManager()) != null) {
+        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (pictureIntent.resolveActivity(getPackageManager()) != null) {
+            //Create a file to store the image
             File photoFile = null;
             try {
                 photoFile = createImageFile();
@@ -451,10 +456,24 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(getApplicationContext(),
                         "com.yackeenSolution.mydocapp.provider", photoFile);
-                takePicture.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePicture, PICK_IMAGE_FROM_CAMERA);
+                pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(pictureIntent, PICK_IMAGE_FROM_CAMERA);
             }
         }
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "IMG_" + timeStamp + "_";
+        File storageDir =
+                getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,
+                ".jpg",
+                storageDir);
+
+        path = image.getAbsolutePath();
+        return image;
     }
 
     @Override
@@ -469,10 +488,9 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
             }
 
         } else if (requestCode == PICK_IMAGE_FROM_CAMERA && resultCode == Activity.RESULT_OK) {
+            Glide.with(this).load(path).into(mAddFamilyMemberImage);
+            mImageUri = Uri.parse(path);
 
-            if (resultData != null) {
-                Picasso.get().load(path).into(mAddFamilyMemberImage);
-            }
         }
 
     }

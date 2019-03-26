@@ -19,12 +19,14 @@ import androidx.lifecycle.ViewModelProviders;
 
 public class AboutUsActivity extends AppCompatActivity {
 
-    public static final String TAG = AboutUsActivity.class.getCanonicalName();
-    private TextView aboutUsTitle;
-    private TextView aboutUsContent;
+    private TextView
+            aboutUsTitle,
+            aboutUsContent;
     private ImageView back;
     private DataViewModel dataViewModel;
-    private LinearLayout progress, data;
+    private LinearLayout
+            progress,
+            data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,6 @@ public class AboutUsActivity extends AppCompatActivity {
                     data.setVisibility(View.VISIBLE);
                     String content = myAboutUses.get(0).getContent();
                     aboutUsContent.setText(content);
-
                     String title = myAboutUses.get(0).getTitle();
                     aboutUsTitle.setText(title.toUpperCase());
                 } else {

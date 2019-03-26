@@ -9,16 +9,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -32,27 +30,32 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.Insurance;
 import com.yackeenSolution.mydocapp.Objects.UserData;
 import com.yackeenSolution.mydocapp.Objects.UserDataToUpload;
-import com.yackeenSolution.mydocapp.Utils.BottomSheet;
 import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.Utils.BottomSheet;
 import com.yackeenSolution.mydocapp.Utils.ImageFilePath;
 import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -67,52 +70,61 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
     public static final int PICK_IMAGE_FROM_GALLERY_FOR_INSURANCE = 300;
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 321;
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
+    private static final String TAG = MyAccount.class.getCanonicalName();
 
+    private Calendar myCalendar;
+    private DatePickerDialog.OnDateSetListener mPicker;
+    private UserData mUserData;
+    private Spinner
+            genderSpinner,
+            insuranceSpinner;
+    private ImageView
+            personalInfoExpand,
+            insuranceInfoExpand,
+            changePassExpand;
+    private int personalInfoIndicator = 0;
+    private int insuranceInfoIndicator = 0;
+    private int changePassIndicator = 0;
 
-    Calendar myCalendar;
-    DatePickerDialog.OnDateSetListener mPicker;
-    String path;
+    private LinearLayout personalInfoLayout;
+    private LinearLayout insuranceInfoLayout;
+    private LinearLayout changePassLayout;
+    private LinearLayout progress;
 
-    UserData mUserData;
+    private ConstraintLayout personalInfoMainLayout;
+    private ConstraintLayout insuranceInfoMainLayout;
+    private ConstraintLayout changePassMainLayout;
 
-    Spinner genderSpinner;
-    Spinner insuranceSpinner;
-    String password;
-    ImageView personalInfoExpand;
-    ImageView insuranceInfoExpand;
-    ImageView changePassExpand;
+    private CircleImageView profilePic;
+    private Uri
+            mImageUri,
+            mInsuranceImageUri;
+    private ImageView back;
+    private String
+            oldUri,
+            proPicUrl,
+            path,
+            password;
+    private Button
+            changePass,
+            saveChanges;
 
-    int personalInfoIndicator = 0;
-    int insuranceInfoIndicator = 0;
-    int changePassIndicator = 0;
+    private EditText
+            newPassword,
+            newFirstName,
+            newLastName,
+            newDate,
+            newMobile,
+            newNationalId,
+            email;
 
-    LinearLayout personalInfoLayout;
-    LinearLayout insuranceInfoLayout;
-    LinearLayout changePassLayout;
+    private DataViewModel dataViewModel;
 
-    ConstraintLayout personalInfoMainLayout;
-    ConstraintLayout insuranceInfoMainLayout;
-    ConstraintLayout changePassMainLayout;
+    private TextView
+            firstName,
+            lastName;
 
-    CircleImageView profilePic;
-    Uri mImageUri, mInsuranceImageUri;
-    ImageView back;
-    String oldUri;
-
-    EditText newPassword;
-    Button changePass, saveChanges;
-
-    EditText newFirstName, newLastName, newDate, newMobile, newNationalId, email;
-
-    DataViewModel dataViewModel;
-
-    TextView firstName, lastName;
-
-    LinearLayout progress;
-
-    String proPicUrl;
-    ImageView newInsuranceImage;
-
+    private ImageView newInsuranceImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -341,7 +353,6 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
         setupData(Integer.parseInt(SaveSharedPreference.getUserId(this)));
         setUpSpinnerData();
-
     }
 
     private void setNewPass() {
@@ -407,11 +418,11 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
             user.setEnableNotification(false);
         }
         user.setDoctorId(null);
-        String img = mUserData.getImageUri().
-                replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
+        image.replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
                 .replace("http://yakensolution.cloudapp.net/doctoryadmin//", "")
                 .replace("\"", "");
-        user.setImageUri(img);
+
+        user.setImageUri(image);
         user.setPhoneNumber(mUserData.getMobileNumber());
         user.setInsuranceCompanyId(mUserData.getInsuranceId());
         user.setInsuranceCompanyImageUrl(mUserData.getInsuranceImage());
@@ -556,10 +567,36 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
     }
 
     private void openCamera(int id) {
-        Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePicture.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePicture, id);
+        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (pictureIntent.resolveActivity(getPackageManager()) != null) {
+            //Create a file to store the image
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                Log.d(TAG, "onClick: " + ex.getMessage());
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(getApplicationContext(),
+                        "com.yackeenSolution.mydocapp.provider", photoFile);
+                pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(pictureIntent, id);
+            }
         }
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "IMG_" + timeStamp + "_";
+        File storageDir =
+                getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,
+                ".jpg",
+                storageDir);
+
+        path = image.getAbsolutePath();
+        return image;
     }
 
     @Override
@@ -575,10 +612,8 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
 
         } else if (requestCode == PICK_IMAGE_FROM_CAMERA && resultCode == Activity.RESULT_OK) {
 
-            if (resultData != null) {
-                Bitmap photo = (Bitmap) resultData.getExtras().get("data");
-                profilePic.setImageBitmap(photo);
-            }
+            Glide.with(this).load(path).into(profilePic);
+            mImageUri = Uri.parse(path);
 
         } else if (requestCode == PICK_IMAGE_FROM_GALLERY_FOR_INSURANCE && resultCode == Activity.RESULT_OK) {
             if (resultData != null) {
@@ -697,8 +732,6 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         } else {
             updateProfile(oldUri);
         }
-
-
     }
 
 }

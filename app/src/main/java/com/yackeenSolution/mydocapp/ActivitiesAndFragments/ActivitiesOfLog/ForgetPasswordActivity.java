@@ -6,7 +6,10 @@ package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfLog;
  */
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.yackeenSolution.mydocapp.Data.DataViewModel;
+import com.yackeenSolution.mydocapp.Objects.PasswordToken;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.Utils.Utils;
 
@@ -25,6 +30,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     EditText mail, code, newPass, confirmPass;
     Button forgetButton, confirmCode, resetPass;
     String emailText, codeText, passText, newPassText;
+    DataViewModel dataViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,8 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
 
         mail = findViewById(R.id.forget_pass_email);
         emailText = mail.getText().toString().trim();
@@ -65,13 +73,19 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         confirmCode.setEnabled(false);
         resetPass.setEnabled(false);
 
+        resetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setNewPass(emailText, codeText, newPassText);
+            }
+        });
+
         forgetButton = findViewById(R.id.forget_button);
         forgetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Utils.isValidEmail(mail, getResources().getString(R.string.invalid_mail_error))) {
                     getNewPass(emailText);
-                    activateConfirmCode();
                 }
             }
         });
@@ -79,16 +93,37 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         confirmCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO : check code with ((API))
-                activateResetPass();
-                sendNewPass(emailText);
-
+                sendNewPass(emailText, codeText);
             }
         });
     }
 
-    private void sendNewPass(String email) {
-        // TODO : set new pass to ((API)
+    private void setNewPass(final String emailText, String codeText, final String newPassText) {
+        PasswordToken token = new PasswordToken();
+        token.setEmail(emailText);
+        token.setCode(codeText);
+        token.setNewPassword(newPassText);
+        dataViewModel.resetPassword(token).observe(this, new Observer<PasswordToken>() {
+            @Override
+            public void onChanged(PasswordToken token) {
+                Intent intent = new Intent(ForgetPasswordActivity.this, SignInActivity.class);
+                intent.putExtra("emailText", emailText);
+                intent.putExtra("password", newPassText);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void sendNewPass(String email, String codeText) {
+        PasswordToken token = new PasswordToken();
+        token.setEmail(email);
+        token.setCode(codeText);
+        dataViewModel.resetPassword(token).observe(this, new Observer<PasswordToken>() {
+            @Override
+            public void onChanged(PasswordToken token) {
+                activateResetPass();
+            }
+        });
     }
 
     private void activateResetPass() {
@@ -105,6 +140,13 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     }
 
     private void getNewPass(String email) {
-        // TODO : send mail to ((API)) to solve the problem
+        PasswordToken token = new PasswordToken();
+        token.setEmail(email);
+        dataViewModel.forgetPassword(token).observe(this, new Observer<PasswordToken>() {
+            @Override
+            public void onChanged(PasswordToken token) {
+                activateConfirmCode();
+            }
+        });
     }
 }

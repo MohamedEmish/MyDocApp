@@ -14,10 +14,12 @@ import com.yackeenSolution.mydocapp.Objects.MyArea;
 import com.yackeenSolution.mydocapp.Objects.MyNotification;
 import com.yackeenSolution.mydocapp.Objects.NewFavDoctor;
 import com.yackeenSolution.mydocapp.Objects.NewFavFacility;
+import com.yackeenSolution.mydocapp.Objects.PasswordToken;
 import com.yackeenSolution.mydocapp.Objects.Promotion;
 import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.Objects.UserData;
 import com.yackeenSolution.mydocapp.Objects.UserDataToUpload;
+import com.yackeenSolution.mydocapp.Objects.UserToken;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,10 +30,8 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -175,6 +175,21 @@ public interface DocApi {
 
     @POST("api/Facilities/FavoriteFacility")
     Call<NewFavFacility> setFavFacilityState(@Body NewFavFacility facility);
+
+    @POST("api/User/Register")
+    Call<UserDataToUpload> addNewUser(@Body UserDataToUpload user);
+
+    @POST("api/User/LogOut")
+    Call<UserToken> logOut(@Body UserToken token);
+
+    @POST("api/User/ForgetPassword")
+    Call<PasswordToken> forgetPassword(@Body PasswordToken token);
+
+    @POST("api/User/ResetPassword")
+    Call<PasswordToken> resetPassword(@Body PasswordToken token);
+
+
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // PUTS :)

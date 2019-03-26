@@ -20,10 +20,12 @@ import com.yackeenSolution.mydocapp.Objects.MyArea;
 import com.yackeenSolution.mydocapp.Objects.MyNotification;
 import com.yackeenSolution.mydocapp.Objects.NewFavDoctor;
 import com.yackeenSolution.mydocapp.Objects.NewFavFacility;
+import com.yackeenSolution.mydocapp.Objects.PasswordToken;
 import com.yackeenSolution.mydocapp.Objects.Promotion;
 import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.Objects.UserData;
 import com.yackeenSolution.mydocapp.Objects.UserDataToUpload;
+import com.yackeenSolution.mydocapp.Objects.UserToken;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -711,6 +713,26 @@ public class RetrofitClass {
         return listMutableLiveData;
     }
 
+    public LiveData<UserDataToUpload> addNewUser(UserDataToUpload user) {
+        final MutableLiveData<UserDataToUpload> listMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.addNewUser(user).enqueue(new Callback<UserDataToUpload>() {
+            @Override
+            public void onResponse(Call<UserDataToUpload> call, Response<UserDataToUpload> response) {
+                Log.d(TAG, "onResponse: NewUserData " + response);
+                UserDataToUpload userData = response.body();
+                listMutableLiveData.setValue(userData);
+            }
+
+            @Override
+            public void onFailure(Call<UserDataToUpload> call, Throwable t) {
+                Log.d(TAG, "onFailure: NewUserData" + t.getMessage());
+
+            }
+        });
+        return listMutableLiveData;
+    }
+
     public void addEditFamilyMemberData(FamilyMemberToUpload familyMember) {
         final DocApi docApi = RetrofitClass.getDocApi();
         docApi.addEditFamilyMember(familyMember).enqueue(new Callback<FamilyMemberToUpload>() {
@@ -741,6 +763,60 @@ public class RetrofitClass {
 
             }
         });
+    }
+
+    public void logOut(UserToken token) {
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.logOut(token).enqueue(new Callback<UserToken>() {
+            @Override
+            public void onResponse(Call<UserToken> call, Response<UserToken> response) {
+                Log.d(TAG, "onResponse: Logout " + response);
+            }
+
+            @Override
+            public void onFailure(Call<UserToken> call, Throwable t) {
+                Log.d(TAG, "onFailure: Logout" + t.getMessage());
+
+            }
+        });
+    }
+
+    public LiveData<PasswordToken> forgetPassword(PasswordToken token) {
+        final MutableLiveData<PasswordToken> listMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.forgetPassword(token).enqueue(new Callback<PasswordToken>() {
+            @Override
+            public void onResponse(Call<PasswordToken> call, Response<PasswordToken> response) {
+                Log.d(TAG, "onResponse: ForgotPassword " + response);
+                PasswordToken token = response.body();
+                listMutableLiveData.setValue(token);
+            }
+
+            @Override
+            public void onFailure(Call<PasswordToken> call, Throwable t) {
+                Log.d(TAG, "onFailure: ForgotPassword" + t.getMessage());
+            }
+        });
+        return listMutableLiveData;
+    }
+
+    public LiveData<PasswordToken> resetPassword(PasswordToken token) {
+        final MutableLiveData<PasswordToken> listMutableLiveData = new MutableLiveData<>();
+        final DocApi docApi = RetrofitClass.getDocApi();
+        docApi.resetPassword(token).enqueue(new Callback<PasswordToken>() {
+            @Override
+            public void onResponse(Call<PasswordToken> call, Response<PasswordToken> response) {
+                Log.d(TAG, "onResponse: ResetPassword " + response);
+                PasswordToken token = response.body();
+                listMutableLiveData.setValue(token);
+            }
+
+            @Override
+            public void onFailure(Call<PasswordToken> call, Throwable t) {
+                Log.d(TAG, "onFailure: ResetPassword" + t.getMessage());
+            }
+        });
+        return listMutableLiveData;
     }
 
     public void setDoctorFavState(NewFavDoctor doctor) {
@@ -774,7 +850,6 @@ public class RetrofitClass {
             }
         });
     }
-
 
     public LiveData<String> uploadImage(MultipartBody.Part file, RequestBody description) {
         final MutableLiveData<String> listMutableLiveData = new MutableLiveData<>();

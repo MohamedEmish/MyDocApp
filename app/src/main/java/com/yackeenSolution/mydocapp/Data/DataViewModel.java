@@ -5,21 +5,23 @@ import android.app.Application;
 import com.yackeenSolution.mydocapp.Objects.Advice;
 import com.yackeenSolution.mydocapp.Objects.Appointment;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
-import com.yackeenSolution.mydocapp.Objects.FamilyMemberToUpload;
-import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
 import com.yackeenSolution.mydocapp.Objects.FacilityResult;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
+import com.yackeenSolution.mydocapp.Objects.FamilyMemberToUpload;
 import com.yackeenSolution.mydocapp.Objects.FamilyRelation;
+import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
 import com.yackeenSolution.mydocapp.Objects.Insurance;
 import com.yackeenSolution.mydocapp.Objects.MyAboutUs;
 import com.yackeenSolution.mydocapp.Objects.MyArea;
 import com.yackeenSolution.mydocapp.Objects.MyNotification;
 import com.yackeenSolution.mydocapp.Objects.NewFavDoctor;
 import com.yackeenSolution.mydocapp.Objects.NewFavFacility;
+import com.yackeenSolution.mydocapp.Objects.PasswordToken;
 import com.yackeenSolution.mydocapp.Objects.Promotion;
 import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.Objects.UserData;
 import com.yackeenSolution.mydocapp.Objects.UserDataToUpload;
+import com.yackeenSolution.mydocapp.Objects.UserToken;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,11 +60,6 @@ public class DataViewModel extends AndroidViewModel {
     private LiveData<String> uploadedImageUrlString;
 
 
-
-
-
-
-
     public DataViewModel(@NonNull Application application) {
         super(application);
     }
@@ -72,158 +69,85 @@ public class DataViewModel extends AndroidViewModel {
 
     // Spinners Data
     public LiveData<List<Speciality>> getSpecialities() {
-
-        if (mySpecialityList == null) {
-            mySpecialityList = retrofitClass.getSpecialityLive();
-        }
-        return mySpecialityList;
+        return mySpecialityList = retrofitClass.getSpecialityLive();
     }
 
     public LiveData<List<Insurance>> getMyInsuranceList() {
-
-        if (myInsuranceList == null) {
-            myInsuranceList = retrofitClass.getInsuranceLive();
-        }
-        return myInsuranceList;
+        return myInsuranceList = retrofitClass.getInsuranceLive();
     }
 
     public LiveData<List<MyArea>> getMyAreaList() {
-
-        if (myAreaList == null) {
-            myAreaList = retrofitClass.getAreaLive();
-        }
-        return myAreaList;
+        return myAreaList = retrofitClass.getAreaLive();
     }
 
     public LiveData<List<FamilyRelation>> getFamilyRelations() {
-
-        if (myFamilyRelationsList == null) {
-            myFamilyRelationsList = retrofitClass.getFamilyRelationsLive();
-        }
-        return myFamilyRelationsList;
+        return myFamilyRelationsList = retrofitClass.getFamilyRelationsLive();
     }
 
     public LiveData<List<Speciality>> getQualifications() {
-
-        if (myQualificationsList == null) {
-            myQualificationsList = retrofitClass.getQualificationLive();
-        }
-        return myQualificationsList;
+        return myQualificationsList = retrofitClass.getQualificationLive();
     }
 
     public LiveData<List<Speciality>> getNationalities() {
-
-        if (myNationalitiesList == null) {
-            myNationalitiesList = retrofitClass.getNationalitiesLive();
-        }
-        return myNationalitiesList;
+        return myNationalitiesList = retrofitClass.getNationalitiesLive();
     }
 
     public LiveData<List<Speciality>> getLanguages() {
-
-        if (myLanguagesList == null) {
-            myLanguagesList = retrofitClass.getLanguagesLive();
-        }
-        return myLanguagesList;
+        return myLanguagesList = retrofitClass.getLanguagesLive();
     }
 
     public LiveData<List<Speciality>> getMyFacilityTypes() {
-
-        if (myFacilityTypesList == null) {
-            myFacilityTypesList = retrofitClass.getFacilityTypeLive();
-        }
-        return myFacilityTypesList;
+        return myFacilityTypesList = retrofitClass.getFacilityTypeLive();
     }
-
 
 
     ///////////////////////////////////////////////////////////////////////
 
     // More Tab Activities GETS
     public LiveData<List<MyAboutUs>> getMyAboutUsLive() {
-
-        if (myAboutUsLiveData == null) {
-            myAboutUsLiveData = retrofitClass.getAboutUsLive();
-        }
-        return myAboutUsLiveData;
+        return myAboutUsLiveData = retrofitClass.getAboutUsLive();
     }
 
     public LiveData<List<MyAboutUs>> getMyPolicyLiveData() {
-
-        if (myPolicyLiveData == null) {
-            myPolicyLiveData = retrofitClass.getPolicyLive();
-        }
-        return myPolicyLiveData;
+        return myPolicyLiveData = retrofitClass.getPolicyLive();
     }
 
     public LiveData<List<MyAboutUs>> getSocialAccounts() {
-
-        if (mySocialAccounts == null) {
-            mySocialAccounts = retrofitClass.getSocialAccounts();
-        }
-        return mySocialAccounts;
+        return retrofitClass.getSocialAccounts();
     }
 
     public LiveData<List<MyNotification>> getNotificationsList() {
-
-        if (mNotificationsList == null) {
-            mNotificationsList = retrofitClass.getNotifications();
-        }
-        return mNotificationsList;
+        return retrofitClass.getNotifications();
     }
 
     public LiveData<UserData> getUserAccountData(int id) {
-
-        if (mUserAccountData == null) {
-            mUserAccountData = retrofitClass.getUserAccountData(id);
-        }
-        return mUserAccountData;
+        return retrofitClass.getUserAccountData(id);
     }
 
     public LiveData<List<FamilyMember>> getMyFamilyMembersList(int id) {
-
-        if (mMyFamilyMembersList == null) {
-            mMyFamilyMembersList = retrofitClass.getMyFamilyMembers(id);
-        }
-        return mMyFamilyMembersList;
+        return retrofitClass.getMyFamilyMembers(id);
     }
 
     public LiveData<FamilyMember> getSpecificFamilyMember(int userId, int memberId) {
-
-        if (mSpecificFamilyMember == null) {
-            mSpecificFamilyMember = retrofitClass.getSpecificFamilyMember(memberId);
-        }
-        return mSpecificFamilyMember;
+        return retrofitClass.getSpecificFamilyMember(memberId);
     }
 
     ///////////////////////////////////////////////////////////////////////
 
     // Promotion Tab
     public LiveData<List<Promotion>> getAllPromotionList() {
-
-        if (mAllPromotionList == null) {
-            mAllPromotionList = retrofitClass.getAllPromotions();
-        }
-        return mAllPromotionList;
+        return retrofitClass.getAllPromotions();
     }
 
     ///////////////////////////////////////////////////////////////////////
 
     // Favourites
     public LiveData<List<FavouriteDoctor>> getMyFavDoctorsList(int id) {
-
-        if (mMyFavDoctorsList == null) {
-            mMyFavDoctorsList = retrofitClass.getMyFavDoctors(id);
-        }
-        return mMyFavDoctorsList;
+        return retrofitClass.getMyFavDoctors(id);
     }
 
     public LiveData<List<FacilityResult>> getMyFavFacilitiesList(int id) {
-
-        if (mMyFavFacilitiesList == null) {
-            mMyFavFacilitiesList = retrofitClass.getMyFavFacilities(id);
-        }
-        return mMyFavFacilitiesList;
+        return retrofitClass.getMyFavFacilities(id);
     }
 
 
@@ -231,30 +155,18 @@ public class DataViewModel extends AndroidViewModel {
 
     // Appointments Tab
     public LiveData<List<Appointment>> getMyAppointments(int userId, int statusId) {
-
-        if (mMyAppointments == null) {
-            mMyAppointments = retrofitClass.getMyAppointments(userId, statusId);
-        }
-        return mMyAppointments;
+        return retrofitClass.getMyAppointments(userId, statusId);
     }
 
     ///////////////////////////////////////////////////////////////////////
 
     // Details
     public LiveData<List<DoctorResult>> getSpecificDoctorData(int doctorId) {
-
-        if (mSpecificDoctorData == null) {
-            mSpecificDoctorData = retrofitClass.getSpecificDoctorData(doctorId);
-        }
-        return mSpecificDoctorData;
+        return retrofitClass.getSpecificDoctorData(doctorId);
     }
 
     public LiveData<FacilityResult> getSpecificFacilityData(int facilityId, int userId) {
-
-        if (mSpecificFacilityData == null) {
-            mSpecificFacilityData = retrofitClass.getSpecificFacilityData(facilityId, userId);
-        }
-        return mSpecificFacilityData;
+        return retrofitClass.getSpecificFacilityData(facilityId, userId);
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -270,8 +182,6 @@ public class DataViewModel extends AndroidViewModel {
             Integer languageId,
             Integer nationalityId,
             Boolean gender) {
-
-        if (mDoctorSearchResultsList == null) {
             mDoctorSearchResultsList = retrofitClass.getSearchForDoctorResults(
                     specialityId,
                     fromDate,
@@ -283,7 +193,6 @@ public class DataViewModel extends AndroidViewModel {
                     nationalityId,
                     gender
             );
-        }
         return mDoctorSearchResultsList;
     }
 
@@ -292,15 +201,12 @@ public class DataViewModel extends AndroidViewModel {
             Integer areaId,
             Integer insuranceId,
             Integer facilityTypeId) {
-
-        if (mFacilitySearchResultsList == null) {
             mFacilitySearchResultsList = retrofitClass.getSearchForFacilityResults(
                     specialityId,
                     areaId,
                     insuranceId,
                     facilityTypeId
             );
-        }
         return mFacilitySearchResultsList;
     }
 
@@ -312,13 +218,16 @@ public class DataViewModel extends AndroidViewModel {
         return mUserData = retrofitClass.userLogin(fields);
     }
 
-
     public LiveData<String> uploadedImageUrlString(MultipartBody.Part file, RequestBody description) {
         return uploadedImageUrlString = retrofitClass.uploadImage(file, description);
     }
 
     public LiveData<UserDataToUpload> editUserData(UserDataToUpload user) {
         return retrofitClass.editUserData(user);
+    }
+
+    public LiveData<UserDataToUpload> addNewUser(UserDataToUpload user) {
+        return retrofitClass.addNewUser(user);
     }
 
     public void addEditFamilyMember(FamilyMemberToUpload familyMember) {
@@ -329,12 +238,24 @@ public class DataViewModel extends AndroidViewModel {
         retrofitClass.postAdvice(advice);
     }
 
+    public void logout(UserToken token) {
+        retrofitClass.logOut(token);
+    }
+
     public void setDoctorFavState(NewFavDoctor doctor) {
         retrofitClass.setDoctorFavState(doctor);
     }
 
     public void setFacilityFavState(NewFavFacility facility) {
         retrofitClass.setFacilityFavState(facility);
+    }
+
+    public LiveData<PasswordToken> forgetPassword(PasswordToken token) {
+        return retrofitClass.forgetPassword(token);
+    }
+
+    public LiveData<PasswordToken> resetPassword(PasswordToken token) {
+        return retrofitClass.resetPassword(token);
     }
 
 }

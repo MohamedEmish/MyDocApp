@@ -192,13 +192,11 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        // TODO :: after wrong entry it doesn't clear and get new data .. so how to clear ?? ((ALAA))
     }
 
     private void check(EditText email, EditText password) {
         boolean isAllOk = true;
 
-        // TODO :: how to check existence ((ALAA))
         // Email set and validation check
 
         if (!Utils.isValueSet(email, getResources().getString(R.string.edit_text_error))) {
@@ -206,26 +204,14 @@ public class SignInActivity extends AppCompatActivity {
         } else if (!Utils.isValidEmail(email, getResources().getString(R.string.invalid_mail_error))) {
             isAllOk = false;
         }
-//        else if (!Utils.isOldUser(email)) {
-//            email.setError(getResources().getString(R.string.user_not_exist_error));
-//            isAllOk = false;
-//        }
 
-        // Password set,validation and correctness check
+        // Password set,validation check
 
         if (!Utils.isValueSet(password, getResources().getString(R.string.edit_text_error))) {
             isAllOk = false;
         } else if (!Utils.isValidPassword(password, getResources().getString(R.string.invalid_password_error))) {
             isAllOk = false;
         }
-//        else if (Utils.isOldUser(email)) {
-//            String pass = Utils.userPassword(email);
-//            if (!pass.equals(password.getText().toString().trim())) {
-//                // TODO : true to test after test set false
-//                password.setError(getResources().getString(R.string.incorrect_password));
-//                isAllOk = true;
-//            }
-//        }
 
         if (isAllOk) {
             logIn(email, password);
