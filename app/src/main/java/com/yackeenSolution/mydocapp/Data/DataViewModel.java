@@ -1,9 +1,15 @@
 package com.yackeenSolution.mydocapp.Data;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.app.Application;
 
 import com.yackeenSolution.mydocapp.Objects.Advice;
 import com.yackeenSolution.mydocapp.Objects.Appointment;
+import com.yackeenSolution.mydocapp.Objects.AppointmentToUpload;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
 import com.yackeenSolution.mydocapp.Objects.FacilityResult;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
@@ -35,30 +41,6 @@ import okhttp3.RequestBody;
 public class DataViewModel extends AndroidViewModel {
 
     private RetrofitClass retrofitClass = new RetrofitClass();
-    private LiveData<List<MyAboutUs>> myAboutUsLiveData;
-    private LiveData<List<MyAboutUs>> myPolicyLiveData;
-    private LiveData<List<Speciality>> mySpecialityList;
-    private LiveData<List<Insurance>> myInsuranceList;
-    private LiveData<List<MyArea>> myAreaList;
-    private LiveData<List<MyAboutUs>> mySocialAccounts;
-    private LiveData<List<Promotion>> mAllPromotionList;
-    private LiveData<List<MyNotification>> mNotificationsList;
-    private LiveData<UserData> mUserData;
-    private LiveData<UserData> mUserAccountData;
-    private LiveData<List<FamilyMember>> mMyFamilyMembersList;
-    private LiveData<FamilyMember> mSpecificFamilyMember;
-    private FamilyMember mAddEditFamilyMember;
-    private LiveData<List<FamilyRelation>> myFamilyRelationsList;
-    private LiveData<List<FavouriteDoctor>> mMyFavDoctorsList;
-    private LiveData<List<FacilityResult>> mMyFavFacilitiesList;
-    private LiveData<List<Appointment>> mMyAppointments;
-    private LiveData<List<DoctorResult>> mSpecificDoctorData;
-    private LiveData<FacilityResult> mSpecificFacilityData;
-    private LiveData<List<DoctorResult>> mDoctorSearchResultsList;
-    private LiveData<List<FacilityResult>> mFacilitySearchResultsList;
-    private LiveData<List<Speciality>> myQualificationsList, myNationalitiesList, myLanguagesList, myFacilityTypesList;
-    private LiveData<String> uploadedImageUrlString;
-
 
     public DataViewModel(@NonNull Application application) {
         super(application);
@@ -69,35 +51,35 @@ public class DataViewModel extends AndroidViewModel {
 
     // Spinners Data
     public LiveData<List<Speciality>> getSpecialities() {
-        return mySpecialityList = retrofitClass.getSpecialityLive();
+        return retrofitClass.getSpecialityLive();
     }
 
     public LiveData<List<Insurance>> getMyInsuranceList() {
-        return myInsuranceList = retrofitClass.getInsuranceLive();
+        return retrofitClass.getInsuranceLive();
     }
 
     public LiveData<List<MyArea>> getMyAreaList() {
-        return myAreaList = retrofitClass.getAreaLive();
+        return retrofitClass.getAreaLive();
     }
 
     public LiveData<List<FamilyRelation>> getFamilyRelations() {
-        return myFamilyRelationsList = retrofitClass.getFamilyRelationsLive();
+        return retrofitClass.getFamilyRelationsLive();
     }
 
     public LiveData<List<Speciality>> getQualifications() {
-        return myQualificationsList = retrofitClass.getQualificationLive();
+        return retrofitClass.getQualificationLive();
     }
 
     public LiveData<List<Speciality>> getNationalities() {
-        return myNationalitiesList = retrofitClass.getNationalitiesLive();
+        return retrofitClass.getNationalitiesLive();
     }
 
     public LiveData<List<Speciality>> getLanguages() {
-        return myLanguagesList = retrofitClass.getLanguagesLive();
+        return retrofitClass.getLanguagesLive();
     }
 
     public LiveData<List<Speciality>> getMyFacilityTypes() {
-        return myFacilityTypesList = retrofitClass.getFacilityTypeLive();
+        return retrofitClass.getFacilityTypeLive();
     }
 
 
@@ -105,11 +87,11 @@ public class DataViewModel extends AndroidViewModel {
 
     // More Tab Activities GETS
     public LiveData<List<MyAboutUs>> getMyAboutUsLive() {
-        return myAboutUsLiveData = retrofitClass.getAboutUsLive();
+        return retrofitClass.getAboutUsLive();
     }
 
     public LiveData<List<MyAboutUs>> getMyPolicyLiveData() {
-        return myPolicyLiveData = retrofitClass.getPolicyLive();
+        return retrofitClass.getPolicyLive();
     }
 
     public LiveData<List<MyAboutUs>> getSocialAccounts() {
@@ -126,10 +108,6 @@ public class DataViewModel extends AndroidViewModel {
 
     public LiveData<List<FamilyMember>> getMyFamilyMembersList(int id) {
         return retrofitClass.getMyFamilyMembers(id);
-    }
-
-    public LiveData<FamilyMember> getSpecificFamilyMember(int userId, int memberId) {
-        return retrofitClass.getSpecificFamilyMember(memberId);
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -158,6 +136,10 @@ public class DataViewModel extends AndroidViewModel {
         return retrofitClass.getMyAppointments(userId, statusId);
     }
 
+    public LiveData<Appointment> getSpecificAppointment(int appointmentId) {
+        return retrofitClass.getSpecificAppointment(appointmentId);
+    }
+
     ///////////////////////////////////////////////////////////////////////
 
     // Details
@@ -182,18 +164,17 @@ public class DataViewModel extends AndroidViewModel {
             Integer languageId,
             Integer nationalityId,
             Boolean gender) {
-            mDoctorSearchResultsList = retrofitClass.getSearchForDoctorResults(
-                    specialityId,
-                    fromDate,
-                    toDate,
-                    areaId,
-                    insuranceId,
-                    qualificationId,
-                    languageId,
-                    nationalityId,
-                    gender
-            );
-        return mDoctorSearchResultsList;
+        return retrofitClass.getSearchForDoctorResults(
+                specialityId,
+                fromDate,
+                toDate,
+                areaId,
+                insuranceId,
+                qualificationId,
+                languageId,
+                nationalityId,
+                gender
+        );
     }
 
     public LiveData<List<FacilityResult>> getSearchForFacilityResults(
@@ -201,13 +182,12 @@ public class DataViewModel extends AndroidViewModel {
             Integer areaId,
             Integer insuranceId,
             Integer facilityTypeId) {
-            mFacilitySearchResultsList = retrofitClass.getSearchForFacilityResults(
-                    specialityId,
-                    areaId,
-                    insuranceId,
-                    facilityTypeId
-            );
-        return mFacilitySearchResultsList;
+        return retrofitClass.getSearchForFacilityResults(
+                specialityId,
+                areaId,
+                insuranceId,
+                facilityTypeId
+        );
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -215,11 +195,11 @@ public class DataViewModel extends AndroidViewModel {
 
 
     public LiveData<UserData> userLogin(HashMap<String, String> fields) {
-        return mUserData = retrofitClass.userLogin(fields);
+        return retrofitClass.userLogin(fields);
     }
 
     public LiveData<String> uploadedImageUrlString(MultipartBody.Part file, RequestBody description) {
-        return uploadedImageUrlString = retrofitClass.uploadImage(file, description);
+        return retrofitClass.uploadImage(file, description);
     }
 
     public LiveData<UserDataToUpload> editUserData(UserDataToUpload user) {
@@ -256,6 +236,16 @@ public class DataViewModel extends AndroidViewModel {
 
     public LiveData<PasswordToken> resetPassword(PasswordToken token) {
         return retrofitClass.resetPassword(token);
+    }
+
+    public LiveData<Appointment> requestAppointment(AppointmentToUpload appointment) {
+        return retrofitClass.requestAppointment(appointment);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // POSTS :)
+    public void deleteAppointment(int appointmentId) {
+        retrofitClass.deleteAppointment(appointmentId);
     }
 
 }

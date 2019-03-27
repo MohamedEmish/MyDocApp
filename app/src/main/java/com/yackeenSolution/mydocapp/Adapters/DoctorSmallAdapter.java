@@ -7,6 +7,7 @@ package com.yackeenSolution.mydocapp.Adapters;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.yackeenSolution.mydocapp.Objects.DoctorResult;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
 import com.yackeenSolution.mydocapp.R;
 
@@ -44,15 +44,16 @@ public class DoctorSmallAdapter extends ListAdapter<DoctorResult, DoctorSmallAda
         super(DIFF_CALLBACK);
     }
 
+    @NonNull
     @Override
-    public DoctorSmallViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DoctorSmallViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.doctor_small_item, parent, false);
         return new DoctorSmallViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(DoctorSmallViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DoctorSmallViewHolder holder, int position) {
         String name = getItem(position).getName();
         String jobTitle = getItem(position).getQualification();
         String imageUri = getItem(position).getImageUrl();
@@ -68,10 +69,6 @@ public class DoctorSmallAdapter extends ListAdapter<DoctorResult, DoctorSmallAda
         holder.jobTitleTextView.setText(jobTitle);
     }
 
-    public DoctorResult getMemberAt(int position) {
-        return getItem(position);
-    }
-
     public void setOnItemClickListener(DoctorSmallAdapter.OnItemClickListener listener) {
         this.listener = listener;
     }
@@ -84,12 +81,12 @@ public class DoctorSmallAdapter extends ListAdapter<DoctorResult, DoctorSmallAda
 
     public class DoctorSmallViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView nameTextView;
-        public TextView jobTitleTextView;
-        public ImageView doctorImageVew;
+        TextView nameTextView;
+        TextView jobTitleTextView;
+        ImageView doctorImageVew;
         public LinearLayout linearLayout;
 
-        public DoctorSmallViewHolder(View itemView) {
+        DoctorSmallViewHolder(View itemView) {
             super(itemView);
 
             nameTextView = itemView.findViewById(R.id.doctor_small_item_name);

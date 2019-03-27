@@ -30,9 +30,7 @@ import com.yackeenSolution.mydocapp.Utils.Utils;
 
 public class MainScreen extends AppCompatActivity {
 
-    BottomNavigationView navigation;
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
+    private BottomNavigationView navigation;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -75,8 +73,8 @@ public class MainScreen extends AppCompatActivity {
         fragment.setEnterTransition(new Fade(Fade.IN));
         fragment.setExitTransition(new Fade(Fade.OUT));
 
-        fragmentManager = MainScreen.this.getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction()
+        FragmentManager fragmentManager = MainScreen.this.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
                 .replace(R.id.main_screen_frame, fragment);
         fragmentTransaction.commit();
     }
@@ -97,6 +95,6 @@ public class MainScreen extends AppCompatActivity {
 
     public void setNavigatorLayout(int id) {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setSelectedItemId(R.id.navigation_search);
+        navigation.setSelectedItemId(id);
     }
 }

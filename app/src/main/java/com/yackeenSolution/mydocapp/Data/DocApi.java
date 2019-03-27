@@ -1,7 +1,13 @@
 package com.yackeenSolution.mydocapp.Data;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import com.yackeenSolution.mydocapp.Objects.Advice;
 import com.yackeenSolution.mydocapp.Objects.Appointment;
+import com.yackeenSolution.mydocapp.Objects.AppointmentToUpload;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
 import com.yackeenSolution.mydocapp.Objects.FamilyMemberToUpload;
 import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
@@ -29,6 +35,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -114,6 +121,11 @@ public interface DocApi {
             @Query("StatusId") int statusId
     );
 
+    @GET("api/Appointments/GetDoctorAppointment")
+    Call<Appointment> getSpecificApointment(@Query("AppointmentId") int appointmentId);
+
+
+
     ///////////////////////////////////////////////////////////////////////
 
     // Details
@@ -188,10 +200,15 @@ public interface DocApi {
     @POST("api/User/ResetPassword")
     Call<PasswordToken> resetPassword(@Body PasswordToken token);
 
-
-
+    @POST("api/Appointments/RequestAppointment")
+    Call<Appointment> requestAppointment(@Body AppointmentToUpload appointment);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // PUTS :)
 
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // DELETES :)
+    @DELETE("api/Appointments/Delete/{id}")
+    Call<String> deleteAppointment(@Path("id") int appointmentId);
 }

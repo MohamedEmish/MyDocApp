@@ -1,7 +1,11 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -12,8 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
-import com.yackeenSolution.mydocapp.Data.DocApi;
-import com.yackeenSolution.mydocapp.Data.RetrofitClass;
 import com.yackeenSolution.mydocapp.Objects.Advice;
 import com.yackeenSolution.mydocapp.Objects.MyAboutUs;
 import com.yackeenSolution.mydocapp.R;
@@ -25,21 +27,13 @@ import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ContactUsActivity extends AppCompatActivity {
 
-    ImageView back;
-    public static final String TAG = ContactUsActivity.class.getCanonicalName();
-    Button button;
-    EditText messageEditText;
-    String message;
-    DataViewModel dataViewModel;
-    String fbURL, tweeterURL, instegramURL, phoneNumber, webUrl;
-    ImageView fb, tweet, instegram;
-    TextView web;
+    private String message;
+    private DataViewModel dataViewModel;
+    private String fbURL, tweeterURL, instegramURL, webUrl;
+    private TextView web;
 
 
     @Override
@@ -54,11 +48,11 @@ public class ContactUsActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         web = findViewById(R.id.contact_us_web);
-        fb = findViewById(R.id.contact_us_fb);
-        tweet = findViewById(R.id.contact_us_tweeter);
-        instegram = findViewById(R.id.contact_us_instgram);
+        ImageView fb = findViewById(R.id.contact_us_fb);
+        ImageView tweet = findViewById(R.id.contact_us_tweeter);
+        ImageView instegram = findViewById(R.id.contact_us_instgram);
 
-        back = findViewById(R.id.contact_us_back);
+        ImageView back = findViewById(R.id.contact_us_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,10 +60,10 @@ public class ContactUsActivity extends AppCompatActivity {
             }
         });
 
-        messageEditText = findViewById(R.id.contact_us_message_text);
+        EditText messageEditText = findViewById(R.id.contact_us_message_text);
         message = messageEditText.getText().toString().trim();
 
-        button = findViewById(R.id.contact_us_send_Button);
+        Button button = findViewById(R.id.contact_us_send_Button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +111,6 @@ public class ContactUsActivity extends AppCompatActivity {
             public void onChanged(List<MyAboutUs> policyList) {
 
                 if (policyList.size() > 0) {
-                    int x = policyList.size();
                     for (int i = 0; i <= policyList.size() - 1; i++) {
                         switch (policyList.get(i).getTitle()) {
                             case "fb":
@@ -128,9 +121,6 @@ public class ContactUsActivity extends AppCompatActivity {
                                 break;
                             case "twitter":
                                 tweeterURL = policyList.get(i).getContent();
-                                break;
-                            case "contactNumber":
-                                phoneNumber = policyList.get(i).getContent();
                                 break;
                             case "WebSite":
                                 webUrl = policyList.get(i).getContent();

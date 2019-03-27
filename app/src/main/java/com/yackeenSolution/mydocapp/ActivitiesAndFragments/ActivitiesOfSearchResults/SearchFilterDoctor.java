@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchResults;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
 

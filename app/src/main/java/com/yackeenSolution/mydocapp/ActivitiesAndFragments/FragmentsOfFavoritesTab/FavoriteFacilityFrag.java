@@ -1,8 +1,14 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfFavoritesTab;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -24,20 +30,28 @@ import com.yackeenSolution.mydocapp.Utils.Utils;
 import java.util.List;
 
 public class FavoriteFacilityFrag extends Fragment {
-    RecyclerView facilityResultRecycleView;
-    FacilityResultAdapter facilityResultAdapter;
-    DataViewModel dataViewModel;
-    LinearLayout progress;
+    private RecyclerView facilityResultRecycleView;
+    private FacilityResultAdapter facilityResultAdapter;
+    private DataViewModel dataViewModel;
+    private LinearLayout progress;
+    private LinearLayout noData;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onResume() {
+        super.onResume();
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
+        setUpData();
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final ViewGroup nullParent = null;
         View rootView = inflater.inflate(R.layout.favorites_facility_frag, nullParent);
 
-        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
 
         progress = rootView.findViewById(R.id.fav_facility_frag_progress_bar_layout);
+        noData = rootView.findViewById(R.id.fav_facility_no_data);
 
         facilityResultRecycleView = rootView.findViewById(R.id.fav_facility_recycler);
         facilityResultRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -76,9 +90,6 @@ public class FavoriteFacilityFrag extends Fragment {
                 openFacilityPage(id);
             }
         });
-
-        setUpData();
-
         return rootView;
 
     }
@@ -105,13 +116,15 @@ public class FavoriteFacilityFrag extends Fragment {
         dataViewModel.getMyFavFacilitiesList(Integer.parseInt(SaveSharedPreference.getUserId(getActivity()))).observe(this, new Observer<List<FacilityResult>>() {
             @Override
             public void onChanged(List<FacilityResult> facilityResults) {
+                progress.setVisibility(View.GONE);
                 if (facilityResults.size() > 0) {
-                    progress.setVisibility(View.GONE);
                     for (FacilityResult facilityResult : facilityResults) {
                         facilityResult.setFav(true);
                     }
                     facilityResultRecycleView.setVisibility(View.VISIBLE);
                     facilityResultAdapter.submitList(facilityResults);
+                } else {
+                    noData.setVisibility(View.VISIBLE);
                 }
             }
         });

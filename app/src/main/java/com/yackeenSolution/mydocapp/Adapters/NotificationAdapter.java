@@ -5,6 +5,7 @@ package com.yackeenSolution.mydocapp.Adapters;
    ALL DONE :)
  */
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,21 +32,20 @@ public class NotificationAdapter extends ListAdapter<MyNotification, Notificatio
                     && oldItem.getDescription().equals(newItem.getDescription());
         }
     };
-    private NotificationAdapter.OnItemClickListener listener;
-
     public NotificationAdapter() {
         super(DIFF_CALLBACK);
     }
 
+    @NonNull
     @Override
-    public NotificationAdapter.NotificationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NotificationAdapter.NotificationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.notification_layout, parent, false);
         return new NotificationAdapter.NotificationViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(NotificationAdapter.NotificationViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NotificationAdapter.NotificationViewHolder holder, int position) {
         String title = getItem(position).getTitle();
         String description = getItem(position).getDescription();
 
@@ -53,29 +53,14 @@ public class NotificationAdapter extends ListAdapter<MyNotification, Notificatio
         holder.titleTextView.setText(title);
         holder.descriptionTextView.setText(Html.fromHtml(description));
 
-
     }
 
-    public void setOnItemClickListener(NotificationAdapter.OnItemClickListener listener) {
-        this.listener = listener;
-    }
+    class NotificationViewHolder extends RecyclerView.ViewHolder {
 
+        TextView titleTextView;
+        TextView descriptionTextView;
 
-    public interface OnItemClickListener {
-        void onItemClick(MyNotification notification);
-    }
-
-    public MyNotification getMemberAt(int position) {
-        return getItem(position);
-    }
-
-
-    public class NotificationViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView titleTextView;
-        public TextView descriptionTextView;
-
-        public NotificationViewHolder(View itemView) {
+        NotificationViewHolder(View itemView) {
             super(itemView);
 
             titleTextView = itemView.findViewById(R.id.notification_title);

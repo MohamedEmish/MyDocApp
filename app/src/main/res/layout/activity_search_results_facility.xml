@@ -63,28 +63,10 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:id="@+id/facility_search_result_progress_bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:background="@color/colorBackgroundSecond"
-        android:gravity="center">
-
-        <ImageView
-            android:id="@+id/progress_animation_details"
-            android:layout_width="@dimen/_50dp"
-            android:layout_height="@dimen/_50dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/progress_animation" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/facility_search_result_data_layout"
-        android:visibility="gone"
+        android:visibility="visible"
         android:background="@color/colorBackgroundSecond"
         android:orientation="vertical">
 
@@ -102,7 +84,7 @@
             android:paddingEnd="@dimen/_8dp">
 
             <EditText
-                android:id="@+id/search_date_text"
+                android:id="@+id/search_facility_filter_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4dp"
@@ -122,13 +104,65 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_results_facility_recycler"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorBackgroundSecond">
+            android:orientation="vertical">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <LinearLayout
+                android:id="@+id/search_results_facility_no_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorBackgroundSecond"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="@dimen/_150dp"
+                    android:layout_height="@dimen/_150dp"
+                    android:src="@drawable/facilities"
+                    android:tint="@color/colorGray" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/no_facility"
+                    android:textColor="@color/colorPrimaryTexts"
+                    android:textSize="@dimen/_18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/facility_search_result_progress_bar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/colorBackgroundSecond"
+                android:gravity="center"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/progress_animation_details"
+                    android:layout_width="@dimen/_50dp"
+                    android:layout_height="@dimen/_50dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/progress_animation" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_results_facility_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorBackgroundSecond"
+                android:visibility="gone">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
 
 
     </LinearLayout>

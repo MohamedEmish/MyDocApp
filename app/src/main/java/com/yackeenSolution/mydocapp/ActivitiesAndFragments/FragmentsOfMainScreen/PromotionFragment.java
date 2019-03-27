@@ -1,7 +1,13 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfMainScreen;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -20,20 +26,24 @@ import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.Promotion;
 import com.yackeenSolution.mydocapp.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PromotionFragment extends Fragment {
 
-    RecyclerView recycleView;
-    PromotionAdapter adapter;
-    List<Promotion> data = new ArrayList<>();
+    private PromotionAdapter adapter;
     private DataViewModel dataViewModel;
     private LinearLayout progress;
     private FrameLayout dataLayout;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onResume() {
+        super.onResume();
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
+        setUpData();
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final ViewGroup nullParent = null;
 
@@ -42,7 +52,7 @@ public class PromotionFragment extends Fragment {
         progress = rootView.findViewById(R.id.promotion_frag_bar_layout);
         dataLayout = rootView.findViewById(R.id.promotion_frame);
 
-        recycleView = rootView.findViewById(R.id.promotion_recycler);
+        RecyclerView recycleView = rootView.findViewById(R.id.promotion_recycler);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         recycleView.setHasFixedSize(true);
         adapter = new PromotionAdapter();
@@ -55,10 +65,6 @@ public class PromotionFragment extends Fragment {
             }
         });
 
-        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
-        dataViewModel.getMyPolicyLiveData();
-        setUpData();
-
         return rootView;
     }
 
@@ -68,12 +74,9 @@ public class PromotionFragment extends Fragment {
             @Override
             public void onChanged(List<Promotion> promotions) {
 
-                List<Promotion> promotionList = new ArrayList<>();
-
                 if (promotions.size() > 0) {
                     progress.setVisibility(View.GONE);
                     dataLayout.setVisibility(View.VISIBLE);
-
                     adapter.submitList(promotions);
                 }
             }

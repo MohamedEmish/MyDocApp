@@ -24,7 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    View splashImage, splashText;
+    private View splashImage, splashText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

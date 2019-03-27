@@ -1,9 +1,17 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchResults;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,19 +38,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchResultDoctorActivity extends AppCompatActivity {
 
-    RecyclerView doctorResultRecycleView;
-    DoctorResultAdapter doctorResultAdapter;
+    private DoctorResultAdapter doctorResultAdapter;
 
-    DataViewModel dataViewModel;
-    List<Integer> favoriteIdList = new ArrayList<>();
+    private DataViewModel dataViewModel;
+    private List<Integer> favoriteIdList = new ArrayList<>();
+    private RecyclerView doctorResultRecycleView;
 
-    LinearLayout progress, dataLayout;
-    ImageView back;
-    TextView filter;
+    private LinearLayout
+            progress,
+            noData;
 
-    int specialityId;
-    String fromDate, toDate, searchDate;
-    String insuranceId, areaId, qualificationId, languageId, nationalityId, genderId;
+    private int specialityId;
+    private String
+            searchDate,
+            insuranceId,
+            areaId,
+            qualificationId,
+            languageId,
+            nationalityId,
+            genderId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +102,9 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
 
         progress = findViewById(R.id.doctor_search_result_progress_bar_layout);
-        dataLayout = findViewById(R.id.doctor_search_result_data);
+        noData = findViewById(R.id.search_results_doctor_no_data);
 
-        back = findViewById(R.id.search_results_back);
+        ImageView back = findViewById(R.id.search_results_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +112,7 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
             }
         });
 
-        filter = findViewById(R.id.search_result_facility_filter);
+        TextView filter = findViewById(R.id.search_result_facility_filter);
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +141,8 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
     }
 
     private void setUp() {
+        String fromDate;
+        String toDate;
         if (searchDate.equals("")) {
             fromDate = getTodayDate();
             toDate = getTomorrowDate();
@@ -167,14 +183,19 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
         } else {
             nationality = Integer.parseInt(nationalityId);
         }
-        if (genderId.equals("null")) {
-            gender = null;
-        } else if (genderId.equals("male")) {
-            gender = true;
-        } else if (genderId.equals("female")) {
-            gender = false;
-        } else {
-            gender = null;
+        switch (genderId) {
+            case "null":
+                gender = null;
+                break;
+            case "male":
+                gender = true;
+                break;
+            case "female":
+                gender = false;
+                break;
+            default:
+                gender = null;
+                break;
         }
         dataViewModel.getSearchForDoctorResults(
                 specialityId,
@@ -187,40 +208,77 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
                 nationality,
                 gender).observe(this, new Observer<List<DoctorResult>>() {
             @Override
-            public void onChanged(List<DoctorResult> doctorResults) {
+            public void onChanged(final List<DoctorResult> doctorResults) {
                 progress.setVisibility(View.GONE);
-                dataLayout.setVisibility(View.VISIBLE);
-                for (DoctorResult docRes : doctorResults) {
-                    for (int id : favoriteIdList) {
-                        if (docRes.getId() == id) {
-                            docRes.setFav(true);
-                        } else {
-                            docRes.setFav(false);
+                if (doctorResults.size() > 0) {
+                    doctorResultRecycleView.setVisibility(View.VISIBLE);
+                    for (DoctorResult docRes : doctorResults) {
+                        for (int id : favoriteIdList) {
+                            if (docRes.getId() == id) {
+                                docRes.setFav(true);
+                            } else {
+                                docRes.setFav(false);
+                            }
                         }
                     }
+
+
+                    doctorResultAdapter.setOnItemReqClickListener(new DoctorResultAdapter.OnItemReqClickListener() {
+                        @Override
+                        public void onItemClick(DoctorResult doctorResult) {
+                            Intent intent = new Intent(SearchResultDoctorActivity.this, AppointmentRequestActivity.class);
+                            intent.putExtra("doctorId", String.valueOf(doctorResult.getId()));
+                            intent.putExtra("facilityId", String.valueOf(doctorResult.getFacilityId()));
+                            intent.putExtra("speciality", String.valueOf(doctorResult.getSpecialityId()));
+                            startActivity(intent);
+                        }
+                    });
+
+                    doctorResultAdapter.setOnItemClickListener(
+                            new DoctorResultAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(DoctorResult doctorResult) {
+                                    Intent intent = new Intent(SearchResultDoctorActivity.this, DoctorDetailsActivity.class);
+                                    intent.putExtra("doctorId", String.valueOf(doctorResult.getId()));
+                                    startActivity(intent);
+                                }
+                            });
+
+                    doctorResultAdapter.submitList(doctorResults);
+                    final List<DoctorResult> filteredList = new ArrayList<>();
+                    TextWatcher textWatcher = new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (s.length() > 0) {
+                                filteredList.clear();
+                                for (DoctorResult doctor : doctorResults) {
+                                    if (doctor.getName().toLowerCase().contains(s.toString().toLowerCase())) {
+                                        filteredList.add(doctor);
+                                        doctorResultAdapter.submitList(filteredList);
+                                        doctorResultAdapter.notifyDataSetChanged();
+                                    }
+                                }
+                            } else {
+                                doctorResultAdapter.submitList(doctorResults);
+                            }
+                        }
+                    };
+                    EditText filter = findViewById(R.id.result_doctor_filter_text);
+                    filter.addTextChangedListener(textWatcher);
+                } else {
+                    noData.setVisibility(View.VISIBLE);
                 }
 
-
-                doctorResultAdapter.setOnItemReqClickListener(new DoctorResultAdapter.OnItemReqClickListener() {
-                    @Override
-                    public void onItemClick(DoctorResult doctorResult) {
-                        Intent intent = new Intent(SearchResultDoctorActivity.this, AppointmentRequestActivity.class);
-                        intent.putExtra("doctorId", String.valueOf(doctorResult.getId()));
-                        startActivity(intent);
-                    }
-                });
-
-                doctorResultAdapter.setOnItemClickListener(
-                        new DoctorResultAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(DoctorResult doctorResult) {
-                                Intent intent = new Intent(SearchResultDoctorActivity.this, DoctorDetailsActivity.class);
-                                intent.putExtra("doctorId", String.valueOf(doctorResult.getId()));
-                                startActivity(intent);
-                            }
-                        });
-
-                doctorResultAdapter.submitList(doctorResults);
             }
         });
     }
@@ -240,7 +298,6 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
 
     private String getTodayDate() {
         Calendar myCalendar = Calendar.getInstance();
-
         String myFormat = "dd/MM/YYYY";
         SimpleDateFormat format = new SimpleDateFormat(myFormat, Locale.getDefault());
         return Utils.dateToApiFormat(format.format(myCalendar.getTime()));

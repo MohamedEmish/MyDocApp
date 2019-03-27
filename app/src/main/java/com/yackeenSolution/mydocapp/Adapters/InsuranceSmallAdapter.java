@@ -7,6 +7,7 @@ package com.yackeenSolution.mydocapp.Adapters;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,15 +42,16 @@ public class InsuranceSmallAdapter extends ListAdapter<Insurance, InsuranceSmall
         super(DIFF_CALLBACK);
     }
 
+    @NonNull
     @Override
-    public InsuranceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public InsuranceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.insurance_small_item, parent, false);
         return new InsuranceViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(InsuranceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull InsuranceViewHolder holder, int position) {
         String name = getItem(position).getName();
         String imageUri = getItem(position).getImageUri();
         Uri uri;
@@ -64,10 +66,6 @@ public class InsuranceSmallAdapter extends ListAdapter<Insurance, InsuranceSmall
         holder.nameTextView.setText(name);
     }
 
-    public Insurance getMemberAt(int position) {
-        return getItem(position);
-    }
-
     public void setOnItemClickListener(InsuranceSmallAdapter.OnItemClickListener listener) {
         this.listener = listener;
     }
@@ -80,11 +78,11 @@ public class InsuranceSmallAdapter extends ListAdapter<Insurance, InsuranceSmall
 
     public class InsuranceViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView nameTextView;
-        public ImageView insuranceImageVew;
+        TextView nameTextView;
+        ImageView insuranceImageVew;
         public LinearLayout linearLayout;
 
-        public InsuranceViewHolder(View itemView) {
+        InsuranceViewHolder(View itemView) {
             super(itemView);
 
             nameTextView = itemView.findViewById(R.id.insurance_small_item_name);

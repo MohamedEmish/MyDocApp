@@ -5,10 +5,10 @@ package com.yackeenSolution.mydocapp.Adapters;
    ALL DONE :)
  */
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
@@ -34,8 +34,6 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
         @Override
         public boolean areContentsTheSame(FacilityResult oldItem, FacilityResult newItem) {
             return oldItem.getName().equals(newItem.getName())
-                    && oldItem.getWebSite().equals(newItem.getWebSite())
-                    && oldItem.getLocation().equals(newItem.getLocation())
                     && oldItem.getId() == newItem.getId();
         }
     };
@@ -50,15 +48,16 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
         super(DIFF_CALLBACK);
     }
 
+    @NonNull
     @Override
-    public FacilityResultAdapter.FacilityResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FacilityResultAdapter.FacilityResultViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.facility_search_result_layout, parent, false);
         return new FacilityResultAdapter.FacilityResultViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(FacilityResultAdapter.FacilityResultViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FacilityResultAdapter.FacilityResultViewHolder holder, int position) {
         String name = getItem(position).getName();
         String area = getMemberAt(position).getArea();
 
@@ -80,7 +79,7 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
         }
         Picasso.get().load(uri).into(holder.FacilityImageVew);
 
-        String phone = String.valueOf(getMemberAt(position).getPhoneNumber());
+        String phone = getMemberAt(position).getPhoneNumber();
         if (phone == null || phone.isEmpty()) {
             holder.callText.setTextColor(Color.GRAY);
         }
@@ -97,7 +96,7 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
 
     }
 
-    public FacilityResult getMemberAt(int position) {
+    private FacilityResult getMemberAt(int position) {
         return getItem(position);
     }
 
@@ -143,15 +142,15 @@ public class FacilityResultAdapter extends ListAdapter<FacilityResult, FacilityR
 
     public class FacilityResultViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView nameTextView;
-        public TextView areaTextView;
-        public ImageView FacilityImageVew;
-        public ImageView favoriteButton;
-        public LinearLayout call, location, web;
+        TextView nameTextView;
+        TextView areaTextView;
+        ImageView FacilityImageVew;
+        ImageView favoriteButton;
+        LinearLayout call, location, web;
         public ConstraintLayout item;
-        public TextView callText, locText, webText;
+        TextView callText, locText, webText;
 
-        public FacilityResultViewHolder(View itemView) {
+        FacilityResultViewHolder(View itemView) {
             super(itemView);
 
             nameTextView = itemView.findViewById(R.id.result_facility_name);

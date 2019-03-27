@@ -1,6 +1,6 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfLog;
  /*
-   Last edit :: March 8,2019
+   Last edit :: March 26,2019
    ALL DONE :)
  */
 
@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,7 +34,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab.AddNewFamilyMember;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.UserDataToUpload;
 import com.yackeenSolution.mydocapp.R;
@@ -43,15 +41,13 @@ import com.yackeenSolution.mydocapp.Utils.BottomSheet;
 import com.yackeenSolution.mydocapp.Utils.ImageFilePath;
 import com.yackeenSolution.mydocapp.Utils.Utils;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -76,18 +72,13 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
     private static final String TAG = RegistrationActivity.class.getCanonicalName();
 
     private Calendar myCalendar;
-    private DatePickerDialog.OnDateSetListener mPicker;
 
     int eyeVisibility = 1;
     private ImageView mSignUpEye;
     private DataViewModel dataViewModel;
 
     private CircleImageView mSignUpUserImage;
-    private Uri mImageUri;
-    private String
-            path,
-            mEmail;
-    private Boolean mGender;
+    private String path;
     private EditText
             mSignUpFirstName,
             mSignUpLastName,
@@ -100,7 +91,7 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
     private RadioGroup mSignUpGenderRadioGroup;
     private AppCompatRadioButton mSignUpMaleRadio, mSignUpFemaleRadio;
     private AppCompatCheckBox mSignUpTermsCheck;
-    private Button mSignUpCreateAccount;
+    private String fbId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,10 +99,8 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         // Localization
         Utils.setLocale(this);
         setContentView(R.layout.activity_registration);
-
         ScrollView scrollView = findViewById(R.id.sign_up_root);
         Utils.RTLSupport(this, scrollView);
-
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         if (getSupportActionBar() != null) {
@@ -121,9 +110,11 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
 
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
         mSignUpEmail = findViewById(R.id.sign_up_email);
+
         Intent intent = getIntent();
         if (intent.hasExtra("mail")) {
-            mEmail = intent.getStringExtra("mail");
+            String mEmail = intent.getStringExtra("mail");
+            fbId = intent.getStringExtra("fbId");
             mSignUpEmail.setText(mEmail);
         }
 
@@ -152,7 +143,7 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         mSignUpDate = findViewById(R.id.sign_up_date);
         mSignUpUserImage = findViewById(R.id.sign_up_user_image);
 
-        mSignUpCreateAccount = findViewById(R.id.sign_up_create_account);
+        Button mSignUpCreateAccount = findViewById(R.id.sign_up_create_account);
 
         mSignUpEye = findViewById(R.id.sign_up_eye);
         mSignUpEye.setOnClickListener(new View.OnClickListener() {
@@ -212,17 +203,21 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
 
 
     private void createNewAccount(String image) {
+
         UserDataToUpload user = new UserDataToUpload();
         user.setPhoneNumber(mSignUpMobile.getText().toString().trim());
         user.setPassword(mSignUpPassword.getText().toString().trim());
         user.setEmail(mSignUpEmail.getText().toString().trim());
         user.setDateOfBirth(Utils.dateToApiFormat(mSignUpDate.getText().toString().trim()));
-        image.replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
+        user.setFirstName(mSignUpFirstName.getText().toString().trim());
+        user.setLastName(mSignUpLastName.getText().toString().trim());
+
+        image = image.replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
                 .replace("http://yakensolution.cloudapp.net/doctoryadmin//", "")
                 .replace("\"", "");
         user.setImageUri(image);
-        user.setFirstName(mSignUpFirstName.getText().toString().trim());
-        user.setLastName(mSignUpLastName.getText().toString().trim());
+
+        Boolean mGender;
         if (mSignUpGenderRadioGroup.getCheckedRadioButtonId() == R.id.sign_up_male_radio) {
             mGender = true;
         } else if (mSignUpGenderRadioGroup.getCheckedRadioButtonId() == R.id.sign_up_female_radio) {
@@ -234,12 +229,17 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         if (mSignUpMaleRadio.isChecked()) {
             mGender = true;
         }
-
         if (mSignUpFemaleRadio.isChecked()) {
             mGender = false;
         }
         user.setGender(mGender);
-        user.setFbId(null);
+
+        if (!fbId.isEmpty()) {
+            user.setFbId(fbId);
+        } else {
+            user.setFbId(null);
+        }
+
         user.setLang(null);
         user.setAddress(null);
         user.setAppointmentReminder(true);
@@ -265,7 +265,7 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
 
         myCalendar = Calendar.getInstance();
 
-        mPicker = new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener mPicker = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 String myFormat = "dd/MM/YYYY";
@@ -290,7 +290,7 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         datePicker.setMaxDate(myCalendar.getTimeInMillis());
 
         dialog.show();
-        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(dialog.getWindow()).setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setGravity(Gravity.CENTER);
         dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorAccent));
         dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorAccent));
@@ -355,6 +355,7 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        Uri mImageUri;
         if (requestCode == PICK_IMAGE_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
             if (resultData != null) {
                 mImageUri = resultData.getData();
@@ -365,7 +366,6 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         } else if (requestCode == PICK_IMAGE_FROM_CAMERA && resultCode == Activity.RESULT_OK) {
 
             Glide.with(this).load(path).into(mSignUpUserImage);
-            mImageUri = Uri.parse(path);
 
         } else {
             Toast.makeText(this, "Request cancelled", Toast.LENGTH_SHORT).show();
@@ -404,22 +404,19 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
             isAllOk = false;
         } else if (!Utils.isValidEmail(mSignUpEmail, getResources().getString(R.string.invalid_mail_error))) {
             isAllOk = false;
-        } else if (Utils.isOldUser(mSignUpEmail)) {
-            mSignUpEmail.setError(getResources().getString(R.string.user_exist_error));
-            isAllOk = false;
         }
 
         // Check password entry and validity
         if (!Utils.isValueSet(mSignUpPassword, getResources().getString(R.string.edit_text_error))) {
             isAllOk = false;
-        } else if (!Utils.isValidPassword(mSignUpPassword, getResources().getString(R.string.invalid_password_error))) {
+        } else if (Utils.isValidPassword(mSignUpPassword, getResources().getString(R.string.invalid_password_error))) {
             isAllOk = false;
         }
 
         // Check mobile number entry and validity
         if (!Utils.isValueSet(mSignUpMobile, getResources().getString(R.string.edit_text_error))) {
             isAllOk = false;
-        } else if (!Utils.isValidNumber(mSignUpMobile, getResources().getString(R.string.invalid_number_error))) {
+        } else if (Utils.isValidNumber(mSignUpMobile, getResources().getString(R.string.invalid_number_error))) {
             isAllOk = false;
         }
 

@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -50,6 +55,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -73,7 +79,6 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
     private static final String TAG = MyAccount.class.getCanonicalName();
 
     private Calendar myCalendar;
-    private DatePickerDialog.OnDateSetListener mPicker;
     private UserData mUserData;
     private Spinner
             genderSpinner,
@@ -91,32 +96,23 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
     private LinearLayout changePassLayout;
     private LinearLayout progress;
 
-    private ConstraintLayout personalInfoMainLayout;
-    private ConstraintLayout insuranceInfoMainLayout;
-    private ConstraintLayout changePassMainLayout;
-
     private CircleImageView profilePic;
-    private Uri
-            mImageUri,
-            mInsuranceImageUri;
-    private ImageView back;
+    private Uri mInsuranceImageUri;
     private String
             oldUri,
             proPicUrl,
-            path,
-            password;
+            path;
     private Button
             changePass,
             saveChanges;
 
     private EditText
-            newPassword,
-            newFirstName,
-            newLastName,
-            newDate,
-            newMobile,
-            newNationalId,
-            email;
+            newPassword;
+    private EditText newFirstName;
+    private EditText newLastName;
+    private EditText newDate;
+    private EditText newMobile;
+    private EditText email;
 
     private DataViewModel dataViewModel;
 
@@ -124,7 +120,13 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
             firstName,
             lastName;
 
-    private ImageView newInsuranceImage;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
+        setupData(Integer.parseInt(SaveSharedPreference.getUserId(this)));
+        setUpSpinnerData();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +139,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        newInsuranceImage = findViewById(R.id.my_account_insurance_card_image);
+        ImageView newInsuranceImage = findViewById(R.id.my_account_insurance_card_image);
         newInsuranceImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,7 +158,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         firstName = findViewById(R.id.my_account_first_name_Text_view);
         lastName = findViewById(R.id.my_account_last_name_text_view);
 
-        back = findViewById(R.id.my_account_back);
+        ImageView back = findViewById(R.id.my_account_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,7 +175,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
             }
         });
 
-        personalInfoMainLayout = findViewById(R.id.my_account_personal_info_main_layout);
+        ConstraintLayout personalInfoMainLayout = findViewById(R.id.my_account_personal_info_main_layout);
         personalInfoLayout = findViewById(R.id.my_account_personal_info_layout);
         personalInfoExpand = findViewById(R.id.my_account_personal_info_arrow);
         personalInfoMainLayout.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +206,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
             }
         });
 
-        insuranceInfoMainLayout = findViewById(R.id.my_account_insurance_main_layout);
+        ConstraintLayout insuranceInfoMainLayout = findViewById(R.id.my_account_insurance_main_layout);
         insuranceInfoLayout = findViewById(R.id.my_account_insurance_layout);
         insuranceInfoExpand = findViewById(R.id.my_account_insurance_info_arrow);
         insuranceInfoMainLayout.setOnClickListener(new View.OnClickListener() {
@@ -234,7 +236,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
             }
         });
 
-        changePassMainLayout = findViewById(R.id.my_account_change_pass_main_layout);
+        ConstraintLayout changePassMainLayout = findViewById(R.id.my_account_change_pass_main_layout);
         changePassLayout = findViewById(R.id.my_account_change_pass_layout);
         changePassExpand = findViewById(R.id.my_account_change_pass_info_arrow);
         changePassMainLayout.setOnClickListener(new View.OnClickListener() {
@@ -335,7 +337,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         newMobile = findViewById(R.id.my_account_mobile_edit_text);
         newMobile.addTextChangedListener(textWatcher);
 
-        newNationalId = findViewById(R.id.my_account_national_id_edit_text);
+        EditText newNationalId = findViewById(R.id.my_account_national_id_edit_text);
         newNationalId.addTextChangedListener(textWatcher);
 
         newDate = findViewById(R.id.my_account_date_edit_text);
@@ -349,10 +351,6 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         });
 
         email = findViewById(R.id.my_account_email_edit_text);
-
-        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
-        setupData(Integer.parseInt(SaveSharedPreference.getUserId(this)));
-        setUpSpinnerData();
     }
 
     private void setNewPass() {
@@ -418,7 +416,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
             user.setEnableNotification(false);
         }
         user.setDoctorId(null);
-        image.replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
+        image = image.replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
                 .replace("http://yakensolution.cloudapp.net/doctoryadmin//", "")
                 .replace("\"", "");
 
@@ -428,12 +426,8 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         user.setInsuranceCompanyImageUrl(mUserData.getInsuranceImage());
 
         long id = genderSpinner.getSelectedItemId();
-        Boolean g;
-        if (id == 1) {
-            g = true;
-        } else {
-            g = false;
-        }
+        boolean g;
+        g = id == 1;
         user.setGender(g);
         user.setPhoneNumber(newMobile.getText().toString().trim());
 
@@ -498,17 +492,20 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
                     String defaultDateFormat = userData.getBirthDate();
                     newDate.setText(Utils.dateAppFormat(defaultDateFormat));
                     String gender = userData.getGender();
-                    if (gender.equals("true")) {
-                        genderSpinner.setSelection(1);
-                    } else if (gender.equals("false")) {
-                        genderSpinner.setSelection(2);
-                    } else {
-                        genderSpinner.setSelection(0);
+                    switch (gender) {
+                        case "true":
+                            genderSpinner.setSelection(1);
+                            break;
+                        case "false":
+                            genderSpinner.setSelection(2);
+                            break;
+                        default:
+                            genderSpinner.setSelection(0);
+                            break;
                     }
                     newMobile.setText(userData.getMobileNumber());
                     email.setText(userData.getEmail());
                     insuranceSpinner.setSelection(userData.getInsuranceId());
-                    password = userData.getPassword();
                     saveChanges.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorGray)));
                     progress.setVisibility(View.GONE);
                 }
@@ -526,7 +523,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
 
         myCalendar = Calendar.getInstance();
 
-        mPicker = new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener mPicker = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 String myFormat = "dd/MM/YYYY"; //In which you need put here
@@ -551,7 +548,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         DatePicker datePicker = dialog.getDatePicker();
         datePicker.setMaxDate(myCalendar.getTimeInMillis());
 
-        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(dialog.getWindow()).setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setGravity(Gravity.CENTER);
 
         dialog.show();
@@ -566,7 +563,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), id);
     }
 
-    private void openCamera(int id) {
+    private void openCamera() {
         Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (pictureIntent.resolveActivity(getPackageManager()) != null) {
             //Create a file to store the image
@@ -580,7 +577,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
                 Uri photoURI = FileProvider.getUriForFile(getApplicationContext(),
                         "com.yackeenSolution.mydocapp.provider", photoFile);
                 pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(pictureIntent, id);
+                startActivityForResult(pictureIntent, PICK_IMAGE_FROM_CAMERA);
             }
         }
     }
@@ -602,6 +599,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
 
+        Uri mImageUri;
         if (requestCode == PICK_IMAGE_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
 
             if (resultData != null) {
@@ -613,7 +611,6 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         } else if (requestCode == PICK_IMAGE_FROM_CAMERA && resultCode == Activity.RESULT_OK) {
 
             Glide.with(this).load(path).into(profilePic);
-            mImageUri = Uri.parse(path);
 
         } else if (requestCode == PICK_IMAGE_FROM_GALLERY_FOR_INSURANCE && resultCode == Activity.RESULT_OK) {
             if (resultData != null) {
@@ -631,7 +628,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
                 openGallery(PICK_IMAGE_FROM_GALLERY);
             } else if (request == PICK_IMAGE_FROM_CAMERA) {
                 if (checkPermissionWrite_EXTERNAL_STORAGE(this)) {
-                    openCamera(PICK_IMAGE_FROM_CAMERA);
+                    openCamera();
                 }
             }
         }

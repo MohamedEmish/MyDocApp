@@ -1,24 +1,29 @@
 package com.yackeenSolution.mydocapp.Utils;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 public class SaveSharedPreference {
-    static final String PREF_USER_NAME = "username";
-    static final String PREF_USER_LANGUAGE = "language";
-    static final String PREF_USER_EMAIL = "emailText";
-    static final String PREF_USER_ID = "ID";
+    private static final String PREF_USER_NAME = "username";
+    private static final String PREF_USER_LANGUAGE = "language";
+    private static final String PREF_USER_EMAIL = "emailText";
+    private static final String PREF_USER_ID = "ID";
 
 
-    static SharedPreferences getSharedPreferences(Context ctx) {
+    private static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
     }
 
     public static void setUserName(Context ctx, String userName) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_USER_NAME, userName);
-        editor.commit();
+        editor.apply();
     }
 
     public static String getUserName(Context ctx) {
@@ -28,13 +33,13 @@ public class SaveSharedPreference {
     public static void clearUserName(Context ctx) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_USER_NAME, null);
-        editor.commit();
+        editor.apply();
     }
 
     public static void setUserId(Context ctx, String id) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_USER_ID, id);
-        editor.commit();
+        editor.apply();
     }
 
     public static String getUserId(Context ctx) {
@@ -44,13 +49,13 @@ public class SaveSharedPreference {
     public static void clearUserId(Context ctx) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_USER_ID, null);
-        editor.commit();
+        editor.apply();
     }
 
     public static void setUserEmail(Context ctx, String userEmail) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_USER_EMAIL, userEmail);
-        editor.commit();
+        editor.apply();
     }
 
     public static String getUserEmail(Context ctx) {
@@ -60,13 +65,13 @@ public class SaveSharedPreference {
     public static void clearUserEmail(Context ctx) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_USER_EMAIL, null);
-        editor.commit();
+        editor.apply();
     }
 
     public static void setLanguage(Context ctx, String lang) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_USER_LANGUAGE, lang);
-        editor.commit();
+        editor.apply();
     }
 
     public static String getLanguage(Context ctx) {

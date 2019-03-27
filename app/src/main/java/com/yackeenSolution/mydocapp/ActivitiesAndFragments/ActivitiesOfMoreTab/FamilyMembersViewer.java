@@ -1,7 +1,10 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab;
+
 /*
-All Done : Design and Data input @ 25/3/2019
+   Last edit :: March 27,2019
+   ALL DONE :)
  */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +21,7 @@ import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
@@ -30,9 +34,16 @@ public class FamilyMembersViewer extends AppCompatActivity {
     private RecyclerView memberRecycleView;
     private FamilyMembersAdapter familyMembersAdapter;
     private FloatingActionButton fab;
-    private ImageView back;
     private DataViewModel dataViewModel;
-    private LinearLayout progress;
+    private LinearLayout progress, noData;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
+        setUpData();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +54,7 @@ public class FamilyMembersViewer extends AppCompatActivity {
         ConstraintLayout constraintLayout = findViewById(R.id.family_member_viewer_root);
         Utils.RTLSupport(this, constraintLayout);
 
-        back = findViewById(R.id.family_member_back);
+        ImageView back = findViewById(R.id.family_member_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +63,7 @@ public class FamilyMembersViewer extends AppCompatActivity {
         });
 
         progress = findViewById(R.id.family_member_viewer_progress_bar_layout);
+        noData = findViewById(R.id.family_member_viewer_no_data);
 
         memberRecycleView = findViewById(R.id.family_member_viewer_recycler);
         memberRecycleView.setLayoutManager(new LinearLayoutManager(this));
@@ -87,7 +99,7 @@ public class FamilyMembersViewer extends AppCompatActivity {
 
         memberRecycleView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
                 if (dy > 0) {
@@ -102,17 +114,19 @@ public class FamilyMembersViewer extends AppCompatActivity {
             }
         });
 
-        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
-        setUpData();
     }
 
     private void setUpData() {
         dataViewModel.getMyFamilyMembersList(Integer.parseInt(SaveSharedPreference.getUserId(this))).observe(this, new Observer<List<FamilyMember>>() {
             @Override
             public void onChanged(List<FamilyMember> familyMembers) {
-                memberRecycleView.setVisibility(View.VISIBLE);
                 progress.setVisibility(View.GONE);
-                familyMembersAdapter.submitList(familyMembers);
+                if (familyMembers.size() > 0) {
+                    memberRecycleView.setVisibility(View.VISIBLE);
+                    familyMembersAdapter.submitList(familyMembers);
+                } else {
+                    noData.setVisibility(View.VISIBLE);
+                }
             }
         });
     }

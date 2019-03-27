@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/notification_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/notification_root"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ActivitiesAndFragments.ActivitiesOfMoreTab.NotificationActivity">
 
@@ -43,10 +43,37 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:id="@+id/notification_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackgroundSecond"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/_150dp"
+            android:layout_height="@dimen/_150dp"
+            android:src="@drawable/ic_no_notify" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/no_notification"
+            android:textColor="@color/colorPrimaryTexts"
+            android:textSize="@dimen/_18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/notification_progressbar_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:background="@color/colorBackgroundSecond"
         android:gravity="center">
 
         <ImageView
@@ -62,10 +89,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notification_recycler"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_8dp"
-        android:layout_marginEnd="@dimen/_8dp">
+        android:layout_marginEnd="@dimen/_8dp"
+        android:visibility="gone">
 
     </androidx.recyclerview.widget.RecyclerView>
 

@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,7 +27,6 @@ public class AboutUsActivity extends AppCompatActivity {
     private TextView
             aboutUsTitle,
             aboutUsContent;
-    private ImageView back;
     private DataViewModel dataViewModel;
     private LinearLayout
             progress,
@@ -42,7 +46,7 @@ public class AboutUsActivity extends AppCompatActivity {
         progress = findViewById(R.id.about_us_progress_bar_layout);
         data = findViewById(R.id.about_us_data_layout);
 
-        back = findViewById(R.id.about_back);
+        ImageView back = findViewById(R.id.about_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,9 +68,13 @@ public class AboutUsActivity extends AppCompatActivity {
                     progress.setVisibility(View.GONE);
                     data.setVisibility(View.VISIBLE);
                     String content = myAboutUses.get(0).getContent();
-                    aboutUsContent.setText(content);
+                    if (content != null && !content.isEmpty()) {
+                        aboutUsContent.setText(content);
+                    }
                     String title = myAboutUses.get(0).getTitle();
-                    aboutUsTitle.setText(title.toUpperCase());
+                    if (title != null && !title.isEmpty()) {
+                        aboutUsTitle.setText(title.toUpperCase());
+                    }
                 } else {
                     progress.setVisibility(View.GONE);
                     data.setVisibility(View.VISIBLE);

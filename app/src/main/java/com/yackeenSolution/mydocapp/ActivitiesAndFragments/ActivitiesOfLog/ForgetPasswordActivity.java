@@ -1,7 +1,7 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfLog;
 
 /*
-   Last edit :: March 8,2019
+   Last edit :: March 27,2019
    ALL DONE :)
  */
 
@@ -26,11 +26,19 @@ import com.yackeenSolution.mydocapp.Utils.Utils;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
 
-    ImageView back;
-    EditText mail, code, newPass, confirmPass;
-    Button forgetButton, confirmCode, resetPass;
-    String emailText, codeText, passText, newPassText;
-    DataViewModel dataViewModel;
+    private EditText
+            mail,
+            code,
+            newPass,
+            confirmPass;
+    private Button confirmCode,
+            resetPass;
+    private String
+            emailText,
+            codeText,
+            passText,
+            newPassText;
+    private DataViewModel dataViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +48,9 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forget_password);
         LinearLayout linearLayout = findViewById(R.id.forget_root);
         Utils.RTLSupport(this, linearLayout);
-
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        back = findViewById(R.id.forget_back);
+
+        ImageView back = findViewById(R.id.forget_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +88,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             }
         });
 
-        forgetButton = findViewById(R.id.forget_button);
+        Button forgetButton = findViewById(R.id.forget_button);
         forgetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,19 +107,24 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     }
 
     private void setNewPass(final String emailText, String codeText, final String newPassText) {
-        PasswordToken token = new PasswordToken();
-        token.setEmail(emailText);
-        token.setCode(codeText);
-        token.setNewPassword(newPassText);
-        dataViewModel.resetPassword(token).observe(this, new Observer<PasswordToken>() {
-            @Override
-            public void onChanged(PasswordToken token) {
-                Intent intent = new Intent(ForgetPasswordActivity.this, SignInActivity.class);
-                intent.putExtra("emailText", emailText);
-                intent.putExtra("password", newPassText);
-                startActivity(intent);
-            }
-        });
+        if (newPassText.equals(passText)) {
+            PasswordToken token = new PasswordToken();
+            token.setEmail(emailText);
+            token.setCode(codeText);
+            token.setNewPassword(newPassText);
+            dataViewModel.resetPassword(token).observe(this, new Observer<PasswordToken>() {
+                @Override
+                public void onChanged(PasswordToken token) {
+                    Intent intent = new Intent(ForgetPasswordActivity.this, SignInActivity.class);
+                    intent.putExtra("emailText", emailText);
+                    intent.putExtra("password", newPassText);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            Utils.isValueSet(newPass, getResources().getString(R.string.passwords_no_match));
+        }
+
     }
 
     private void sendNewPass(String email, String codeText) {

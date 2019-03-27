@@ -160,6 +160,15 @@
     <string name="added_successfully">Added successfully</string>
     <string name="done">Done</string>
     <string name="welcome">Welcome</string>
+    <string name="passwords_no_match">Passwords not matching \nset it again</string>
+    <string name="no_family_members">No data for family members \nAdd your family to your care</string>
+    <string name="no_notification">No notifications to show</string>
+    <string name="no_doctor">No doctor results</string>
+    <string name="no_facility">No facility results</string>
+    <string name="cancel_appointment_msg">Are you sure you  want to cancel this appointment?</string>
+    <string name="no_fav_doctor">No Favorite doctors</string>
+    <string name="no_fav_facility">No favorite facility</string>
+    <string name="no_app_found">No appointments found</string>
 
 
 </resources>

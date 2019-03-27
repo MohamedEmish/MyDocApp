@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -66,10 +71,14 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
                     data.setVisibility(View.VISIBLE);
 
                     String contentHtml = policyList.get(0).getContent();
-                    privacyTextContent.setText(Html.fromHtml(contentHtml));
+                    if (contentHtml != null && !contentHtml.isEmpty()) {
+                        privacyTextContent.setText(Html.fromHtml(contentHtml));
+                    }
 
                     String title = policyList.get(0).getTitle();
-                    privacyTextTitle.setText(title.toUpperCase());
+                    if (title != null && !title.isEmpty()) {
+                        privacyTextTitle.setText(title.toUpperCase());
+                    }
                 }
             }
         });

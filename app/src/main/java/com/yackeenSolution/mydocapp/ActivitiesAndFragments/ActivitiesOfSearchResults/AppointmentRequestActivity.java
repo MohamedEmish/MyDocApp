@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchResults;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -26,8 +31,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab.AddNewFamilyMember;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
+import com.yackeenSolution.mydocapp.Objects.Appointment;
+import com.yackeenSolution.mydocapp.Objects.AppointmentToUpload;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
 import com.yackeenSolution.mydocapp.Objects.UserData;
@@ -40,31 +46,34 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class AppointmentRequestActivity extends AppCompatActivity {
 
-    Calendar myCalendar;
-    DatePickerDialog.OnDateSetListener datePicker;
-    TimePickerDialog.OnTimeSetListener timePicker;
-    private ImageView mAppointRequestBack;
-    private TextView mAppointRequestUserMobile;
-    private Spinner mAppointRequestDoctorVisitTypeSpinner;
-    private TextView mAppointRequestDoctorName;
-    String mAppointmentType;
-    private EditText mAppointRequestDate;
-    private TextView mSearchResultTitle;
-    private TextView mAppointRequestDoctorSpeciality;
-    private Spinner mAppointRequestUserNameSpinner;
-    private TextView mAppointRequestDoctorClinic;
-    private EditText mAppointRequestUserNationalId;
-    ScrollView dataLayout;
-    LinearLayout progress;
-    private Button mRequestButton;
-    private EditText mAppointRequestTime;
-    DataViewModel dataViewModel;
-    String userFullName;
-    boolean familyMembersDone = false, visitTypeDone = false;
-    String doctorId;
+    private Calendar myCalendar;
+    private TextView
+            mAppointRequestUserMobile,
+            mAppointRequestDoctorName,
+            mAppointRequestDoctorSpeciality,
+            mAppointRequestDoctorClinic;
+    private Spinner
+            mAppointRequestDoctorVisitTypeSpinner,
+            mAppointRequestUserNameSpinner;
+    private EditText mAppointRequestDate,
+            mAppointRequestUserNationalId,
+            mAppointRequestTime;
+
+    private ScrollView dataLayout;
+    private LinearLayout progress;
+    private DataViewModel dataViewModel;
+    private String userFullName;
+    private boolean
+            familyMembersDone = false,
+            visitTypeDone = false;
+    private String
+            doctorId,
+            facilityId,
+            specialityId;
     private List<String> familyMembersStrings;
     private List<FamilyMember> mainFamilyList;
 
@@ -78,23 +87,22 @@ public class AppointmentRequestActivity extends AppCompatActivity {
         Utils.RTLSupport(this, linearLayout);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
         Intent intent = getIntent();
         doctorId = intent.getStringExtra("doctorId");
+        facilityId = intent.getStringExtra("facilityId");
+        specialityId = intent.getStringExtra("speciality");
 
         mAppointRequestDoctorVisitTypeSpinner = findViewById(R.id.appoint_request_doctor_visit_type_spinner);
-        mAppointRequestBack = findViewById(R.id.appoint_request_back);
+        ImageView mAppointRequestBack = findViewById(R.id.appoint_request_back);
         mAppointRequestUserMobile = findViewById(R.id.appoint_request_user_mobile);
         mAppointRequestDoctorName = findViewById(R.id.appoint_request_doctor_name);
         mAppointRequestDate = findViewById(R.id.appoint_request_date);
         mAppointRequestTime = findViewById(R.id.appoint_request_time);
-        mSearchResultTitle = findViewById(R.id.facility_details_title);
         mAppointRequestDoctorSpeciality = findViewById(R.id.appoint_request_doctor_speciality);
         mAppointRequestUserNameSpinner = findViewById(R.id.appoint_request_user_name_spinner);
         mAppointRequestDoctorClinic = findViewById(R.id.appoint_request_doctor_clinic);
         mAppointRequestUserNationalId = findViewById(R.id.appoint_request_user_national_id);
-        mRequestButton = findViewById(R.id.appoint_request_button);
+        Button mRequestButton = findViewById(R.id.appoint_request_button);
         dataLayout = findViewById(R.id.appoint_request_data_layout);
         progress = findViewById(R.id.appoint_request_progress_bar_layout);
 
@@ -127,14 +135,53 @@ public class AppointmentRequestActivity extends AppCompatActivity {
                 confirmation();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
         getUserData();
     }
 
     private void confirmation() {
         if (isAllDataOk()) {
-            Intent intent = new Intent(AppointmentRequestActivity.this, ConfirmationActivity.class);
-            // TODO: appointment Data to be attached
-            startActivity(intent);
+            AppointmentToUpload appointment = new AppointmentToUpload();
+            if (mAppointRequestUserNameSpinner.getSelectedItemId() == 0) {
+                int id = Integer.parseInt(SaveSharedPreference.getUserId(this));
+                appointment.setPatientId(id);
+            } else {
+                for (FamilyMember member : mainFamilyList) {
+                    if (familyMembersStrings.get(mAppointRequestUserNameSpinner.getSelectedItemPosition()).equals(member.getName())) {
+                        int fId = member.getId();
+                        appointment.setPatientId(fId);
+                    }
+                }
+            }
+            appointment.setPatientPhone(mAppointRequestUserMobile.getText().toString().trim());
+            if (mAppointRequestUserNationalId.getText().toString().isEmpty()) {
+                appointment.setNationalId(null);
+            } else {
+                appointment.setNationalId(mAppointRequestUserNationalId.getText().toString().trim());
+            }
+            appointment.setDoctorFacilityId(Integer.parseInt(facilityId));
+            appointment.setSpecialtyId(Integer.parseInt(specialityId));
+            appointment.setTime(mAppointRequestTime.getText().toString().trim());
+            appointment.setRequestType(mAppointRequestUserNameSpinner.getSelectedItemPosition());
+            appointment.setDoctorId(Integer.parseInt(doctorId));
+            appointment.setPromoCode(null);
+            appointment.setData(Utils.dateToApiFormat(mAppointRequestDate.getText().toString().trim()));
+
+            dataViewModel.requestAppointment(appointment).observe(this, new Observer<Appointment>() {
+                @Override
+                public void onChanged(Appointment appointment) {
+                    int id = appointment.getId();
+                    Intent intent = new Intent(AppointmentRequestActivity.this, ConfirmationActivity.class);
+                    intent.putExtra("appointmentId", String.valueOf(id));
+                    startActivity(intent);
+                }
+            });
+
         }
 
     }
@@ -216,7 +263,7 @@ public class AppointmentRequestActivity extends AppCompatActivity {
     private void pickTime() {
         myCalendar = Calendar.getInstance();
 
-        timePicker = new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog.OnTimeSetListener timePicker = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                 String myFormat = "HH:mm";
@@ -244,7 +291,7 @@ public class AppointmentRequestActivity extends AppCompatActivity {
                 false);
 
 
-        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(dialog.getWindow()).setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setGravity(Gravity.CENTER);
 
         dialog.show();
@@ -256,7 +303,7 @@ public class AppointmentRequestActivity extends AppCompatActivity {
 
         myCalendar = Calendar.getInstance();
 
-        datePicker = new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener datePicker1 = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 String myFormat = "dd/MM/YYYY"; //In which you need put here
@@ -273,7 +320,7 @@ public class AppointmentRequestActivity extends AppCompatActivity {
         // start picker with pre-chosen date
         DatePickerDialog dialog = new DatePickerDialog(AppointmentRequestActivity.this,
                 R.style.Date_Picker,
-                datePicker,
+                datePicker1,
                 myCalendar.get(Calendar.YEAR),
                 myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH));
@@ -281,7 +328,7 @@ public class AppointmentRequestActivity extends AppCompatActivity {
         DatePicker datePicker = dialog.getDatePicker();
         datePicker.setMinDate(myCalendar.getTimeInMillis());
 
-        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(dialog.getWindow()).setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setGravity(Gravity.CENTER);
 
         dialog.show();

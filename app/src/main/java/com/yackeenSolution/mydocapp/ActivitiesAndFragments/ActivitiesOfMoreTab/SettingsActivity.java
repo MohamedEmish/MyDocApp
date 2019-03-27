@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -28,16 +33,12 @@ import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    RadioGroup languageGroup;
-    RadioButton ar, en;
-    ImageView back;
-    String language;
-    String lang;
-    LinearLayout linearLayout;
-    DataViewModel dataViewModel;
-    Switch appointSwitch, notifySwitch;
-    UserData mUserData;
-    TextView save;
+    private RadioButton ar;
+    private String lang;
+    private DataViewModel dataViewModel;
+    private Switch appointSwitch, notifySwitch;
+    private UserData mUserData;
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -48,7 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        language = SaveSharedPreference.getLanguage(this);
+        String language = SaveSharedPreference.getLanguage(this);
         Locale locale = new Locale(language);
         Configuration config = getBaseContext().getResources().getConfiguration();
         config.locale = locale;
@@ -57,14 +58,14 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
 
-        linearLayout = findViewById(R.id.settings_root);
+        LinearLayout linearLayout = findViewById(R.id.settings_root);
         Utils.RTLSupport(this, linearLayout);
 
-        languageGroup = findViewById(R.id.settings_lang_radio_group);
+        RadioGroup languageGroup = findViewById(R.id.settings_lang_radio_group);
         ar = findViewById(R.id.settings_ar_radio_button);
-        en = findViewById(R.id.settings_en_radio_button);
+        RadioButton en = findViewById(R.id.settings_en_radio_button);
 
-        back = findViewById(R.id.settings_back);
+        ImageView back = findViewById(R.id.settings_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +80,7 @@ public class SettingsActivity extends AppCompatActivity {
             en.setChecked(true);
         }
 
-        save = findViewById(R.id.settings_save);
+        TextView save = findViewById(R.id.settings_save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

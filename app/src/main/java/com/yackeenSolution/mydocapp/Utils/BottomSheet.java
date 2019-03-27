@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.Utils;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.content.Context;
 import android.os.Bundle;
 
@@ -18,27 +23,21 @@ import android.widget.LinearLayout;
 
 public class BottomSheet extends BottomSheetDialogFragment {
 
-    public static final int PICK_IMAGE_FROM_GALLERY = 100;
-    public static final int PICK_IMAGE_FROM_CAMERA = 200;
+    private static final int PICK_IMAGE_FROM_GALLERY = 100;
+    private static final int PICK_IMAGE_FROM_CAMERA = 200;
     private BottomSheetListener bottomSheetListener;
-    private ImageView mGalleryImage;
-    private ImageView mCameraImage;
-    private Button mCameraButton;
-    private LinearLayout mGalleryLayout;
-    private Button mGalleryButton;
-    private LinearLayout mCameraLayout;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.bottom_sheet, container, false);
 
-        mGalleryImage = v.findViewById(R.id.gallery_image);
-        mCameraImage = v.findViewById(R.id.camera_image);
-        mCameraButton = v.findViewById(R.id.camera_Button);
-        mGalleryLayout = v.findViewById(R.id.gallery_layout);
-        mGalleryButton = v.findViewById(R.id.gallery_button);
-        mCameraLayout = v.findViewById(R.id.camera_layout);
+        ImageView mGalleryImage = v.findViewById(R.id.gallery_image);
+        ImageView mCameraImage = v.findViewById(R.id.camera_image);
+        Button mCameraButton = v.findViewById(R.id.camera_Button);
+        LinearLayout mGalleryLayout = v.findViewById(R.id.gallery_layout);
+        Button mGalleryButton = v.findViewById(R.id.gallery_button);
+        LinearLayout mCameraLayout = v.findViewById(R.id.camera_layout);
 
         mGalleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +87,7 @@ public class BottomSheet extends BottomSheetDialogFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
         try {

@@ -1,9 +1,15 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchResults;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.transition.Fade;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,13 +28,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
-import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.NonMainFragments.ClinicInfoFragment;
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.NonMainFragments.ProfileFragment;
+import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
 import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
 import com.yackeenSolution.mydocapp.Objects.NewFavDoctor;
@@ -50,24 +55,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DoctorDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    TabLayout tabLayout;
-    ImageView back;
-    Button request;
-    String doctorId;
-    List<Integer> favouriteDoctorList = new ArrayList<>();
-    DataViewModel dataViewModel;
-    ConstraintLayout dataLayout;
-    LinearLayout progress;
-    CircleImageView mail, call, proPic, fav, share;
-    TextView name, location;
-    DoctorResult mainDoctorResult;
-    FragmentManager fragmentManager;
-    GoogleMap mMap;
+    private Button request;
+    private String doctorId;
+    private List<Integer> favouriteDoctorList = new ArrayList<>();
+    private DataViewModel dataViewModel;
+    private ConstraintLayout dataLayout;
+    private LinearLayout progress;
+    private CircleImageView mail, call, proPic, fav, share;
+    private TextView name, location;
+    private DoctorResult mainDoctorResult;
+    private GoogleMap mMap;
     private Double v = 0.0;
     private Double v1 = 0.1;
-    FragmentTransaction fragmentTransaction;
-    FrameLayout frameLayout;
-    ScrollView scrollView;
+    private FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +81,9 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.doctor_detail_map);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
         Intent intent = getIntent();
         doctorId = intent.getStringExtra("doctorId");
@@ -99,19 +101,22 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
         share = findViewById(R.id.doctor_detail_share);
 
         frameLayout = findViewById(R.id.doctor_details_frame_layout);
-        scrollView = findViewById(R.id.doctor_detail_scroll);
+        ScrollView scrollView = findViewById(R.id.doctor_detail_scroll);
         scrollView.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 frameLayout.getParent().requestDisallowInterceptTouchEvent(false);
+                v.performClick();
                 return false;
             }
         });
 
-        tabLayout = findViewById(R.id.doctor_details_tabs_layout);
+        TabLayout tabLayout = findViewById(R.id.doctor_details_tabs_layout);
         TabLayout.Tab tab = tabLayout.getTabAt(0);
-        tab.select();
+        if (tab != null) {
+            tab.select();
+        }
 
         View root = tabLayout.getChildAt(0);
         if (root instanceof LinearLayout) {
@@ -128,7 +133,12 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
-                        String details = mainDoctorResult.getName() + "\n" + mainDoctorResult.getTitle() + "\n" + mainDoctorResult.getQualification();
+                        String details;
+                        if (mainDoctorResult.getInfo() != null && !mainDoctorResult.getInfo().isEmpty()) {
+                            details = Html.fromHtml(mainDoctorResult.getInfo()) + "\n";
+                        } else {
+                            details = null;
+                        }
                         Bundle profile = new Bundle();
                         profile.putString("profileInfo", details);
                         ProfileFragment profileFragment = new ProfileFragment();
@@ -136,7 +146,12 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
                         FragmentTransaction(profileFragment);
                         break;
                     case 1:
-                        String detail = mainDoctorResult.getClinicInfo() + "\n";
+                        String detail;
+                        if (mainDoctorResult.getClinicInfo() != null && !mainDoctorResult.getClinicInfo().isEmpty()) {
+                            detail = Html.fromHtml(mainDoctorResult.getClinicInfo()) + "\n";
+                        } else {
+                            detail = null;
+                        }
                         Bundle clinic = new Bundle();
                         clinic.putString("clinicInfo", detail);
                         ClinicInfoFragment clinicInfoFragment = new ClinicInfoFragment();
@@ -158,7 +173,7 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
             }
         });
 
-        back = findViewById(R.id.doctor_details_back);
+        ImageView back = findViewById(R.id.doctor_details_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,99 +201,123 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
         dataViewModel.getSpecificDoctorData(Integer.parseInt(doctorId)).observe(this, new Observer<List<DoctorResult>>() {
             @Override
             public void onChanged(final List<DoctorResult> doctorResult) {
-                progress.setVisibility(View.GONE);
-                dataLayout.setVisibility(View.VISIBLE);
-                name.setText(doctorResult.get(0).getName());
-                location.setText(doctorResult.get(0).getAddress());
-                mainDoctorResult = doctorResult.get(0);
-                for (int id : favouriteDoctorList) {
-                    if (doctorResult.get(0).getId() == id) {
-                        doctorResult.get(0).setFav(true);
+
+                if (doctorResult.size() > 0) {
+                    if (doctorResult.get(0).getName() != null && !doctorResult.get(0).getName().isEmpty()) {
+                        name.setText(doctorResult.get(0).getName());
                     }
-                }
-                if (doctorResult.get(0).isFav()) {
-                    fav.setImageDrawable(getResources().getDrawable(R.drawable.favorite));
-                } else {
-                    fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
-                }
 
-                String loc = doctorResult.get(0).getFacilityLocation();
-                String[] values = loc.split(",");
-                v = Double.valueOf(values[0]);
-                v1 = Double.valueOf(values[1]);
-                LatLng latLng = new LatLng(v, v1);
-                mMap.setLatLngBoundsForCameraTarget(new LatLngBounds(latLng, latLng));
-                LatLng markLocation = new LatLng(v, v1);
-                Marker marker = mMap.addMarker(new MarkerOptions()
-                        .position(markLocation)
-                        .draggable(true));
-
-                mail.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Utils.sendMail(doctorResult.get(0).getMail(), DoctorDetailsActivity.this);
+                    if (doctorResult.get(0).getFacilityLocation() != null && !doctorResult.get(0).getFacilityLocation().isEmpty()) {
+                        location.setText(doctorResult.get(0).getAddress());
                     }
-                });
+                    mainDoctorResult = doctorResult.get(0);
 
-                call.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Utils.performCall(doctorResult.get(0).getPhoneNumber(), DoctorDetailsActivity.this);
+                    for (int id : favouriteDoctorList) {
+                        if (doctorResult.get(0).getId() == id) {
+                            doctorResult.get(0).setFav(true);
+                        }
                     }
-                });
-
-                Uri uri;
-                String imageUri = doctorResult.get(0).getImageUrl();
-                if (imageUri.equals("http://yakensolution.cloudapp.net/doctoryadmin/")) {
-                    uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
-                } else {
-                    uri = Uri.parse(imageUri);
-                }
-                Picasso.get().load(uri).into(proPic);
-
-                fav.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FavClick(doctorResult.get(0));
+                    if (doctorResult.get(0).isFav()) {
+                        fav.setImageDrawable(getResources().getDrawable(R.drawable.favorite));
+                    } else {
+                        fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
                     }
-                });
 
-                request.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(DoctorDetailsActivity.this, AppointmentRequestActivity.class);
-                        i.putExtra("doctorId", String.valueOf(doctorResult.get(0).getId()));
-                        startActivity(i);
-                    }
-                });
-
-                share.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        GoShare(doctorResult.get(0));
-                    }
-                });
-                String details = mainDoctorResult.getName() + "\n" + mainDoctorResult.getTitle() + "\n" + mainDoctorResult.getQualification();
-                Bundle profile = new Bundle();
-                profile.putString("profileInfo", details);
-                ProfileFragment profileFragment = new ProfileFragment();
-                profileFragment.setArguments(profile);
-                FragmentTransaction(profileFragment);
-
-                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
+                    if (doctorResult.get(0).getFacilityLocation() != null && !doctorResult.get(0).getFacilityLocation().isEmpty()) {
                         String loc = doctorResult.get(0).getFacilityLocation();
-                        Utils.googleLocation(loc, DoctorDetailsActivity.this, mainDoctorResult.getImageUrl());
-
+                        String[] values = loc.split(",");
+                        v = Double.valueOf(values[0]);
+                        v1 = Double.valueOf(values[1]);
+                        LatLng latLng = new LatLng(v, v1);
+                        mMap.setLatLngBoundsForCameraTarget(new LatLngBounds(latLng, latLng));
+                        LatLng markLocation = new LatLng(v, v1);
+                        mMap.addMarker(new MarkerOptions()
+                                .position(markLocation)
+                                .draggable(true));
                     }
-                });
+
+                    mail.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Utils.sendMail(doctorResult.get(0).getMail(), DoctorDetailsActivity.this);
+                        }
+                    });
+
+                    call.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Utils.performCall(doctorResult.get(0).getPhoneNumber(), DoctorDetailsActivity.this);
+                        }
+                    });
+
+                    Uri uri;
+                    String imageUri = doctorResult.get(0).getImageUrl();
+                    if (imageUri != null && !imageUri.isEmpty()) {
+                        if (imageUri.equals("http://yakensolution.cloudapp.net/doctoryadmin/")) {
+                            uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
+                        } else {
+                            uri = Uri.parse(imageUri);
+                        }
+                        Picasso.get().load(uri).into(proPic);
+                    } else {
+                        uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
+                        Picasso.get().load(uri).into(proPic);
+                    }
+
+                    fav.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            FavClick(doctorResult.get(0));
+                        }
+                    });
+
+                    request.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(DoctorDetailsActivity.this, AppointmentRequestActivity.class);
+                            intent.putExtra("doctorId", String.valueOf(doctorResult.get(0).getId()));
+                            intent.putExtra("facilityId", String.valueOf(doctorResult.get(0).getFacilityId()));
+                            intent.putExtra("speciality", String.valueOf(doctorResult.get(0).getSpecialityId()));
+                            startActivity(intent);
+                        }
+                    });
+
+                    share.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            GoShare(doctorResult.get(0));
+                        }
+                    });
+
+                    String details;
+                    if (mainDoctorResult.getInfo() != null && !mainDoctorResult.getInfo().isEmpty()) {
+                        details = Html.fromHtml(mainDoctorResult.getInfo()) + "\n";
+                    } else {
+                        details = null;
+                    }
+                    Bundle profile = new Bundle();
+                    profile.putString("profileInfo", details);
+                    ProfileFragment profileFragment = new ProfileFragment();
+                    profileFragment.setArguments(profile);
+                    FragmentTransaction(profileFragment);
+
+                    mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                        @Override
+                        public void onMapClick(LatLng latLng) {
+                            String loc = doctorResult.get(0).getFacilityLocation();
+                            Utils.googleLocation(loc, DoctorDetailsActivity.this, mainDoctorResult.getImageUrl());
+
+                        }
+                    });
+                    progress.setVisibility(View.GONE);
+                    dataLayout.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
 
     private void GoShare(DoctorResult doctorResult) {
-        // TODO :: what to share?
+        Utils.shareDirection(doctorResult.getAddress(), this);
     }
 
     private void FavClick(DoctorResult doctorResult) {
@@ -306,8 +345,8 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
         fragment.setEnterTransition(new Fade(Fade.IN));
         fragment.setExitTransition(new Fade(Fade.OUT));
 
-        fragmentManager = DoctorDetailsActivity.this.getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction()
+        FragmentManager fragmentManager = DoctorDetailsActivity.this.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
                 .replace(R.id.doctor_details_frame_layout, fragment);
         fragmentTransaction.commit();
     }
@@ -319,12 +358,12 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
         LatLng location = new LatLng(v, v1);
 
         CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(v, v1));
-        CameraUpdate zoom = CameraUpdateFactory.newLatLngZoom(location, 15);
+        CameraUpdate zoom = CameraUpdateFactory.newLatLngZoom(location, 16);
         mMap.animateCamera(center);
         mMap.animateCamera(zoom);
 
         LatLng markLocation = new LatLng(v, v1);
-        Marker marker = mMap.addMarker(new MarkerOptions()
+        mMap.addMarker(new MarkerOptions()
                 .position(markLocation)
                 .draggable(true));
     }

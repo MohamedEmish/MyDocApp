@@ -1,10 +1,16 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfMainScreen;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -20,17 +26,17 @@ import com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfFavoritesT
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 
+import java.util.Objects;
+
 
 public class FavoritesFragment extends Fragment {
 
-    TabLayout tabLayout;
-    String name;
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
-    TextView msg;
+    private TabLayout tabLayout;
+    private String name;
+    private TextView msg;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final ViewGroup nullParent = null;
 
@@ -105,8 +111,8 @@ public class FavoritesFragment extends Fragment {
         fragment.setEnterTransition(new Fade(Fade.IN));
         fragment.setExitTransition(new Fade(Fade.OUT));
 
-        fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction()
+        FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
                 .replace(R.id.appointment_frame, fragment);
         fragmentTransaction.commit();
     }

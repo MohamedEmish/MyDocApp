@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
 import com.yackeenSolution.mydocapp.R;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,15 +41,16 @@ public class FamilyMembersAdapter extends ListAdapter<FamilyMember, FamilyMember
         super(DIFF_CALLBACK);
     }
 
+    @NonNull
     @Override
-    public FamilyMemberViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FamilyMemberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.family_member_layout, parent, false);
         return new FamilyMemberViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(FamilyMemberViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FamilyMemberViewHolder holder, int position) {
         String name = getItem(position).getName();
         String relation = getItem(position).getRelationship();
         String imageUri = getItem(position).getImageUrl();
@@ -59,7 +61,7 @@ public class FamilyMembersAdapter extends ListAdapter<FamilyMember, FamilyMember
         } else {
             uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
         }
-        if (!imageUri.contains("http://yakensolution.cloudapp.net/doctoryadmin//UploadedImages")) {
+        if (imageUri != null && !imageUri.contains("http://yakensolution.cloudapp.net/doctoryadmin//UploadedImages")) {
             uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
         }
         holder.nameTextView.setText(name);
@@ -67,10 +69,6 @@ public class FamilyMembersAdapter extends ListAdapter<FamilyMember, FamilyMember
         Picasso.get().load(uri).into(holder.memberImageVew);
 
 
-    }
-
-    public FamilyMember getMemberAt(int position) {
-        return getItem(position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -81,14 +79,14 @@ public class FamilyMembersAdapter extends ListAdapter<FamilyMember, FamilyMember
         void onItemClick(FamilyMember familyMember);
     }
 
-    public class FamilyMemberViewHolder extends RecyclerView.ViewHolder {
+    class FamilyMemberViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView nameTextView;
-        public TextView relationTextView;
-        public ImageView memberImageVew;
-        public ImageView editButton;
+        TextView nameTextView;
+        TextView relationTextView;
+        ImageView memberImageVew;
+        ImageView editButton;
 
-        public FamilyMemberViewHolder(View itemView) {
+        FamilyMemberViewHolder(View itemView) {
             super(itemView);
 
             nameTextView = itemView.findViewById(R.id.family_member_name);

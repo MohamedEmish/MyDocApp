@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -25,12 +30,18 @@ import java.util.List;
 public class NotificationActivity extends AppCompatActivity {
 
 
-    RecyclerView notificationRecycleView;
-    NotificationAdapter notificationAdapter;
-    ImageView back;
+    private RecyclerView notificationRecycleView;
+    private NotificationAdapter notificationAdapter;
 
     private DataViewModel dataViewModel;
-    private LinearLayout progress;
+    private LinearLayout progress, noData;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
+        setUpData();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +52,7 @@ public class NotificationActivity extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(R.id.notification_root);
         Utils.RTLSupport(this, linearLayout);
 
-        back = findViewById(R.id.notification_back);
+        ImageView back = findViewById(R.id.notification_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +61,7 @@ public class NotificationActivity extends AppCompatActivity {
         });
 
         progress = findViewById(R.id.notification_progressbar_layout);
+        noData = findViewById(R.id.notification_no_data);
 
         notificationRecycleView = findViewById(R.id.notification_recycler);
         notificationRecycleView.setLayoutManager(new LinearLayoutManager(this));
@@ -57,10 +69,6 @@ public class NotificationActivity extends AppCompatActivity {
         notificationRecycleView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         notificationAdapter = new NotificationAdapter();
         notificationRecycleView.setAdapter(notificationAdapter);
-
-        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
-        dataViewModel.getMyPolicyLiveData();
-        setUpData();
     }
 
     private void setUpData() {
@@ -68,12 +76,12 @@ public class NotificationActivity extends AppCompatActivity {
         dataViewModel.getNotificationsList().observe(this, new Observer<List<MyNotification>>() {
             @Override
             public void onChanged(List<MyNotification> notifications) {
-
+                progress.setVisibility(View.GONE);
                 if (notifications.size() > 0) {
-                    progress.setVisibility(View.GONE);
                     notificationRecycleView.setVisibility(View.VISIBLE);
-
                     notificationAdapter.submitList(notifications);
+                } else {
+                    noData.setVisibility(View.VISIBLE);
                 }
             }
         });

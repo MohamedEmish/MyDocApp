@@ -21,13 +21,13 @@ public class Appointment implements Parcelable {
     };
     @SerializedName("Id")
     @Expose
-    int id;
+    Integer id;
     @SerializedName("FacilityId")
     @Expose
-    int facilityId;
+    Integer facilityId;
     @SerializedName("DoctorId")
     @Expose
-    int doctorId;
+    Integer doctorId;
     @SerializedName("PatientName")
     @Expose
     String patientName;
@@ -51,7 +51,7 @@ public class Appointment implements Parcelable {
     String phoneNumber;
     @SerializedName("RequestType")
     @Expose
-    int requestType;
+    Integer requestType;
     @SerializedName("Time")
     @Expose
     String time;
@@ -60,25 +60,24 @@ public class Appointment implements Parcelable {
     String appointmentStatus;
     @SerializedName("DetailedStatusId")
     @Expose
-    int detailedStatusId;
+    Integer detailedStatusId;
     @SerializedName("DetailedStatus")
     @Expose
     String detailedStatus;
     @SerializedName("IsRated")
     @Expose
-    boolean isRated;
+    Boolean isRated;
+    @SerializedName("IsSlot")
+    @Expose
+    Integer isSlot;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
-
-    @SerializedName("IsSlot")
-    @Expose
-    int isSlot;
 
     public Appointment() {
     }
@@ -107,7 +106,7 @@ public class Appointment implements Parcelable {
         return facilityId;
     }
 
-    public void setFacilityId(int facilityId) {
+    public void setFacilityId(Integer facilityId) {
         this.facilityId = facilityId;
     }
 
@@ -119,7 +118,7 @@ public class Appointment implements Parcelable {
         return doctorName;
     }
 
-    public void setDoctorId(int doctorId) {
+    public void setDoctorId(Integer doctorId) {
         this.doctorId = doctorId;
     }
 
@@ -183,7 +182,7 @@ public class Appointment implements Parcelable {
         return requestType;
     }
 
-    public void setRequestType(int requestType) {
+    public void setRequestType(Integer requestType) {
         this.requestType = requestType;
     }
 
@@ -203,7 +202,7 @@ public class Appointment implements Parcelable {
         return detailedStatusId;
     }
 
-    public void setDetailedStatusId(int detailedStatusId) {
+    public void setDetailedStatusId(Integer detailedStatusId) {
         this.detailedStatusId = detailedStatusId;
     }
 
@@ -219,7 +218,7 @@ public class Appointment implements Parcelable {
         return isRated;
     }
 
-    public void setRated(boolean rated) {
+    public void setRated(Boolean rated) {
         isRated = rated;
     }
 
@@ -228,11 +227,11 @@ public class Appointment implements Parcelable {
         return 0;
     }
 
-    public int getIsSlot() {
+    public Integer getIsSlot() {
         return isSlot;
     }
 
-    public void setIsSlot(int isSlot) {
+    public void setIsSlot(Integer isSlot) {
         this.isSlot = isSlot;
     }
 

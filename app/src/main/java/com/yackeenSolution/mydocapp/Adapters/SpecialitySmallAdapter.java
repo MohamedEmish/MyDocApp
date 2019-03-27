@@ -5,9 +5,9 @@ package com.yackeenSolution.mydocapp.Adapters;
    ALL DONE :)
  */
 
-import android.graphics.Color;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,22 +34,21 @@ public class SpecialitySmallAdapter extends ListAdapter<Speciality, SpecialitySm
                     && oldItem.getId() == newItem.getId();
         }
     };
-    private SpecialitySmallAdapter.OnItemClickListener listener;
-
 
     public SpecialitySmallAdapter() {
         super(DIFF_CALLBACK);
     }
 
+    @NonNull
     @Override
-    public SpecialitySmallAdapter.SpecialityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SpecialitySmallAdapter.SpecialityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.speciality_small_item, parent, false);
         return new SpecialitySmallAdapter.SpecialityViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(SpecialitySmallAdapter.SpecialityViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SpecialitySmallAdapter.SpecialityViewHolder holder, int position) {
         String name = getItem(position).getName();
         String imageUri = getItem(position).getImageUri();
         Uri uri;
@@ -64,26 +63,12 @@ public class SpecialitySmallAdapter extends ListAdapter<Speciality, SpecialitySm
         holder.nameTextView.setText(name);
     }
 
-    public Speciality getMemberAt(int position) {
-        return getItem(position);
-    }
+    class SpecialityViewHolder extends RecyclerView.ViewHolder {
 
-    public void setOnItemClickListener(SpecialitySmallAdapter.OnItemClickListener listener) {
-        this.listener = listener;
-    }
+        TextView nameTextView;
+        ImageView SpecialityImageVew;
 
-
-    public interface OnItemClickListener {
-        void onItemClick(Speciality speciality);
-    }
-
-
-    public class SpecialityViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView nameTextView;
-        public ImageView SpecialityImageVew;
-
-        public SpecialityViewHolder(View itemView) {
+        SpecialityViewHolder(View itemView) {
             super(itemView);
 
             nameTextView = itemView.findViewById(R.id.speciality_small_item_name);

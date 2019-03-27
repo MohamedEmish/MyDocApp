@@ -1,7 +1,14 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.NonMainFragments;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.Html;
@@ -15,17 +22,21 @@ import android.widget.TextView;
 import com.yackeenSolution.mydocapp.R;
 
 public class AboutUsFragment extends Fragment {
+    @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final ViewGroup nullParent = null;
+        View rootView = inflater.inflate(R.layout.about_us_frag, nullParent);
 
-        View rootView = inflater.inflate(R.layout.about_us_frag, null);
-
-        String info = getArguments().getString("aboutUs");
+        String info = null;
+        if (getArguments() != null) {
+            info = getArguments().getString("aboutUs");
+        }
 
         final TextView textView = rootView.findViewById(R.id.about_us_frag_text);
 
-        if (!info.equals(null) || !info.equals("null")) {
+        if (info != null && !info.isEmpty()) {
             textView.setText(Html.fromHtml(info));
         } else {
             textView.setText(getResources().getString(R.string.about));

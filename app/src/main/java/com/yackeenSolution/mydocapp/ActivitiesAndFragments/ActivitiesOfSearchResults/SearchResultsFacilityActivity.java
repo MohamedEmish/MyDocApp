@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchResults;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,8 +16,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,16 +37,20 @@ import java.util.List;
 
 public class SearchResultsFacilityActivity extends AppCompatActivity {
 
-    RecyclerView facilityResultRecycleView;
-    FacilityResultAdapter facilityResultAdapter;
-    DataViewModel dataViewModel;
-    ImageView back;
-    TextView filter;
-    List<Integer> favoriteIdList = new ArrayList<>();
+    private FacilityResultAdapter facilityResultAdapter;
+    private DataViewModel dataViewModel;
+    private List<Integer> favoriteIdList = new ArrayList<>();
 
-    int specialityId;
-    String insuranceId, areaId, facilityTypeId;
-    LinearLayout progress, dataLayout;
+    private int specialityId;
+    private String
+            insuranceId,
+            areaId,
+            facilityTypeId;
+    private LinearLayout
+            progress,
+            noData;
+
+    private RecyclerView facilityResultRecycleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +77,10 @@ public class SearchResultsFacilityActivity extends AppCompatActivity {
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
 
         progress = findViewById(R.id.facility_search_result_progress_bar_layout);
-        dataLayout = findViewById(R.id.facility_search_result_data_layout);
+        noData = findViewById(R.id.search_results_facility_no_data);
 
 
-        back = findViewById(R.id.search_results_facility_back);
+        ImageView back = findViewById(R.id.search_results_facility_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +88,7 @@ public class SearchResultsFacilityActivity extends AppCompatActivity {
             }
         });
 
-        filter = findViewById(R.id.search_result_facility_filter);
+        TextView filter = findViewById(R.id.search_result_facility_filter);
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,19 +191,54 @@ public class SearchResultsFacilityActivity extends AppCompatActivity {
                 insurance,
                 facilityType).observe(this, new Observer<List<FacilityResult>>() {
             @Override
-            public void onChanged(List<FacilityResult> facilityResults) {
+            public void onChanged(final List<FacilityResult> facilityResults) {
                 progress.setVisibility(View.GONE);
-                dataLayout.setVisibility(View.VISIBLE);
-                for (FacilityResult favRes : facilityResults) {
-                    for (int id : favoriteIdList) {
-                        if (favRes.getId() != id) {
-                            favRes.setFav(false);
-                        } else {
-                            favRes.setFav(true);
+                if (facilityResults.size() > 0) {
+                    facilityResultRecycleView.setVisibility(View.VISIBLE);
+                    for (FacilityResult favRes : facilityResults) {
+                        for (int id : favoriteIdList) {
+                            if (favRes.getId() != id) {
+                                favRes.setFav(false);
+                            } else {
+                                favRes.setFav(true);
+                            }
                         }
                     }
+                    facilityResultAdapter.submitList(facilityResults);
+                    final List<FacilityResult> filteredList = new ArrayList<>();
+                    TextWatcher textWatcher = new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (s.length() > 0) {
+                                filteredList.clear();
+                                for (FacilityResult facility : facilityResults) {
+                                    if (facility.getName().toLowerCase().contains(s.toString().toLowerCase())) {
+                                        filteredList.add(facility);
+                                        facilityResultAdapter.submitList(filteredList);
+                                        facilityResultAdapter.notifyDataSetChanged();
+                                    }
+                                }
+                            } else {
+                                facilityResultAdapter.submitList(facilityResults);
+                            }
+                        }
+                    };
+                    EditText filter = findViewById(R.id.search_facility_filter_text);
+                    filter.addTextChangedListener(textWatcher);
+                } else {
+                    noData.setVisibility(View.VISIBLE);
                 }
-                facilityResultAdapter.submitList(facilityResults);
+
             }
         });
     }

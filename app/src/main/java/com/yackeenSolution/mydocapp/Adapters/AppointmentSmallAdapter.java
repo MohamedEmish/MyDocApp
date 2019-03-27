@@ -5,6 +5,7 @@ package com.yackeenSolution.mydocapp.Adapters;
    ALL DONE :)
  */
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,15 +24,15 @@ public class AppointmentSmallAdapter extends ListAdapter<Appointment, Appointmen
     private static final DiffUtil.ItemCallback<Appointment> DIFF_CALLBACK = new DiffUtil.ItemCallback<Appointment>() {
         @Override
         public boolean areItemsTheSame(Appointment oldItem, Appointment newItem) {
-            return oldItem.getId() == newItem.getId();
+            return oldItem.getId().equals(newItem.getId());
         }
 
         @Override
         public boolean areContentsTheSame(Appointment oldItem, Appointment newItem) {
             return oldItem.getDoctorName().equals(newItem.getDoctorName())
-                    && oldItem.getClinicName().equals(newItem.getClinicName())
+                    && oldItem.getSpeciality().equals(newItem.getSpeciality())
                     && oldItem.getClinicLocation().equals(newItem.getClinicLocation())
-                    && oldItem.getId() == newItem.getId();
+                    && oldItem.getId().equals(newItem.getId());
         }
     };
     private AppointmentSmallAdapter.OnItemCallClickListener callListener;
@@ -43,15 +44,16 @@ public class AppointmentSmallAdapter extends ListAdapter<Appointment, Appointmen
         super(DIFF_CALLBACK);
     }
 
+    @NonNull
     @Override
-    public AppointmentSmallViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AppointmentSmallViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.appointment_small_item, parent, false);
         return new AppointmentSmallViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(AppointmentSmallViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AppointmentSmallViewHolder holder, int position) {
         String doctorName = getItem(position).getDoctorName();
         String bookingNumber = String.valueOf(getItem(position).getId());
         String speciality = getItem(position).getSpeciality();
@@ -97,18 +99,18 @@ public class AppointmentSmallAdapter extends ListAdapter<Appointment, Appointmen
 
     public class AppointmentSmallViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView doctorName;
-        public TextView bookingNumber;
+        TextView doctorName;
+        TextView bookingNumber;
         public TextView speciality;
         public TextView facility;
         public TextView date;
         public TextView time;
-        public TextView direction;
-        public ImageView call;
-        public Button cancel;
+        TextView direction;
+        ImageView call;
+        Button cancel;
 
 
-        public AppointmentSmallViewHolder(View itemView) {
+        AppointmentSmallViewHolder(View itemView) {
             super(itemView);
 
             doctorName = itemView.findViewById(R.id.appointment_small_doctor_name);

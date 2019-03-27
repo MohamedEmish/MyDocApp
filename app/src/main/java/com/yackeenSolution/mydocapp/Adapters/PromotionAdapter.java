@@ -7,6 +7,7 @@ package com.yackeenSolution.mydocapp.Adapters;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,15 +46,16 @@ public class PromotionAdapter extends ListAdapter<Promotion, PromotionAdapter.Pr
         super(DIFF_CALLBACK);
     }
 
+    @NonNull
     @Override
-    public PromotionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PromotionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.promotion_item_layout, parent, false);
         return new PromotionViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(PromotionViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PromotionViewHolder holder, int position) {
         String mainText = getItem(position).getName();
         String subText = getItem(position).getDescription();
         String imageUri = getItem(position).getImageUrl();
@@ -65,10 +67,6 @@ public class PromotionAdapter extends ListAdapter<Promotion, PromotionAdapter.Pr
 
         holder.mainText.setText(mainText);
         holder.subText.setText(Html.fromHtml(subText));
-    }
-
-    public Promotion getMemberAt(int position) {
-        return getItem(position);
     }
 
     public void setOnItemClickListener(PromotionAdapter.OnItemClickListener listener) {
@@ -83,12 +81,12 @@ public class PromotionAdapter extends ListAdapter<Promotion, PromotionAdapter.Pr
 
     public class PromotionViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView mainText;
-        public TextView subText;
+        TextView mainText;
+        TextView subText;
         public ImageView image;
-        public Button book;
+        Button book;
 
-        public PromotionViewHolder(View itemView) {
+        PromotionViewHolder(View itemView) {
             super(itemView);
 
             mainText = itemView.findViewById(R.id.promotion_main_text);

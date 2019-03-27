@@ -30,5 +30,31 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/app_pending_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackgroundSecond"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/_150dp"
+            android:layout_height="@dimen/_150dp"
+            android:src="@drawable/ic_stethoscope"
+            android:tint="@color/colorGray" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/no_app_found"
+            android:textColor="@color/colorPrimaryTexts"
+            android:textSize="@dimen/_18sp" />
+    </LinearLayout>
+
 
 </LinearLayout>

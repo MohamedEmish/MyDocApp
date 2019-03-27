@@ -44,15 +44,12 @@ public class SignInActivity extends AppCompatActivity {
     private static final String EMAIL = "emailText";
     private static final String PROFILE = "public_profile";
 
-    ImageView eye;
-    int eyeVisibility = 1;
-    EditText mEmailEditText, mPasswordEditText;
-    TextView createNew, forgetPassword, skip;
-    CallbackManager callbackManager;
-    LoginButton fbLogin;
-    Button myFBLogin;
-    DataViewModel dataViewModel;
-    Button signIn;
+    private ImageView eye;
+    private int eyeVisibility = 1;
+    private EditText mEmailEditText, mPasswordEditText;
+    private CallbackManager callbackManager;
+    private LoginButton fbLogin;
+    private DataViewModel dataViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +66,7 @@ public class SignInActivity extends AppCompatActivity {
         Utils.RTLSupport(this, scrollView);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        skip = findViewById(R.id.skip);
+        TextView skip = findViewById(R.id.skip);
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +95,7 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        forgetPassword = findViewById(R.id.forgot_password);
+        TextView forgetPassword = findViewById(R.id.forgot_password);
         forgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +103,7 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        myFBLogin = findViewById(R.id.my_fb_login);
+        Button myFBLogin = findViewById(R.id.my_fb_login);
         myFBLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,14 +123,15 @@ public class SignInActivity extends AppCompatActivity {
                             public void onCompleted(JSONObject object, GraphResponse response) {
                                 try {
                                     String email = object.getString("emailText");
-                                    goForRegister(email);
+                                    String id = object.getString("id");
+                                    goForRegister(email, id);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "name,emailText");
+                parameters.putString("fields", "name,emailText,id");
                 request.setParameters(parameters);
                 request.executeAsync();
             }
@@ -149,7 +147,7 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        createNew = findViewById(R.id.create_new_account);
+        TextView createNew = findViewById(R.id.create_new_account);
         createNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,7 +155,7 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        signIn = findViewById(R.id.sign_in_button);
+        Button signIn = findViewById(R.id.sign_in_button);
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,7 +207,7 @@ public class SignInActivity extends AppCompatActivity {
 
         if (!Utils.isValueSet(password, getResources().getString(R.string.edit_text_error))) {
             isAllOk = false;
-        } else if (!Utils.isValidPassword(password, getResources().getString(R.string.invalid_password_error))) {
+        } else if (Utils.isValidPassword(password, getResources().getString(R.string.invalid_password_error))) {
             isAllOk = false;
         }
 
@@ -224,9 +222,10 @@ public class SignInActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void goForRegister(String email) {
+    private void goForRegister(String email, String id) {
         Intent intent = new Intent(SignInActivity.this, RegistrationActivity.class);
         intent.putExtra("mail", email);
+        intent.putExtra("fbId", id);
         startActivity(intent);
     }
 

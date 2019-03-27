@@ -7,6 +7,7 @@ package com.yackeenSolution.mydocapp.Adapters;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
@@ -32,12 +33,11 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
         @Override
         public boolean areContentsTheSame(DoctorResult oldItem, DoctorResult newItem) {
             return oldItem.getName().equals(newItem.getName())
-                    && oldItem.getTitle().equals(newItem.getTitle())
+                    && oldItem.getFacilityName().equals(newItem.getFacilityName())
                     && oldItem.getAddress().equals(newItem.getAddress())
                     && oldItem.getId() == newItem.getId();
         }
     };
-    private OnItemFavClickListener favListener;
     private OnItemReqClickListener reqListener;
     private OnItemClickListener listener;
 
@@ -46,15 +46,16 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
         super(DIFF_CALLBACK);
     }
 
+    @NonNull
     @Override
-    public DoctorResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DoctorResultViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.doctor_search_result_layout, parent, false);
         return new DoctorResultViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(DoctorResultViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DoctorResultViewHolder holder, int position) {
         String name = getItem(position).getName();
         String jobTitle = getItem(position).getTitle();
         String area = getMemberAt(position).getArea();
@@ -90,10 +91,6 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
         return getItem(position);
     }
 
-    public void setOnItemFavClickListener(OnItemFavClickListener listener) {
-        this.favListener = listener;
-    }
-
     public void setOnItemReqClickListener(OnItemReqClickListener reqListener) {
         this.reqListener = reqListener;
     }
@@ -102,9 +99,6 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
         this.listener = listener;
     }
 
-    public interface OnItemFavClickListener {
-        void onItemClick(DoctorResult doctorResult);
-    }
 
     public interface OnItemReqClickListener {
         void onItemClick(DoctorResult doctorResult);
@@ -114,18 +108,18 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
         void onItemClick(DoctorResult doctorResult);
     }
 
-    public class DoctorResultViewHolder extends RecyclerView.ViewHolder {
+    class DoctorResultViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView nameTextView;
-        public TextView jobTitleTextView;
-        public TextView areaTextView;
-        public TextView workPlaceTextView;
-        public ImageView doctorImageVew;
-        public ImageView favoriteButton;
-        public Button request;
+        TextView nameTextView;
+        TextView jobTitleTextView;
+        TextView areaTextView;
+        TextView workPlaceTextView;
+        ImageView doctorImageVew;
+        ImageView favoriteButton;
+        Button request;
         ConstraintLayout layout;
 
-        public DoctorResultViewHolder(View itemView) {
+        DoctorResultViewHolder(View itemView) {
             super(itemView);
 
             nameTextView = itemView.findViewById(R.id.result_doctor_name);

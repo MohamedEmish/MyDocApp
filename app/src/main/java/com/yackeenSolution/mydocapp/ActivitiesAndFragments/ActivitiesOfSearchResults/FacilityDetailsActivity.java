@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchResults;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 
@@ -10,7 +15,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
 
@@ -20,7 +24,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.net.Uri;
@@ -30,6 +33,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import android.text.Html;
 import android.transition.Fade;
 import android.view.MotionEvent;
 import android.view.View;
@@ -60,36 +64,29 @@ import java.util.List;
 
 public class FacilityDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    TabLayout tabLayout;
-    ImageView back;
-    FrameLayout frameLayout;
+    private FrameLayout frameLayout;
+    private TextView
+            facilityName,
+            facilityAddress;
 
-    ScrollView scrollView;
+    private CircleImageView
+            web,
+            call,
+            proPic,
+            fav,
+            share;
 
-    TextView facilityName, facilityAddress;
+    private ConstraintLayout dataLayout;
+    private LinearLayout progress;
 
-    RecyclerView doctorRecycle, insuranceRecycle, specialityRecycle;
-    CircleImageView web, call, proPic, fav, share;
-
-    ConstraintLayout dataLayout;
-    LinearLayout progress;
-
-    FacilityResult mainFacilityResult;
-
-    DoctorSmallAdapter doctorsmallAdapter;
-    InsuranceSmallAdapter insuranceSmallAdapter;
-    SpecialitySmallAdapter specialitySmallAdapter;
-
-    DataViewModel dataViewModel;
-
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
+    private FacilityResult mainFacilityResult;
+    private DataViewModel dataViewModel;
 
     GoogleMap mMap;
-    private Double v = 0.0;
-    private Double v1 = 0.1;
-
-    String facilityId;
+    private Double
+            v = 0.0,
+            v1 = 0.1;
+    private String facilityId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +99,9 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.facility_detail_map);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
         Intent intent = getIntent();
         facilityId = intent.getStringExtra("facilityId");
@@ -117,14 +116,14 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
         share = findViewById(R.id.facility_detail_share);
 
         frameLayout = findViewById(R.id.facility_details_frame_layout);
-        scrollView = findViewById(R.id.facility_detail_scroll);
+        ScrollView scrollView = findViewById(R.id.facility_detail_scroll);
         scrollView.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
                 frameLayout.getParent().requestDisallowInterceptTouchEvent(false);
-
+                v.performClick();
                 return false;
             }
         });
@@ -132,9 +131,11 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
         dataLayout = findViewById(R.id.facility_detail_data_layout);
         progress = findViewById(R.id.facility_detail_progress_bar_layout);
 
-        tabLayout = findViewById(R.id.facility_details_tabs_layout);
+        TabLayout tabLayout = findViewById(R.id.facility_details_tabs_layout);
         TabLayout.Tab tab = tabLayout.getTabAt(0);
-        tab.select();
+        if (tab != null) {
+            tab.select();
+        }
 
         View root = tabLayout.getChildAt(0);
         if (root instanceof LinearLayout) {
@@ -151,7 +152,12 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
-                        String detail = mainFacilityResult.getGeneralInfo() + "\n";
+                        String detail;
+                        if (mainFacilityResult.getAddress() != null && !mainFacilityResult.getAddress().isEmpty()) {
+                            detail = Html.fromHtml(mainFacilityResult.getAddress()) + "\n";
+                        } else {
+                            detail = null;
+                        }
                         Bundle aboutUs = new Bundle();
                         aboutUs.putString("aboutUs", detail);
                         AboutUsFragment aboutUsFragment = new AboutUsFragment();
@@ -159,7 +165,12 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
                         FragmentTransaction(aboutUsFragment);
                         break;
                     case 1:
-                        String details = mainFacilityResult.getName() + "\n\n" + mainFacilityResult.getAddress() + "\n\n" + mainFacilityResult.getArea();
+                        String details;
+                        if (mainFacilityResult.getGeneralInfo() != null && !mainFacilityResult.getGeneralInfo().isEmpty()) {
+                            details = Html.fromHtml(mainFacilityResult.getGeneralInfo()) + "\n";
+                        } else {
+                            details = null;
+                        }
                         Bundle generalInfo = new Bundle();
                         generalInfo.putString("generalInfo", details);
                         GeneralInfoFragment generalInfoFragment = new GeneralInfoFragment();
@@ -181,8 +192,7 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
             }
         });
 
-        setUpData();
-        back = findViewById(R.id.facility_filter_back);
+        ImageView back = findViewById(R.id.facility_filter_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,6 +200,7 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
             }
         });
 
+        setUpData();
     }
 
     private void setUpData() {
@@ -197,84 +208,104 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
         dataViewModel.getSpecificFacilityData(Integer.parseInt(facilityId), Integer.parseInt(SaveSharedPreference.getUserId(this))).observe(this, new Observer<FacilityResult>() {
             @Override
             public void onChanged(final FacilityResult facilityResult) {
-                facilityName.setText(facilityResult.getName().trim());
-                facilityAddress.setText(facilityResult.getAddress());
-                progress.setVisibility(View.GONE);
-                dataLayout.setVisibility(View.VISIBLE);
-                web.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Utils.openBrowser(facilityResult.getWebSite(), FacilityDetailsActivity.this);
-                    }
-                });
-                call.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Utils.performCall(facilityResult.getPhoneNumber(), FacilityDetailsActivity.this);
-                    }
-                });
+                if (facilityResult != null) {
+                    progress.setVisibility(View.GONE);
+                    dataLayout.setVisibility(View.VISIBLE);
 
-                Uri uri;
-                String imageUri = facilityResult.getImageUrl();
-                if (imageUri.equals("") || imageUri.equals("http://yakensolution.cloudapp.net/doctoryadmin/")) {
-                    uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/hospital_default");
-                } else {
-                    uri = Uri.parse(imageUri);
+                    if (facilityResult.getName() != null && !facilityResult.getName().isEmpty()) {
+                        facilityName.setText(facilityResult.getName().trim());
+                    }
+                    if (facilityResult.getAddress() != null && !facilityResult.getAddress().isEmpty()) {
+                        facilityAddress.setText(facilityResult.getAddress());
+                    }
+
+                    web.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Utils.openBrowser(facilityResult.getWebSite(), FacilityDetailsActivity.this);
+                        }
+                    });
+                    call.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Utils.performCall(facilityResult.getPhoneNumber(), FacilityDetailsActivity.this);
+                        }
+                    });
+
+                    Uri uri;
+                    String imageUri = facilityResult.getImageUrl();
+                    if (imageUri != null && !imageUri.isEmpty()) {
+                        if (imageUri.equals("http://yakensolution.cloudapp.net/doctoryadmin/")) {
+                            uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/hospital_default");
+                        } else {
+                            uri = Uri.parse(imageUri);
+                        }
+                        Picasso.get().load(uri).into(proPic);
+                    } else {
+                        uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/hospital_default");
+                        Picasso.get().load(uri).into(proPic);
+                    }
+
+                    if (facilityResult.isFav()) {
+                        fav.setImageDrawable(getResources().getDrawable(R.drawable.favorite));
+                    } else {
+                        fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
+                    }
+                    fav.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            FavClick(facilityResult);
+                        }
+                    });
+
+                    if (facilityResult.getLocation() != null && !facilityResult.getLocation().isEmpty()) {
+                        String loc = facilityResult.getLocation();
+                        if (loc != null) {
+                            String[] values = loc.split(",");
+                            v = Double.valueOf(values[0]);
+                            v1 = Double.valueOf(values[1]);
+                            LatLng latLng = new LatLng(v, v1);
+                            mMap.setLatLngBoundsForCameraTarget(new LatLngBounds(latLng, latLng));
+                            LatLng markLocation = new LatLng(v, v1);
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(markLocation)
+                                    .draggable(true));
+                        }
+                    }
+
+                    share.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            GoShare(facilityResult);
+                        }
+                    });
+
+                    mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                        @Override
+                        public void onMapClick(LatLng latLng) {
+                            Utils.googleLocation(facilityResult.getLocation(), FacilityDetailsActivity.this, facilityResult.getImageUrl());
+
+                        }
+                    });
+
+                    mainFacilityResult = facilityResult;
+
+                    String detail;
+                    if (mainFacilityResult.getAddress() != null && !mainFacilityResult.getAddress().isEmpty()) {
+                        detail = mainFacilityResult.getAddress() + "\n";
+                    } else {
+                        detail = null;
+                    }
+                    Bundle aboutUs = new Bundle();
+                    aboutUs.putString("aboutUs", detail);
+                    AboutUsFragment aboutUsFragment = new AboutUsFragment();
+                    aboutUsFragment.setArguments(aboutUs);
+                    FragmentTransaction(aboutUsFragment);
+
+                    setUpDoctorData(facilityResult.getDoctorsList());
+                    setUpInsuranceData(facilityResult.getInsuranceList());
+                    setUpSpecialityData(facilityResult.getSpecialityList());
                 }
-                Picasso.get().load(uri).into(proPic);
-
-                if (facilityResult.isFav()) {
-                    fav.setImageDrawable(getResources().getDrawable(R.drawable.favorite));
-                } else {
-                    fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
-                }
-                fav.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FavClick(facilityResult);
-                    }
-                });
-
-                String loc = facilityResult.getLocation();
-                if (loc != null) {
-                    String[] values = loc.split(",");
-                    v = Double.valueOf(values[0]);
-                    v1 = Double.valueOf(values[1]);
-                    LatLng latLng = new LatLng(v, v1);
-                    mMap.setLatLngBoundsForCameraTarget(new LatLngBounds(latLng, latLng));
-                    LatLng markLocation = new LatLng(v, v1);
-                    Marker marker = mMap.addMarker(new MarkerOptions()
-                            .position(markLocation)
-                            .draggable(true));
-                }
-
-                share.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        GoShare(facilityResult);
-                    }
-                });
-
-                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        Utils.googleLocation(facilityResult.getLocation(), FacilityDetailsActivity.this, facilityResult.getImageUrl());
-
-                    }
-                });
-
-                mainFacilityResult = facilityResult;
-
-                String detail = mainFacilityResult.getGeneralInfo() + "\n";
-                Bundle aboutUs = new Bundle();
-                aboutUs.putString("aboutUs", detail);
-                AboutUsFragment aboutUsFragment = new AboutUsFragment();
-                aboutUsFragment.setArguments(aboutUs);
-                FragmentTransaction(aboutUsFragment);
-
-                setUpDoctorData(facilityResult.getDoctorsList());
-                setUpInsuranceData(facilityResult.getInsuranceList());
-                setUpSpecialityData(facilityResult.getSpecialityList());
             }
         });
 
@@ -301,25 +332,21 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
 
     private void setUpInsuranceData(List<Insurance> insuranceList) {
 
-        insuranceRecycle = findViewById(R.id.facility_detail_insurance_recycler);
+        RecyclerView insuranceRecycle = findViewById(R.id.facility_detail_insurance_recycler);
         insuranceRecycle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         insuranceRecycle.setHasFixedSize(true);
-        insuranceSmallAdapter = new InsuranceSmallAdapter();
+        InsuranceSmallAdapter insuranceSmallAdapter = new InsuranceSmallAdapter();
         insuranceRecycle.setAdapter(insuranceSmallAdapter);
-
         insuranceSmallAdapter.submitList(insuranceList);
-
-
     }
 
     private void setUpSpecialityData(List<Speciality> specialityList) {
 
-        specialityRecycle = findViewById(R.id.facility_detail_speciality_recycler);
+        RecyclerView specialityRecycle = findViewById(R.id.facility_detail_speciality_recycler);
         specialityRecycle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         specialityRecycle.setHasFixedSize(true);
-        specialitySmallAdapter = new SpecialitySmallAdapter();
+        SpecialitySmallAdapter specialitySmallAdapter = new SpecialitySmallAdapter();
         specialityRecycle.setAdapter(specialitySmallAdapter);
-
         specialitySmallAdapter.submitList(specialityList);
 
     }
@@ -327,14 +354,13 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
     private void setUpDoctorData(List<DoctorResult> doctorsList) {
 
 
-        doctorRecycle = findViewById(R.id.facility_detail_doctor_recycler);
+        RecyclerView doctorRecycle = findViewById(R.id.facility_detail_doctor_recycler);
         doctorRecycle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         doctorRecycle.setHasFixedSize(true);
-        doctorsmallAdapter = new DoctorSmallAdapter();
-        doctorRecycle.setAdapter(doctorsmallAdapter);
-
-        doctorsmallAdapter.submitList(doctorsList);
-        doctorsmallAdapter.setOnItemClickListener(new DoctorSmallAdapter.OnItemClickListener() {
+        DoctorSmallAdapter doctorSmallAdapter = new DoctorSmallAdapter();
+        doctorRecycle.setAdapter(doctorSmallAdapter);
+        doctorSmallAdapter.submitList(doctorsList);
+        doctorSmallAdapter.setOnItemClickListener(new DoctorSmallAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DoctorResult doctorResult) {
                 Intent intent = new Intent(FacilityDetailsActivity.this, DoctorDetailsActivity.class);
@@ -346,7 +372,7 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
     }
 
     private void GoShare(FacilityResult facilityResult) {
-        // TODO :: what to share?
+        Utils.shareDirection(facilityResult.getAddress(), this);
     }
 
     private void FragmentTransaction(Fragment fragment) {
@@ -354,8 +380,8 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
         fragment.setEnterTransition(new Fade(Fade.IN));
         fragment.setExitTransition(new Fade(Fade.OUT));
 
-        fragmentManager = FacilityDetailsActivity.this.getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction()
+        FragmentManager fragmentManager = FacilityDetailsActivity.this.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
                 .replace(R.id.facility_details_frame_layout, fragment);
         fragmentTransaction.commit();
     }
@@ -372,7 +398,7 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
         mMap.animateCamera(zoom);
 
         LatLng markLocation = new LatLng(v, v1);
-        Marker marker = mMap.addMarker(new MarkerOptions()
+        mMap.addMarker(new MarkerOptions()
                 .position(markLocation)
                 .draggable(true));
     }

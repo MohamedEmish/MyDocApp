@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfMainScreen;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -30,17 +35,9 @@ import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfLog.SignInActivity;
 
+import java.util.Objects;
+
 public class MoreFragment extends Fragment {
-    private ConstraintLayout mMoreMyFamily;
-    private ConstraintLayout mMoreSettings;
-    private ConstraintLayout mMorePrivacy;
-    private ConstraintLayout mMoreShare;
-    private ConstraintLayout mMoreRateUs;
-    private ConstraintLayout mMoreMyAccount;
-    private ConstraintLayout mMoreLogInOutLayout;
-    private ConstraintLayout mMoreAboutUs;
-    private ConstraintLayout mMoreNotification;
-    private ConstraintLayout mMoreContactUs;
     private TextView logInOut;
     private DataViewModel dataViewModel;
 
@@ -61,16 +58,16 @@ public class MoreFragment extends Fragment {
             logInOut.setText(getResources().getText(R.string.log_out));
         }
 
-        mMoreMyFamily = rootView.findViewById(R.id.more_my_family);
-        mMoreSettings = rootView.findViewById(R.id.more_settings);
-        mMorePrivacy = rootView.findViewById(R.id.more_privacy);
-        mMoreShare = rootView.findViewById(R.id.more_share);
-        mMoreRateUs = rootView.findViewById(R.id.more_rate_us);
-        mMoreMyAccount = rootView.findViewById(R.id.more_my_account);
-        mMoreLogInOutLayout = rootView.findViewById(R.id.more_log_in_out_layout);
-        mMoreAboutUs = rootView.findViewById(R.id.more_about_us);
-        mMoreNotification = rootView.findViewById(R.id.more_notification);
-        mMoreContactUs = rootView.findViewById(R.id.more_contact_us);
+        ConstraintLayout mMoreMyFamily = rootView.findViewById(R.id.more_my_family);
+        ConstraintLayout mMoreSettings = rootView.findViewById(R.id.more_settings);
+        ConstraintLayout mMorePrivacy = rootView.findViewById(R.id.more_privacy);
+        ConstraintLayout mMoreShare = rootView.findViewById(R.id.more_share);
+        ConstraintLayout mMoreRateUs = rootView.findViewById(R.id.more_rate_us);
+        ConstraintLayout mMoreMyAccount = rootView.findViewById(R.id.more_my_account);
+        ConstraintLayout mMoreLogInOutLayout = rootView.findViewById(R.id.more_log_in_out_layout);
+        ConstraintLayout mMoreAboutUs = rootView.findViewById(R.id.more_about_us);
+        ConstraintLayout mMoreNotification = rootView.findViewById(R.id.more_notification);
+        ConstraintLayout mMoreContactUs = rootView.findViewById(R.id.more_contact_us);
 
         mMoreMyAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,15 +147,11 @@ public class MoreFragment extends Fragment {
                 if (state.equals(getResources().getString(R.string.log_in))) {
                     logIn();
                 } else {
-                    showLogOutDialog(getActivity());
+                    showLogOutDialog(Objects.requireNonNull(getActivity()));
                 }
             }
         });
         return rootView;
-    }
-
-    private void logOut() {
-        //TODO: Logout Function
     }
 
     private void logIn() {
@@ -169,7 +162,8 @@ public class MoreFragment extends Fragment {
     private void showLogOutDialog(Context context) {
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.logout_dialog, null, false);
+        final ViewGroup nullParent = null;
+        View view = inflater.inflate(R.layout.logout_dialog, nullParent, false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(true);

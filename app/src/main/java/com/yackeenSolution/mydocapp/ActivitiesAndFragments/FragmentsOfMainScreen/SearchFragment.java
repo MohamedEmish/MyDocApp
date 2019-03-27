@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfMainScreen;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchResults.SearchResultDoctorActivity;
@@ -32,21 +35,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 public class SearchFragment extends Fragment {
     private RadioButton doctor;
-    private RadioGroup type;
-    private Button search;
     private RadioButton facility;
-    private LinearLayout doctorLayout, facilityLayout;
-    boolean areaDone = false, insuranceDone = false, specialityDone = false;
+    private boolean areaDone = false, insuranceDone = false, specialityDone = false;
     private Spinner specialitySpinner, areaSpinner, insuranceSpinner;
     private Calendar myCalendar;
-    private DatePickerDialog.OnDateSetListener mPicker;
     private DataViewModel dataViewModel;
     private EditText date;
     private LinearLayout dataLayout, progressbar;
@@ -59,17 +60,15 @@ public class SearchFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final ViewGroup nullParent = null;
-
         View rootView = inflater.inflate(R.layout.search_frag, nullParent);
 
         dataLayout = rootView.findViewById(R.id.search_frag_data_layout);
         progressbar = rootView.findViewById(R.id.search_frag_progress_bar_layout);
 
-        search = rootView.findViewById(R.id.search_frag_button);
-        type = rootView.findViewById(R.id.search_type_radio_group);
+        Button search = rootView.findViewById(R.id.search_frag_button);
         doctor = rootView.findViewById(R.id.search_doctor_radio_button);
         doctor.setChecked(true);
 
@@ -82,14 +81,14 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        doctorLayout = rootView.findViewById(R.id.search_doctor_radio_layout);
+        LinearLayout doctorLayout = rootView.findViewById(R.id.search_doctor_radio_layout);
         doctorLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 doctor.setChecked(true);
             }
         });
-        facilityLayout = rootView.findViewById(R.id.search_facility_radio_layout);
+        LinearLayout facilityLayout = rootView.findViewById(R.id.search_facility_radio_layout);
         facilityLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +128,7 @@ public class SearchFragment extends Fragment {
 
                 mainSpecialityList = specialities;
                 stringsSpeciality = new ArrayList<>();
-                stringsSpeciality.add(getContext().getResources().getString(R.string.select_speciality));
+                stringsSpeciality.add(Objects.requireNonNull(getContext()).getResources().getString(R.string.select_speciality));
                 if (specialities.size() > 0) {
                     for (Speciality speciality : specialities) {
                         stringsSpeciality.add(speciality.getName());
@@ -147,7 +146,7 @@ public class SearchFragment extends Fragment {
 
                 mainInsuranceList = insurances;
                 stringsInsurance = new ArrayList<>();
-                stringsInsurance.add(getContext().getResources().getString(R.string.select_insurance_op));
+                stringsInsurance.add(Objects.requireNonNull(getContext()).getResources().getString(R.string.select_insurance_op));
                 if (insurances.size() > 0) {
                     for (Insurance insurance : insurances) {
                         stringsInsurance.add(insurance.getName());
@@ -165,7 +164,7 @@ public class SearchFragment extends Fragment {
 
                 mainAreaList = areas;
                 stringsArea = new ArrayList<>();
-                stringsArea.add(getContext().getResources().getString(R.string.select_area_o));
+                stringsArea.add(Objects.requireNonNull(getContext()).getResources().getString(R.string.select_area_o));
                 if (areas.size() > 0) {
                     for (MyArea area : areas) {
                         stringsArea.add(area.getName());
@@ -180,8 +179,7 @@ public class SearchFragment extends Fragment {
 
     private void openSearchResults() {
         if (specialitySpinner.getSelectedItemId() == 0) {
-            Toast.makeText(getContext(), getContext().getResources().getString(R.string.speciality_must_be_selected), Toast.LENGTH_SHORT).show();
-            return;
+            Toast.makeText(getContext(), Objects.requireNonNull(getContext()).getResources().getString(R.string.speciality_must_be_selected), Toast.LENGTH_SHORT).show();
         } else {
             String areaId = "null";
             String specialityId = "null";
@@ -225,6 +223,7 @@ public class SearchFragment extends Fragment {
                 intent.putExtra("specialityId", specialityId);
                 intent.putExtra("insuranceId", String.valueOf(insuranceId));
                 intent.putExtra("areaId", String.valueOf(areaId));
+                intent.putExtra("searchDate", searchDate);
                 startActivity(intent);
             } else {
                 // Doctor Search Activity
@@ -246,7 +245,7 @@ public class SearchFragment extends Fragment {
 
         myCalendar = Calendar.getInstance();
 
-        mPicker = new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener mPicker = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 String myFormat = "dd/MM/YYYY";
@@ -260,7 +259,7 @@ public class SearchFragment extends Fragment {
             }
         };
         // start picker with pre-chosen date
-        DatePickerDialog dialog = new DatePickerDialog(getContext(),
+        DatePickerDialog dialog = new DatePickerDialog(Objects.requireNonNull(getContext()),
                 R.style.Date_Picker,
                 mPicker,
                 myCalendar.get(Calendar.YEAR),
@@ -271,7 +270,7 @@ public class SearchFragment extends Fragment {
         datePicker.setMinDate(myCalendar.getTimeInMillis());
 
         dialog.show();
-        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(dialog.getWindow()).setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setGravity(Gravity.CENTER);
         dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorAccent));
         dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorAccent));

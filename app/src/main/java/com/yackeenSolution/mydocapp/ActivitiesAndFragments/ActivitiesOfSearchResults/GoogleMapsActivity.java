@@ -22,7 +22,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 import com.yackeenSolution.mydocapp.R;
@@ -32,13 +31,9 @@ import java.util.Locale;
 
 public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-    private ImageView back;
-    private ImageView share;
-    private Button getDirection;
+    GoogleMap mMap;
     private Double v = 0.0;
     private Double v1 = 0.1;
-    CircleImageView proPic;
     private String imageUri = "";
 
     @Override
@@ -52,7 +47,9 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
         Intent intent = getIntent();
         if (intent.hasExtra("v")) {
@@ -62,15 +59,20 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         }
 
         Uri uri;
-        proPic = findViewById(R.id.google_maps_image_view);
-        if (imageUri.equals("http://yakensolution.cloudapp.net/doctoryadmin/") || imageUri.equals("")) {
-            uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
+        CircleImageView proPic = findViewById(R.id.google_maps_image_view);
+        if (imageUri != null && !imageUri.isEmpty()) {
+            if (imageUri.equals("http://yakensolution.cloudapp.net/doctoryadmin/")) {
+                uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
+            } else {
+                uri = Uri.parse(imageUri);
+            }
+            Picasso.get().load(uri).into(proPic);
         } else {
-            uri = Uri.parse(imageUri);
+            uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
+            Picasso.get().load(uri).into(proPic);
         }
-        Picasso.get().load(uri).into(proPic);
 
-        back = findViewById(R.id.google_maps_back);
+        ImageView back = findViewById(R.id.google_maps_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +80,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             }
         });
 
-        share = findViewById(R.id.google_maps_share);
+        ImageView share = findViewById(R.id.google_maps_share);
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +88,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             }
         });
 
-        getDirection = findViewById(R.id.google_maps_get_direction);
+        Button getDirection = findViewById(R.id.google_maps_get_direction);
         getDirection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,7 +138,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         mMap.animateCamera(zoom);
 
         LatLng markLocation = new LatLng(v, v1);
-        Marker marker = mMap.addMarker(new MarkerOptions()
+        mMap.addMarker(new MarkerOptions()
                 .position(markLocation)
                 .draggable(true));
     }

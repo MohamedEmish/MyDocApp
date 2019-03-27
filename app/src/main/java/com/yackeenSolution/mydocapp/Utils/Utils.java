@@ -1,5 +1,9 @@
 package com.yackeenSolution.mydocapp.Utils;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -39,10 +43,10 @@ public class Utils {
         if (!TextUtils.isEmpty(text.getText()) &&
                 Patterns.PHONE.matcher(text.getText()).matches()) {
             text.setError(null);
-            return true;
+            return false;
         } else {
             text.setError(error);
-            return false;
+            return true;
         }
     }
 
@@ -73,10 +77,10 @@ public class Utils {
         if (!TextUtils.isEmpty(text.getText()) &&
                 text.getText().length() > 6) {
             text.setError(null);
-            return true;
+            return false;
         } else {
             text.setError(error);
-            return false;
+            return true;
         }
     }
 
@@ -91,12 +95,6 @@ public class Utils {
         }
     }
 
-    public static boolean isOldUser(EditText mail) {
-        // TODO : mail existence check ((API))
-        // TODO : true to test after test set false
-        return true;
-    }
-
     public static boolean isValueSet(EditText text, String error) {
         if (TextUtils.isEmpty(text.getText())) {
             text.setError(error);
@@ -107,17 +105,6 @@ public class Utils {
         }
     }
 
-    public static String userPassword(EditText mail) {
-        String password = "";
-        String email;
-        email = mail.getText().toString().trim();
-        getPassWord();
-        return password;
-    }
-
-    public static void getPassWord() {
-        // TODO : get user password ((APT))
-    }
 
     public static boolean hasReadPermission(Context context, Activity activity) {
         if (ContextCompat.checkSelfPermission(context,
@@ -129,7 +116,7 @@ public class Utils {
         return false;
     }
 
-    public static void requestReadStoragePermission(Context context, final Activity activity) {
+    private static void requestReadStoragePermission(Context context, final Activity activity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(
                 activity, Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
@@ -164,7 +151,7 @@ public class Utils {
         return false;
     }
 
-    public static void requestWriteStoragePermission(Context context, final Activity activity) {
+    private static void requestWriteStoragePermission(Context context, final Activity activity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(
                 activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
@@ -210,11 +197,7 @@ public class Utils {
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, array) {
             @Override
             public boolean isEnabled(int position) {
-                if (position == 0) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return position != 0;
             }
         };
 
@@ -226,8 +209,7 @@ public class Utils {
                 ((TextView) view).setTextColor(context.getResources().getColor(R.color.colorGray));
                 ((TextView) view).setTextSize(context.getResources().getDimension(R.dimen.spinner_text_size));
                 String selection = (String) parent.getItemAtPosition(position);
-                if (!TextUtils.isEmpty(selection)) {
-                }
+                TextUtils.isEmpty(selection);
             }
 
             @Override
@@ -241,11 +223,7 @@ public class Utils {
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, array) {
             @Override
             public boolean isEnabled(int position) {
-                if (position == 0) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return position != 0;
             }
         };
 
@@ -257,8 +235,7 @@ public class Utils {
                 ((TextView) view).setTextColor(context.getResources().getColor(R.color.colorGray));
                 ((TextView) view).setTextSize(context.getResources().getDimension(R.dimen.spinner_text_size));
                 String selection = (String) parent.getItemAtPosition(position);
-                if (!TextUtils.isEmpty(selection)) {
-                }
+                TextUtils.isEmpty(selection);
             }
 
             @Override
@@ -317,13 +294,12 @@ public class Utils {
         }
     }
 
-    private void shareDirection(String direction, Context context) {
+    public static void shareDirection(String direction, Context context) {
         if (direction != null && !direction.isEmpty()) {
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
-            String shareBody = direction;
             sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Location");
-            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, direction);
             context.startActivity(Intent.createChooser(sharingIntent, "Share via"));
         } else {
             Toast.makeText(context, context.getResources().getString(R.string.no_direction_available), Toast.LENGTH_SHORT).show();

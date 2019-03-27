@@ -1,5 +1,10 @@
 package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfMoreTab;
 
+/*
+   Last edit :: March 27,2019
+   ALL DONE :)
+ */
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,7 +14,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,12 +49,12 @@ import com.yackeenSolution.mydocapp.Utils.Utils;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -70,9 +74,9 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
     public static final int PICK_IMAGE_FROM_GALLERY = 100;
     public static final int PICK_IMAGE_FROM_CAMERA = 200;
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
+
     private static final String TAG = AddNewFamilyMember.class.getCanonicalName();
     private Calendar myCalendar;
-    private DatePickerDialog.OnDateSetListener datePicker;
     private Uri mImageUri = null;
     private CircleImageView mAddFamilyMemberImage;
     private Spinner
@@ -84,7 +88,6 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
             mAddFamilyMemberFirstName,
             mAddFamilyMemberMobile,
             mAddFamilyMemberLastName;
-    private ImageView back;
     private DataViewModel dataViewModel;
     private Integer id;
     private String
@@ -157,7 +160,7 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
             }
         };
 
-        back = findViewById(R.id.add_new_back);
+        ImageView back = findViewById(R.id.add_new_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -246,33 +249,28 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
     }
 
     private void checkUploadData() {
-        boolean isAllOk = true;
+
         // check firstName Entry
         if (!Utils.isValueSet(mAddFamilyMemberFirstName, AddNewFamilyMember.this.getResources().getString(R.string.edit_text_error))) {
-            isAllOk = false;
             return;
         }
 
         // check lastName Entry
         if (!Utils.isValueSet(mAddFamilyMemberLastName, AddNewFamilyMember.this.getResources().getString(R.string.edit_text_error))) {
-            isAllOk = false;
             return;
         }
 
 
         // check phone number Entry and Validity
         if (!Utils.isValueSet(mAddFamilyMemberMobile, AddNewFamilyMember.this.getResources().getString(R.string.edit_text_error))) {
-            isAllOk = false;
             return;
-        } else if (!Utils.isValidNumber(mAddFamilyMemberMobile, AddNewFamilyMember.this.getResources().getString(R.string.invalid_number_error))) {
-            isAllOk = false;
+        } else if (Utils.isValidNumber(mAddFamilyMemberMobile, AddNewFamilyMember.this.getResources().getString(R.string.invalid_number_error))) {
             return;
         }
 
 
         // check data Entry
         if (!Utils.isValueSet(mAddFamilyMemberDate, AddNewFamilyMember.this.getResources().getString(R.string.edit_text_error))) {
-            isAllOk = false;
             return;
         }
 
@@ -280,14 +278,12 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
         // check genderSpinner selection
         if (mAddFamilyMemberGenderSpinner.getSelectedItemId() == 0) {
             Toast.makeText(this, AddNewFamilyMember.this.getResources().getString(R.string.gender_is_must), Toast.LENGTH_SHORT).show();
-            isAllOk = false;
             return;
         }
 
         // check relationSpinner selection
         if (mAddFamilyMemberRelationSpinner.getSelectedItemId() == 0) {
             Toast.makeText(this, AddNewFamilyMember.this.getResources().getString(R.string.relation_is_must), Toast.LENGTH_SHORT).show();
-            isAllOk = false;
             return;
         }
 
@@ -297,7 +293,6 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
                 mAddFamilyMemberRelationSpinner.getSelectedItemId() == 6) {
             if (mAddFamilyMemberGenderSpinner.getSelectedItemId() == 2) {
                 Toast.makeText(this, AddNewFamilyMember.this.getResources().getString(R.string.gender_correct), Toast.LENGTH_SHORT).show();
-                isAllOk = false;
                 return;
             }
         } else {
@@ -306,7 +301,6 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
                     mAddFamilyMemberRelationSpinner.getSelectedItemId() == 5) {
                 if (mAddFamilyMemberGenderSpinner.getSelectedItemId() == 1) {
                     Toast.makeText(this, AddNewFamilyMember.this.getResources().getString(R.string.gender_correct), Toast.LENGTH_SHORT).show();
-                    isAllOk = false;
                     return;
                 }
             }
@@ -315,15 +309,10 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
         // check imageUrl correctness
         if (mImageUri == null) {
             Toast.makeText(this, AddNewFamilyMember.this.getResources().getString(R.string.set_image), Toast.LENGTH_SHORT).show();
-            isAllOk = false;
             return;
         }
 
-        if (isAllOk) {
             imageUrlToUpload();
-        } else {
-            Toast.makeText(this, AddNewFamilyMember.this.getResources().getString(R.string.edit_text_error), Toast.LENGTH_SHORT).show();
-        }
     }
 
     public void imageUrlToUpload() {
@@ -389,9 +378,7 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
         } else {
             Toast.makeText(this, AddNewFamilyMember.this.getResources().getString(R.string.done), Toast.LENGTH_SHORT).show();
         }
-        Intent intent = new Intent(AddNewFamilyMember.this, FamilyMembersViewer.class);
-        startActivity(intent);
-
+        AddNewFamilyMember.this.finish();
     }
 
     public void hideKeyboard(View view) {
@@ -403,7 +390,7 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
 
         myCalendar = Calendar.getInstance();
 
-        datePicker = new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener datePicker1 = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 String myFormat = "dd/MM/YYYY"; //In which you need put here
@@ -420,7 +407,7 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
         // start picker with pre-chosen date
         DatePickerDialog dialog = new DatePickerDialog(AddNewFamilyMember.this,
                 R.style.Date_Picker,
-                datePicker,
+                datePicker1,
                 myCalendar.get(Calendar.YEAR),
                 myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH));
@@ -428,7 +415,7 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
         DatePicker datePicker = dialog.getDatePicker();
         datePicker.setMaxDate(myCalendar.getTimeInMillis());
 
-        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(dialog.getWindow()).setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setGravity(Gravity.CENTER);
 
         dialog.show();
