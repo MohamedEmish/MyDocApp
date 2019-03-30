@@ -79,7 +79,7 @@ public class SignInActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent.hasExtra("emailText")) {
-            String mEmail = intent.getStringExtra("mail");
+            String mEmail = intent.getStringExtra("emailText");
             mEmailEditText.setText(mEmail);
         }
         if (intent.hasExtra("password")) {

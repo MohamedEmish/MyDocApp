@@ -28,6 +28,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -76,6 +77,7 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
     int eyeVisibility = 1;
     private ImageView mSignUpEye;
     private DataViewModel dataViewModel;
+    private LinearLayout progress, data;
 
     private CircleImageView mSignUpUserImage;
     private String path;
@@ -110,6 +112,8 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
 
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
         mSignUpEmail = findViewById(R.id.sign_up_email);
+        progress = findViewById(R.id.register_progress_bar_layout);
+        data = findViewById(R.id.register_data);
 
         Intent intent = getIntent();
         if (intent.hasExtra("mail")) {
@@ -175,35 +179,37 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         mSignUpCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isAllDataOk()) {
-                    Toast.makeText(RegistrationActivity.this, "Check Errors", Toast.LENGTH_SHORT).show();
-                } else {
-                    imageUrlToUpload();
-                }
+                isAllDataOk();
             }
         });
     }
 
     public void imageUrlToUpload() {
-        File file = new File(path);
+        if (path != null && !path.isEmpty()) {
+            progress.setVisibility(View.VISIBLE);
+            data.setVisibility(View.GONE);
+            File file = new File(path);
 
-        final RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+            final RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
 
-        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("InternTest", file.getName(), requestBody);
+            MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("InternTest", file.getName(), requestBody);
 
-        RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
+            RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
 
-        dataViewModel.uploadedImageUrlString(fileToUpload, description).observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                createNewAccount(s);
-            }
-        });
+            dataViewModel.uploadedImageUrlString(fileToUpload, description).observe(this, new Observer<String>() {
+                @Override
+                public void onChanged(String s) {
+                    createNewAccount(s);
+                }
+            });
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.set_image), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
     private void createNewAccount(String image) {
-
         UserDataToUpload user = new UserDataToUpload();
         user.setPhoneNumber(mSignUpMobile.getText().toString().trim());
         user.setPassword(mSignUpPassword.getText().toString().trim());
@@ -234,7 +240,7 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         }
         user.setGender(mGender);
 
-        if (!fbId.isEmpty()) {
+        if (fbId != null && !fbId.isEmpty()) {
             user.setFbId(fbId);
         } else {
             user.setFbId(null);
@@ -385,48 +391,57 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         }
     }
 
-    private boolean isAllDataOk() {
-
-        boolean isAllOk = true;
+    private void isAllDataOk() {
 
         // Check first name entry
         if (!Utils.isValueSet(mSignUpFirstName, getResources().getString(R.string.edit_text_error))) {
-            isAllOk = false;
+            return;
         }
 
         // Check last name entry
         if (!Utils.isValueSet(mSignUpLastName, getResources().getString(R.string.edit_text_error))) {
-            isAllOk = false;
+            return;
         }
 
-        // Check emailText entry , validity and existence
-        if (!Utils.isValueSet(mSignUpEmail, getResources().getString(R.string.edit_text_error))) {
-            isAllOk = false;
-        } else if (!Utils.isValidEmail(mSignUpEmail, getResources().getString(R.string.invalid_mail_error))) {
-            isAllOk = false;
+        // Check date entry
+        if (!Utils.isValueSet(mSignUpDate, getResources().getString(R.string.edit_text_error))) {
+            return;
         }
 
-        // Check password entry and validity
-        if (!Utils.isValueSet(mSignUpPassword, getResources().getString(R.string.edit_text_error))) {
-            isAllOk = false;
-        } else if (Utils.isValidPassword(mSignUpPassword, getResources().getString(R.string.invalid_password_error))) {
-            isAllOk = false;
+        // Check gender selection
+        if (!mSignUpMaleRadio.isChecked() && !mSignUpFemaleRadio.isChecked()) {
+            Toast.makeText(this, getResources().getString(R.string.gender_is_must), Toast.LENGTH_SHORT).show();
+            return;
         }
 
         // Check mobile number entry and validity
         if (!Utils.isValueSet(mSignUpMobile, getResources().getString(R.string.edit_text_error))) {
-            isAllOk = false;
+            return;
         } else if (Utils.isValidNumber(mSignUpMobile, getResources().getString(R.string.invalid_number_error))) {
-            isAllOk = false;
+            return;
+        }
+
+        // Check emailText entry , validity and existence
+        if (!Utils.isValueSet(mSignUpEmail, getResources().getString(R.string.edit_text_error))) {
+            return;
+        } else if (!Utils.isValidEmail(mSignUpEmail, getResources().getString(R.string.invalid_mail_error))) {
+            return;
+        }
+
+        // Check password entry and validity
+        if (!Utils.isValueSet(mSignUpPassword, getResources().getString(R.string.edit_text_error))) {
+            return;
+        } else if (Utils.isValidPassword(mSignUpPassword, getResources().getString(R.string.invalid_password_error))) {
+            return;
         }
 
         // Check terms acceptance
         if (!mSignUpTermsCheck.isChecked()) {
             checkText.setError(getResources().getString(R.string.You_must_accept));
             checkText.setTextColor(getResources().getColor(R.color.colorError));
-            return false;
+            return;
         }
-        return isAllOk;
+        imageUrlToUpload();
     }
 
     public boolean checkPermissionREAD_EXTERNAL_STORAGE(final Context context) {

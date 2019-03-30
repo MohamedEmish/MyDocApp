@@ -14,341 +14,370 @@
     android:padding="@dimen/_8dp"
     tools:context=".ActivitiesAndFragments.ActivitiesOfLog.RegistrationActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/colorBackground"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/_20dp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/sign_up_user_image"
-            android:layout_width="@dimen/_100dp"
-            android:layout_height="@dimen/_100dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/upload_image"
-            app:civ_border_color="@color/colorAccent"
-            app:civ_border_width="@dimen/_1dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/register_progress_bar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/colorBackgroundSecond"
+            android:gravity="center"
+            android:visibility="gone">
 
             <ImageView
-                android:layout_width="@dimen/_24dp"
-                android:layout_height="@dimen/_24dp"
-                android:layout_gravity="center_vertical"
-                android:scaleType="centerInside"
-                android:src="@drawable/name" />
-
-            <EditText
-                android:id="@+id/sign_up_first_name"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:hint="@string/first_name"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingStart="@dimen/_8dp"
-                android:paddingEnd="@dimen/_8dp"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@android:color/darker_gray"
-                android:textSize="@dimen/_12sp" />
-
-            <EditText
-                android:id="@+id/sign_up_last_name"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:hint="@string/last_name"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingStart="@dimen/_8dp"
-                android:paddingEnd="@dimen/_8dp"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@android:color/darker_gray"
-                android:textSize="@dimen/_12sp" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginStart="@dimen/_8dp"
-            android:layout_marginEnd="@dimen/_8dp"
-            android:layout_marginBottom="@dimen/_8dp"
-            android:background="#000000" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="@dimen/_24dp"
-                android:layout_height="@dimen/_24dp"
-                android:layout_gravity="center_vertical"
-                android:scaleType="centerInside"
-                android:src="@drawable/date" />
-
-            <EditText
-                android:id="@+id/sign_up_date"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:inputType="date"
-                android:clickable="true"
-                android:focusable="false"
-                android:maxLines="1"
-                android:paddingStart="@dimen/_8dp"
-                android:paddingEnd="@dimen/_8dp"
-                android:text="@string/date_form"
-                android:textColor="@color/colorGray"
-                android:textSize="@dimen/_12sp" />
+                android:id="@+id/progress_animation_details"
+                android:layout_width="@dimen/_50dp"
+                android:layout_height="@dimen/_50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/progress_animation" />
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginStart="@dimen/_8dp"
-            android:layout_marginEnd="@dimen/_8dp"
-            android:layout_marginBottom="@dimen/_8dp"
-            android:background="#000000" />
-
         <LinearLayout
+            android:id="@+id/register_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8dp"
-            android:orientation="horizontal">
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorBackground"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_20dp"
+            android:visibility="visible">
 
-            <ImageView
-                android:layout_width="@dimen/_24dp"
-                android:layout_height="@dimen/_24dp"
-                android:layout_gravity="center_vertical"
-                android:scaleType="centerInside"
-                android:src="@drawable/gender" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/sign_up_user_image"
+                android:layout_width="@dimen/_100dp"
+                android:layout_height="@dimen/_100dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/upload_image"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_width="@dimen/_1dp" />
 
-            <RadioGroup
-                android:id="@+id/sign_up_gender_radio_group"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/name" />
+
+                <EditText
+                    android:id="@+id/sign_up_first_name"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/first_name"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:paddingStart="@dimen/_8dp"
                     android:paddingEnd="@dimen/_8dp"
-                    android:text="@string/gender"
+                    android:textColor="@color/colorAccent"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="@dimen/_12sp" />
+
+                <EditText
+                    android:id="@+id/sign_up_last_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/last_name"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_8dp"
+                    android:paddingEnd="@dimen/_8dp"
+                    android:textColor="@color/colorAccent"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="@dimen/_12sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:layout_marginBottom="@dimen/_8dp"
+                android:background="#000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/date" />
+
+                <EditText
+                    android:id="@+id/sign_up_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:gravity="center_vertical"
+                    android:inputType="date"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_8dp"
+                    android:paddingEnd="@dimen/_8dp"
+                    android:text="@string/date_form"
                     android:textColor="@color/colorGray"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/_12sp" />
 
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/sign_up_male_radio"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/male"
-                    android:textColor="@android:color/darker_gray"
-                    android:theme="@style/checkBoxStyle" />
+            </LinearLayout>
 
-
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/sign_up_female_radio"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/female"
-                    android:textColor="@android:color/darker_gray"
-                    android:theme="@style/checkBoxStyle" />
-            </RadioGroup>
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginStart="@dimen/_8dp"
-            android:layout_marginEnd="@dimen/_8dp"
-            android:layout_marginBottom="@dimen/_8dp"
-            android:background="#000000" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="@dimen/_24dp"
-                android:layout_height="@dimen/_24dp"
-                android:layout_gravity="center_vertical"
-                android:scaleType="centerInside"
-                android:src="@drawable/mobile" />
-
-            <EditText
-                android:id="@+id/sign_up_mobile"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:hint="@string/mobile"
-                android:inputType="phone"
-                android:maxLines="1"
-                android:paddingStart="@dimen/_8dp"
-                android:paddingEnd="@dimen/_8dp"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@android:color/darker_gray"
-                android:textSize="@dimen/_12sp" />
-        </LinearLayout>
+                android:layout_height="0.5dp"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:layout_marginBottom="@dimen/_8dp"
+                android:background="#000000" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginStart="@dimen/_8dp"
-            android:layout_marginEnd="@dimen/_8dp"
-            android:layout_marginBottom="@dimen/_8dp"
-            android:background="#000000" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="@dimen/_24dp"
-                android:layout_height="@dimen/_24dp"
-                android:layout_gravity="center_vertical"
-                android:scaleType="centerInside"
-                android:src="@drawable/email" />
-
-            <EditText
-                android:id="@+id/sign_up_email"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:paddingStart="@dimen/_8dp"
-                android:paddingEnd="@dimen/_8dp"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@android:color/darker_gray"
-                android:textSize="@dimen/_12sp" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginStart="@dimen/_8dp"
-            android:layout_marginEnd="@dimen/_8dp"
-            android:layout_marginBottom="@dimen/_8dp"
-            android:background="#000000" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="@dimen/_24dp"
-                android:layout_height="@dimen/_24dp"
-                android:layout_gravity="center_vertical"
-                android:scaleType="centerInside"
-                android:src="@drawable/password" />
-
-            <EditText
-                android:id="@+id/sign_up_password"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:paddingStart="@dimen/_8dp"
-                android:paddingEnd="@dimen/_8dp"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@android:color/darker_gray"
-                android:textSize="@dimen/_12sp" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginStart="@dimen/_8dp"
-            android:layout_marginEnd="@dimen/_8dp"
-            android:background="#000000" />
-
-        <ImageView
-            android:id="@+id/sign_up_eye"
-            android:layout_width="@dimen/_40dp"
-            android:layout_height="@dimen/_40dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/_8dp"
-            android:padding="@dimen/_8dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/eye_invisible" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8dp"
-            android:layout_marginTop="@dimen/_8dp"
-            android:layout_marginEnd="@dimen/_8dp"
-            android:layout_marginBottom="@dimen/_8dp"
-            android:gravity="start"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/sign_up_terms_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:textSize="12sp"
-                android:theme="@style/checkBoxStyle" />
-
-            <TextView
-                android:id="@+id/sign_up_terms_text"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/_4dp"
-                android:clickable="true"
-                android:focusable="false"
-                android:gravity="center_vertical"
-                android:text="@string/accept_terms"
-                android:textColor="@color/colorGray"
+                android:layout_margin="@dimen/_8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/gender" />
+
+                <RadioGroup
+                    android:id="@+id/sign_up_gender_radio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingStart="@dimen/_8dp"
+                        android:paddingEnd="@dimen/_8dp"
+                        android:text="@string/gender"
+                        android:textColor="@color/colorGray"
+                        android:textSize="12sp" />
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/sign_up_male_radio"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/male"
+                        android:textColor="@android:color/darker_gray"
+                        android:theme="@style/checkBoxStyle" />
+
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/sign_up_female_radio"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/female"
+                        android:textColor="@android:color/darker_gray"
+                        android:theme="@style/checkBoxStyle" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:layout_marginBottom="@dimen/_8dp"
+                android:background="#000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/mobile" />
+
+                <EditText
+                    android:id="@+id/sign_up_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/mobile"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_8dp"
+                    android:paddingEnd="@dimen/_8dp"
+                    android:textColor="@color/colorAccent"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="@dimen/_12sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:layout_marginBottom="@dimen/_8dp"
+                android:background="#000000" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/email" />
+
+                <EditText
+                    android:id="@+id/sign_up_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_8dp"
+                    android:paddingEnd="@dimen/_8dp"
+                    android:textColor="@color/colorAccent"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="@dimen/_12sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:layout_marginBottom="@dimen/_8dp"
+                android:background="#000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/password" />
+
+                <EditText
+                    android:id="@+id/sign_up_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_8dp"
+                    android:paddingEnd="@dimen/_8dp"
+                    android:textColor="@color/colorAccent"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="@dimen/_12sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:background="#000000" />
+
+            <ImageView
+                android:id="@+id/sign_up_eye"
+                android:layout_width="@dimen/_40dp"
+                android:layout_height="@dimen/_40dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:padding="@dimen/_8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/eye_invisible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:layout_marginBottom="@dimen/_8dp"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/sign_up_terms_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:theme="@style/checkBoxStyle" />
+
+                <TextView
+                    android:id="@+id/sign_up_terms_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_4dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/accept_terms"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/_12sp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/sign_up_create_account"
+                android:layout_width="@dimen/_250dp"
+                android:layout_height="@dimen/_36dp"
+                android:layout_marginTop="@dimen/_24dp"
+                android:layout_marginBottom="@dimen/_16dp"
+                android:background="@drawable/border_sign_in"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/create_account"
+                android:textColor="@color/colorBackground"
                 android:textSize="@dimen/_12sp" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/sign_up_create_account"
-            android:layout_width="@dimen/_250dp"
-            android:layout_height="@dimen/_36dp"
-            android:layout_marginTop="@dimen/_24dp"
-            android:layout_marginBottom="@dimen/_16dp"
-            android:background="@drawable/border_sign_in"
-            android:backgroundTint="@color/colorAccent"
-            android:text="@string/create_account"
-            android:textColor="@color/colorBackground"
-            android:textSize="@dimen/_12sp" />
 
     </LinearLayout>
 </ScrollView>
+
