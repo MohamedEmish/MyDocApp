@@ -98,7 +98,7 @@
     <string name="preferred_date">Preferred date</string>
     <string name="preferred_time">Preferred time</string>
     <string name="confirmation">Confirmation</string>
-    <string name="salamat">Salamat ...</string>
+    <string name="salamat">Salamat …</string>
     <string name="request_received">Your request is received</string>
     <string name="booking_number">Booking number :</string>
     <string name="patient_name">Patient name :</string>
@@ -169,6 +169,10 @@
     <string name="no_fav_doctor">No Favorite doctors</string>
     <string name="no_fav_facility">No favorite facility</string>
     <string name="no_app_found">No appointments found</string>
+    <string name="try_again">Try again</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="cancel">Cancel</string>
+    <string name="u_must_login">You need to login</string>
 
 
 </resources>

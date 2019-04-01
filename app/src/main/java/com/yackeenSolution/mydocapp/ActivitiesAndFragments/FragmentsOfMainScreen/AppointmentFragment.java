@@ -57,7 +57,7 @@ public class AppointmentFragment extends Fragment {
         }
 
         name = SaveSharedPreference.getUserName(getActivity());
-        if (!name.equals("")) {
+        if (name != null && !name.isEmpty()) {
             AppointmentPendingFrag appointmentPendingFrag = new AppointmentPendingFrag();
             FragmentTransaction(appointmentPendingFrag);
         } else {
@@ -68,19 +68,19 @@ public class AppointmentFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tabLayout.getSelectedTabPosition() == 0) {
-                    if (!name.equals("")) {
+                    if (name != null && !name.isEmpty()) {
                         PendingRecycler();
                     } else {
                         msg.setVisibility(View.VISIBLE);
                     }
                 } else if (tabLayout.getSelectedTabPosition() == 1) {
-                    if (!name.equals("")) {
+                    if (name != null && !name.isEmpty()) {
                         ConfirmedRecycler();
                     } else {
                         msg.setVisibility(View.VISIBLE);
                     }
                 } else if (tabLayout.getSelectedTabPosition() == 2) {
-                    if (!name.equals("")) {
+                    if (name != null && !name.isEmpty()) {
                         CompletedRecycler();
                     } else {
                         msg.setVisibility(View.VISIBLE);

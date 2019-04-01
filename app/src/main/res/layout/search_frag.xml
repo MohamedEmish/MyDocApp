@@ -109,8 +109,8 @@
                         android:gravity="center_vertical"
                         android:text="@string/doctor"
                         android:textAllCaps="false"
-                        android:textColor="@color/colorGray"
-                        android:textSize="@dimen/_14sp" />
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/_16sp" />
 
                 </LinearLayout>
 
@@ -140,8 +140,8 @@
                         android:gravity="center_vertical"
                         android:text="@string/facility"
                         android:textAllCaps="false"
-                        android:textColor="@color/colorGray"
-                        android:textSize="@dimen/_12sp" />
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/_16sp" />
 
                 </LinearLayout>
 

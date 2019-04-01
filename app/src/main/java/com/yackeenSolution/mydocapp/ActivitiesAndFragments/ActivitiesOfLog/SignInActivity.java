@@ -219,6 +219,9 @@ public class SignInActivity extends AppCompatActivity {
 
     private void Transactions(Class c) {
         Intent intent = new Intent(SignInActivity.this, c);
+        if (c == MainScreen.class) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        }
         startActivity(intent);
     }
 

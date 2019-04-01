@@ -40,6 +40,7 @@ import java.util.Objects;
 public class MoreFragment extends Fragment {
     private TextView logInOut;
     private DataViewModel dataViewModel;
+    private String id;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,10 +53,11 @@ public class MoreFragment extends Fragment {
         logInOut = rootView.findViewById(R.id.more_log_in_out);
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
 
-        if (SaveSharedPreference.getUserName(getContext()).length() == 0) {
-            logInOut.setText(getResources().getText(R.string.log_in));
-        } else if (SaveSharedPreference.getUserName(getContext()).length() != 0) {
+        id = SaveSharedPreference.getUserId(getContext());
+        if (id != null && !id.isEmpty()) {
             logInOut.setText(getResources().getText(R.string.log_out));
+        } else {
+            logInOut.setText(getResources().getText(R.string.log_in));
         }
 
         ConstraintLayout mMoreMyFamily = rootView.findViewById(R.id.more_my_family);
@@ -72,16 +74,25 @@ public class MoreFragment extends Fragment {
         mMoreMyAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MyAccount.class);
-                startActivity(intent);
+                if (id != null && !id.isEmpty()) {
+                    Intent intent = new Intent(getContext(), MyAccount.class);
+                    startActivity(intent);
+                } else {
+                    showLogInDialog(Objects.requireNonNull(getContext()));
+                }
+
             }
         });
 
         mMoreMyFamily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), FamilyMembersViewer.class);
-                startActivity(intent);
+                if (id != null && !id.isEmpty()) {
+                    Intent intent = new Intent(getContext(), FamilyMembersViewer.class);
+                    startActivity(intent);
+                } else {
+                    showLogInDialog(Objects.requireNonNull(getContext()));
+                }
             }
         });
         mMoreNotification.setOnClickListener(new View.OnClickListener() {
@@ -118,8 +129,12 @@ public class MoreFragment extends Fragment {
         mMoreSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SettingsActivity.class);
-                startActivity(intent);
+                if (id != null && !id.isEmpty()) {
+                    Intent intent = new Intent(getContext(), SettingsActivity.class);
+                    startActivity(intent);
+                } else {
+                    showLogInDialog(getContext());
+                }
             }
         });
 
@@ -154,10 +169,6 @@ public class MoreFragment extends Fragment {
         return rootView;
     }
 
-    private void logIn() {
-        Intent intent = new Intent(getContext(), SignInActivity.class);
-        startActivity(intent);
-    }
 
     private void showLogOutDialog(Context context) {
 
@@ -198,5 +209,47 @@ public class MoreFragment extends Fragment {
             }
         });
     }
+
+    private void showLogInDialog(Context context) {
+
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final ViewGroup nullParent = null;
+        View view = inflater.inflate(R.layout.logout_dialog, nullParent, false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(true);
+        builder.setView(view);
+
+        TextView textView = view.findViewById(R.id.alert_dialog_text);
+        textView.setText(context.getResources().getString(R.string.u_must_login));
+        Button yes = view.findViewById(R.id.alert_dialog_yes);
+        yes.setText(context.getResources().getString(R.string.log_in));
+        Button no = view.findViewById(R.id.alert_dialog_no);
+        no.setText(context.getResources().getString(R.string.cancel));
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logIn();
+                alertDialog.cancel();
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.cancel();
+
+            }
+        });
+    }
+
+    private void logIn() {
+        Intent intent = new Intent(getContext(), SignInActivity.class);
+        startActivity(intent);
+    }
+
+
 
 }

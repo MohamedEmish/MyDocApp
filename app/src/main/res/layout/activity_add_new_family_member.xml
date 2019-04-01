@@ -24,6 +24,7 @@
             android:layout_width="@dimen/_50dp"
             android:layout_height="match_parent"
             android:padding="@dimen/_12dp"
+            android:contentDescription="@string/try_again"
             android:src="@drawable/ic_arrow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +59,7 @@
             android:id="@+id/progress_animation_details"
             android:layout_width="@dimen/_50dp"
             android:layout_height="@dimen/_50dp"
+            android:contentDescription="@string/try_again"
             android:scaleType="centerCrop"
             android:src="@drawable/progress_animation" />
 
@@ -109,6 +111,7 @@
                         android:orientation="horizontal">
 
                         <ImageView
+                            android:contentDescription="@string/try_again"
                             android:layout_width="@dimen/_24dp"
                             android:layout_height="@dimen/_24dp"
                             android:layout_marginStart="@dimen/_8dp"
@@ -189,6 +192,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4dp"
                 android:layout_marginEnd="@dimen/_4dp"
+                android:baselineAligned="false"
                 android:orientation="horizontal">
 
                 <LinearLayout

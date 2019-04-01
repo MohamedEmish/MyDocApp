@@ -56,7 +56,7 @@ public class FavoritesFragment extends Fragment {
         }
 
         name = SaveSharedPreference.getUserName(getActivity());
-        if (!name.equals("")) {
+        if (name != null && !name.isEmpty()) {
             FavoriteDoctorFrag favoriteDoctorFrag = new FavoriteDoctorFrag();
             FragmentTransaction(favoriteDoctorFrag);
         } else {
@@ -67,13 +67,13 @@ public class FavoritesFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tabLayout.getSelectedTabPosition() == 0) {
-                    if (!name.equals("")) {
+                    if (name != null && !name.isEmpty()) {
                         DoctorRecycler();
                     } else {
                         msg.setVisibility(View.VISIBLE);
                     }
                 } else if (tabLayout.getSelectedTabPosition() == 1) {
-                    if (!name.equals("")) {
+                    if (name != null && !name.isEmpty()) {
                         FacilityRecycler();
                     } else {
                         msg.setVisibility(View.VISIBLE);

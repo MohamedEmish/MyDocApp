@@ -151,15 +151,20 @@ public class SearchResultsFacilityActivity extends AppCompatActivity {
     }
 
     private void setUpData() {
-        dataViewModel.getMyFavFacilitiesList(Integer.parseInt(SaveSharedPreference.getUserId(this))).observe(this, new Observer<List<FacilityResult>>() {
-            @Override
-            public void onChanged(List<FacilityResult> facilityResults) {
-                for (FacilityResult favFacility : facilityResults) {
-                    favoriteIdList.add(favFacility.getId());
+        String id = SaveSharedPreference.getUserId(this);
+        if (id != null && id.isEmpty()) {
+            dataViewModel.getMyFavFacilitiesList(Integer.parseInt(id)).observe(this, new Observer<List<FacilityResult>>() {
+                @Override
+                public void onChanged(List<FacilityResult> facilityResults) {
+                    for (FacilityResult favFacility : facilityResults) {
+                        favoriteIdList.add(favFacility.getId());
+                    }
+                    setUp();
                 }
-                setUp();
-            }
-        });
+            });
+        } else {
+            setUp();
+        }
     }
 
 

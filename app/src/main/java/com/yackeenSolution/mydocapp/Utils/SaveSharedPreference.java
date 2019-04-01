@@ -27,7 +27,7 @@ public class SaveSharedPreference {
     }
 
     public static String getUserName(Context ctx) {
-        return getSharedPreferences(ctx).getString(PREF_USER_NAME, "");
+        return getSharedPreferences(ctx).getString(PREF_USER_NAME, null);
     }
 
     public static void clearUserName(Context ctx) {
@@ -43,7 +43,7 @@ public class SaveSharedPreference {
     }
 
     public static String getUserId(Context ctx) {
-        return getSharedPreferences(ctx).getString(PREF_USER_ID, "");
+        return getSharedPreferences(ctx).getString(PREF_USER_ID, null);
     }
 
     public static void clearUserId(Context ctx) {
@@ -59,7 +59,7 @@ public class SaveSharedPreference {
     }
 
     public static String getUserEmail(Context ctx) {
-        return getSharedPreferences(ctx).getString(PREF_USER_EMAIL, "");
+        return getSharedPreferences(ctx).getString(PREF_USER_EMAIL, null);
     }
 
     public static void clearUserEmail(Context ctx) {

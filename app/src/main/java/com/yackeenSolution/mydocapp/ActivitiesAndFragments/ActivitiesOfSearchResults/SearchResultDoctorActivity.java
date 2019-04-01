@@ -129,15 +129,21 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
     }
 
     private void setUpData() {
-        dataViewModel.getMyFavDoctorsList(Integer.parseInt(SaveSharedPreference.getUserId(this))).observe(this, new Observer<List<FavouriteDoctor>>() {
-            @Override
-            public void onChanged(List<FavouriteDoctor> favouriteDoctors) {
-                for (FavouriteDoctor favDoc : favouriteDoctors) {
-                    favoriteIdList.add(favDoc.getId());
+        String id = SaveSharedPreference.getUserId(this);
+        if (id != null && id.isEmpty()) {
+            dataViewModel.getMyFavDoctorsList(Integer.parseInt(id)).observe(this, new Observer<List<FavouriteDoctor>>() {
+                @Override
+                public void onChanged(List<FavouriteDoctor> favouriteDoctors) {
+                    for (FavouriteDoctor favDoc : favouriteDoctors) {
+                        favoriteIdList.add(favDoc.getId());
+                    }
+                    setUp();
                 }
-                setUp();
-            }
-        });
+            });
+        } else {
+            setUp();
+        }
+
     }
 
     private void setUp() {

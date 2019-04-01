@@ -5,8 +5,25 @@ package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchRe
    ALL DONE :)
  */
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.text.Html;
+import android.transition.Fade;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -17,34 +34,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.net.Uri;
-import android.os.Bundle;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import de.hdodenhof.circleimageview.CircleImageView;
-
-import android.text.Html;
-import android.transition.Fade;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfLog.SignInActivity;
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.NonMainFragments.AboutUsFragment;
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.NonMainFragments.GeneralInfoFragment;
 import com.yackeenSolution.mydocapp.Adapters.DoctorSmallAdapter;
@@ -61,6 +52,17 @@ import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FacilityDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -87,6 +89,7 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
             v = 0.0,
             v1 = 0.1;
     private String facilityId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,7 +180,6 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
                         generalInfoFragment.setArguments(generalInfo);
                         FragmentTransaction(generalInfoFragment);
                         break;
-
                 }
             }
 
@@ -204,8 +206,14 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
     }
 
     private void setUpData() {
-
-        dataViewModel.getSpecificFacilityData(Integer.parseInt(facilityId), Integer.parseInt(SaveSharedPreference.getUserId(this))).observe(this, new Observer<FacilityResult>() {
+        String name = SaveSharedPreference.getUserId(this);
+        int id;
+        if (name != null && !name.isEmpty()) {
+            id = Integer.parseInt(name);
+        } else {
+            id = 0;
+        }
+        dataViewModel.getSpecificFacilityData(Integer.parseInt(facilityId), id).observe(this, new Observer<FacilityResult>() {
             @Override
             public void onChanged(final FacilityResult facilityResult) {
                 if (facilityResult != null) {
@@ -308,25 +316,29 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
                 }
             }
         });
-
-
     }
 
     private void FavClick(FacilityResult facilityResult) {
-        if (facilityResult.isFav()) {
-            NewFavFacility facility = new NewFavFacility();
-            facility.setUserId(Integer.parseInt(SaveSharedPreference.getUserId(FacilityDetailsActivity.this)));
-            facility.setFacilityId(facilityResult.getId());
-            facility.setFav(false);
-            dataViewModel.setFacilityFavState(facility);
-            fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
+
+        String id = SaveSharedPreference.getUserId(this);
+        if (id != null && !id.isEmpty()) {
+            if (facilityResult.isFav()) {
+                NewFavFacility facility = new NewFavFacility();
+                facility.setUserId(Integer.parseInt(SaveSharedPreference.getUserId(FacilityDetailsActivity.this)));
+                facility.setFacilityId(facilityResult.getId());
+                facility.setFav(false);
+                dataViewModel.setFacilityFavState(facility);
+                fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
+            } else {
+                NewFavFacility facility = new NewFavFacility();
+                facility.setUserId(Integer.parseInt(SaveSharedPreference.getUserId(FacilityDetailsActivity.this)));
+                facility.setFacilityId(facilityResult.getId());
+                facility.setFav(true);
+                dataViewModel.setFacilityFavState(facility);
+                fav.setImageDrawable(getResources().getDrawable(R.drawable.favorite));
+            }
         } else {
-            NewFavFacility facility = new NewFavFacility();
-            facility.setUserId(Integer.parseInt(SaveSharedPreference.getUserId(FacilityDetailsActivity.this)));
-            facility.setFacilityId(facilityResult.getId());
-            facility.setFav(true);
-            dataViewModel.setFacilityFavState(facility);
-            fav.setImageDrawable(getResources().getDrawable(R.drawable.favorite));
+            showLogInDialog(this);
         }
     }
 
@@ -352,7 +364,6 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
     }
 
     private void setUpDoctorData(List<DoctorResult> doctorsList) {
-
 
         RecyclerView doctorRecycle = findViewById(R.id.facility_detail_doctor_recycler);
         doctorRecycle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -403,5 +414,43 @@ public class FacilityDetailsActivity extends AppCompatActivity implements OnMapR
                 .draggable(true));
     }
 
+    private void showLogInDialog(Context context) {
 
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final ViewGroup nullParent = null;
+        View view = inflater.inflate(R.layout.logout_dialog, nullParent, false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(true);
+        builder.setView(view);
+
+        TextView textView = view.findViewById(R.id.alert_dialog_text);
+        textView.setText(context.getResources().getString(R.string.u_must_login));
+        Button yes = view.findViewById(R.id.alert_dialog_yes);
+        yes.setText(context.getResources().getString(R.string.log_in));
+        Button no = view.findViewById(R.id.alert_dialog_no);
+        no.setText(context.getResources().getString(R.string.cancel));
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logIn();
+                alertDialog.cancel();
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.cancel();
+
+            }
+        });
+    }
+
+    private void logIn() {
+        Intent intent = new Intent(FacilityDetailsActivity.this, SignInActivity.class);
+        startActivity(intent);
+    }
 }

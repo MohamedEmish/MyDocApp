@@ -5,14 +5,18 @@ package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchRe
    ALL DONE :)
  */
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.transition.Fade;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -31,6 +35,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfLog.SignInActivity;
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.NonMainFragments.ClinicInfoFragment;
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.NonMainFragments.ProfileFragment;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
@@ -62,7 +67,7 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
     private ConstraintLayout dataLayout;
     private LinearLayout progress;
     private CircleImageView mail, call, proPic, fav, share;
-    private TextView name, location;
+    private TextView nameText, location;
     private DoctorResult mainDoctorResult;
     private GoogleMap mMap;
     private Double v = 0.0;
@@ -91,7 +96,7 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
         progress = findViewById(R.id.doctor_detail_progress_bar_layout);
         dataLayout = findViewById(R.id.doctor_detail_data_layout);
-        name = findViewById(R.id.doctor_details_name);
+        nameText = findViewById(R.id.doctor_details_name);
         location = findViewById(R.id.doctor_detail_location_text);
 
         mail = findViewById(R.id.doctor_detail_mail);
@@ -186,15 +191,20 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
     }
 
     private void setUp() {
-        dataViewModel.getMyFavDoctorsList(Integer.parseInt(SaveSharedPreference.getUserId(this))).observe(this, new Observer<List<FavouriteDoctor>>() {
-            @Override
-            public void onChanged(List<FavouriteDoctor> favouriteDoctors) {
-                for (FavouriteDoctor f : favouriteDoctors) {
-                    favouriteDoctorList.add(f.getId());
-                    setUpData();
+        String id = SaveSharedPreference.getUserId(this);
+        if (id != null && !id.isEmpty()) {
+            dataViewModel.getMyFavDoctorsList(Integer.parseInt(id)).observe(this, new Observer<List<FavouriteDoctor>>() {
+                @Override
+                public void onChanged(List<FavouriteDoctor> favouriteDoctors) {
+                    for (FavouriteDoctor f : favouriteDoctors) {
+                        favouriteDoctorList.add(f.getId());
+                        setUpData();
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            setUpData();
+        }
     }
 
     private void setUpData() {
@@ -204,7 +214,7 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
 
                 if (doctorResult.size() > 0) {
                     if (doctorResult.get(0).getName() != null && !doctorResult.get(0).getName().isEmpty()) {
-                        name.setText(doctorResult.get(0).getName());
+                        nameText.setText(doctorResult.get(0).getName());
                     }
 
                     if (doctorResult.get(0).getFacilityLocation() != null && !doctorResult.get(0).getFacilityLocation().isEmpty()) {
@@ -217,6 +227,7 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
                             doctorResult.get(0).setFav(true);
                         }
                     }
+
                     if (doctorResult.get(0).isFav()) {
                         fav.setImageDrawable(getResources().getDrawable(R.drawable.favorite));
                     } else {
@@ -274,11 +285,16 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
                     request.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(DoctorDetailsActivity.this, AppointmentRequestActivity.class);
-                            intent.putExtra("doctorId", String.valueOf(doctorResult.get(0).getId()));
-                            intent.putExtra("facilityId", String.valueOf(doctorResult.get(0).getFacilityId()));
-                            intent.putExtra("speciality", String.valueOf(doctorResult.get(0).getSpecialityId()));
-                            startActivity(intent);
+                            String id = SaveSharedPreference.getUserId(DoctorDetailsActivity.this);
+                            if (id != null && !id.isEmpty()) {
+                                Intent intent = new Intent(DoctorDetailsActivity.this, AppointmentRequestActivity.class);
+                                intent.putExtra("doctorId", String.valueOf(doctorResult.get(0).getId()));
+                                intent.putExtra("facilityId", String.valueOf(doctorResult.get(0).getFacilityId()));
+                                intent.putExtra("speciality", String.valueOf(doctorResult.get(0).getSpecialityId()));
+                                startActivity(intent);
+                            } else {
+                                showLogInDialog(DoctorDetailsActivity.this);
+                            }
                         }
                     });
 
@@ -321,22 +337,27 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
     }
 
     private void FavClick(DoctorResult doctorResult) {
-        if (doctorResult.isFav()) {
-            NewFavDoctor doctor = new NewFavDoctor();
-            doctor.setUserId(Integer.parseInt(SaveSharedPreference.getUserId(DoctorDetailsActivity.this)));
-            doctor.setDoctorId(doctorResult.getId());
-            doctor.setFacilityId(doctorResult.getFacilityId());
-            doctor.setFav(false);
-            dataViewModel.setDoctorFavState(doctor);
-            fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
+        String id = SaveSharedPreference.getUserId(this);
+        if (id != null && !id.isEmpty()) {
+            if (doctorResult.isFav()) {
+                NewFavDoctor doctor = new NewFavDoctor();
+                doctor.setUserId(Integer.parseInt(SaveSharedPreference.getUserId(DoctorDetailsActivity.this)));
+                doctor.setDoctorId(doctorResult.getId());
+                doctor.setFacilityId(doctorResult.getFacilityId());
+                doctor.setFav(false);
+                dataViewModel.setDoctorFavState(doctor);
+                fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
+            } else {
+                NewFavDoctor doctor = new NewFavDoctor();
+                doctor.setUserId(Integer.parseInt(SaveSharedPreference.getUserId(DoctorDetailsActivity.this)));
+                doctor.setDoctorId(doctorResult.getId());
+                doctor.setFacilityId(doctorResult.getFacilityId());
+                doctor.setFav(true);
+                dataViewModel.setDoctorFavState(doctor);
+                fav.setImageDrawable(getResources().getDrawable(R.drawable.favorite));
+            }
         } else {
-            NewFavDoctor doctor = new NewFavDoctor();
-            doctor.setUserId(Integer.parseInt(SaveSharedPreference.getUserId(DoctorDetailsActivity.this)));
-            doctor.setDoctorId(doctorResult.getId());
-            doctor.setFacilityId(doctorResult.getFacilityId());
-            doctor.setFav(true);
-            dataViewModel.setDoctorFavState(doctor);
-            fav.setImageDrawable(getResources().getDrawable(R.drawable.favorite));
+            showLogInDialog(this);
         }
     }
 
@@ -366,5 +387,45 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
         mMap.addMarker(new MarkerOptions()
                 .position(markLocation)
                 .draggable(true));
+    }
+
+    private void showLogInDialog(Context context) {
+
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final ViewGroup nullParent = null;
+        View view = inflater.inflate(R.layout.logout_dialog, nullParent, false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(true);
+        builder.setView(view);
+
+        TextView textView = view.findViewById(R.id.alert_dialog_text);
+        textView.setText(context.getResources().getString(R.string.u_must_login));
+        Button yes = view.findViewById(R.id.alert_dialog_yes);
+        yes.setText(context.getResources().getString(R.string.log_in));
+        Button no = view.findViewById(R.id.alert_dialog_no);
+        no.setText(context.getResources().getString(R.string.cancel));
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logIn();
+                alertDialog.cancel();
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.cancel();
+
+            }
+        });
+    }
+
+    private void logIn() {
+        Intent intent = new Intent(DoctorDetailsActivity.this, SignInActivity.class);
+        startActivity(intent);
     }
 }

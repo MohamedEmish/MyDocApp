@@ -147,4 +147,25 @@
     <string name="clear_filter">مسح الاختيارات</string>
     <string name="select_fac_type">اختر نوع المشفى</string>
     <string name="select_area_o">اختر المنطقة (اختيارى)</string>
+    <string name="gender_is_must">من فضلك اختر الجنس</string>
+    <string name="relation_is_must">من فضلك اختر صلة القرابة</string>
+    <string name="set_image">من فضلك اختر صورة شخصية</string>
+    <string name="gender_correct">من فضلك صحح اختيار الجنس</string>
+    <string name="error">وقع خطأ ما .. اعد المحاولة</string>
+    <string name="added_successfully">تمت الاضافة بنجاح</string>
+    <string name="done">تم</string>
+    <string name="welcome">اهلا بكم</string>
+    <string name="passwords_no_match">كلمتى المرور غير متطابقين</string>
+    <string name="no_family_members">لا يوجد اقارب .. يمكنك الاعتناء بهم عبر اضافتهم</string>
+    <string name="no_notification">لا اشعارات متوفرة</string>
+    <string name="no_doctor">لا توجد نتائج مناسبة</string>
+    <string name="no_facility">لا توجد نتائج مناسبة</string>
+    <string name="cancel_appointment_msg">هل تريد تأكيد الغاء الحجز ؟</string>
+    <string name="no_fav_doctor">لا أطباء مفضلين لديك</string>
+    <string name="no_fav_facility">لا مستشفيات مفضلة لديك</string>
+    <string name="no_app_found">لا حجوزات متوفرة لديك</string>
+    <string name="try_again">حاول مجدداً</string>
+    <string name="no_internet">لا يوجد اتصال بالشبكة</string>
+    <string name="cancel">الغاء</string>
+    <string name="u_must_login">انت بحاجة لتسجيل الدخول</string>
 </resources>

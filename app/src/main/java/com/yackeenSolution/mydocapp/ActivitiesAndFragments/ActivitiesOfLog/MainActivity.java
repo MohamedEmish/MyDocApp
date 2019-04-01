@@ -6,8 +6,11 @@ package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfLog;
  */
 
 import android.animation.Animator;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         splashImage = findViewById(R.id.open_splash_logo);
         splashText = findViewById(R.id.open_splash_msg);
 
-        doYoYo(Techniques.DropOut, splashImage, 500);
+        doYoYo(Techniques.DropOut, splashImage, 250);
     }
 
     @Override
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         splashImage = findViewById(R.id.open_splash_logo);
         splashText = findViewById(R.id.open_splash_msg);
 
-        doYoYo(Techniques.DropOut, splashImage, 500);
+        doYoYo(Techniques.DropOut, splashImage, 250);
     }
 
     public void doYoYo(Techniques techniques, final View view, int duration) {
@@ -65,13 +68,18 @@ public class MainActivity extends AppCompatActivity {
             public void onAnimationEnd(Animator animation) {
                 if (view == splashImage) {
                     splashText.setVisibility(View.VISIBLE);
-                    doYoYo(Techniques.FadeInUp, splashText, 2000);
+                    doYoYo(Techniques.FadeInUp, splashText, 250);
                 } else if (view == splashText) {
 
-                    if (SaveSharedPreference.getUserEmail(MainActivity.this).length() == 0) {
-                        startSignInIntent();
-                    } else if (SaveSharedPreference.getUserEmail(MainActivity.this).length() != 0) {
-                        startMainScreenIntent();
+                    if (!isNetworkAvailable()) {
+                        startNoConnectionActivity();
+                    } else {
+                        String name = SaveSharedPreference.getUserId(MainActivity.this);
+                        if (name != null && !name.isEmpty()) {
+                            startMainScreenIntent();
+                        } else {
+                            startSignInIntent();
+                        }
                     }
 
                 }
@@ -87,6 +95,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }).playOn(view);
+    }
+
+    private void startNoConnectionActivity() {
+        new Handler().postDelayed(new Runnable() {
+                                      @Override
+                                      public void run() {
+                                          Intent intent = new Intent(MainActivity.this, NoInternetConnection.class);
+                                          startActivity(intent);
+                                          finish();
+                                      }
+                                  }, 0
+        );
     }
 
     private void startMainScreenIntent() {
@@ -111,6 +131,13 @@ public class MainActivity extends AppCompatActivity {
                                       }
                                   }, 0
         );
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }
