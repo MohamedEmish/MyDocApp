@@ -5,7 +5,7 @@
     android:focusableInTouchMode="true"
     android:id="@+id/contact_us_root"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="ContentDescription"
+    tools:ignore="ContentDescription,Autofill,KeyboardInaccessibleWidget"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -64,6 +64,7 @@
             android:textSize="@dimen/_16sp" />
 
         <EditText
+            tools:ignore="Autofill"
             android:id="@+id/contact_us_message_text"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_150_5dp"
@@ -132,7 +133,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
 
 
             <ImageView

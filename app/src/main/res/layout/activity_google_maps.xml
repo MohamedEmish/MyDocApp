@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/google_maps_root"
     android:orientation="vertical"
-    tools:ignore="ContentDescription"
+    tools:ignore="ContentDescription,Autofill,KeyboardInaccessibleWidget"
     tools:context=".ActivitiesAndFragments.ActivitiesOfSearchResults.GoogleMapsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout

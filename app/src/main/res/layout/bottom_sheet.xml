@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="ContentDescription"
+    tools:ignore="ContentDescription,Autofill,KeyboardInaccessibleWidget"
     android:background="@drawable/border_doctor_search"
     android:backgroundTint="@color/colorBackground"
     android:gravity="center_horizontal"

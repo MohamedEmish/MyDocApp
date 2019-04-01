@@ -5,7 +5,7 @@
     android:id="@+id/appoint_request_root"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="ContentDescription"
+    tools:ignore="ContentDescription,Autofill,KeyboardInaccessibleWidget"
     android:background="@color/colorTexts"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
@@ -175,6 +175,7 @@
                         android:src="@drawable/id" />
 
                     <EditText
+                        tools:ignore="Autofill"
                         android:id="@+id/appoint_request_user_national_id"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -363,6 +364,8 @@
                         android:src="@drawable/date" />
 
                     <EditText
+                        tools:ignore="Autofill,KeyboardInaccessibleWidget"
+                        android:inputType="date"
                         android:background="@null"
                         android:id="@+id/appoint_request_date"
                         android:layout_width="match_parent"
@@ -402,6 +405,7 @@
                         android:src="@drawable/appointment" />
 
                     <EditText
+                        android:inputType="time"
                         android:background="@null"
                         android:id="@+id/appoint_request_time"
                         android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:focusableInTouchMode="true"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="ContentDescription"
+    tools:ignore="ContentDescription,Autofill,KeyboardInaccessibleWidget"
     android:layout_height="match_parent"
     android:background="@drawable/bg">
 
@@ -95,7 +95,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    tools:ignore="UseCompoundDrawables">
 
 
                     <ImageView
@@ -126,7 +127,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    tools:ignore="UseCompoundDrawables">
 
 
                     <ImageView
@@ -219,6 +221,7 @@
                     android:src="@drawable/date" />
 
                 <EditText
+                    android:inputType="date"
                     android:background="@null"
                     android:focusable="false"
                     android:id="@+id/search_date_text"

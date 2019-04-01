@@ -5,7 +5,7 @@
     android:background="@color/colorBackgroundSecond"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="ContentDescription"
+    tools:ignore="ContentDescription,Autofill,KeyboardInaccessibleWidget"
     android:paddingBottom="@dimen/_60dp">
 
     <androidx.recyclerview.widget.RecyclerView
