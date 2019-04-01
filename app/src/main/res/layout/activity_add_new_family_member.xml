@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ContentDescription"
     android:id="@+id/add_family_member_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -118,6 +119,7 @@
                             android:src="@drawable/name" />
 
                         <EditText
+                            tools:ignore="Autofill"
                             android:id="@+id/add_family_member_first_name"
                             android:layout_width="@dimen/_150dp"
                             android:layout_height="match_parent"
@@ -157,6 +159,7 @@
                         android:orientation="horizontal">
 
                         <EditText
+                            tools:ignore="Autofill"
                             android:id="@+id/add_family_member_last_name"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_24dp"
@@ -213,6 +216,7 @@
                             android:src="@drawable/date" />
 
                         <EditText
+                            tools:ignore="Autofill"
                             android:id="@+id/add_family_member_date"
                             android:layout_width="@dimen/_150dp"
                             android:layout_height="match_parent"
@@ -307,6 +311,7 @@
                         android:src="@drawable/mobile" />
 
                     <EditText
+                        tools:ignore="Autofill"
                         android:id="@+id/add_family_member_mobile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

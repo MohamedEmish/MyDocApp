@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundSecond"
     android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ContentDescription"
     android:paddingBottom="@dimen/_60dp">
 
     <androidx.recyclerview.widget.RecyclerView

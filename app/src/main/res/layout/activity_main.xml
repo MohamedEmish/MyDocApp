@@ -8,6 +8,7 @@
     android:background="@color/colorAccent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    tools:ignore="ContentDescription"
     tools:context=".ActivitiesAndFragments.ActivitiesOfLog.MainActivity">
 
     <ImageView
