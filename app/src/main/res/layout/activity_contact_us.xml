@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:focusableInTouchMode="true"
     android:id="@+id/contact_us_root"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="ContentDescription,Autofill,KeyboardInaccessibleWidget"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"

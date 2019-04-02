@@ -48,6 +48,7 @@ import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -58,7 +59,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class DoctorDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class DoctorDetailsActivity extends AppCompatActivity {
 
     private Button request;
     private String doctorId;
@@ -83,12 +84,6 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
         ConstraintLayout constraintLayout = findViewById(R.id.doctor_detail_root);
         Utils.RTLSupport(this, constraintLayout);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.doctor_detail_map);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(this);
-        }
 
         Intent intent = getIntent();
         doctorId = intent.getStringExtra("doctorId");
@@ -213,6 +208,10 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
             public void onChanged(final List<DoctorResult> doctorResult) {
 
                 if (doctorResult.size() > 0) {
+
+                    mainDoctorResult = doctorResult.get(0);
+                    G_maps();
+
                     if (doctorResult.get(0).getName() != null && !doctorResult.get(0).getName().isEmpty()) {
                         nameText.setText(doctorResult.get(0).getName());
                     }
@@ -220,7 +219,6 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
                     if (doctorResult.get(0).getFacilityLocation() != null && !doctorResult.get(0).getFacilityLocation().isEmpty()) {
                         location.setText(doctorResult.get(0).getAddress());
                     }
-                    mainDoctorResult = doctorResult.get(0);
 
                     for (int id : favouriteDoctorList) {
                         if (doctorResult.get(0).getId() == id) {
@@ -232,19 +230,6 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
                         fav.setImageDrawable(getResources().getDrawable(R.drawable.favorite));
                     } else {
                         fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
-                    }
-
-                    if (doctorResult.get(0).getFacilityLocation() != null && !doctorResult.get(0).getFacilityLocation().isEmpty()) {
-                        String loc = doctorResult.get(0).getFacilityLocation();
-                        String[] values = loc.split(",");
-                        v = Double.valueOf(values[0]);
-                        v1 = Double.valueOf(values[1]);
-                        LatLng latLng = new LatLng(v, v1);
-                        mMap.setLatLngBoundsForCameraTarget(new LatLngBounds(latLng, latLng));
-                        LatLng markLocation = new LatLng(v, v1);
-                        mMap.addMarker(new MarkerOptions()
-                                .position(markLocation)
-                                .draggable(true));
                     }
 
                     mail.setOnClickListener(new View.OnClickListener() {
@@ -317,14 +302,6 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
                     profileFragment.setArguments(profile);
                     FragmentTransaction(profileFragment);
 
-                    mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                        @Override
-                        public void onMapClick(LatLng latLng) {
-                            String loc = doctorResult.get(0).getFacilityLocation();
-                            Utils.googleLocation(loc, DoctorDetailsActivity.this, mainDoctorResult.getImageUrl());
-
-                        }
-                    });
                     progress.setVisibility(View.GONE);
                     dataLayout.setVisibility(View.VISIBLE);
                 }
@@ -372,23 +349,6 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
         fragmentTransaction.commit();
     }
 
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng location = new LatLng(v, v1);
-
-        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(v, v1));
-        CameraUpdate zoom = CameraUpdateFactory.newLatLngZoom(location, 16);
-        mMap.animateCamera(center);
-        mMap.animateCamera(zoom);
-
-        LatLng markLocation = new LatLng(v, v1);
-        mMap.addMarker(new MarkerOptions()
-                .position(markLocation)
-                .draggable(true));
-    }
-
     private void showLogInDialog(Context context) {
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -427,5 +387,57 @@ public class DoctorDetailsActivity extends AppCompatActivity implements OnMapRea
     private void logIn() {
         Intent intent = new Intent(DoctorDetailsActivity.this, SignInActivity.class);
         startActivity(intent);
+    }
+
+    private void G_maps() {
+        ((SupportMapFragment) Objects.requireNonNull(getSupportFragmentManager()
+                .findFragmentById(R.id.doctor_detail_map))).getMapAsync(new OnMapReadyCallback() {
+
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new
+                        LatLng(v, v1), 15));
+
+                mMap = googleMap;
+
+                // Add a marker in Sydney and move the camera
+                LatLng location = new LatLng(v, v1);
+
+                CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(v, v1));
+                CameraUpdate zoom = CameraUpdateFactory.newLatLngZoom(location, 16);
+                mMap.animateCamera(center);
+                mMap.animateCamera(zoom);
+
+                LatLng markLoc = new LatLng(v, v1);
+                mMap.addMarker(new MarkerOptions()
+                        .position(markLoc)
+                        .draggable(true));
+
+                if (mainDoctorResult != null) {
+                    mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                        @Override
+                        public void onMapClick(LatLng latLng) {
+                            Utils.googleLocation(mainDoctorResult.getFacilityLocation(), DoctorDetailsActivity.this, mainDoctorResult.getImageUrl());
+
+                        }
+                    });
+
+                    if (mainDoctorResult.getFacilityLocation() != null && !mainDoctorResult.getFacilityLocation().isEmpty()) {
+                        String loc = mainDoctorResult.getFacilityLocation();
+                        if (loc != null) {
+                            String[] values = loc.split(",");
+                            v = Double.valueOf(values[0]);
+                            v1 = Double.valueOf(values[1]);
+                            LatLng latLng = new LatLng(v, v1);
+                            mMap.setLatLngBoundsForCameraTarget(new LatLngBounds(latLng, latLng));
+                            LatLng markLocation = new LatLng(v, v1);
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(markLocation)
+                                    .draggable(true));
+                        }
+                    }
+                }
+            }
+        });
     }
 }
