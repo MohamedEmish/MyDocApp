@@ -415,8 +415,7 @@ public class FacilityDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new
-                        LatLng(v, v1), 15));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(v, v1), 16));
 
                 mMap = googleMap;
 
