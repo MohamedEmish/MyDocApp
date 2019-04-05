@@ -5,6 +5,7 @@ package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfLog;
    ALL DONE :)
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,9 +27,20 @@ import com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfMainScreen
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfMainScreen.PromotionFragment;
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfMainScreen.SearchFragment;
 import com.yackeenSolution.mydocapp.R;
+import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils.Utils;
 
 public class MainScreen extends AppCompatActivity {
+    @Override
+    public void onBackPressed() {
+        String id = SaveSharedPreference.getUserId(this);
+        if (id != null && !id.isEmpty()) {
+            moveTaskToBack(true);
+        } else {
+            Intent intent = new Intent(this, SignInActivity.class);
+            startActivity(intent);
+        }
+    }
 
     private BottomNavigationView navigation;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

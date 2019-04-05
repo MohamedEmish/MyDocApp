@@ -180,7 +180,8 @@ public class SignInActivity extends AppCompatActivity {
                 if (userData != null) {
                     SaveSharedPreference.setUserId(SignInActivity.this, String.valueOf(userData.getId()));
                     SaveSharedPreference.setUserEmail(SignInActivity.this, String.valueOf(userData.getEmail()));
-                    SaveSharedPreference.setUserName(SignInActivity.this, String.valueOf(userData.getFirstName()));
+                    String name = String.valueOf(userData.getFirstName()) + " " + String.valueOf(userData.getLastName());
+                    SaveSharedPreference.setUserName(SignInActivity.this, name);
 
                     Transactions(MainScreen.class);
                 } else {

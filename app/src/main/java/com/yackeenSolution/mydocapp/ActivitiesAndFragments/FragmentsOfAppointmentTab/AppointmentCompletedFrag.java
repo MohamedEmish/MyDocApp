@@ -94,7 +94,7 @@ public class AppointmentCompletedFrag extends Fragment {
     }
 
     private void setUpData() {
-        dataViewModel.getMyAppointments(Integer.parseInt(SaveSharedPreference.getUserId(getActivity())), STATUS_COMPLETED).observe(this, new Observer<List<Appointment>>() {
+        dataViewModel.getMyAppointments(Integer.parseInt(SaveSharedPreference.getAppointmentId(getActivity())), STATUS_COMPLETED).observe(this, new Observer<List<Appointment>>() {
             @Override
             public void onChanged(List<Appointment> appointments) {
                 progress.setVisibility(View.GONE);

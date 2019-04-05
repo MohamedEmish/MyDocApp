@@ -207,7 +207,7 @@ public class Utils {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((TextView) view).setTextColor(context.getResources().getColor(R.color.colorGray));
-                ((TextView) view).setTextSize(context.getResources().getDimension(R.dimen.spinner_text_size));
+                ((TextView) parent.getChildAt(0)).setTextSize(12);
                 String selection = (String) parent.getItemAtPosition(position);
                 TextUtils.isEmpty(selection);
             }
@@ -217,6 +217,28 @@ public class Utils {
             }
         });
     }
+
+    public static void setupSpinnerFirstSelected(final Context context, List<String> array, Spinner spinner) {
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, array);
+
+        spinnerAdapter.setDropDownViewResource(R.layout.my_spinner_layout);
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) view).setTextColor(context.getResources().getColor(R.color.colorGray));
+                ((TextView) parent.getChildAt(0)).setTextSize(12);
+                String selection = (String) parent.getItemAtPosition(position);
+                TextUtils.isEmpty(selection);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
 
     public static void setupSpinner(final Context context, String[] array, Spinner spinner) {
 
@@ -233,7 +255,7 @@ public class Utils {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((TextView) view).setTextColor(context.getResources().getColor(R.color.colorGray));
-                ((TextView) view).setTextSize(context.getResources().getDimension(R.dimen.spinner_text_size));
+                ((TextView) parent.getChildAt(0)).setTextSize(12);
                 String selection = (String) parent.getItemAtPosition(position);
                 TextUtils.isEmpty(selection);
             }
@@ -306,6 +328,4 @@ public class Utils {
 
         }
     }
-
 }
-

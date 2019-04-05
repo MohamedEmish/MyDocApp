@@ -203,9 +203,8 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
                 }
             });
         } else {
-            Toast.makeText(this, getResources().getString(R.string.set_image), Toast.LENGTH_SHORT).show();
+            createNewAccount(null);
         }
-
     }
 
 
@@ -218,10 +217,14 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         user.setFirstName(mSignUpFirstName.getText().toString().trim());
         user.setLastName(mSignUpLastName.getText().toString().trim());
 
-        image = image.replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
-                .replace("http://yakensolution.cloudapp.net/doctoryadmin//", "")
-                .replace("\"", "");
-        user.setImageUri(image);
+        if (image != null && !image.isEmpty()) {
+            image = image.replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
+                    .replace("http://yakensolution.cloudapp.net/doctoryadmin//", "")
+                    .replace("\"", "");
+            user.setImageUri(image);
+        } else {
+            user.setImageUri(null);
+        }
 
         Boolean mGender;
         if (mSignUpGenderRadioGroup.getCheckedRadioButtonId() == R.id.sign_up_male_radio) {

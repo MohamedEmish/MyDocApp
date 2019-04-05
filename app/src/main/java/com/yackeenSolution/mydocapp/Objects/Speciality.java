@@ -18,6 +18,18 @@ public class Speciality implements Parcelable {
             return new Speciality[size];
         }
     };
+
+    @Expose(serialize = false, deserialize = false)
+    boolean selected = true;
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
     @SerializedName("Id")
     @Expose
     private int id;
@@ -27,14 +39,6 @@ public class Speciality implements Parcelable {
     @SerializedName("name")
     @Expose
     private String name;
-
-
-    // TODO: Remove this Constructor after clear Dummy Data and ((API)) connection
-    public Speciality(String name, String imageUri) {
-        this.name = name;
-        this.imageUri = imageUri;
-        this.id = id;
-    }
 
     public Speciality() {
     }

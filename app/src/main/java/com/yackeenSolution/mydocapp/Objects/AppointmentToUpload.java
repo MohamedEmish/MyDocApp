@@ -20,7 +20,7 @@ public class AppointmentToUpload implements Parcelable {
     };
     @SerializedName("AppointmentId")
     @Expose
-    int appointmentId;
+    Integer appointmentId;
     @SerializedName("PatientId")
     @Expose
     int patientId;
@@ -69,11 +69,11 @@ public class AppointmentToUpload implements Parcelable {
         this.requestType = in.readInt();
     }
 
-    public int getAppointmentId() {
+    public Integer getAppointmentId() {
         return appointmentId;
     }
 
-    public void setAppointmentId(int appointmentId) {
+    public void setAppointmentId(Integer appointmentId) {
         this.appointmentId = appointmentId;
     }
 

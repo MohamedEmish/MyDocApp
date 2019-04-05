@@ -99,8 +99,6 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
             nationalityId = "null";
         }
 
-        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
-
         progress = findViewById(R.id.doctor_search_result_progress_bar_layout);
         noData = findViewById(R.id.search_results_doctor_no_data);
 
@@ -125,12 +123,19 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
         doctorResultRecycleView.setHasFixedSize(true);
         doctorResultAdapter = new DoctorResultAdapter();
         doctorResultRecycleView.setAdapter(doctorResultAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        progress.setVisibility(View.VISIBLE);
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
         setUpData();
+        super.onResume();
     }
 
     private void setUpData() {
         String id = SaveSharedPreference.getUserId(this);
-        if (id != null && id.isEmpty()) {
+        if (id != null && !id.isEmpty()) {
             dataViewModel.getMyFavDoctorsList(Integer.parseInt(id)).observe(this, new Observer<List<FavouriteDoctor>>() {
                 @Override
                 public void onChanged(List<FavouriteDoctor> favouriteDoctors) {
@@ -222,6 +227,7 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
                         for (int id : favoriteIdList) {
                             if (docRes.getId() == id) {
                                 docRes.setFav(true);
+                                break;
                             } else {
                                 docRes.setFav(false);
                             }

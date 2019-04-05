@@ -781,7 +781,7 @@
         android:layout_gravity="center"
         android:background="@color/colorBackgroundSecond"
         android:gravity="center"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/progress_animation_details"

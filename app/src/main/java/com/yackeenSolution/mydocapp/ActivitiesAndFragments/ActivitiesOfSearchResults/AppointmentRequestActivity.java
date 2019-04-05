@@ -146,39 +146,43 @@ public class AppointmentRequestActivity extends AppCompatActivity {
 
     private void confirmation() {
         if (isAllDataOk()) {
-            AppointmentToUpload appointment = new AppointmentToUpload();
+            AppointmentToUpload appointmentToUpload = new AppointmentToUpload();
             if (mAppointRequestUserNameSpinner.getSelectedItemId() == 0) {
                 int id = Integer.parseInt(SaveSharedPreference.getUserId(this));
-                appointment.setPatientId(id);
+                appointmentToUpload.setPatientId(id);
             } else {
                 for (FamilyMember member : mainFamilyList) {
                     if (familyMembersStrings.get(mAppointRequestUserNameSpinner.getSelectedItemPosition()).equals(member.getName())) {
                         int fId = member.getId();
-                        appointment.setPatientId(fId);
+                        appointmentToUpload.setPatientId(fId);
                     }
                 }
             }
-            appointment.setPatientPhone(mAppointRequestUserMobile.getText().toString().trim());
+            progress.setVisibility(View.VISIBLE);
+            appointmentToUpload.setPatientPhone(mAppointRequestUserMobile.getText().toString().trim());
             if (mAppointRequestUserNationalId.getText().toString().isEmpty()) {
-                appointment.setNationalId(null);
+                appointmentToUpload.setNationalId(null);
             } else {
-                appointment.setNationalId(mAppointRequestUserNationalId.getText().toString().trim());
+                appointmentToUpload.setNationalId(mAppointRequestUserNationalId.getText().toString().trim());
             }
-            appointment.setDoctorFacilityId(Integer.parseInt(facilityId));
-            appointment.setSpecialtyId(Integer.parseInt(specialityId));
-            appointment.setTime(mAppointRequestTime.getText().toString().trim());
-            appointment.setRequestType(mAppointRequestUserNameSpinner.getSelectedItemPosition());
-            appointment.setDoctorId(Integer.parseInt(doctorId));
-            appointment.setPromoCode(null);
-            appointment.setData(Utils.dateToApiFormat(mAppointRequestDate.getText().toString().trim()));
+            appointmentToUpload.setDoctorFacilityId(Integer.parseInt(facilityId));
+            appointmentToUpload.setSpecialtyId(Integer.parseInt(specialityId));
+            appointmentToUpload.setTime(mAppointRequestTime.getText().toString().trim());
+            appointmentToUpload.setRequestType(mAppointRequestDoctorVisitTypeSpinner.getSelectedItemPosition());
+            appointmentToUpload.setDoctorId(Integer.parseInt(doctorId));
+            appointmentToUpload.setPromoCode(null);
+            appointmentToUpload.setData(Utils.dateToApiFormat(mAppointRequestDate.getText().toString().trim()));
 
-            dataViewModel.requestAppointment(appointment).observe(this, new Observer<Appointment>() {
+            dataViewModel.requestAppointment(appointmentToUpload).observe(this, new Observer<Appointment>() {
                 @Override
                 public void onChanged(Appointment appointment) {
-                    int id = appointment.getId();
-                    Intent intent = new Intent(AppointmentRequestActivity.this, ConfirmationActivity.class);
-                    intent.putExtra("appointmentId", String.valueOf(id));
-                    startActivity(intent);
+                    if (appointment != null) {
+                        int id = appointment.getId();
+                        Intent intent = new Intent(AppointmentRequestActivity.this, ConfirmationActivity.class);
+                        intent.putExtra("appointmentId", String.valueOf(id));
+                        progress.setVisibility(View.GONE);
+                        startActivity(intent);
+                    }
                 }
             });
 

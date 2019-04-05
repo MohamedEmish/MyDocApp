@@ -132,6 +132,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Localization
+        SaveSharedPreference.getLanguage(this);
         Utils.setLocale(this);
         setContentView(R.layout.activity_my_account);
         ConstraintLayout constraintLayout = findViewById(R.id.my_account_root);
@@ -402,6 +403,8 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
         user.setDateOfBirth(Utils.dateToApiFormat(newDate.getText().toString().trim()));
         user.setEmail(email.getText().toString().trim());
         user.setPassword(mUserData.getPassword());
+        String name = user.getFirstName() + " " + user.getLastName();
+        SaveSharedPreference.setUserName(this, name);
 
         String app = mUserData.getAppointmentReminder();
         if (app.equals("true")) {
@@ -483,7 +486,13 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
                     mUserData = userData;
                     proPicUrl = userData.getImageUri();
                     oldUri = proPicUrl;
-                    Picasso.get().load(Uri.parse(proPicUrl)).into(profilePic);
+                    Uri uri;
+                    if (proPicUrl != null && !proPicUrl.isEmpty()) {
+                        uri = Uri.parse(proPicUrl.replace("//U", "/U"));
+                    } else {
+                        uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
+                    }
+                    Picasso.get().load(uri).into(profilePic);
 
                     newFirstName.setText(userData.getFirstName());
                     firstName.setText(userData.getFirstName());

@@ -5,6 +5,7 @@ package com.yackeenSolution.mydocapp.Adapters;
    ALL DONE :)
  */
 
+import android.content.Context;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -22,6 +24,7 @@ import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.R;
 
 public class SpecialitySmallAdapter extends ListAdapter<Speciality, SpecialitySmallAdapter.SpecialityViewHolder> {
+    Context mContext;
     private static final DiffUtil.ItemCallback<Speciality> DIFF_CALLBACK = new DiffUtil.ItemCallback<Speciality>() {
         @Override
         public boolean areItemsTheSame(Speciality oldItem, Speciality newItem) {
@@ -35,16 +38,15 @@ public class SpecialitySmallAdapter extends ListAdapter<Speciality, SpecialitySm
         }
     };
 
-    public SpecialitySmallAdapter() {
+    private SpecialitySmallAdapter.OnItemClickListener listener;
+
+    public SpecialitySmallAdapter(Context context) {
         super(DIFF_CALLBACK);
+        mContext = context;
     }
 
-    @NonNull
-    @Override
-    public SpecialitySmallAdapter.SpecialityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.speciality_small_item, parent, false);
-        return new SpecialitySmallAdapter.SpecialityViewHolder(view);
+    public void setOnItemClickListener(SpecialitySmallAdapter.OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -57,22 +59,49 @@ public class SpecialitySmallAdapter extends ListAdapter<Speciality, SpecialitySm
         } else {
             uri = Uri.parse(imageUri);
         }
-        Picasso.get().load(uri).into(holder.SpecialityImageVew);
-
-
+        Picasso.get().load(uri).into(holder.specialityImageVew);
+        if (!getItem(position).isSelected()) {
+            holder.specialityImageVew.setColorFilter(mContext.getResources().getColor(R.color.colorGray));
+        } else {
+            holder.specialityImageVew.setColorFilter(mContext.getResources().getColor(R.color.colorAccent));
+        }
         holder.nameTextView.setText(name);
+    }
+
+    @NonNull
+    @Override
+    public SpecialitySmallAdapter.SpecialityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.speciality_small_item, parent, false);
+        return new SpecialitySmallAdapter.SpecialityViewHolder(view);
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Speciality speciality);
     }
 
     class SpecialityViewHolder extends RecyclerView.ViewHolder {
 
         TextView nameTextView;
-        ImageView SpecialityImageVew;
+        ImageView specialityImageVew;
+        LinearLayout layout;
 
         SpecialityViewHolder(View itemView) {
             super(itemView);
 
             nameTextView = itemView.findViewById(R.id.speciality_small_item_name);
-            SpecialityImageVew = itemView.findViewById(R.id.speciality_small_item_image);
+            specialityImageVew = itemView.findViewById(R.id.speciality_small_item_image);
+            layout = itemView.findViewById(R.id.speciality_small_item_layout);
+
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(getItem(position));
+                    }
+                }
+            });
 
         }
     }

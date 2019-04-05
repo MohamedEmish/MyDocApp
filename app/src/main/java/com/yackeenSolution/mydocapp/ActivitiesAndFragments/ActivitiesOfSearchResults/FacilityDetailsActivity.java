@@ -51,6 +51,7 @@ import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -282,9 +283,9 @@ public class FacilityDetailsActivity extends AppCompatActivity {
                     aboutUsFragment.setArguments(aboutUs);
                     FragmentTransaction(aboutUsFragment);
 
-                    setUpDoctorData(facilityResult.getDoctorsList());
                     setUpInsuranceData(facilityResult.getInsuranceList());
-                    setUpSpecialityData(facilityResult.getSpecialityList());
+                    setUpSpecialityData(facilityResult.getSpecialityList(), facilityResult.getDoctorsList());
+                    setUpDoctorData(facilityResult.getDoctorsList());
                 }
             }
         });
@@ -324,15 +325,49 @@ public class FacilityDetailsActivity extends AppCompatActivity {
         insuranceSmallAdapter.submitList(insuranceList);
     }
 
-    private void setUpSpecialityData(List<Speciality> specialityList) {
+    private void setUpSpecialityData(final List<Speciality> specialityList, final List<DoctorResult> doctorList) {
 
         RecyclerView specialityRecycle = findViewById(R.id.facility_detail_speciality_recycler);
         specialityRecycle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         specialityRecycle.setHasFixedSize(true);
-        SpecialitySmallAdapter specialitySmallAdapter = new SpecialitySmallAdapter();
+        final SpecialitySmallAdapter specialitySmallAdapter = new SpecialitySmallAdapter(this);
         specialityRecycle.setAdapter(specialitySmallAdapter);
+        specialitySmallAdapter.setOnItemClickListener(new SpecialitySmallAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Speciality speciality) {
+                if (speciality.isSelected()) {
+                    speciality.setSelected(false);
+                    specialitySmallAdapter.notifyDataSetChanged();
+                    applySpecialityChange(specialityList, doctorList);
+                } else {
+                    speciality.setSelected(true);
+                    specialitySmallAdapter.notifyDataSetChanged();
+                    applySpecialityChange(specialityList, doctorList);
+                }
+            }
+        });
         specialitySmallAdapter.submitList(specialityList);
 
+    }
+
+    private void applySpecialityChange(List<Speciality> specialityList, List<DoctorResult> doctorList) {
+        List<DoctorResult> newList = new ArrayList<>();
+        newList.clear();
+        List<String> selectedSpecialities = new ArrayList<>();
+        for (Speciality speciality : specialityList) {
+            if (speciality.isSelected()) {
+                selectedSpecialities.add(speciality.getName());
+            }
+        }
+
+        for (String name : selectedSpecialities) {
+            for (DoctorResult doctor : doctorList) {
+                if (name.equals(doctor.getSpeciality())) {
+                    newList.add(doctor);
+                }
+            }
+        }
+        setUpDoctorData(newList);
     }
 
     private void setUpDoctorData(List<DoctorResult> doctorsList) {
@@ -441,8 +476,8 @@ public class FacilityDetailsActivity extends AppCompatActivity {
                         }
                     });
 
-                    if (mainFacilityResult.getLanguage() != null && !mainFacilityResult.getLanguage().isEmpty()) {
-                        String loc = mainFacilityResult.getLanguage();
+                    if (mainFacilityResult.getLocation() != null && !mainFacilityResult.getLocation().isEmpty()) {
+                        String loc = mainFacilityResult.getLocation();
                         if (loc != null) {
                             String[] values = loc.split(",");
                             v = Double.valueOf(values[0]);

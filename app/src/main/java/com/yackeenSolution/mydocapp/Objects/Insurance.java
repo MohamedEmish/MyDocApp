@@ -29,12 +29,6 @@ public class Insurance implements Parcelable {
     @Expose
     private String name;
 
-    // TODO: Remove this Constructor after clear Dummy Data and ((API)) connection
-    public Insurance(String name, String imageUri) {
-        this.name = name;
-        this.imageUri = imageUri;
-    }
-
     public Insurance() {
     }
 

@@ -74,8 +74,6 @@ public class SearchResultsFacilityActivity extends AppCompatActivity {
             facilityTypeId = "null";
         }
 
-        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
-
         progress = findViewById(R.id.facility_search_result_progress_bar_layout);
         noData = findViewById(R.id.search_results_facility_no_data);
 
@@ -147,12 +145,19 @@ public class SearchResultsFacilityActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        progress.setVisibility(View.VISIBLE);
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
         setUpData();
+        super.onResume();
     }
 
     private void setUpData() {
         String id = SaveSharedPreference.getUserId(this);
-        if (id != null && id.isEmpty()) {
+        if (id != null && !id.isEmpty()) {
             dataViewModel.getMyFavFacilitiesList(Integer.parseInt(id)).observe(this, new Observer<List<FacilityResult>>() {
                 @Override
                 public void onChanged(List<FacilityResult> facilityResults) {
@@ -202,13 +207,15 @@ public class SearchResultsFacilityActivity extends AppCompatActivity {
                     facilityResultRecycleView.setVisibility(View.VISIBLE);
                     for (FacilityResult favRes : facilityResults) {
                         for (int id : favoriteIdList) {
-                            if (favRes.getId() != id) {
-                                favRes.setFav(false);
-                            } else {
+                            if (favRes.getId() == id) {
                                 favRes.setFav(true);
+                                break;
+                            } else {
+                                favRes.setFav(false);
                             }
                         }
                     }
+
                     facilityResultAdapter.submitList(facilityResults);
                     final List<FacilityResult> filteredList = new ArrayList<>();
                     TextWatcher textWatcher = new TextWatcher() {

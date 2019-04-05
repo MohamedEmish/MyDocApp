@@ -14,7 +14,7 @@ public class SaveSharedPreference {
     private static final String PREF_USER_LANGUAGE = "language";
     private static final String PREF_USER_EMAIL = "emailText";
     private static final String PREF_USER_ID = "ID";
-
+    private static final String PREF_Appointment_ID = "appointmentId";
 
     private static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -33,6 +33,22 @@ public class SaveSharedPreference {
     public static void clearUserName(Context ctx) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_USER_NAME, null);
+        editor.apply();
+    }
+
+    public static void setAppointmentId(Context ctx, String id) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(PREF_Appointment_ID, id);
+        editor.apply();
+    }
+
+    public static String getAppointmentId(Context ctx) {
+        return getSharedPreferences(ctx).getString(PREF_Appointment_ID, null);
+    }
+
+    public static void clearAppointmentId(Context ctx) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(PREF_Appointment_ID, null);
         editor.apply();
     }
 

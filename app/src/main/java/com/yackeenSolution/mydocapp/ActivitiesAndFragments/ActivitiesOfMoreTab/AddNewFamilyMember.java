@@ -306,37 +306,33 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
             }
         }
 
-        // check imageUrl correctness
-        if (mImageUri == null) {
-            Toast.makeText(this, AddNewFamilyMember.this.getResources().getString(R.string.set_image), Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-            imageUrlToUpload();
+        imageUrlToUpload();
     }
 
     public void imageUrlToUpload() {
-
+        progress.setVisibility(View.VISIBLE);
         if (type.equals("add")) {
-            File file = new File(path);
+            if (path != null && !path.isEmpty()) {
+                File file = new File(path);
 
-            final RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+                final RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
 
-            MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("InternTest", file.getName(), requestBody);
+                MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("InternTest", file.getName(), requestBody);
 
-            RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
+                RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
 
-            dataViewModel.uploadedImageUrlString(fileToUpload, description).observe(this, new Observer<String>() {
-                @Override
-                public void onChanged(String s) {
-                    Forward(s);
-                }
-            });
+                dataViewModel.uploadedImageUrlString(fileToUpload, description).observe(this, new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        Forward(s);
+                    }
+                });
+            } else {
+                Forward(null);
+            }
         } else {
             Forward(image);
         }
-
-
     }
 
     private void Forward(String imageUrl) {
@@ -361,18 +357,28 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
         familyMember.setGender(g);
         familyMember.setUserId(Integer.valueOf(SaveSharedPreference.getUserId(this)));
 
-        familyMember.setImageUrl(mImageUri.toString().trim());
+        if (mImageUri != null) {
+            familyMember.setImageUrl(mImageUri.toString().trim());
+        } else {
+            familyMember.setImageUrl(null);
+        }
 
         int relation = mAddFamilyMemberRelationSpinner.getSelectedItemPosition();
         familyMember.setEmail(null);
         familyMember.setRelationId(relation);
-        String img = imageUrl.replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
-                .replace("http://yakensolution.cloudapp.net/doctoryadmin//", "")
-                .replace("\"", "");
+        String img;
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            img = imageUrl.replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
+                    .replace("http://yakensolution.cloudapp.net/doctoryadmin//", "")
+                    .replace("\"", "");
+        } else {
+            img = null;
+        }
 
         familyMember.setImageUrl(img);
 
         dataViewModel.addEditFamilyMember(familyMember);
+        progress.setVisibility(View.GONE);
         if (type.equals("add")) {
             Toast.makeText(this, AddNewFamilyMember.this.getResources().getString(R.string.added_successfully), Toast.LENGTH_SHORT).show();
         } else {
