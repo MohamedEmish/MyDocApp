@@ -86,7 +86,7 @@ public class AppointmentPendingFrag extends Fragment {
     }
 
     private void setUpData() {
-        dataViewModel.getMyAppointments(Integer.parseInt(SaveSharedPreference.getAppointmentId(getActivity())), STATUS_PENDING).observe(this, new Observer<List<Appointment>>() {
+        dataViewModel.getMyAppointments(Integer.parseInt(SaveSharedPreference.getAppointmentId(getActivity())), STATUS_PENDING, getContext()).observe(this, new Observer<List<Appointment>>() {
             @Override
             public void onChanged(List<Appointment> appointments) {
                 progress.setVisibility(View.GONE);
@@ -124,7 +124,7 @@ public class AppointmentPendingFrag extends Fragment {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataViewModel.deleteAppointment(id);
+                dataViewModel.deleteAppointment(id, getContext());
                 adapter.notifyDataSetChanged();
                 alertDialog.cancel();
             }

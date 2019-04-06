@@ -21,37 +21,31 @@ public class DoctorSlots implements Parcelable {
     };
     @SerializedName("SlotId")
     @Expose
+    private
     int slotId;
     @SerializedName("DoctorId")
     @Expose
+    private
     int doctorId;
     @SerializedName("From")
     @Expose
+    private
     String from;
     @SerializedName("To")
     @Expose
+    private
     String to;
     @SerializedName("Date")
     @Expose
+    private
     String date;
 
-    public DoctorSlots() {
-    }
-
-    protected DoctorSlots(Parcel in) {
+    private DoctorSlots(Parcel in) {
         this.slotId = in.readInt();
         this.doctorId = in.readInt();
         this.from = in.readString();
         this.to = in.readString();
         this.date = in.readString();
-    }
-
-    public int getSlotId() {
-        return slotId;
-    }
-
-    public void setSlotId(int slotId) {
-        this.slotId = slotId;
     }
 
     public int getDoctorId() {

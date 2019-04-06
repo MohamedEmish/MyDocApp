@@ -56,13 +56,13 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
         });
 
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
-        dataViewModel.getMyPolicyLiveData();
+        dataViewModel.getMyPolicyLiveData(this);
         setUpData();
     }
 
     private void setUpData() {
 
-        dataViewModel.getMyPolicyLiveData().observe(this, new Observer<List<MyAboutUs>>() {
+        dataViewModel.getMyPolicyLiveData(this).observe(this, new Observer<List<MyAboutUs>>() {
             @Override
             public void onChanged(List<MyAboutUs> policyList) {
 

@@ -133,7 +133,7 @@ public class MoreFragment extends Fragment {
                     Intent intent = new Intent(getContext(), SettingsActivity.class);
                     startActivity(intent);
                 } else {
-                    showLogInDialog(getContext());
+                    showLogInDialog(Objects.requireNonNull(getContext()));
                 }
             }
         });
@@ -191,10 +191,11 @@ public class MoreFragment extends Fragment {
                 UserToken token = new UserToken();
                 token.setId(Integer.parseInt(SaveSharedPreference.getUserId(getContext())));
                 token.setEmail(SaveSharedPreference.getUserEmail(getContext()));
-                dataViewModel.logout(token);
+                dataViewModel.logout(token, getContext());
                 SaveSharedPreference.clearUserName(getActivity());
                 SaveSharedPreference.clearUserEmail(getActivity());
                 SaveSharedPreference.clearUserId(getActivity());
+                SaveSharedPreference.clearAppointmentId(getActivity());
                 logInOut.setText(getResources().getText(R.string.log_in));
                 alertDialog.cancel();
                 Intent intent = new Intent(getContext(), SignInActivity.class);

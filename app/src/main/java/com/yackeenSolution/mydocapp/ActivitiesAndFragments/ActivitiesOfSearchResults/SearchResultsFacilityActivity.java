@@ -158,7 +158,7 @@ public class SearchResultsFacilityActivity extends AppCompatActivity {
     private void setUpData() {
         String id = SaveSharedPreference.getUserId(this);
         if (id != null && !id.isEmpty()) {
-            dataViewModel.getMyFavFacilitiesList(Integer.parseInt(id)).observe(this, new Observer<List<FacilityResult>>() {
+            dataViewModel.getMyFavFacilitiesList(Integer.parseInt(id), this).observe(this, new Observer<List<FacilityResult>>() {
                 @Override
                 public void onChanged(List<FacilityResult> facilityResults) {
                     for (FacilityResult favFacility : facilityResults) {
@@ -199,7 +199,8 @@ public class SearchResultsFacilityActivity extends AppCompatActivity {
                 specialityId,
                 area,
                 insurance,
-                facilityType).observe(this, new Observer<List<FacilityResult>>() {
+                facilityType,
+                this).observe(this, new Observer<List<FacilityResult>>() {
             @Override
             public void onChanged(final List<FacilityResult> facilityResults) {
                 progress.setVisibility(View.GONE);

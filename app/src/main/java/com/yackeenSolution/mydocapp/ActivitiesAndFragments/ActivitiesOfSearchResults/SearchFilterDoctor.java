@@ -146,7 +146,7 @@ public class SearchFilterDoctor extends AppCompatActivity {
     }
 
     private void setupDate() {
-        dataViewModel.getMyInsuranceList().observe(this, new Observer<List<Insurance>>() {
+        dataViewModel.getMyInsuranceList(this).observe(this, new Observer<List<Insurance>>() {
             @Override
             public void onChanged(List<Insurance> insurances) {
                 mainInsuranceList = insurances;
@@ -163,7 +163,7 @@ public class SearchFilterDoctor extends AppCompatActivity {
             }
         });
 
-        dataViewModel.getMyAreaList().observe(this, new Observer<List<MyArea>>() {
+        dataViewModel.getMyAreaList(this).observe(this, new Observer<List<MyArea>>() {
             @Override
             public void onChanged(List<MyArea> areas) {
                 mainAreaList = areas;
@@ -180,7 +180,7 @@ public class SearchFilterDoctor extends AppCompatActivity {
             }
         });
 
-        dataViewModel.getQualifications().observe(this, new Observer<List<Speciality>>() {
+        dataViewModel.getQualifications(this).observe(this, new Observer<List<Speciality>>() {
             @Override
             public void onChanged(List<Speciality> specialities) {
                 mainQualificationList = specialities;
@@ -197,7 +197,7 @@ public class SearchFilterDoctor extends AppCompatActivity {
             }
         });
 
-        dataViewModel.getNationalities().observe(this, new Observer<List<Speciality>>() {
+        dataViewModel.getNationalities(this).observe(this, new Observer<List<Speciality>>() {
             @Override
             public void onChanged(List<Speciality> specialities) {
                 mainNationalitiesList = specialities;
@@ -214,7 +214,7 @@ public class SearchFilterDoctor extends AppCompatActivity {
             }
         });
 
-        dataViewModel.getLanguages().observe(this, new Observer<List<Speciality>>() {
+        dataViewModel.getLanguages(this).observe(this, new Observer<List<Speciality>>() {
             @Override
             public void onChanged(List<Speciality> specialities) {
                 mainLanguagesList = specialities;

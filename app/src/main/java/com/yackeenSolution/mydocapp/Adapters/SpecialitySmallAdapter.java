@@ -24,7 +24,7 @@ import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.R;
 
 public class SpecialitySmallAdapter extends ListAdapter<Speciality, SpecialitySmallAdapter.SpecialityViewHolder> {
-    Context mContext;
+    private Context mContext;
     private static final DiffUtil.ItemCallback<Speciality> DIFF_CALLBACK = new DiffUtil.ItemCallback<Speciality>() {
         @Override
         public boolean areItemsTheSame(Speciality oldItem, Speciality newItem) {

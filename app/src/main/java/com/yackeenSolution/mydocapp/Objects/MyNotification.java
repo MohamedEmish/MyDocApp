@@ -29,17 +29,6 @@ public class MyNotification implements Parcelable {
     @Expose
     private String description;
 
-    public MyNotification() {
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public int getId() {
         return id;
     }
@@ -56,7 +45,7 @@ public class MyNotification implements Parcelable {
         return description;
     }
 
-    protected MyNotification(Parcel in) {
+    private MyNotification(Parcel in) {
         this.id = in.readInt();
         this.title = in.readString();
         this.description = in.readString();

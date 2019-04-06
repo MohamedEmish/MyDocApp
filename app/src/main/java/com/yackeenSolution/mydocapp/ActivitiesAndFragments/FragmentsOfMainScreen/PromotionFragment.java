@@ -27,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfLog.SignInActivity;
-import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfSearchResults.DoctorDetailsActivity;
 import com.yackeenSolution.mydocapp.Adapters.PromotionAdapter;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.Promotion;
@@ -79,7 +78,7 @@ public class PromotionFragment extends Fragment {
 
     private void setUpData() {
 
-        dataViewModel.getAllPromotionList().observe(this, new Observer<List<Promotion>>() {
+        dataViewModel.getAllPromotionList(getContext()).observe(this, new Observer<List<Promotion>>() {
             @Override
             public void onChanged(List<Promotion> promotions) {
 

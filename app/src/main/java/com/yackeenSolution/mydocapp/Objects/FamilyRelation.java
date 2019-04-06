@@ -20,18 +20,17 @@ public class FamilyRelation implements Parcelable {
     };
     @SerializedName("name")
     @Expose
+    private
     String name;
     @SerializedName("Id")
     @Expose
     int id;
     @SerializedName("ImageUrl")
     @Expose
+    private
     String imageUrl;
 
-    public FamilyRelation() {
-    }
-
-    protected FamilyRelation(Parcel in) {
+    private FamilyRelation(Parcel in) {
         this.name = in.readString();
         this.id = in.readInt();
         this.imageUrl = in.readString();

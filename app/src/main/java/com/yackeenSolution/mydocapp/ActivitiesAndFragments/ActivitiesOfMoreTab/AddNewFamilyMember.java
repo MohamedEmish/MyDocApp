@@ -321,7 +321,7 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
 
                 RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
 
-                dataViewModel.uploadedImageUrlString(fileToUpload, description).observe(this, new Observer<String>() {
+                dataViewModel.uploadedImageUrlString(fileToUpload, description, this).observe(this, new Observer<String>() {
                     @Override
                     public void onChanged(String s) {
                         Forward(s);
@@ -377,7 +377,7 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
 
         familyMember.setImageUrl(img);
 
-        dataViewModel.addEditFamilyMember(familyMember);
+        dataViewModel.addEditFamilyMember(familyMember, this);
         progress.setVisibility(View.GONE);
         if (type.equals("add")) {
             Toast.makeText(this, AddNewFamilyMember.this.getResources().getString(R.string.added_successfully), Toast.LENGTH_SHORT).show();
@@ -577,7 +577,7 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
 
     private void setUpSpinnersData() {
 
-        dataViewModel.getFamilyRelations().observe(this, new Observer<List<FamilyRelation>>() {
+        dataViewModel.getFamilyRelations(this).observe(this, new Observer<List<FamilyRelation>>() {
             @Override
             public void onChanged(List<FamilyRelation> familyRelations) {
 

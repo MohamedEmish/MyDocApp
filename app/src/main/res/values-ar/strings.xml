@@ -61,10 +61,10 @@
     <string name="change_pass">تغيير كلمة المرور</string>
     <string name="national_id">الرقم القومى</string>
     <string name="save">حفظ</string>
-    <string name="add_insurance_card">أضف تأمين جديد</string>
+    <string name="add_insurance_card">إضافة شركةتأمين جديدة</string>
     <string name="new_password">كلمة مرور جديدة</string>
     <string name="family_members">أفراد العائلة</string>
-    <string name="add_new_member">أضف فردا جديدا</string>
+    <string name="add_new_member">إضافة فرد عائلة جديد</string>
     <string name="edit_family_member">"تعديل معلومات "</string>
     <string name="do_you_wanna_go">هل تريد تسجيل الخروج؟</string>
     <string name="no">لا</string>

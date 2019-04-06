@@ -112,7 +112,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             token.setEmail(emailText);
             token.setCode(codeText);
             token.setNewPassword(newPassText);
-            dataViewModel.resetPassword(token).observe(this, new Observer<PasswordToken>() {
+            dataViewModel.resetPassword(token, this).observe(this, new Observer<PasswordToken>() {
                 @Override
                 public void onChanged(PasswordToken token) {
                     Intent intent = new Intent(ForgetPasswordActivity.this, SignInActivity.class);
@@ -131,7 +131,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         PasswordToken token = new PasswordToken();
         token.setEmail(email);
         token.setCode(codeText);
-        dataViewModel.resetPassword(token).observe(this, new Observer<PasswordToken>() {
+        dataViewModel.resetPassword(token, this).observe(this, new Observer<PasswordToken>() {
             @Override
             public void onChanged(PasswordToken token) {
                 activateResetPass();
@@ -155,7 +155,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     private void getNewPass(String email) {
         PasswordToken token = new PasswordToken();
         token.setEmail(email);
-        dataViewModel.forgetPassword(token).observe(this, new Observer<PasswordToken>() {
+        dataViewModel.forgetPassword(token, this).observe(this, new Observer<PasswordToken>() {
             @Override
             public void onChanged(PasswordToken token) {
                 activateConfirmCode();

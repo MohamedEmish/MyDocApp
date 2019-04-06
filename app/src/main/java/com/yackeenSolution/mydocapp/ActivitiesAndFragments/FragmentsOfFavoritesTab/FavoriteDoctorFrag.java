@@ -89,7 +89,7 @@ public class FavoriteDoctorFrag extends Fragment {
     }
 
     private void setUpData() {
-        dataViewModel.getMyFavDoctorsList(Integer.parseInt(SaveSharedPreference.getUserId(getActivity()))).observe(this, new Observer<List<FavouriteDoctor>>() {
+        dataViewModel.getMyFavDoctorsList(Integer.parseInt(SaveSharedPreference.getUserId(getActivity())), getContext()).observe(this, new Observer<List<FavouriteDoctor>>() {
             @Override
             public void onChanged(List<FavouriteDoctor> favouriteDoctors) {
                 progress.setVisibility(View.GONE);

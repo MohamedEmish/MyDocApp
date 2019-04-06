@@ -27,54 +27,71 @@ public class FacilityResult implements Parcelable {
     int id;
     @SerializedName("Name")
     @Expose
+    private
     String name;
     @SerializedName("Address")
     @Expose
+    private
     String address;
     @SerializedName("Rating")
     @Expose
+    private
     int rating;
     @SerializedName("ContactNumber")
     @Expose
+    private
     String phoneNumber;
     @SerializedName("Location")
     @Expose
+    private
     String location;
     @SerializedName("WebSite")
     @Expose
+    private
     String webSite;
     @SerializedName("IsFav")
     @Expose
+    private
     boolean isFav;
     @SerializedName("Doctors")
     @Expose
+    private
     List<DoctorResult> doctorsList;
     @SerializedName("InsuranceCompanies")
     @Expose
+    private
     List<Insurance> insuranceList;
     @SerializedName("ImageUrl")
     @Expose
+    private
     String ImageUrl;
     @SerializedName("Images")
     @Expose
+    private
     List<String> bannersUrlList;
     @SerializedName("GeneralInfo")
     @Expose
+    private
     String generalInfo;
     @SerializedName("Services")
     @Expose
+    private
     String services;
     @SerializedName("FacilitySpecialities")
     @Expose
+    private
     List<Speciality> specialityList;
     @SerializedName("Area")
     @Expose
+    private
     String area;
     @SerializedName("Lang")
     @Expose
+    private
     String language;
     @SerializedName("AreaId")
     @Expose
+    private
     int areaId;
 
     public int getId() {
@@ -91,12 +108,10 @@ public class FacilityResult implements Parcelable {
 
     @SerializedName("Email")
     @Expose
+    private
     String email;
 
-    public FacilityResult() {
-    }
-
-    protected FacilityResult(Parcel in) {
+    private FacilityResult(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
         this.address = in.readString();
@@ -105,7 +120,7 @@ public class FacilityResult implements Parcelable {
         this.location = in.readString();
         this.webSite = in.readString();
         this.isFav = in.readByte() != 0;
-        this.doctorsList = new ArrayList<DoctorResult>();
+        this.doctorsList = new ArrayList<>();
         in.readList(this.doctorsList, DoctorResult.class.getClassLoader());
         this.insuranceList = in.createTypedArrayList(Insurance.CREATOR);
         this.ImageUrl = in.readString();
@@ -125,18 +140,6 @@ public class FacilityResult implements Parcelable {
 
     public String getAddress() {
         return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
     }
 
     public String getPhoneNumber() {
@@ -159,10 +162,6 @@ public class FacilityResult implements Parcelable {
         return webSite;
     }
 
-    public void setWebSite(String webSite) {
-        this.webSite = webSite;
-    }
-
     public boolean isFav() {
         return isFav;
     }
@@ -175,16 +174,8 @@ public class FacilityResult implements Parcelable {
         return doctorsList;
     }
 
-    public void setDoctorsList(List<DoctorResult> doctorsList) {
-        this.doctorsList = doctorsList;
-    }
-
     public List<Insurance> getInsuranceList() {
         return insuranceList;
-    }
-
-    public void setInsuranceList(List<Insurance> insuranceList) {
-        this.insuranceList = insuranceList;
     }
 
     public String getImageUrl() {
@@ -195,60 +186,20 @@ public class FacilityResult implements Parcelable {
         ImageUrl = imageUrl;
     }
 
-    public List<String> getBannersUrlList() {
-        return bannersUrlList;
-    }
-
-    public void setBannersUrlList(List<String> bannersUrlList) {
-        this.bannersUrlList = bannersUrlList;
-    }
-
     public String getGeneralInfo() {
         return generalInfo;
-    }
-
-    public void setGeneralInfo(String generalInfo) {
-        this.generalInfo = generalInfo;
-    }
-
-    public String getServices() {
-        return services;
     }
 
     public String getArea() {
         return area;
     }
 
-    public void setServices(String services) {
-        this.services = services;
-    }
-
     public List<Speciality> getSpecialityList() {
         return specialityList;
     }
 
-    public void setSpecialityList(List<Speciality> specialityList) {
-        this.specialityList = specialityList;
-    }
-
     public void setArea(String area) {
         this.area = area;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public int getAreaId() {
-        return areaId;
-    }
-
-    public void setAreaId(int areaId) {
-        this.areaId = areaId;
     }
 
     @Override

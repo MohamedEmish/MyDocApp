@@ -173,7 +173,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void setupData(HashMap<String, String> fields) {
-        dataViewModel.userLogin(fields).observe(this, new Observer<UserData>() {
+        dataViewModel.userLogin(fields, this).observe(this, new Observer<UserData>() {
             @Override
             public void onChanged(UserData userData) {
 

@@ -5,7 +5,9 @@ package com.yackeenSolution.mydocapp.Data;
    ALL DONE :)
  */
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,6 +32,7 @@ import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.Objects.UserData;
 import com.yackeenSolution.mydocapp.Objects.UserDataToUpload;
 import com.yackeenSolution.mydocapp.Objects.UserToken;
+import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -89,79 +92,71 @@ class RetrofitClass {
 
     // Spinners Data
 
-    LiveData<List<Speciality>> getSpecialityLive() {
+    LiveData<List<Speciality>> getSpecialityLive(final Context context) {
         final MutableLiveData<List<Speciality>> SpecialityMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getAllSpecialities().enqueue(new Callback<List<Speciality>>() {
+        docApi.getAllSpecialities(SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<Speciality>>() {
             @Override
             public void onResponse(@NonNull Call<List<Speciality>> call, @NonNull Response<List<Speciality>> response) {
                 Log.d(TAG, "onResponse: SpecialityList " + response);
 
                 List<Speciality> policy = response.body();
                 SpecialityMutableLiveData.setValue(policy);
-
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Speciality>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: SpecialityList" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
         return SpecialityMutableLiveData;
     }
 
-    LiveData<List<Insurance>> getInsuranceLive() {
+    LiveData<List<Insurance>> getInsuranceLive(final Context context) {
         final MutableLiveData<List<Insurance>> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getAllInsurances().enqueue(new Callback<List<Insurance>>() {
+        docApi.getAllInsurances(SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<Insurance>>() {
             @Override
             public void onResponse(@NonNull Call<List<Insurance>> call, @NonNull Response<List<Insurance>> response) {
                 Log.d(TAG, "onResponse: Insurance " + response);
-
                 List<Insurance> insurances = response.body();
                 listMutableLiveData.setValue(insurances);
-
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Insurance>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: Insurance" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
         return listMutableLiveData;
     }
 
-    LiveData<List<MyArea>> getAreaLive() {
+    LiveData<List<MyArea>> getAreaLive(final Context context) {
         final MutableLiveData<List<MyArea>> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getAllAreas().enqueue(new Callback<List<MyArea>>() {
+        docApi.getAllAreas(SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<MyArea>>() {
             @Override
             public void onResponse(@NonNull Call<List<MyArea>> call, @NonNull Response<List<MyArea>> response) {
                 Log.d(TAG, "onResponse: MyArea " + response);
-
                 List<MyArea> areas = response.body();
                 listMutableLiveData.setValue(areas);
-
             }
 
             @Override
             public void onFailure(@NonNull Call<List<MyArea>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: MyArea" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
         return listMutableLiveData;
     }
 
-    LiveData<List<FamilyRelation>> getFamilyRelationsLive() {
+    LiveData<List<FamilyRelation>> getFamilyRelationsLive(final Context context) {
         final MutableLiveData<List<FamilyRelation>> SpecialityMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getAllRelations().enqueue(new Callback<List<FamilyRelation>>() {
+        docApi.getAllRelations(SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<FamilyRelation>>() {
             @Override
             public void onResponse(@NonNull Call<List<FamilyRelation>> call, @NonNull Response<List<FamilyRelation>> response) {
                 Log.d(TAG, "onResponse: FamilyRelations " + response);
@@ -174,6 +169,7 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<FamilyRelation>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: FamilyRelations" + t.getMessage());
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -181,10 +177,10 @@ class RetrofitClass {
         return SpecialityMutableLiveData;
     }
 
-    LiveData<List<Speciality>> getQualificationLive() {
+    LiveData<List<Speciality>> getQualificationLive(final Context context) {
         final MutableLiveData<List<Speciality>> SpecialityMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getAllQualifications().enqueue(new Callback<List<Speciality>>() {
+        docApi.getAllQualifications(SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<Speciality>>() {
             @Override
             public void onResponse(@NonNull Call<List<Speciality>> call, @NonNull Response<List<Speciality>> response) {
                 Log.d(TAG, "onResponse: Speciality " + response);
@@ -197,17 +193,17 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<Speciality>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: Speciality" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
         return SpecialityMutableLiveData;
     }
 
-    LiveData<List<Speciality>> getNationalitiesLive() {
+    LiveData<List<Speciality>> getNationalitiesLive(final Context context) {
         final MutableLiveData<List<Speciality>> SpecialityMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getAllNationalities().enqueue(new Callback<List<Speciality>>() {
+        docApi.getAllNationalities(SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<Speciality>>() {
             @Override
             public void onResponse(@NonNull Call<List<Speciality>> call, @NonNull Response<List<Speciality>> response) {
                 Log.d(TAG, "onResponse: Speciality " + response);
@@ -220,17 +216,17 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<Speciality>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: Speciality" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
         return SpecialityMutableLiveData;
     }
 
-    LiveData<List<Speciality>> getLanguagesLive() {
+    LiveData<List<Speciality>> getLanguagesLive(final Context context) {
         final MutableLiveData<List<Speciality>> SpecialityMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getAllLanguages().enqueue(new Callback<List<Speciality>>() {
+        docApi.getAllLanguages(SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<Speciality>>() {
             @Override
             public void onResponse(@NonNull Call<List<Speciality>> call, @NonNull Response<List<Speciality>> response) {
                 Log.d(TAG, "onResponse: Speciality " + response);
@@ -243,6 +239,7 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<Speciality>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: Speciality" + t.getMessage());
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -250,10 +247,10 @@ class RetrofitClass {
         return SpecialityMutableLiveData;
     }
 
-    LiveData<List<Speciality>> getFacilityTypeLive() {
+    LiveData<List<Speciality>> getFacilityTypeLive(final Context context) {
         final MutableLiveData<List<Speciality>> SpecialityMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getAllFacilityType().enqueue(new Callback<List<Speciality>>() {
+        docApi.getAllFacilityType(SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<Speciality>>() {
             @Override
             public void onResponse(@NonNull Call<List<Speciality>> call, @NonNull Response<List<Speciality>> response) {
                 Log.d(TAG, "onResponse: FacilityTypes " + response);
@@ -266,6 +263,7 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<Speciality>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: FacilityTypes" + t.getMessage());
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -276,10 +274,10 @@ class RetrofitClass {
     ///////////////////////////////////////////////////////////////////////
 
     // More Tab Activities GETS
-    LiveData<List<MyAboutUs>> getAboutUsLive() {
+    LiveData<List<MyAboutUs>> getAboutUsLive(final Context context) {
         final MutableLiveData<List<MyAboutUs>> myAboutUsMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getAboutUs().enqueue(new Callback<List<MyAboutUs>>() {
+        docApi.getAboutUs(SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<MyAboutUs>>() {
             @Override
             public void onResponse(@NonNull Call<List<MyAboutUs>> call, @NonNull Response<List<MyAboutUs>> response) {
                 Log.d(TAG, "onResponse: About US " + response);
@@ -292,17 +290,17 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<MyAboutUs>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: About US " + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
         return myAboutUsMutableLiveData;
     }
 
-    LiveData<List<MyAboutUs>> getPolicyLive() {
+    LiveData<List<MyAboutUs>> getPolicyLive(final Context context) {
         final MutableLiveData<List<MyAboutUs>> myAboutUsMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getPolicy().enqueue(new Callback<List<MyAboutUs>>() {
+        docApi.getPolicy(SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<MyAboutUs>>() {
             @Override
             public void onResponse(@NonNull Call<List<MyAboutUs>> call, @NonNull Response<List<MyAboutUs>> response) {
                 Log.d(TAG, "onResponse: Policy " + response);
@@ -315,14 +313,14 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<MyAboutUs>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: Policy" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
         return myAboutUsMutableLiveData;
     }
 
-    LiveData<List<MyAboutUs>> getSocialAccounts() {
+    LiveData<List<MyAboutUs>> getSocialAccounts(final Context context) {
 
         final MutableLiveData<List<MyAboutUs>> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
@@ -339,7 +337,7 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<MyAboutUs>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: Accounts" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -347,11 +345,11 @@ class RetrofitClass {
 
     }
 
-    LiveData<List<MyNotification>> getNotifications() {
+    LiveData<List<MyNotification>> getNotifications(final Context context) {
 
         final MutableLiveData<List<MyNotification>> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getAllNotifications().enqueue(new Callback<List<MyNotification>>() {
+        docApi.getAllNotifications(SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<MyNotification>>() {
             @Override
             public void onResponse(@NonNull Call<List<MyNotification>> call, @NonNull Response<List<MyNotification>> response) {
                 Log.d(TAG, "onResponse: MyNotification " + response);
@@ -372,11 +370,11 @@ class RetrofitClass {
 
     }
 
-    LiveData<UserData> getUserAccountData(int id) {
+    LiveData<UserData> getUserAccountData(int id, final Context context) {
 
         final MutableLiveData<UserData> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.userAccountData(id).enqueue(new Callback<UserData>() {
+        docApi.userAccountData(id, SaveSharedPreference.getLanguage(context)).enqueue(new Callback<UserData>() {
             @Override
             public void onResponse(@NonNull Call<UserData> call, @NonNull Response<UserData> response) {
                 Log.d(TAG, "onResponse: UserAccountData " + response);
@@ -388,13 +386,13 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<UserData> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: UserAccountData" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return listMutableLiveData;
     }
 
-    LiveData<List<FamilyMember>> getMyFamilyMembers(int id) {
+    LiveData<List<FamilyMember>> getMyFamilyMembers(int id, final Context context) {
 
         final MutableLiveData<List<FamilyMember>> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
@@ -411,7 +409,7 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<FamilyMember>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: AllFamilyMembers" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -422,11 +420,11 @@ class RetrofitClass {
     ///////////////////////////////////////////////////////////////////////
 
     // Promotion Tab
-    LiveData<List<Promotion>> getAllPromotions() {
+    LiveData<List<Promotion>> getAllPromotions(final Context context) {
 
         final MutableLiveData<List<Promotion>> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getAllPromotions().enqueue(new Callback<List<Promotion>>() {
+        docApi.getAllPromotions(SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<Promotion>>() {
             @Override
             public void onResponse(@NonNull Call<List<Promotion>> call, @NonNull Response<List<Promotion>> response) {
                 Log.d(TAG, "onResponse: Promotion " + response);
@@ -439,7 +437,7 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<Promotion>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: Promotion" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -449,11 +447,11 @@ class RetrofitClass {
     ///////////////////////////////////////////////////////////////////////
 
     // Favourites
-    LiveData<List<FavouriteDoctor>> getMyFavDoctors(int id) {
+    LiveData<List<FavouriteDoctor>> getMyFavDoctors(int id, final Context context) {
 
         final MutableLiveData<List<FavouriteDoctor>> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getMyFavDoctors(id).enqueue(new Callback<List<FavouriteDoctor>>() {
+        docApi.getMyFavDoctors(id, SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<FavouriteDoctor>>() {
             @Override
             public void onResponse(@NonNull Call<List<FavouriteDoctor>> call, @NonNull Response<List<FavouriteDoctor>> response) {
                 Log.d(TAG, "onResponse: MyFavDoctors " + response);
@@ -467,7 +465,7 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<FavouriteDoctor>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: MyFavDoctors" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -475,11 +473,11 @@ class RetrofitClass {
 
     }
 
-    LiveData<List<FacilityResult>> getMyFavFacilities(int id) {
+    LiveData<List<FacilityResult>> getMyFavFacilities(int id, final Context context) {
 
         final MutableLiveData<List<FacilityResult>> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getMyFavFacilities(id).enqueue(new Callback<List<FacilityResult>>() {
+        docApi.getMyFavFacilities(id, SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<FacilityResult>>() {
             @Override
             public void onResponse(@NonNull Call<List<FacilityResult>> call, @NonNull Response<List<FacilityResult>> response) {
                 Log.d(TAG, "onResponse: MyFavDoctors " + response);
@@ -492,7 +490,7 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<FacilityResult>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: MyFavDoctors" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -503,11 +501,11 @@ class RetrofitClass {
     ///////////////////////////////////////////////////////////////////////
 
     // Appointment Tab
-    LiveData<List<Appointment>> getMyAppointments(int userId, int statusId) {
+    LiveData<List<Appointment>> getMyAppointments(int userId, int statusId, final Context context) {
 
         final MutableLiveData<List<Appointment>> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getMyAppointments(userId, statusId).enqueue(new Callback<List<Appointment>>() {
+        docApi.getMyAppointments(userId, statusId, SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<Appointment>>() {
             @Override
             public void onResponse(@NonNull Call<List<Appointment>> call, @NonNull Response<List<Appointment>> response) {
                 Log.d(TAG, "onResponse: Appointments " + response);
@@ -520,7 +518,7 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<Appointment>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: Appointments" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -528,10 +526,10 @@ class RetrofitClass {
 
     }
 
-    LiveData<Appointment> getSpecificAppointment(int appointmentId) {
+    LiveData<Appointment> getSpecificAppointment(int appointmentId, final Context context) {
         final MutableLiveData<Appointment> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getSpecificApointment(appointmentId).enqueue(new Callback<Appointment>() {
+        docApi.getSpecificApointment(appointmentId, SaveSharedPreference.getLanguage(context)).enqueue(new Callback<Appointment>() {
             @Override
             public void onResponse(@NonNull Call<Appointment> call, @NonNull Response<Appointment> response) {
                 Log.d(TAG, "onResponse: SpecificAppointment " + response);
@@ -544,21 +542,20 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<Appointment> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: SpecificAppointment" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
         return listMutableLiveData;
     }
 
-
     ///////////////////////////////////////////////////////////////////////
     // Details
-    LiveData<List<DoctorResult>> getSpecificDoctorData(int doctorId) {
+    LiveData<List<DoctorResult>> getSpecificDoctorData(int doctorId, final Context context) {
 
         final MutableLiveData<List<DoctorResult>> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getSpecificDoctorData(doctorId).enqueue(new Callback<List<DoctorResult>>() {
+        docApi.getSpecificDoctorData(doctorId, SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<DoctorResult>>() {
             @Override
             public void onResponse(@NonNull Call<List<DoctorResult>> call, @NonNull Response<List<DoctorResult>> response) {
                 Log.d(TAG, "onResponse: SpecificDoctorResultData " + response);
@@ -570,17 +567,17 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<DoctorResult>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: SpecificDoctorResultData" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return listMutableLiveData;
     }
 
-    LiveData<FacilityResult> getSpecificFacilityData(int facilityId, int userId) {
+    LiveData<FacilityResult> getSpecificFacilityData(int facilityId, int userId, final Context context) {
 
         final MutableLiveData<FacilityResult> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
-        docApi.getSpecificFacilityData(facilityId, userId).enqueue(new Callback<FacilityResult>() {
+        docApi.getSpecificFacilityData(facilityId, userId, SaveSharedPreference.getLanguage(context)).enqueue(new Callback<FacilityResult>() {
             @Override
             public void onResponse(@NonNull Call<FacilityResult> call, @NonNull Response<FacilityResult> response) {
                 Log.d(TAG, "onResponse: SpecificFacilityResultData " + response);
@@ -592,7 +589,7 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<FacilityResult> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: SpecificFacilityResultData" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return listMutableLiveData;
@@ -609,7 +606,8 @@ class RetrofitClass {
             Integer qualificationId,
             Integer languageId,
             Integer nationalityId,
-            Boolean gender) {
+            Boolean gender,
+            final Context context) {
 
         final MutableLiveData<List<DoctorResult>> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
@@ -621,7 +619,9 @@ class RetrofitClass {
                 insuranceId,
                 qualificationId,
                 languageId,
-                nationalityId, gender).enqueue(new Callback<List<DoctorResult>>() {
+                nationalityId,
+                gender,
+                SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<DoctorResult>>() {
             @Override
             public void onResponse(@NonNull Call<List<DoctorResult>> call, @NonNull Response<List<DoctorResult>> response) {
                 Log.d(TAG, "onResponse: SearchForDoctorResultData " + response);
@@ -633,7 +633,7 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<DoctorResult>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure:SearchForDoctorResultData" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return listMutableLiveData;
@@ -643,7 +643,8 @@ class RetrofitClass {
             int specialityId,
             Integer areaId,
             Integer insuranceId,
-            Integer facilityTyprId) {
+            Integer facilityTypeId,
+            final Context context) {
 
         final MutableLiveData<List<FacilityResult>> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
@@ -651,7 +652,8 @@ class RetrofitClass {
                 specialityId,
                 areaId,
                 insuranceId,
-                facilityTyprId).enqueue(new Callback<List<FacilityResult>>() {
+                facilityTypeId,
+                SaveSharedPreference.getLanguage(context)).enqueue(new Callback<List<FacilityResult>>() {
             @Override
             public void onResponse(@NonNull Call<List<FacilityResult>> call, @NonNull Response<List<FacilityResult>> response) {
                 Log.d(TAG, "onResponse: SearchForFacilityResultData " + response);
@@ -663,7 +665,7 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<List<FacilityResult>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure:SearchForFacilityResultData" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return listMutableLiveData;
@@ -673,7 +675,7 @@ class RetrofitClass {
 
     // POSTS :)
 
-    LiveData<UserData> userLogin(HashMap<String, String> fields) {
+    LiveData<UserData> userLogin(HashMap<String, String> fields, final Context context) {
 
         final MutableLiveData<UserData> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
@@ -689,13 +691,14 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<UserData> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: UserData" + t.getMessage());
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
         return listMutableLiveData;
     }
 
-    LiveData<UserDataToUpload> editUserData(UserDataToUpload user) {
+    LiveData<UserDataToUpload> editUserData(UserDataToUpload user, final Context context) {
         final MutableLiveData<UserDataToUpload> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
         docApi.editUserProfile(user).enqueue(new Callback<UserDataToUpload>() {
@@ -709,13 +712,13 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<UserDataToUpload> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: EditUserData" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return listMutableLiveData;
     }
 
-    LiveData<UserDataToUpload> addNewUser(UserDataToUpload user) {
+    LiveData<UserDataToUpload> addNewUser(UserDataToUpload user, final Context context) {
         final MutableLiveData<UserDataToUpload> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
         docApi.addNewUser(user).enqueue(new Callback<UserDataToUpload>() {
@@ -729,13 +732,13 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<UserDataToUpload> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: NewUserData" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return listMutableLiveData;
     }
 
-    void addEditFamilyMemberData(FamilyMemberToUpload familyMember) {
+    void addEditFamilyMemberData(FamilyMemberToUpload familyMember, final Context context) {
         final DocApi docApi = RetrofitClass.getDocApi();
         docApi.addEditFamilyMember(familyMember).enqueue(new Callback<FamilyMemberToUpload>() {
             @Override
@@ -746,12 +749,12 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<FamilyMemberToUpload> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: FamilyMemberToUpload" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    void postAdvice(Advice advice) {
+    void postAdvice(Advice advice, final Context context) {
         final DocApi docApi = RetrofitClass.getDocApi();
         docApi.postAdvice(advice).enqueue(new Callback<Advice>() {
             @Override
@@ -762,12 +765,12 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<Advice> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: Advice" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    void logOut(UserToken token) {
+    void logOut(UserToken token, final Context context) {
         final DocApi docApi = RetrofitClass.getDocApi();
         docApi.logOut(token).enqueue(new Callback<UserToken>() {
             @Override
@@ -778,12 +781,12 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<UserToken> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: Logout" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    LiveData<PasswordToken> forgetPassword(PasswordToken token) {
+    LiveData<PasswordToken> forgetPassword(PasswordToken token, final Context context) {
         final MutableLiveData<PasswordToken> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
         docApi.forgetPassword(token).enqueue(new Callback<PasswordToken>() {
@@ -797,12 +800,13 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<PasswordToken> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: ForgotPassword" + t.getMessage());
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return listMutableLiveData;
     }
 
-    LiveData<PasswordToken> resetPassword(PasswordToken token) {
+    LiveData<PasswordToken> resetPassword(PasswordToken token, final Context context) {
         final MutableLiveData<PasswordToken> listMutableLiveData = new MutableLiveData<>();
         final DocApi docApi = RetrofitClass.getDocApi();
         docApi.resetPassword(token).enqueue(new Callback<PasswordToken>() {
@@ -816,12 +820,13 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<PasswordToken> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: ResetPassword" + t.getMessage());
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return listMutableLiveData;
     }
 
-    void setDoctorFavState(NewFavDoctor doctor) {
+    void setDoctorFavState(NewFavDoctor doctor, final Context context) {
         final DocApi docApi = RetrofitClass.getDocApi();
         docApi.setFavDoctorState(doctor).enqueue(new Callback<NewFavDoctor>() {
             @Override
@@ -832,12 +837,12 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<NewFavDoctor> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: SetDoctorFavState" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    void setFacilityFavState(NewFavFacility facility) {
+    void setFacilityFavState(NewFavFacility facility, final Context context) {
         final DocApi docApi = RetrofitClass.getDocApi();
         docApi.setFavFacilityState(facility).enqueue(new Callback<NewFavFacility>() {
             @Override
@@ -848,12 +853,12 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<NewFavFacility> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: SetFacilityFavState" + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    LiveData<String> uploadImage(MultipartBody.Part file, RequestBody description) {
+    LiveData<String> uploadImage(MultipartBody.Part file, RequestBody description, final Context context) {
         final MutableLiveData<String> listMutableLiveData = new MutableLiveData<>();
         DocApi docApi = RetrofitClass.getDocApi();
         docApi.uploadImage(file, description).enqueue(new Callback<ResponseBody>() {
@@ -872,13 +877,13 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: imageUrlToUpload :: " + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return listMutableLiveData;
     }
 
-    LiveData<Appointment> requestAppointment(AppointmentToUpload appointmentToUpload) {
+    LiveData<Appointment> requestAppointment(AppointmentToUpload appointmentToUpload, final Context context) {
         final MutableLiveData<Appointment> listMutableLiveData = new MutableLiveData<>();
         DocApi docApi = RetrofitClass.getDocApi();
         docApi.requestAppointment(appointmentToUpload).enqueue(new Callback<Appointment>() {
@@ -891,7 +896,7 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<Appointment> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: RequestAppointment :: " + t.getMessage());
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return listMutableLiveData;
@@ -900,7 +905,7 @@ class RetrofitClass {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // DELETES :)
 
-    void deleteAppointment(int appointmentId) {
+    void deleteAppointment(int appointmentId, final Context context) {
         DocApi docApi = RetrofitClass.getDocApi();
         docApi.deleteAppointment(appointmentId).enqueue(new Callback<String>() {
             @Override
@@ -911,6 +916,7 @@ class RetrofitClass {
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: DeleteAppointment :: " + t.getMessage());
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

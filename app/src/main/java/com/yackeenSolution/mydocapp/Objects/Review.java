@@ -24,24 +24,26 @@ class Review implements Parcelable {
     int id;
     @SerializedName("UserId")
     @Expose
+    private
     int userId;
     @SerializedName("DoctorId")
     @Expose
+    private
     int doctorId;
     @SerializedName("FacilityId")
     @Expose
+    private
     int facilityId;
     @SerializedName("Rate")
     @Expose
+    private
     int rate;
     @SerializedName("CreatingDate")
     @Expose
+    private
     String creatingDate;
 
-    public Review() {
-    }
-
-    protected Review(Parcel in) {
+    private Review(Parcel in) {
         this.id = in.readInt();
         this.userId = in.readInt();
         this.doctorId = in.readInt();
@@ -63,10 +65,6 @@ class Review implements Parcelable {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public int getDoctorId() {
         return doctorId;
     }
@@ -81,22 +79,6 @@ class Review implements Parcelable {
 
     public void setFacilityId(int facilityId) {
         this.facilityId = facilityId;
-    }
-
-    public int getRate() {
-        return rate;
-    }
-
-    public void setRate(int rate) {
-        this.rate = rate;
-    }
-
-    public String getCreatingDate() {
-        return creatingDate;
-    }
-
-    public void setCreatingDate(String creatingDate) {
-        this.creatingDate = creatingDate;
     }
 
     @Override

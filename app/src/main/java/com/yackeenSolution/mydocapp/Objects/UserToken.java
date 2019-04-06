@@ -23,21 +23,25 @@ public class UserToken implements Parcelable {
     int id;
     @SerializedName("FBId")
     @Expose
+    private
     String fBId;
     @SerializedName("Email")
     @Expose
+    private
     String email;
     @SerializedName("Password")
     @Expose
+    private
     String password;
     @SerializedName("DeviceToken")
     @Expose
+    private
     String deviceToken;
 
     public UserToken() {
     }
 
-    protected UserToken(Parcel in) {
+    private UserToken(Parcel in) {
         this.id = in.readInt();
         this.fBId = in.readString();
         this.email = in.readString();
@@ -51,14 +55,6 @@ public class UserToken implements Parcelable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getfBId() {
-        return fBId;
-    }
-
-    public void setfBId(String fBId) {
-        this.fBId = fBId;
     }
 
     public String getEmail() {
@@ -75,14 +71,6 @@ public class UserToken implements Parcelable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getDeviceToken() {
-        return deviceToken;
-    }
-
-    public void setDeviceToken(String deviceToken) {
-        this.deviceToken = deviceToken;
     }
 
     @Override

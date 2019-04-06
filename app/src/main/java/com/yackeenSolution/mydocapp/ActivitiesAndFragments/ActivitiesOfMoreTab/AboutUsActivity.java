@@ -60,7 +60,7 @@ public class AboutUsActivity extends AppCompatActivity {
 
     private void setUpData() {
 
-        dataViewModel.getMyAboutUsLive().observe(this, new Observer<List<MyAboutUs>>() {
+        dataViewModel.getMyAboutUsLive(this).observe(this, new Observer<List<MyAboutUs>>() {
             @Override
             public void onChanged(List<MyAboutUs> myAboutUses) {
 

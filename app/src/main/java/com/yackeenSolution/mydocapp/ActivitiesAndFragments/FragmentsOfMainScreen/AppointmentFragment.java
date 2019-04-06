@@ -121,7 +121,7 @@ public class AppointmentFragment extends Fragment {
 
     private void setUpSpinnersData() {
         if (name != null && !name.isEmpty()) {
-            dataViewModel.getMyFamilyMembersList(Integer.parseInt(name)).observe(this, new Observer<List<FamilyMember>>() {
+            dataViewModel.getMyFamilyMembersList(Integer.parseInt(name), getContext()).observe(this, new Observer<List<FamilyMember>>() {
                 @Override
                 public void onChanged(List<FamilyMember> familyMembers) {
                     if (familyMembers.size() > 0) {

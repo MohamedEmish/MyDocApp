@@ -157,7 +157,7 @@ public class SearchFilterFacility extends AppCompatActivity {
     }
 
     private void setupDate() {
-        dataViewModel.getMyInsuranceList().observe(this, new Observer<List<Insurance>>() {
+        dataViewModel.getMyInsuranceList(this).observe(this, new Observer<List<Insurance>>() {
             @Override
             public void onChanged(List<Insurance> insurances) {
                 mainInsuranceList = insurances;
@@ -174,7 +174,7 @@ public class SearchFilterFacility extends AppCompatActivity {
             }
         });
 
-        dataViewModel.getMyAreaList().observe(this, new Observer<List<MyArea>>() {
+        dataViewModel.getMyAreaList(this).observe(this, new Observer<List<MyArea>>() {
             @Override
             public void onChanged(List<MyArea> areas) {
                 mainAreaList = areas;
@@ -191,7 +191,7 @@ public class SearchFilterFacility extends AppCompatActivity {
             }
         });
 
-        dataViewModel.getMyFacilityTypes().observe(this, new Observer<List<Speciality>>() {
+        dataViewModel.getMyFacilityTypes(this).observe(this, new Observer<List<Speciality>>() {
             @Override
             public void onChanged(List<Speciality> specialities) {
                 mainFacilityTypeList = specialities;

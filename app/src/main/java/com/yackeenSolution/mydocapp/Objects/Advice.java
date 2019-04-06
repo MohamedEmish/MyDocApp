@@ -10,12 +10,15 @@ public class Advice implements Parcelable {
 
     @SerializedName("Content")
     @Expose
+    private
     String message;
     @SerializedName("Email")
     @Expose
+    private
     String mail;
     @SerializedName("PhoneNumber")
     @Expose
+    private
     String phone;
 
     public static final Parcelable.Creator<Advice> CREATOR = new Parcelable.Creator<Advice>() {
@@ -30,24 +33,12 @@ public class Advice implements Parcelable {
         }
     };
 
-    public String getMessage() {
-        return message;
-    }
-
     public void setMessage(String message) {
         this.message = message;
     }
 
-    public String getMail() {
-        return mail;
-    }
-
     public void setMail(String mail) {
         this.mail = mail;
-    }
-
-    public String getPhone() {
-        return phone;
     }
 
     public void setPhone(String phone) {
@@ -69,7 +60,7 @@ public class Advice implements Parcelable {
     public Advice() {
     }
 
-    protected Advice(Parcel in) {
+    private Advice(Parcel in) {
         this.message = in.readString();
         this.mail = in.readString();
         this.phone = in.readString();

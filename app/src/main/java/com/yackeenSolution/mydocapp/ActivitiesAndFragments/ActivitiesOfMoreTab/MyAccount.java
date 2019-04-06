@@ -390,7 +390,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
             user.setGender(false);
         }
 
-        dataViewModel.editUserData(user);
+        dataViewModel.editUserData(user, this);
         Toast.makeText(this, MyAccount.this.getResources().getString(R.string.done), Toast.LENGTH_SHORT).show();
         MyAccount.this.finish();
     }
@@ -450,7 +450,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
             insuranceString = null;
         }
         user.setInsuranceCompanyImageUrl(insuranceString);
-        dataViewModel.editUserData(user).observe(this, new Observer<UserDataToUpload>() {
+        dataViewModel.editUserData(user, this).observe(this, new Observer<UserDataToUpload>() {
             @Override
             public void onChanged(UserDataToUpload userDataToUpload) {
                 Toast.makeText(MyAccount.this, MyAccount.this.getResources().getString(R.string.done), Toast.LENGTH_SHORT).show();
@@ -460,7 +460,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
     }
 
     private void setUpSpinnerData() {
-        dataViewModel.getMyInsuranceList().observe(this, new Observer<List<Insurance>>() {
+        dataViewModel.getMyInsuranceList(this).observe(this, new Observer<List<Insurance>>() {
             @Override
             public void onChanged(List<Insurance> insurances) {
 
@@ -477,7 +477,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
     }
 
     private void setupData(int id) {
-        dataViewModel.getUserAccountData(id).observe(this, new Observer<UserData>() {
+        dataViewModel.getUserAccountData(id, this).observe(this, new Observer<UserData>() {
             @Override
             public void onChanged(UserData userData) {
 
@@ -728,7 +728,7 @@ public class MyAccount extends AppCompatActivity implements BottomSheet.BottomSh
 
             RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
 
-            dataViewModel.uploadedImageUrlString(fileToUpload, description).observe(this, new Observer<String>() {
+            dataViewModel.uploadedImageUrlString(fileToUpload, description, this).observe(this, new Observer<String>() {
                 @Override
                 public void onChanged(String s) {
                     oldUri = "::";

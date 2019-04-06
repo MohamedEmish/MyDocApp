@@ -173,7 +173,7 @@ public class AppointmentRequestActivity extends AppCompatActivity {
             appointmentToUpload.setPromoCode(null);
             appointmentToUpload.setData(Utils.dateToApiFormat(mAppointRequestDate.getText().toString().trim()));
 
-            dataViewModel.requestAppointment(appointmentToUpload).observe(this, new Observer<Appointment>() {
+            dataViewModel.requestAppointment(appointmentToUpload, this).observe(this, new Observer<Appointment>() {
                 @Override
                 public void onChanged(Appointment appointment) {
                     if (appointment != null) {
@@ -191,7 +191,7 @@ public class AppointmentRequestActivity extends AppCompatActivity {
     }
 
     private void getUserData() {
-        dataViewModel.getUserAccountData(Integer.parseInt(SaveSharedPreference.getUserId(this))).observe(this, new Observer<UserData>() {
+        dataViewModel.getUserAccountData(Integer.parseInt(SaveSharedPreference.getUserId(this)), this).observe(this, new Observer<UserData>() {
                     @Override
                     public void onChanged(UserData userData) {
                         userFullName = userData.getFirstName() + " " + userData.getLastName();
@@ -201,7 +201,7 @@ public class AppointmentRequestActivity extends AppCompatActivity {
                 }
         );
 
-        dataViewModel.getSpecificDoctorData(Integer.parseInt(doctorId)).observe(this, new Observer<List<DoctorResult>>() {
+        dataViewModel.getSpecificDoctorData(Integer.parseInt(doctorId), this).observe(this, new Observer<List<DoctorResult>>() {
             @Override
             public void onChanged(List<DoctorResult> doctorResults) {
                 mAppointRequestDoctorName.setText(doctorResults.get(0).getName());
@@ -212,7 +212,7 @@ public class AppointmentRequestActivity extends AppCompatActivity {
     }
 
     private void setUpData() {
-        dataViewModel.getMyFamilyMembersList(Integer.parseInt(SaveSharedPreference.getUserId(this))).observe(this, new Observer<List<FamilyMember>>() {
+        dataViewModel.getMyFamilyMembersList(Integer.parseInt(SaveSharedPreference.getUserId(this)), this).observe(this, new Observer<List<FamilyMember>>() {
             @Override
             public void onChanged(List<FamilyMember> familyMembers) {
                 mainFamilyList = familyMembers;

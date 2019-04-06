@@ -20,21 +20,25 @@ public class NewFavDoctor implements Parcelable {
     };
     @SerializedName("UserId")
     @Expose
+    private
     int userId;
     @SerializedName("DoctorId")
     @Expose
+    private
     int doctorId;
     @SerializedName("FacilityId")
     @Expose
+    private
     int facilityId;
     @SerializedName("IsFav")
     @Expose
+    private
     Boolean isFav;
 
     public NewFavDoctor() {
     }
 
-    protected NewFavDoctor(Parcel in) {
+    private NewFavDoctor(Parcel in) {
         this.userId = in.readInt();
         this.doctorId = in.readInt();
         this.facilityId = in.readInt();
@@ -63,10 +67,6 @@ public class NewFavDoctor implements Parcelable {
 
     public void setFacilityId(int facilityId) {
         this.facilityId = facilityId;
-    }
-
-    public Boolean getFav() {
-        return isFav;
     }
 
     public void setFav(Boolean fav) {

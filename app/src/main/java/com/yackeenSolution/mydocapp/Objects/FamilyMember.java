@@ -21,42 +21,49 @@ public class FamilyMember implements Parcelable {
     };
     @SerializedName("Name")
     @Expose
+    private
     String name;
     @SerializedName("Relationship")
     @Expose
+    private
     String relationship;
     @SerializedName("RelationshipId")
     @Expose
+    private
     int relationshipId;
     @SerializedName("DOB")
     @Expose
+    private
     String birthDate;
     @SerializedName("Id")
     @Expose
     int id;
     @SerializedName("FamilyMemberId")
     @Expose
+    private
     int familyMemberId;
     @SerializedName("ParentId")
     @Expose
+    private
     int parentId;
     @SerializedName("PhoneNumber")
     @Expose
+    private
     String phoneNumber;
     @SerializedName("Email")
     @Expose
+    private
     String email;
     @SerializedName("Image")
     @Expose
+    private
     String imageUrl;
     @SerializedName("Gender")
     @Expose
+    private
     String gender;
 
-    public FamilyMember() {
-    }
-
-    protected FamilyMember(Parcel in) {
+    private FamilyMember(Parcel in) {
         this.name = in.readString();
         this.relationship = in.readString();
         this.relationshipId = in.readInt();
@@ -86,44 +93,20 @@ public class FamilyMember implements Parcelable {
         return relationship;
     }
 
-    public void setRelationship(String relationship) {
-        this.relationship = relationship;
-    }
-
     public int getRelationshipId() {
         return relationshipId;
-    }
-
-    public void setRelationshipId(int relationshipId) {
-        this.relationshipId = relationshipId;
     }
 
     public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
-
     public int getFamilyMemberId() {
         return familyMemberId;
     }
 
-    public void setFamilyMemberId(int familyMemberId) {
-        this.familyMemberId = familyMemberId;
-    }
-
-    public int getParentId() {
-        return parentId;
-    }
-
     public int getId() {
         return id;
-    }
-
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
     }
 
     public String getPhoneNumber() {

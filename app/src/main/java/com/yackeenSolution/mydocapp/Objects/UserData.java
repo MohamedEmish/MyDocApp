@@ -20,26 +20,32 @@ public class UserData implements Parcelable {
     };
     @SerializedName("FBId")
     @Expose
+    private
     String facebookId;
 
     @SerializedName("Lang")
     @Expose
+    private
     String language;
 
     @SerializedName("AppointmentReminder")
     @Expose
+    private
     String appointmentReminder;
 
     @SerializedName("EnableNotification")
     @Expose
+    private
     String enableNotification;
 
     @SerializedName("InsuranceCompanyId")
     @Expose
+    private
     int insuranceId;
 
     @SerializedName("InsuranceCompanyImageUrl")
     @Expose
+    private
     String insuranceImage;
 
     @SerializedName("Id")
@@ -82,10 +88,7 @@ public class UserData implements Parcelable {
     @Expose
     private String imageUri;
 
-    public UserData() {
-    }
-
-    protected UserData(Parcel in) {
+    private UserData(Parcel in) {
         this.id = in.readInt();
         this.firstName = in.readString();
         this.lastName = in.readString();
@@ -106,22 +109,6 @@ public class UserData implements Parcelable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
     }
 
     public void setPassword(String password) {
@@ -148,14 +135,6 @@ public class UserData implements Parcelable {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public int getId() {
         return id;
     }
@@ -172,28 +151,12 @@ public class UserData implements Parcelable {
         return birthDate;
     }
 
-    public String getFacebookId() {
-        return facebookId;
-    }
-
     public String getMobileNumber() {
         return mobileNumber;
     }
 
-    public void setFacebookId(String facebookId) {
-        this.facebookId = facebookId;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
     }
 
     public String getImageUri() {
@@ -204,16 +167,8 @@ public class UserData implements Parcelable {
         return appointmentReminder;
     }
 
-    public void setAppointmentReminder(String appointmentReminder) {
-        this.appointmentReminder = appointmentReminder;
-    }
-
     public String getEnableNotification() {
         return enableNotification;
-    }
-
-    public void setEnableNotification(String enableNotification) {
-        this.enableNotification = enableNotification;
     }
 
     public int getInsuranceId() {
@@ -225,16 +180,8 @@ public class UserData implements Parcelable {
         return 0;
     }
 
-    public void setInsuranceId(int insuranceId) {
-        this.insuranceId = insuranceId;
-    }
-
     public String getInsuranceImage() {
         return insuranceImage;
-    }
-
-    public void setInsuranceImage(String insuranceImage) {
-        this.insuranceImage = insuranceImage;
     }
 
     @Override

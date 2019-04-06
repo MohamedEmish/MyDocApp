@@ -28,8 +28,6 @@ import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils.Utils;
 
-import java.util.Locale;
-
 public class SettingsActivity extends AppCompatActivity {
 
     private RadioButton ar;
@@ -128,7 +126,7 @@ public class SettingsActivity extends AppCompatActivity {
         } else {
             user.setGender(false);
         }
-        dataViewModel.editUserData(user).observe(this, new Observer<UserDataToUpload>() {
+        dataViewModel.editUserData(user, this).observe(this, new Observer<UserDataToUpload>() {
             @Override
             public void onChanged(UserDataToUpload userDataToUpload) {
                 Toast.makeText(SettingsActivity.this, getResources().getString(R.string.done), Toast.LENGTH_SHORT).show();
@@ -138,7 +136,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void setUpData() {
-        dataViewModel.getUserAccountData(Integer.parseInt(SaveSharedPreference.getUserId(this))).observe(this, new Observer<UserData>() {
+        dataViewModel.getUserAccountData(Integer.parseInt(SaveSharedPreference.getUserId(this)), this).observe(this, new Observer<UserData>() {
             @Override
             public void onChanged(UserData userData) {
                 String appoint = userData.getAppointmentReminder();

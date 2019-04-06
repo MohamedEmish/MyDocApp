@@ -87,7 +87,7 @@ public class DoctorResultAdapter extends ListAdapter<DoctorResult, DoctorResultA
 
     }
 
-    public DoctorResult getMemberAt(int position) {
+    private DoctorResult getMemberAt(int position) {
         return getItem(position);
     }
 

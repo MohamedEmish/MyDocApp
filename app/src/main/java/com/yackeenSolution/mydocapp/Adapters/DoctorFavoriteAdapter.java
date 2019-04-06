@@ -88,7 +88,7 @@ public class DoctorFavoriteAdapter extends ListAdapter<FavouriteDoctor, DoctorFa
 
     }
 
-    public FavouriteDoctor getMemberAt(int position) {
+    private FavouriteDoctor getMemberAt(int position) {
         return getItem(position);
     }
 

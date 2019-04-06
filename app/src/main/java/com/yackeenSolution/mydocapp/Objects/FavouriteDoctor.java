@@ -26,78 +26,98 @@ public class FavouriteDoctor implements Parcelable {
     int id;
     @SerializedName("Name")
     @Expose
+    private
     String name;
     @SerializedName("PhoneNumber")
     @Expose
+    private
     String phoneNumber;
     @SerializedName("Gender")
     @Expose
+    private
     String gender;
     @SerializedName("Nationality")
     @Expose
+    private
     List<String> nationality;
     @SerializedName("Language")
     @Expose
+    private
     List<String> languages;
     @SerializedName("Title")
     @Expose
+    private
     String title;
     @SerializedName("Qualification")
     @Expose
+    private
     String qualification;
     @SerializedName("Specialty")
     @Expose
+    private
     String speciality;
     @SerializedName("SpecialtyId")
     @Expose
+    private
     int specialityId;
     @SerializedName("Rating")
     @Expose
+    private
     int rating;
     @SerializedName("Area")
     @Expose
+    private
     String area;
     @SerializedName("FacilityId")
     @Expose
+    private
     int facilityId;
     @SerializedName("FacilityName")
     @Expose
+    private
     String facilityName;
     @SerializedName("Address")
     @Expose
+    private
     String address;
     @SerializedName("IsFav")
     @Expose
+    private
     boolean isFav;
     @SerializedName("ImageUrl")
     @Expose
+    private
     String ImageUrl;
     @SerializedName("Info")
     @Expose
+    private
     String info;
     @SerializedName("FacilityLocation")
     @Expose
+    private
     String facilityLocation;
     @SerializedName("FacilityInfo")
     @Expose
+    private
     String facilityInfo;
     @SerializedName("ClinicInfo")
     @Expose
+    private
     String clinicInfo;
     @SerializedName("DoctorTypeId")
     @Expose
+    private
     int doctorTypeId;
     @SerializedName("NextDateTime")
     @Expose
+    private
     String nextDate;
     @SerializedName("GetDoctorSlots")
     @Expose
+    private
     List<DoctorSlots> doctorSlots;
 
-    public FavouriteDoctor() {
-    }
-
-    protected FavouriteDoctor(Parcel in) {
+    private FavouriteDoctor(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
         this.phoneNumber = in.readString();
@@ -140,36 +160,8 @@ public class FavouriteDoctor implements Parcelable {
         this.gender = gender;
     }
 
-    public List<String> getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(List<String> nationality) {
-        this.nationality = nationality;
-    }
-
-    public List<String> getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(List<String> languages) {
-        this.languages = languages;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getQualification() {
-        return qualification;
-    }
-
-    public void setQualification(String qualification) {
-        this.qualification = qualification;
     }
 
     public String getSpeciality() {
@@ -186,14 +178,6 @@ public class FavouriteDoctor implements Parcelable {
 
     public void setSpecialityId(int specialityId) {
         this.specialityId = specialityId;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
     }
 
     public int getId() {
@@ -220,20 +204,8 @@ public class FavouriteDoctor implements Parcelable {
         this.facilityId = facilityId;
     }
 
-    public String getFacilityName() {
-        return facilityName;
-    }
-
-    public void setFacilityName(String facilityName) {
-        this.facilityName = facilityName;
-    }
-
     public String getAddress() {
         return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public boolean getIsFav() {
@@ -260,65 +232,9 @@ public class FavouriteDoctor implements Parcelable {
         this.area = area;
     }
 
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
-    public String getFacilityLocation() {
-        return facilityLocation;
-    }
-
-    public void setFacilityLocation(String facilityLocation) {
-        this.facilityLocation = facilityLocation;
-    }
-
-    public String getFacilityInfo() {
-        return facilityInfo;
-    }
-
-    public void setFacilityInfo(String facilityInfo) {
-        this.facilityInfo = facilityInfo;
-    }
-
-    public String getClinicInfo() {
-        return clinicInfo;
-    }
-
-    public void setClinicInfo(String clinicInfo) {
-        this.clinicInfo = clinicInfo;
-    }
-
-    public int getDoctorTypeId() {
-        return doctorTypeId;
-    }
-
-    public void setDoctorTypeId(int doctorTypeId) {
-        this.doctorTypeId = doctorTypeId;
-    }
-
-    public String getNextDate() {
-        return nextDate;
-    }
-
-    public void setNextDate(String nextDate) {
-        this.nextDate = nextDate;
-    }
-
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    public List<DoctorSlots> getDoctorSlots() {
-        return doctorSlots;
-    }
-
-    public void setDoctorSlots(List<DoctorSlots> doctorSlots) {
-        this.doctorSlots = doctorSlots;
     }
 
     @Override

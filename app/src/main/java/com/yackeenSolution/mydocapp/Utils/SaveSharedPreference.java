@@ -93,5 +93,4 @@ public class SaveSharedPreference {
     public static String getLanguage(Context ctx) {
         return getSharedPreferences(ctx).getString(PREF_USER_LANGUAGE, "en");
     }
-
 }

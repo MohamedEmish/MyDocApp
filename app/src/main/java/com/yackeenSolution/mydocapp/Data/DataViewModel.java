@@ -6,6 +6,7 @@ package com.yackeenSolution.mydocapp.Data;
  */
 
 import android.app.Application;
+import android.content.Context;
 
 import com.yackeenSolution.mydocapp.Objects.Advice;
 import com.yackeenSolution.mydocapp.Objects.Appointment;
@@ -50,105 +51,105 @@ public class DataViewModel extends AndroidViewModel {
     //GETS
 
     // Spinners Data
-    public LiveData<List<Speciality>> getSpecialities() {
-        return retrofitClass.getSpecialityLive();
+    public LiveData<List<Speciality>> getSpecialities(Context context) {
+        return retrofitClass.getSpecialityLive(context);
     }
 
-    public LiveData<List<Insurance>> getMyInsuranceList() {
-        return retrofitClass.getInsuranceLive();
+    public LiveData<List<Insurance>> getMyInsuranceList(Context context) {
+        return retrofitClass.getInsuranceLive(context);
     }
 
-    public LiveData<List<MyArea>> getMyAreaList() {
-        return retrofitClass.getAreaLive();
+    public LiveData<List<MyArea>> getMyAreaList(Context context) {
+        return retrofitClass.getAreaLive(context);
     }
 
-    public LiveData<List<FamilyRelation>> getFamilyRelations() {
-        return retrofitClass.getFamilyRelationsLive();
+    public LiveData<List<FamilyRelation>> getFamilyRelations(Context context) {
+        return retrofitClass.getFamilyRelationsLive(context);
     }
 
-    public LiveData<List<Speciality>> getQualifications() {
-        return retrofitClass.getQualificationLive();
+    public LiveData<List<Speciality>> getQualifications(Context context) {
+        return retrofitClass.getQualificationLive(context);
     }
 
-    public LiveData<List<Speciality>> getNationalities() {
-        return retrofitClass.getNationalitiesLive();
+    public LiveData<List<Speciality>> getNationalities(Context context) {
+        return retrofitClass.getNationalitiesLive(context);
     }
 
-    public LiveData<List<Speciality>> getLanguages() {
-        return retrofitClass.getLanguagesLive();
+    public LiveData<List<Speciality>> getLanguages(Context context) {
+        return retrofitClass.getLanguagesLive(context);
     }
 
-    public LiveData<List<Speciality>> getMyFacilityTypes() {
-        return retrofitClass.getFacilityTypeLive();
+    public LiveData<List<Speciality>> getMyFacilityTypes(Context context) {
+        return retrofitClass.getFacilityTypeLive(context);
     }
 
 
     ///////////////////////////////////////////////////////////////////////
 
     // More Tab Activities GETS
-    public LiveData<List<MyAboutUs>> getMyAboutUsLive() {
-        return retrofitClass.getAboutUsLive();
+    public LiveData<List<MyAboutUs>> getMyAboutUsLive(Context context) {
+        return retrofitClass.getAboutUsLive(context);
     }
 
-    public LiveData<List<MyAboutUs>> getMyPolicyLiveData() {
-        return retrofitClass.getPolicyLive();
+    public LiveData<List<MyAboutUs>> getMyPolicyLiveData(Context context) {
+        return retrofitClass.getPolicyLive(context);
     }
 
-    public LiveData<List<MyAboutUs>> getSocialAccounts() {
-        return retrofitClass.getSocialAccounts();
+    public LiveData<List<MyAboutUs>> getSocialAccounts(Context context) {
+        return retrofitClass.getSocialAccounts(context);
     }
 
-    public LiveData<List<MyNotification>> getNotificationsList() {
-        return retrofitClass.getNotifications();
+    public LiveData<List<MyNotification>> getNotificationsList(Context context) {
+        return retrofitClass.getNotifications(context);
     }
 
-    public LiveData<UserData> getUserAccountData(int id) {
-        return retrofitClass.getUserAccountData(id);
+    public LiveData<UserData> getUserAccountData(int id, Context context) {
+        return retrofitClass.getUserAccountData(id, context);
     }
 
-    public LiveData<List<FamilyMember>> getMyFamilyMembersList(int id) {
-        return retrofitClass.getMyFamilyMembers(id);
+    public LiveData<List<FamilyMember>> getMyFamilyMembersList(int id, Context context) {
+        return retrofitClass.getMyFamilyMembers(id, context);
     }
 
     ///////////////////////////////////////////////////////////////////////
 
     // Promotion Tab
-    public LiveData<List<Promotion>> getAllPromotionList() {
-        return retrofitClass.getAllPromotions();
+    public LiveData<List<Promotion>> getAllPromotionList(Context context) {
+        return retrofitClass.getAllPromotions(context);
     }
 
     ///////////////////////////////////////////////////////////////////////
 
     // Favourites
-    public LiveData<List<FavouriteDoctor>> getMyFavDoctorsList(int id) {
-        return retrofitClass.getMyFavDoctors(id);
+    public LiveData<List<FavouriteDoctor>> getMyFavDoctorsList(int id, Context context) {
+        return retrofitClass.getMyFavDoctors(id, context);
     }
 
-    public LiveData<List<FacilityResult>> getMyFavFacilitiesList(int id) {
-        return retrofitClass.getMyFavFacilities(id);
+    public LiveData<List<FacilityResult>> getMyFavFacilitiesList(int id, Context context) {
+        return retrofitClass.getMyFavFacilities(id, context);
     }
 
 
     ///////////////////////////////////////////////////////////////////////
 
     // Appointments Tab
-    public LiveData<List<Appointment>> getMyAppointments(int userId, int statusId) {
-        return retrofitClass.getMyAppointments(userId, statusId);
+    public LiveData<List<Appointment>> getMyAppointments(int userId, int statusId, Context context) {
+        return retrofitClass.getMyAppointments(userId, statusId, context);
     }
 
-    public LiveData<Appointment> getSpecificAppointment(int appointmentId) {
-        return retrofitClass.getSpecificAppointment(appointmentId);
+    public LiveData<Appointment> getSpecificAppointment(int appointmentId, Context context) {
+        return retrofitClass.getSpecificAppointment(appointmentId, context);
     }
 
     ///////////////////////////////////////////////////////////////////////
 
     // Details
-    public LiveData<List<DoctorResult>> getSpecificDoctorData(int doctorId) {
-        return retrofitClass.getSpecificDoctorData(doctorId);
+    public LiveData<List<DoctorResult>> getSpecificDoctorData(int doctorId, Context context) {
+        return retrofitClass.getSpecificDoctorData(doctorId, context);
     }
 
-    public LiveData<FacilityResult> getSpecificFacilityData(int facilityId, int userId) {
-        return retrofitClass.getSpecificFacilityData(facilityId, userId);
+    public LiveData<FacilityResult> getSpecificFacilityData(int facilityId, int userId, Context context) {
+        return retrofitClass.getSpecificFacilityData(facilityId, userId, context);
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -163,7 +164,8 @@ public class DataViewModel extends AndroidViewModel {
             Integer qualificationId,
             Integer languageId,
             Integer nationalityId,
-            Boolean gender) {
+            Boolean gender,
+            Context context) {
         return retrofitClass.getSearchForDoctorResults(
                 specialityId,
                 fromDate,
@@ -173,7 +175,8 @@ public class DataViewModel extends AndroidViewModel {
                 qualificationId,
                 languageId,
                 nationalityId,
-                gender
+                gender,
+                context
         );
     }
 
@@ -181,12 +184,14 @@ public class DataViewModel extends AndroidViewModel {
             int specialityId,
             Integer areaId,
             Integer insuranceId,
-            Integer facilityTypeId) {
+            Integer facilityTypeId,
+            Context context) {
         return retrofitClass.getSearchForFacilityResults(
                 specialityId,
                 areaId,
                 insuranceId,
-                facilityTypeId
+                facilityTypeId,
+                context
         );
     }
 
@@ -194,58 +199,58 @@ public class DataViewModel extends AndroidViewModel {
     // POSTS :)
 
 
-    public LiveData<UserData> userLogin(HashMap<String, String> fields) {
-        return retrofitClass.userLogin(fields);
+    public LiveData<UserData> userLogin(HashMap<String, String> fields, Context context) {
+        return retrofitClass.userLogin(fields, context);
     }
 
-    public LiveData<String> uploadedImageUrlString(MultipartBody.Part file, RequestBody description) {
-        return retrofitClass.uploadImage(file, description);
+    public LiveData<String> uploadedImageUrlString(MultipartBody.Part file, RequestBody description, Context context) {
+        return retrofitClass.uploadImage(file, description, context);
     }
 
-    public LiveData<UserDataToUpload> editUserData(UserDataToUpload user) {
-        return retrofitClass.editUserData(user);
+    public LiveData<UserDataToUpload> editUserData(UserDataToUpload user, Context context) {
+        return retrofitClass.editUserData(user, context);
     }
 
-    public LiveData<UserDataToUpload> addNewUser(UserDataToUpload user) {
-        return retrofitClass.addNewUser(user);
+    public LiveData<UserDataToUpload> addNewUser(UserDataToUpload user, Context context) {
+        return retrofitClass.addNewUser(user, context);
     }
 
-    public void addEditFamilyMember(FamilyMemberToUpload familyMember) {
-        retrofitClass.addEditFamilyMemberData(familyMember);
+    public void addEditFamilyMember(FamilyMemberToUpload familyMember, Context context) {
+        retrofitClass.addEditFamilyMemberData(familyMember, context);
     }
 
-    public void postAdvice(Advice advice) {
-        retrofitClass.postAdvice(advice);
+    public void postAdvice(Advice advice, Context context) {
+        retrofitClass.postAdvice(advice, context);
     }
 
-    public void logout(UserToken token) {
-        retrofitClass.logOut(token);
+    public void logout(UserToken token, Context context) {
+        retrofitClass.logOut(token, context);
     }
 
-    public void setDoctorFavState(NewFavDoctor doctor) {
-        retrofitClass.setDoctorFavState(doctor);
+    public void setDoctorFavState(NewFavDoctor doctor, Context context) {
+        retrofitClass.setDoctorFavState(doctor, context);
     }
 
-    public void setFacilityFavState(NewFavFacility facility) {
-        retrofitClass.setFacilityFavState(facility);
+    public void setFacilityFavState(NewFavFacility facility, Context context) {
+        retrofitClass.setFacilityFavState(facility, context);
     }
 
-    public LiveData<PasswordToken> forgetPassword(PasswordToken token) {
-        return retrofitClass.forgetPassword(token);
+    public LiveData<PasswordToken> forgetPassword(PasswordToken token, Context context) {
+        return retrofitClass.forgetPassword(token, context);
     }
 
-    public LiveData<PasswordToken> resetPassword(PasswordToken token) {
-        return retrofitClass.resetPassword(token);
+    public LiveData<PasswordToken> resetPassword(PasswordToken token, Context context) {
+        return retrofitClass.resetPassword(token, context);
     }
 
-    public LiveData<Appointment> requestAppointment(AppointmentToUpload appointment) {
-        return retrofitClass.requestAppointment(appointment);
+    public LiveData<Appointment> requestAppointment(AppointmentToUpload appointment, Context context) {
+        return retrofitClass.requestAppointment(appointment, context);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // POSTS :)
-    public void deleteAppointment(int appointmentId) {
-        retrofitClass.deleteAppointment(appointmentId);
+    public void deleteAppointment(int appointmentId, Context context) {
+        retrofitClass.deleteAppointment(appointmentId, context);
     }
 
 }

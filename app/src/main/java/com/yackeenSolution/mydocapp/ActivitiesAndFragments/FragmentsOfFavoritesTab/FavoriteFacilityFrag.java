@@ -113,7 +113,7 @@ public class FavoriteFacilityFrag extends Fragment {
     }
 
     private void setUpData() {
-        dataViewModel.getMyFavFacilitiesList(Integer.parseInt(SaveSharedPreference.getUserId(getActivity()))).observe(this, new Observer<List<FacilityResult>>() {
+        dataViewModel.getMyFavFacilitiesList(Integer.parseInt(SaveSharedPreference.getUserId(getActivity())), getContext()).observe(this, new Observer<List<FacilityResult>>() {
             @Override
             public void onChanged(List<FacilityResult> facilityResults) {
                 progress.setVisibility(View.GONE);

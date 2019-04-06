@@ -136,7 +136,7 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
     private void setUpData() {
         String id = SaveSharedPreference.getUserId(this);
         if (id != null && !id.isEmpty()) {
-            dataViewModel.getMyFavDoctorsList(Integer.parseInt(id)).observe(this, new Observer<List<FavouriteDoctor>>() {
+            dataViewModel.getMyFavDoctorsList(Integer.parseInt(id), this).observe(this, new Observer<List<FavouriteDoctor>>() {
                 @Override
                 public void onChanged(List<FavouriteDoctor> favouriteDoctors) {
                     for (FavouriteDoctor favDoc : favouriteDoctors) {
@@ -217,7 +217,8 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
                 qualification,
                 language,
                 nationality,
-                gender).observe(this, new Observer<List<DoctorResult>>() {
+                gender,
+                this).observe(this, new Observer<List<DoctorResult>>() {
             @Override
             public void onChanged(final List<DoctorResult> doctorResults) {
                 progress.setVisibility(View.GONE);

@@ -188,7 +188,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
     private void setUp() {
         String id = SaveSharedPreference.getUserId(this);
         if (id != null && !id.isEmpty()) {
-            dataViewModel.getMyFavDoctorsList(Integer.parseInt(id)).observe(this, new Observer<List<FavouriteDoctor>>() {
+            dataViewModel.getMyFavDoctorsList(Integer.parseInt(id), this).observe(this, new Observer<List<FavouriteDoctor>>() {
                 @Override
                 public void onChanged(List<FavouriteDoctor> favouriteDoctors) {
                     for (FavouriteDoctor f : favouriteDoctors) {
@@ -203,7 +203,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
     }
 
     private void setUpData() {
-        dataViewModel.getSpecificDoctorData(Integer.parseInt(doctorId)).observe(this, new Observer<List<DoctorResult>>() {
+        dataViewModel.getSpecificDoctorData(Integer.parseInt(doctorId), this).observe(this, new Observer<List<DoctorResult>>() {
             @Override
             public void onChanged(final List<DoctorResult> doctorResult) {
 
@@ -322,7 +322,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
                 doctor.setDoctorId(doctorResult.getId());
                 doctor.setFacilityId(doctorResult.getFacilityId());
                 doctor.setFav(false);
-                dataViewModel.setDoctorFavState(doctor);
+                dataViewModel.setDoctorFavState(doctor, this);
                 fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
             } else {
                 NewFavDoctor doctor = new NewFavDoctor();
@@ -330,7 +330,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
                 doctor.setDoctorId(doctorResult.getId());
                 doctor.setFacilityId(doctorResult.getFacilityId());
                 doctor.setFav(true);
-                dataViewModel.setDoctorFavState(doctor);
+                dataViewModel.setDoctorFavState(doctor, this);
                 fav.setImageDrawable(getResources().getDrawable(R.drawable.favorite));
             }
         } else {

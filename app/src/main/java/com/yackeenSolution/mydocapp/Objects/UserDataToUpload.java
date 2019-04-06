@@ -21,60 +21,76 @@ public class UserDataToUpload implements Parcelable {
     };
     @SerializedName("FBId")
     @Expose
+    private
     String fbId;
     @SerializedName("Lang")
     @Expose
+    private
     String lang;
     @SerializedName("AppointmentReminder")
     @Expose
+    private
     Boolean appointmentReminder;
     @SerializedName("EnableNotification")
     @Expose
+    private
     Boolean enableNotification;
     @SerializedName("InsuranceCompanyId")
     @Expose
+    private
     Integer insuranceCompanyId;
     @SerializedName("InsuranceCompanyImageUrl")
     @Expose
+    private
     String insuranceCompanyImageUrl;
     @SerializedName("Id")
     @Expose
     int id;
     @SerializedName("DoctorId")
     @Expose
+    private
     Integer doctorId;
     @SerializedName("FirstName")
     @Expose
+    private
     String firstName;
     @SerializedName("LastName")
     @Expose
+    private
     String lastName;
     @SerializedName("DOB")
     @Expose
+    private
     String dateOfBirth;
     @SerializedName("Gender")
     @Expose
+    private
     Boolean gender;
     @SerializedName("MobileNumber")
     @Expose
+    private
     String phoneNumber;
     @SerializedName("Email")
     @Expose
+    private
     String email;
     @SerializedName("Password")
     @Expose
+    private
     String password;
     @SerializedName("Address")
     @Expose
+    private
     String address;
     @SerializedName("Image")
     @Expose
+    private
     String imageUri;
 
     public UserDataToUpload() {
     }
 
-    protected UserDataToUpload(Parcel in) {
+    private UserDataToUpload(Parcel in) {
         this.fbId = in.readString();
         this.lang = in.readString();
         this.appointmentReminder = (Boolean) in.readValue(Boolean.class.getClassLoader());
@@ -94,48 +110,24 @@ public class UserDataToUpload implements Parcelable {
         this.imageUri = in.readString();
     }
 
-    public String getFbId() {
-        return fbId;
-    }
-
     public void setFbId(String fbId) {
         this.fbId = fbId;
-    }
-
-    public String getLang() {
-        return lang;
     }
 
     public void setLang(String lang) {
         this.lang = lang;
     }
 
-    public Boolean getAppointmentReminder() {
-        return appointmentReminder;
-    }
-
     public void setAppointmentReminder(Boolean appointmentReminder) {
         this.appointmentReminder = appointmentReminder;
-    }
-
-    public Boolean getEnableNotification() {
-        return enableNotification;
     }
 
     public void setEnableNotification(Boolean enableNotification) {
         this.enableNotification = enableNotification;
     }
 
-    public Integer getInsuranceCompanyId() {
-        return insuranceCompanyId;
-    }
-
     public void setInsuranceCompanyId(Integer insuranceCompanyId) {
         this.insuranceCompanyId = insuranceCompanyId;
-    }
-
-    public String getInsuranceCompanyImageUrl() {
-        return insuranceCompanyImageUrl;
     }
 
     public void setInsuranceCompanyImageUrl(String insuranceCompanyImageUrl) {
@@ -174,10 +166,6 @@ public class UserDataToUpload implements Parcelable {
         this.lastName = lastName;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
@@ -212,10 +200,6 @@ public class UserDataToUpload implements Parcelable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     public void setAddress(String address) {

@@ -20,42 +20,53 @@ public class AppointmentToUpload implements Parcelable {
     };
     @SerializedName("AppointmentId")
     @Expose
+    private
     Integer appointmentId;
     @SerializedName("PatientId")
     @Expose
+    private
     int patientId;
     @SerializedName("ContactNumber")
     @Expose
+    private
     String patientPhone;
     @SerializedName("FacilityId")
     @Expose
+    private
     int doctorFacilityId;
     @SerializedName("SpecialtyId")
     @Expose
+    private
     int specialtyId;
     @SerializedName("DoctorId")
     @Expose
+    private
     int doctorId;
     @SerializedName("DateTime")
     @Expose
+    private
     String data;
     @SerializedName("PromoCode")
     @Expose
+    private
     String promoCode;
     @SerializedName("NationalId")
     @Expose
+    private
     String nationalId;
     @SerializedName("Time")
     @Expose
+    private
     String time;
     @SerializedName("RequestType")
     @Expose
+    private
     int requestType;
 
     public AppointmentToUpload() {
     }
 
-    protected AppointmentToUpload(Parcel in) {
+    private AppointmentToUpload(Parcel in) {
         this.appointmentId = in.readInt();
         this.patientId = in.readInt();
         this.patientPhone = in.readString();
@@ -69,40 +80,16 @@ public class AppointmentToUpload implements Parcelable {
         this.requestType = in.readInt();
     }
 
-    public Integer getAppointmentId() {
-        return appointmentId;
-    }
-
-    public void setAppointmentId(Integer appointmentId) {
-        this.appointmentId = appointmentId;
-    }
-
-    public int getPatientId() {
-        return patientId;
-    }
-
     public void setPatientId(int patientId) {
         this.patientId = patientId;
-    }
-
-    public String getPatientPhone() {
-        return patientPhone;
     }
 
     public void setPatientPhone(String patientPhone) {
         this.patientPhone = patientPhone;
     }
 
-    public int getDoctorFacilityId() {
-        return doctorFacilityId;
-    }
-
     public void setDoctorFacilityId(int doctorFacilityId) {
         this.doctorFacilityId = doctorFacilityId;
-    }
-
-    public int getSpecialtyId() {
-        return specialtyId;
     }
 
     public void setSpecialtyId(int specialtyId) {
@@ -125,16 +112,8 @@ public class AppointmentToUpload implements Parcelable {
         this.data = data;
     }
 
-    public String getPromoCode() {
-        return promoCode;
-    }
-
     public void setPromoCode(String promoCode) {
         this.promoCode = promoCode;
-    }
-
-    public String getNationalId() {
-        return nationalId;
     }
 
     public void setNationalId(String nationalId) {
@@ -147,10 +126,6 @@ public class AppointmentToUpload implements Parcelable {
 
     public void setTime(String time) {
         this.time = time;
-    }
-
-    public int getRequestType() {
-        return requestType;
     }
 
     public void setRequestType(int requestType) {

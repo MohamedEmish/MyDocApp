@@ -50,67 +50,67 @@ public interface DocApi {
 
     // Spinners Data
     @GET("api/Areas/GetAll")
-    Call<List<MyArea>> getAllAreas();
+    Call<List<MyArea>> getAllAreas(@Query("lang") String language);
 
     @GET("api/Collection/GetAllInsuranceCompanies")
-    Call<List<Insurance>> getAllInsurances();
+    Call<List<Insurance>> getAllInsurances(@Query("lang") String language);
 
     @GET("api/Specialities/GetAll")
-    Call<List<Speciality>> getAllSpecialities();
+    Call<List<Speciality>> getAllSpecialities(@Query("lang") String language);
 
     @GET("api/Collection/GetAllRelations")
-    Call<List<FamilyRelation>> getAllRelations();
+    Call<List<FamilyRelation>> getAllRelations(@Query("lang") String language);
 
     @GET("api/Collection/GetAllQualifications")
-    Call<List<Speciality>> getAllQualifications();
+    Call<List<Speciality>> getAllQualifications(@Query("lang") String language);
 
     @GET("api/Collection/GetAllNationalities")
-    Call<List<Speciality>> getAllNationalities();
+    Call<List<Speciality>> getAllNationalities(@Query("lang") String language);
 
     @GET("api/Collection/GetAllLanguages")
-    Call<List<Speciality>> getAllLanguages();
+    Call<List<Speciality>> getAllLanguages(@Query("lang") String language);
 
     @GET("api/Collection/GetAllFacilityTypes")
-    Call<List<Speciality>> getAllFacilityType();
+    Call<List<Speciality>> getAllFacilityType(@Query("lang") String language);
 
     ///////////////////////////////////////////////////////////////////////
 
     // More Tab Activities GETS
     @GET("api/AboutUs/GetAboutUs")
-    Call<List<MyAboutUs>> getAboutUs();
+    Call<List<MyAboutUs>> getAboutUs(@Query("lang") String language);
 
     @GET("api/AboutUs/GetPolicy")
-    Call<List<MyAboutUs>> getPolicy();
+    Call<List<MyAboutUs>> getPolicy(@Query("lang") String language);
 
     @GET("api/AboutUs/GetSocialAccounts")
     Call<List<MyAboutUs>> getSocialAccounts();
 
     @GET("api/User/GetAccount")
-    Call<UserData> userAccountData(@Query("UserId") int id);
-
-    @GET("api/Family/Get/{id}")
-    Call<FamilyMember> getSpecificFamilyMembers(@Path("id") int memberId);
+    Call<UserData> userAccountData(@Query("UserId") int id,
+                                   @Query("Lang") String language);
 
     @GET("api/Family/GetMyFamily")
     Call<List<FamilyMember>> getMyFamilyMembers(@Query("UserId") int id);
 
     @GET("api/Notifications/GetAll")
-    Call<List<MyNotification>> getAllNotifications();
+    Call<List<MyNotification>> getAllNotifications(@Query("lang") String language);
 
     ///////////////////////////////////////////////////////////////////////
 
     // Promotion Tab
     @GET("api/Promotions/GetAll")
-    Call<List<Promotion>> getAllPromotions();
+    Call<List<Promotion>> getAllPromotions(@Query("lang") String language);
 
     ///////////////////////////////////////////////////////////////////////
 
     // Favourites
     @GET("api/Doctors/GetFavoriteDoctors")
-    Call<List<FavouriteDoctor>> getMyFavDoctors(@Query("UserId") int id);
+    Call<List<FavouriteDoctor>> getMyFavDoctors(@Query("UserId") int id,
+                                                @Query("Lang") String language);
 
     @GET("api/Facilities/GetFavoriteFacilities")
-    Call<List<FacilityResult>> getMyFavFacilities(@Query("UserId") int id);
+    Call<List<FacilityResult>> getMyFavFacilities(@Query("UserId") int id,
+                                                  @Query("Lang") String language);
 
     ///////////////////////////////////////////////////////////////////////
 
@@ -118,24 +118,26 @@ public interface DocApi {
     @GET("api/Appointments/GetMyAppointments")
     Call<List<Appointment>> getMyAppointments(
             @Query("UserId") int userId,
-            @Query("StatusId") int statusId
+            @Query("StatusId") int statusId,
+            @Query("Lang") String language
     );
 
     @GET("api/Appointments/GetDoctorAppointment")
-    Call<Appointment> getSpecificApointment(@Query("AppointmentId") int appointmentId);
-
-
+    Call<Appointment> getSpecificApointment(@Query("AppointmentId") int appointmentId,
+                                            @Query("Lang") String language);
 
     ///////////////////////////////////////////////////////////////////////
 
     // Details
     @GET("api/Doctors/GetDoctorInfo")
-    Call<List<DoctorResult>> getSpecificDoctorData(@Query("DoctorId") int doctorId);
+    Call<List<DoctorResult>> getSpecificDoctorData(@Query("DoctorId") int doctorId,
+                                                   @Query("Lang") String language);
 
     @GET("api/Facilities/GetFacilityDetails")
     Call<FacilityResult> getSpecificFacilityData(
             @Query("FacilityId") int facilityId,
-            @Query("UserId") int userId
+            @Query("UserId") int userId,
+            @Query("Lang") String language
     );
 
     ///////////////////////////////////////////////////////////////////////
@@ -151,7 +153,8 @@ public interface DocApi {
             @Query("QualificationId") Integer qualificationId,
             @Query("LanguageId") Integer languageId,
             @Query("NationalityId") Integer nationalityId,
-            @Query("gender") Boolean genderState
+            @Query("gender") Boolean genderState,
+            @Query("Lang") String language
 
     );
 
@@ -160,7 +163,8 @@ public interface DocApi {
             @Query("SpecialtyId") int id,
             @Query("AreaId") Integer areaId,
             @Query("InsuranceId") Integer insuranceId,
-            @Query("FacilityTypeId") Integer facilityTypeId
+            @Query("FacilityTypeId") Integer facilityTypeId,
+            @Query("Lang") String language
     );
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

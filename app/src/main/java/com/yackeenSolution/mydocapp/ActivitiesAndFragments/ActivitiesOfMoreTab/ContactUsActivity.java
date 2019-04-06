@@ -71,7 +71,7 @@ public class ContactUsActivity extends AppCompatActivity {
             }
         });
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
-        dataViewModel.getMyPolicyLiveData();
+        dataViewModel.getMyPolicyLiveData(this);
         setUpData();
 
         fb.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +106,7 @@ public class ContactUsActivity extends AppCompatActivity {
 
     private void setUpData() {
 
-        dataViewModel.getSocialAccounts().observe(this, new Observer<List<MyAboutUs>>() {
+        dataViewModel.getSocialAccounts(this).observe(this, new Observer<List<MyAboutUs>>() {
             @Override
             public void onChanged(List<MyAboutUs> policyList) {
 
@@ -140,7 +140,7 @@ public class ContactUsActivity extends AppCompatActivity {
         advice.setMail(SaveSharedPreference.getUserEmail(this));
         advice.setPhone(null);
         // TODO :: NEVER POST ADVICE
-        dataViewModel.postAdvice(advice);
+        dataViewModel.postAdvice(advice, this);
         Toast.makeText(ContactUsActivity.this, ContactUsActivity.this.getResources().getString(R.string.sent_successfully), Toast.LENGTH_SHORT).show();
         ContactUsActivity.this.finish();
 

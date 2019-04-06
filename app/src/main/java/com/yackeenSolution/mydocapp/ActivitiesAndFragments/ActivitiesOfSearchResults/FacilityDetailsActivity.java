@@ -209,7 +209,7 @@ public class FacilityDetailsActivity extends AppCompatActivity {
         } else {
             id = 0;
         }
-        dataViewModel.getSpecificFacilityData(Integer.parseInt(facilityId), id).observe(this, new Observer<FacilityResult>() {
+        dataViewModel.getSpecificFacilityData(Integer.parseInt(facilityId), id, this).observe(this, new Observer<FacilityResult>() {
             @Override
             public void onChanged(final FacilityResult facilityResult) {
                 if (facilityResult != null) {
@@ -283,9 +283,9 @@ public class FacilityDetailsActivity extends AppCompatActivity {
                     aboutUsFragment.setArguments(aboutUs);
                     FragmentTransaction(aboutUsFragment);
 
+                    setUpDoctorData(facilityResult.getDoctorsList());
                     setUpInsuranceData(facilityResult.getInsuranceList());
                     setUpSpecialityData(facilityResult.getSpecialityList(), facilityResult.getDoctorsList());
-                    setUpDoctorData(facilityResult.getDoctorsList());
                 }
             }
         });
@@ -300,14 +300,14 @@ public class FacilityDetailsActivity extends AppCompatActivity {
                 facility.setUserId(Integer.parseInt(SaveSharedPreference.getUserId(FacilityDetailsActivity.this)));
                 facility.setFacilityId(facilityResult.getId());
                 facility.setFav(false);
-                dataViewModel.setFacilityFavState(facility);
+                dataViewModel.setFacilityFavState(facility, this);
                 fav.setImageDrawable(getResources().getDrawable(R.drawable.un_favorite));
             } else {
                 NewFavFacility facility = new NewFavFacility();
                 facility.setUserId(Integer.parseInt(SaveSharedPreference.getUserId(FacilityDetailsActivity.this)));
                 facility.setFacilityId(facilityResult.getId());
                 facility.setFav(true);
-                dataViewModel.setFacilityFavState(facility);
+                dataViewModel.setFacilityFavState(facility, this);
                 fav.setImageDrawable(getResources().getDrawable(R.drawable.favorite));
             }
         } else {

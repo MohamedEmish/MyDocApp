@@ -12,9 +12,9 @@ public class DoctorResult implements Parcelable {
     @SerializedName("Id")
     @Expose
     int id;
-
     @SerializedName("Name")
     @Expose
+    private
     String name;
 
     public static final Parcelable.Creator<DoctorResult> CREATOR = new Parcelable.Creator<DoctorResult>() {
@@ -30,96 +30,114 @@ public class DoctorResult implements Parcelable {
     };
     @SerializedName("Gender")
     @Expose
+    private
     boolean gender;
     @SerializedName("Nationality")
     @Expose
+    private
     List<String> nationalityList;
     @SerializedName("Status")
     @Expose
+    private
     String status;
-
     @SerializedName("Title")
     @Expose
+    private
     String title;
-
     @SerializedName("Qualification")
     @Expose
+    private
     String qualification;
     @SerializedName("Language")
     @Expose
+    private
     List<String> languageList;
     @SerializedName("Speciality")
     @Expose
+    private
     String speciality;
     @SerializedName("rating")
     @Expose
+    private
     int ratting;
     @SerializedName("NumberOfRaters")
     @Expose
+    private
     int numberOfRaters;
     @SerializedName("IsFav")
     @Expose
+    private
     boolean isFav;
     @SerializedName("Email")
     @Expose
+    private
     String mail;
     @SerializedName("ContactNumber")
     @Expose
+    private
     String phoneNumber;
-
     @SerializedName("Address")
     @Expose
+    private
     String address;
     @SerializedName("Reviews")
     @Expose
+    private
     List<Review> reviewList;
     @SerializedName("FacilityName")
     @Expose
+    private
     String facilityName;
     @SerializedName("FacilityId")
     @Expose
+    private
     int facilityId;
     @SerializedName("SpecialityId")
     @Expose
+    private
     int specialityId;
-
     @SerializedName("Info")
     @Expose
+    private
     String info;
-
     @SerializedName("FacilityLocation")
     @Expose
+    private
     String facilityLocation;
-
     @SerializedName("FacilityInfo")
     @Expose
+    private
     String facilityInfo;
-
     @SerializedName("ClinicInfo")
     @Expose
+    private
     String clinicInfo;
     @SerializedName("ImageUrl")
     @Expose
+    private
     String imageUrl;
     @SerializedName("DoctorFacilities")
     @Expose
+    private
     List<FacilityResult> facilityResultList;
     @SerializedName("AppointmentRemainder")
     @Expose
+    private
     boolean appointmentRemainder;
     @SerializedName("EnableNotification")
     @Expose
+    private
     boolean enableNotification;
     @SerializedName("Area")
     @Expose
+    private
     String area;
-
     public void setName(String name) {
         this.name = name;
     }
-
     @SerializedName("DoctorTypeId")
     @Expose
+    private
     int doctorTypeId;
 
     public DoctorResult() {
@@ -181,16 +199,8 @@ public class DoctorResult implements Parcelable {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getQualification() {
         return qualification;
-    }
-
-    public void setQualification(String qualification) {
-        this.qualification = qualification;
     }
 
     public String getSpeciality() {
@@ -199,46 +209,6 @@ public class DoctorResult implements Parcelable {
 
     public void setSpeciality(String speciality) {
         this.speciality = speciality;
-    }
-
-    public List<String> getNationalityList() {
-        return nationalityList;
-    }
-
-    public void setNationalityList(List<String> nationalityList) {
-        this.nationalityList = nationalityList;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public List<String> getLanguageList() {
-        return languageList;
-    }
-
-    public void setLanguageList(List<String> languageList) {
-        this.languageList = languageList;
-    }
-
-    public int getRatting() {
-        return ratting;
-    }
-
-    public void setRatting(int ratting) {
-        this.ratting = ratting;
-    }
-
-    public int getNumberOfRaters() {
-        return numberOfRaters;
-    }
-
-    public void setNumberOfRaters(int numberOfRaters) {
-        this.numberOfRaters = numberOfRaters;
     }
 
     public boolean isFav() {
@@ -253,24 +223,12 @@ public class DoctorResult implements Parcelable {
         return mail;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public List<Review> getReviewList() {
-        return reviewList;
-    }
-
-    public void setReviewList(List<Review> reviewList) {
-        this.reviewList = reviewList;
     }
 
     public int getSpecialityId() {
@@ -285,48 +243,20 @@ public class DoctorResult implements Parcelable {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getInfo() {
         return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
     }
 
     public String getFacilityLocation() {
         return facilityLocation;
     }
 
-    public void setFacilityLocation(String facilityLocation) {
-        this.facilityLocation = facilityLocation;
-    }
-
-    public String getFacilityInfo() {
-        return facilityInfo;
-    }
-
-    public void setFacilityInfo(String facilityInfo) {
-        this.facilityInfo = facilityInfo;
-    }
-
     public String getClinicInfo() {
         return clinicInfo;
     }
 
-    public void setClinicInfo(String clinicInfo) {
-        this.clinicInfo = clinicInfo;
-    }
-
     public String getFacilityName() {
         return facilityName;
-    }
-
-    public void setFacilityName(String facilityName) {
-        this.facilityName = facilityName;
     }
 
     public int getFacilityId() {
@@ -343,38 +273,6 @@ public class DoctorResult implements Parcelable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public List<FacilityResult> getFacilityResultList() {
-        return facilityResultList;
-    }
-
-    public void setFacilityResultList(List<FacilityResult> facilityResultList) {
-        this.facilityResultList = facilityResultList;
-    }
-
-    public int getDoctorTypeId() {
-        return doctorTypeId;
-    }
-
-    public void setDoctorTypeId(int doctorTypeId) {
-        this.doctorTypeId = doctorTypeId;
-    }
-
-    public boolean isAppointmentRemainder() {
-        return appointmentRemainder;
-    }
-
-    public void setAppointmentRemainder(boolean appointmentRemainder) {
-        this.appointmentRemainder = appointmentRemainder;
-    }
-
-    public boolean isEnableNotification() {
-        return enableNotification;
-    }
-
-    public void setEnableNotification(boolean enableNotification) {
-        this.enableNotification = enableNotification;
     }
 
     @Override

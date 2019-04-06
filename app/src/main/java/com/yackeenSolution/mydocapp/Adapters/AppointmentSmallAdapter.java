@@ -69,7 +69,7 @@ public class AppointmentSmallAdapter extends ListAdapter<Appointment, Appointmen
         holder.time.setText(time);
     }
 
-    public Appointment getMemberAt(int position) {
+    private Appointment getMemberAt(int position) {
         return getItem(position);
     }
 

@@ -20,39 +20,49 @@ public class FamilyMemberToUpload implements Parcelable {
     };
     @SerializedName("FamilyMemberId")
     @Expose
+    private
     Integer familyMemberId;
     @SerializedName("UserId")
     @Expose
+    private
     int userId;
     @SerializedName("Firstname")
     @Expose
+    private
     String firstName;
     @SerializedName("Lastname")
     @Expose
+    private
     String lastName;
     @SerializedName("DOB")
     @Expose
+    private
     String date;
     @SerializedName("Gender")
     @Expose
+    private
     Boolean gender;
     @SerializedName("Phonenumber")
     @Expose
+    private
     String phoneNumber;
     @SerializedName("RelationShipId")
     @Expose
+    private
     int relationId;
     @SerializedName("Email")
     @Expose
+    private
     String email;
     @SerializedName("ImageUrl")
     @Expose
+    private
     String imageUrl;
 
     public FamilyMemberToUpload() {
     }
 
-    protected FamilyMemberToUpload(Parcel in) {
+    private FamilyMemberToUpload(Parcel in) {
         this.familyMemberId = (Integer) in.readValue(Integer.class.getClassLoader());
         this.userId = in.readInt();
         this.firstName = in.readString();
@@ -63,10 +73,6 @@ public class FamilyMemberToUpload implements Parcelable {
         this.relationId = in.readInt();
         this.email = in.readString();
         this.imageUrl = in.readString();
-    }
-
-    public Integer getFamilyMemberId() {
-        return familyMemberId;
     }
 
     public void setFamilyMemberId(Integer familyMemberId) {
@@ -81,16 +87,8 @@ public class FamilyMemberToUpload implements Parcelable {
         this.userId = userId;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public void setLastName(String lastName) {
@@ -119,10 +117,6 @@ public class FamilyMemberToUpload implements Parcelable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public int getRelationId() {
-        return relationId;
     }
 
     public void setRelationId(int relationId) {

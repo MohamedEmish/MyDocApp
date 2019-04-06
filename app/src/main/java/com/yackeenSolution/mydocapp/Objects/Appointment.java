@@ -24,51 +24,67 @@ public class Appointment implements Parcelable {
     Integer id;
     @SerializedName("FacilityId")
     @Expose
+    private
     Integer facilityId;
     @SerializedName("DoctorId")
     @Expose
+    private
     Integer doctorId;
     @SerializedName("PatientName")
     @Expose
+    private
     String patientName;
     @SerializedName("DoctorName")
     @Expose
+    private
     String doctorName;
     @SerializedName("Specialty")
     @Expose
+    private
     String speciality;
     @SerializedName("ClinicName")
     @Expose
+    private
     String clinicName;
     @SerializedName("DateTime")
     @Expose
+    private
     String dateTime;
     @SerializedName("ClinicLocation")
     @Expose
+    private
     String clinicLocation;
     @SerializedName("ClinicContactNumber")
     @Expose
+    private
     String phoneNumber;
     @SerializedName("RequestType")
     @Expose
+    private
     Integer requestType;
     @SerializedName("Time")
     @Expose
+    private
     String time;
     @SerializedName("AppointmentStatus")
     @Expose
+    private
     String appointmentStatus;
     @SerializedName("DetailedStatusId")
     @Expose
+    private
     Integer detailedStatusId;
     @SerializedName("DetailedStatus")
     @Expose
+    private
     String detailedStatus;
     @SerializedName("IsRated")
     @Expose
+    private
     Boolean isRated;
     @SerializedName("IsSlot")
     @Expose
+    private
     Integer isSlot;
 
     public Integer getId() {
@@ -106,6 +122,10 @@ public class Appointment implements Parcelable {
         return facilityId;
     }
 
+    public String getDateTime() {
+        return dateTime;
+    }
+
     public void setFacilityId(Integer facilityId) {
         this.facilityId = facilityId;
     }
@@ -130,14 +150,6 @@ public class Appointment implements Parcelable {
         return patientName;
     }
 
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
-    }
-
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
-    }
-
     public void setSpeciality(String speciality) {
         this.speciality = speciality;
     }
@@ -146,24 +158,8 @@ public class Appointment implements Parcelable {
         return clinicName;
     }
 
-    public void setClinicName(String clinicName) {
-        this.clinicName = clinicName;
-    }
-
-    public String getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
-    }
-
     public String getClinicLocation() {
         return clinicLocation;
-    }
-
-    public void setClinicLocation(String clinicLocation) {
-        this.clinicLocation = clinicLocation;
     }
 
     public String getPhoneNumber() {
@@ -178,61 +174,13 @@ public class Appointment implements Parcelable {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getRequestType() {
-        return requestType;
-    }
-
-    public void setRequestType(Integer requestType) {
-        this.requestType = requestType;
-    }
-
     public void setTime(String time) {
         this.time = time;
-    }
-
-    public String getAppointmentStatus() {
-        return appointmentStatus;
-    }
-
-    public void setAppointmentStatus(String appointmentStatus) {
-        this.appointmentStatus = appointmentStatus;
-    }
-
-    public int getDetailedStatusId() {
-        return detailedStatusId;
-    }
-
-    public void setDetailedStatusId(Integer detailedStatusId) {
-        this.detailedStatusId = detailedStatusId;
-    }
-
-    public String getDetailedStatus() {
-        return detailedStatus;
-    }
-
-    public void setDetailedStatus(String detailedStatus) {
-        this.detailedStatus = detailedStatus;
-    }
-
-    public boolean isRated() {
-        return isRated;
-    }
-
-    public void setRated(Boolean rated) {
-        isRated = rated;
     }
 
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    public Integer getIsSlot() {
-        return isSlot;
-    }
-
-    public void setIsSlot(Integer isSlot) {
-        this.isSlot = isSlot;
     }
 
     @Override

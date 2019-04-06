@@ -117,7 +117,7 @@ public class FamilyMembersViewer extends AppCompatActivity {
     }
 
     private void setUpData() {
-        dataViewModel.getMyFamilyMembersList(Integer.parseInt(SaveSharedPreference.getUserId(this))).observe(this, new Observer<List<FamilyMember>>() {
+        dataViewModel.getMyFamilyMembersList(Integer.parseInt(SaveSharedPreference.getUserId(this)), this).observe(this, new Observer<List<FamilyMember>>() {
             @Override
             public void onChanged(List<FamilyMember> familyMembers) {
                 progress.setVisibility(View.GONE);

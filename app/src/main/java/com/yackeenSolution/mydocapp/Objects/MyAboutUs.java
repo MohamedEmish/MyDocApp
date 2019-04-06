@@ -26,10 +26,7 @@ public class MyAboutUs implements Parcelable {
     @Expose
     private String title;
 
-    public MyAboutUs() {
-    }
-
-    protected MyAboutUs(Parcel in) {
+    private MyAboutUs(Parcel in) {
         this.content = in.readString();
         this.title = in.readString();
     }
@@ -44,10 +41,6 @@ public class MyAboutUs implements Parcelable {
 
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     @Override

@@ -20,7 +20,8 @@ public class Speciality implements Parcelable {
     };
 
     @Expose(serialize = false, deserialize = false)
-    boolean selected = true;
+    private
+    boolean selected = false;
 
     public boolean isSelected() {
         return selected;

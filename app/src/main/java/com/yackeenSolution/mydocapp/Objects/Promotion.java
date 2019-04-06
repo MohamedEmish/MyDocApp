@@ -26,28 +26,32 @@ public class Promotion implements Parcelable {
     int id;
     @SerializedName("Name")
     @Expose
+    private
     String name;
     @SerializedName("Description")
     @Expose
+    private
     String description;
     @SerializedName("PromoCode")
     @Expose
+    private
     String promoCode;
     @SerializedName("SpecialityId")
     @Expose
+    private
     int specialityId;
     @SerializedName("FacilityId")
     @Expose
+    private
     int facilityId;
     @SerializedName("ExpiryDate")
     @Expose
+    private
     String expiryDate;
     @SerializedName("Doctors")
     @Expose
+    private
     List<FavouriteDoctor> doctorsList;
-
-    public Promotion() {
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -55,9 +59,10 @@ public class Promotion implements Parcelable {
 
     @SerializedName("ImageUrl")
     @Expose
+    private
     String imageUrl;
 
-    protected Promotion(Parcel in) {
+    private Promotion(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
         this.description = in.readString();
@@ -85,18 +90,6 @@ public class Promotion implements Parcelable {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getPromoCode() {
-        return promoCode;
-    }
-
-    public void setPromoCode(String promoCode) {
-        this.promoCode = promoCode;
-    }
-
     public int getSpecialityId() {
         return specialityId;
     }
@@ -111,22 +104,6 @@ public class Promotion implements Parcelable {
 
     public void setFacilityId(int facilityId) {
         this.facilityId = facilityId;
-    }
-
-    public String getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(String expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
-    public List<FavouriteDoctor> getDoctorsList() {
-        return doctorsList;
-    }
-
-    public void setDoctorsList(List<FavouriteDoctor> doctorsList) {
-        this.doctorsList = doctorsList;
     }
 
     @Override

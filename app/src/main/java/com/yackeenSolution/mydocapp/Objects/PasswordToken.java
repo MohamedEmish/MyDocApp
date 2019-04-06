@@ -21,18 +21,21 @@ public class PasswordToken implements Parcelable {
     };
     @SerializedName("Email")
     @Expose
+    private
     String email;
     @SerializedName("VerfiyCode")
     @Expose
+    private
     String code;
     @SerializedName("NewPassword")
     @Expose
+    private
     String newPassword;
 
     public PasswordToken() {
     }
 
-    protected PasswordToken(Parcel in) {
+    private PasswordToken(Parcel in) {
         this.email = in.readString();
         this.code = in.readString();
         this.newPassword = in.readString();
@@ -46,16 +49,9 @@ public class PasswordToken implements Parcelable {
         this.email = email;
     }
 
-    public String getCode() {
-        return code;
-    }
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public String getNewPassword() {
-        return newPassword;
     }
 
     public void setNewPassword(String newPassword) {

@@ -71,11 +71,11 @@ public class ConfirmationActivity extends AppCompatActivity {
             }
         });
 
-        setUpdata();
+        setupData();
     }
 
-    private void setUpdata() {
-        dataViewModel.getSpecificAppointment(Integer.parseInt(id)).observe(this, new Observer<Appointment>() {
+    private void setupData() {
+        dataViewModel.getSpecificAppointment(Integer.parseInt(id), this).observe(this, new Observer<Appointment>() {
             @Override
             public void onChanged(Appointment appointment) {
                 if (appointment != null) {

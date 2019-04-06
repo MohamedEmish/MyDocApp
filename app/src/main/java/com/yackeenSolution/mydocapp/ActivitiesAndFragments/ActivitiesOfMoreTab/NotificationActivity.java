@@ -73,7 +73,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     private void setUpData() {
 
-        dataViewModel.getNotificationsList().observe(this, new Observer<List<MyNotification>>() {
+        dataViewModel.getNotificationsList(this).observe(this, new Observer<List<MyNotification>>() {
             @Override
             public void onChanged(List<MyNotification> notifications) {
                 progress.setVisibility(View.GONE);

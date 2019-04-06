@@ -196,7 +196,7 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
 
             RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
 
-            dataViewModel.uploadedImageUrlString(fileToUpload, description).observe(this, new Observer<String>() {
+            dataViewModel.uploadedImageUrlString(fileToUpload, description, this).observe(this, new Observer<String>() {
                 @Override
                 public void onChanged(String s) {
                     createNewAccount(s);
@@ -257,7 +257,7 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         user.setInsuranceCompanyImageUrl(null);
         user.setEnableNotification(true);
 
-        dataViewModel.addNewUser(user).observe(this, new Observer<UserDataToUpload>() {
+        dataViewModel.addNewUser(user, this).observe(this, new Observer<UserDataToUpload>() {
             @Override
             public void onChanged(UserDataToUpload userDataToUpload) {
                 Intent intent = new Intent(RegistrationActivity.this, SignInActivity.class);

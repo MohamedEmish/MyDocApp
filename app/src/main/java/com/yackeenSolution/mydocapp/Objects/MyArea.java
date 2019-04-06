@@ -29,10 +29,7 @@ public class MyArea implements Parcelable {
     @Expose
     private String name;
 
-    public MyArea() {
-    }
-
-    protected MyArea(Parcel in) {
+    private MyArea(Parcel in) {
         this.id = in.readInt();
         this.imageUri = in.readString();
         this.name = in.readString();
