@@ -11,11 +11,6 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -31,6 +26,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfLog.MainScreen;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.Appointment;
 import com.yackeenSolution.mydocapp.Objects.AppointmentToUpload;
@@ -47,6 +43,10 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 public class AppointmentRequestActivity extends AppCompatActivity {
 
@@ -181,6 +181,9 @@ public class AppointmentRequestActivity extends AppCompatActivity {
                         Intent intent = new Intent(AppointmentRequestActivity.this, ConfirmationActivity.class);
                         intent.putExtra("appointmentId", String.valueOf(id));
                         progress.setVisibility(View.GONE);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(AppointmentRequestActivity.this, MainScreen.class);
                         startActivity(intent);
                     }
                 }

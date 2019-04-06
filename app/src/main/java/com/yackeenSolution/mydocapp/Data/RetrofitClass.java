@@ -99,9 +99,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<Speciality>> call, @NonNull Response<List<Speciality>> response) {
                 Log.d(TAG, "onResponse: SpecialityList " + response);
-
                 List<Speciality> policy = response.body();
                 SpecialityMutableLiveData.setValue(policy);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -122,6 +124,9 @@ class RetrofitClass {
                 Log.d(TAG, "onResponse: Insurance " + response);
                 List<Insurance> insurances = response.body();
                 listMutableLiveData.setValue(insurances);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -142,6 +147,9 @@ class RetrofitClass {
                 Log.d(TAG, "onResponse: MyArea " + response);
                 List<MyArea> areas = response.body();
                 listMutableLiveData.setValue(areas);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -160,10 +168,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<FamilyRelation>> call, @NonNull Response<List<FamilyRelation>> response) {
                 Log.d(TAG, "onResponse: FamilyRelations " + response);
-
                 List<FamilyRelation> policy = response.body();
                 SpecialityMutableLiveData.setValue(policy);
-
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -184,10 +193,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<Speciality>> call, @NonNull Response<List<Speciality>> response) {
                 Log.d(TAG, "onResponse: Speciality " + response);
-
                 List<Speciality> policy = response.body();
                 SpecialityMutableLiveData.setValue(policy);
-
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -207,10 +217,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<Speciality>> call, @NonNull Response<List<Speciality>> response) {
                 Log.d(TAG, "onResponse: Speciality " + response);
-
                 List<Speciality> policy = response.body();
                 SpecialityMutableLiveData.setValue(policy);
-
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -230,17 +241,17 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<Speciality>> call, @NonNull Response<List<Speciality>> response) {
                 Log.d(TAG, "onResponse: Speciality " + response);
-
                 List<Speciality> policy = response.body();
                 SpecialityMutableLiveData.setValue(policy);
-
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Speciality>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: Speciality" + t.getMessage());
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -254,10 +265,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<Speciality>> call, @NonNull Response<List<Speciality>> response) {
                 Log.d(TAG, "onResponse: FacilityTypes " + response);
-
                 List<Speciality> policy = response.body();
                 SpecialityMutableLiveData.setValue(policy);
-
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -281,10 +293,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<MyAboutUs>> call, @NonNull Response<List<MyAboutUs>> response) {
                 Log.d(TAG, "onResponse: About US " + response);
-
                 List<MyAboutUs> myAboutUs = response.body();
                 myAboutUsMutableLiveData.setValue(myAboutUs);
-
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -304,10 +317,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<MyAboutUs>> call, @NonNull Response<List<MyAboutUs>> response) {
                 Log.d(TAG, "onResponse: Policy " + response);
-
                 List<MyAboutUs> policy = response.body();
                 myAboutUsMutableLiveData.setValue(policy);
-
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -328,10 +342,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<MyAboutUs>> call, @NonNull Response<List<MyAboutUs>> response) {
                 Log.d(TAG, "onResponse: Accounts " + response);
-
                 List<MyAboutUs> accounts = response.body();
                 listMutableLiveData.setValue(accounts);
-
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -353,10 +368,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<MyNotification>> call, @NonNull Response<List<MyNotification>> response) {
                 Log.d(TAG, "onResponse: MyNotification " + response);
-
                 List<MyNotification> notifications = response.body();
                 listMutableLiveData.setValue(notifications);
-
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -378,9 +394,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<UserData> call, @NonNull Response<UserData> response) {
                 Log.d(TAG, "onResponse: UserAccountData " + response);
-
                 UserData userData = response.body();
                 listMutableLiveData.setValue(userData);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -400,10 +418,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<FamilyMember>> call, @NonNull Response<List<FamilyMember>> response) {
                 Log.d(TAG, "onResponse: AllFamilyMembers " + response);
-
                 List<FamilyMember> familyMembers = response.body();
                 listMutableLiveData.setValue(familyMembers);
-
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -428,10 +447,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<Promotion>> call, @NonNull Response<List<Promotion>> response) {
                 Log.d(TAG, "onResponse: Promotion " + response);
-
                 List<Promotion> promotions = response.body();
                 listMutableLiveData.setValue(promotions);
-
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -455,10 +475,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<FavouriteDoctor>> call, @NonNull Response<List<FavouriteDoctor>> response) {
                 Log.d(TAG, "onResponse: MyFavDoctors " + response);
-
                 List<FavouriteDoctor> familyMembers = response.body();
                 listMutableLiveData.setValue(familyMembers);
-
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
 
@@ -481,10 +502,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<FacilityResult>> call, @NonNull Response<List<FacilityResult>> response) {
                 Log.d(TAG, "onResponse: MyFavDoctors " + response);
-
                 List<FacilityResult> facilityResults = response.body();
                 listMutableLiveData.setValue(facilityResults);
-
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -509,10 +531,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<Appointment>> call, @NonNull Response<List<Appointment>> response) {
                 Log.d(TAG, "onResponse: Appointments " + response);
-
                 List<Appointment> appointments = response.body();
                 listMutableLiveData.setValue(appointments);
-
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -533,10 +556,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<Appointment> call, @NonNull Response<Appointment> response) {
                 Log.d(TAG, "onResponse: SpecificAppointment " + response);
-
                 Appointment appointment = response.body();
                 listMutableLiveData.setValue(appointment);
-
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -559,9 +583,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<DoctorResult>> call, @NonNull Response<List<DoctorResult>> response) {
                 Log.d(TAG, "onResponse: SpecificDoctorResultData " + response);
-
                 List<DoctorResult> favouriteDoctor = response.body();
                 listMutableLiveData.setValue(favouriteDoctor);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -581,9 +607,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<FacilityResult> call, @NonNull Response<FacilityResult> response) {
                 Log.d(TAG, "onResponse: SpecificFacilityResultData " + response);
-
                 FacilityResult facilityResult = response.body();
                 listMutableLiveData.setValue(facilityResult);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -625,9 +653,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<DoctorResult>> call, @NonNull Response<List<DoctorResult>> response) {
                 Log.d(TAG, "onResponse: SearchForDoctorResultData " + response);
-
                 List<DoctorResult> doctorResults = response.body();
                 listMutableLiveData.setValue(doctorResults);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -657,9 +687,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<List<FacilityResult>> call, @NonNull Response<List<FacilityResult>> response) {
                 Log.d(TAG, "onResponse: SearchForFacilityResultData " + response);
-
                 List<FacilityResult> facilityResult = response.body();
                 listMutableLiveData.setValue(facilityResult);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -683,9 +715,11 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<UserData> call, @NonNull Response<UserData> response) {
                 Log.d(TAG, "onResponse: UserData " + response);
-
                 UserData userData = response.body();
                 listMutableLiveData.setValue(userData);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -707,6 +741,9 @@ class RetrofitClass {
                 Log.d(TAG, "onResponse: EditUserData " + response);
                 UserDataToUpload userData = response.body();
                 listMutableLiveData.setValue(userData);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -727,6 +764,9 @@ class RetrofitClass {
                 Log.d(TAG, "onResponse: NewUserData " + response);
                 UserDataToUpload userData = response.body();
                 listMutableLiveData.setValue(userData);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -744,6 +784,9 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<FamilyMemberToUpload> call, @NonNull Response<FamilyMemberToUpload> response) {
                 Log.d(TAG, "onResponse: FamilyMemberToUpload " + response);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -760,6 +803,9 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<Advice> call, @NonNull Response<Advice> response) {
                 Log.d(TAG, "onResponse: Advice " + response);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -776,6 +822,9 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<UserToken> call, @NonNull Response<UserToken> response) {
                 Log.d(TAG, "onResponse: Logout " + response);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -795,6 +844,9 @@ class RetrofitClass {
                 Log.d(TAG, "onResponse: ForgotPassword " + response);
                 PasswordToken token = response.body();
                 listMutableLiveData.setValue(token);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -815,6 +867,9 @@ class RetrofitClass {
                 Log.d(TAG, "onResponse: ResetPassword " + response);
                 PasswordToken token = response.body();
                 listMutableLiveData.setValue(token);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -832,6 +887,9 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<NewFavDoctor> call, @NonNull Response<NewFavDoctor> response) {
                 Log.d(TAG, "onResponse: SetDoctorFavState " + response);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -848,6 +906,9 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<NewFavFacility> call, @NonNull Response<NewFavFacility> response) {
                 Log.d(TAG, "onResponse: SetFacilityFavState " + response);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -872,6 +933,9 @@ class RetrofitClass {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -891,6 +955,9 @@ class RetrofitClass {
             public void onResponse(@NonNull Call<Appointment> call, @NonNull Response<Appointment> response) {
                 Log.d(TAG, "onResponse: RequestAppointment :: " + response);
                 listMutableLiveData.setValue(response.body());
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -911,6 +978,9 @@ class RetrofitClass {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 Log.d(TAG, "onResponse: DeleteAppointment :: " + response);
+                if (response.code() != 200) {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
