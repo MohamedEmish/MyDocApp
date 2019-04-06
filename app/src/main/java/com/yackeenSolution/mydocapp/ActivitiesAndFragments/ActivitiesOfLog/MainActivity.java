@@ -8,7 +8,6 @@ package com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfLog;
 import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -20,6 +19,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
+import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.util.Locale;
 
@@ -33,12 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Localization
-        String language = SaveSharedPreference.getLanguage(this);
-        Locale locale = new Locale(language);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
+        Utils.setLocale(this);
         setContentView(R.layout.activity_main);
 
         splashImage = findViewById(R.id.open_splash_logo);

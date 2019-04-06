@@ -40,7 +40,6 @@ public class FamilyMembersViewer extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
         setUpData();
     }
@@ -63,6 +62,7 @@ public class FamilyMembersViewer extends AppCompatActivity {
         });
 
         progress = findViewById(R.id.family_member_viewer_progress_bar_layout);
+        progress.setVisibility(View.VISIBLE);
         noData = findViewById(R.id.family_member_viewer_no_data);
 
         memberRecycleView = findViewById(R.id.family_member_viewer_recycler);

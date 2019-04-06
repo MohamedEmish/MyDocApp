@@ -179,9 +179,9 @@ public class Utils {
     public static void setLocale(Context mContext) {
         String language = SaveSharedPreference.getLanguage(mContext);
         Locale locale = new Locale(language);
-        Configuration config = mContext.getApplicationContext().getResources().getConfiguration();
-        config.locale = locale;
-        mContext.getApplicationContext().getResources().updateConfiguration(config, mContext.getApplicationContext().getResources().getDisplayMetrics());
+        Configuration configuration = new Configuration();
+        configuration.setLocale(locale);
+        mContext.getResources().updateConfiguration(configuration, mContext.getResources().getDisplayMetrics());
     }
 
     public static void RTLSupport(Context mContext, View view) {
