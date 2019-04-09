@@ -184,9 +184,7 @@ public class AppointmentRequestActivity extends AppCompatActivity {
                     }
                 }
             });
-
         }
-
     }
 
     private void getUserData() {
