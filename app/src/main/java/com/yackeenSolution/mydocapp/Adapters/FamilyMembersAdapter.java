@@ -57,7 +57,7 @@ public class FamilyMembersAdapter extends ListAdapter<FamilyMember, FamilyMember
         Uri uri;
 
         if (imageUri != null && !imageUri.isEmpty()) {
-            uri = Uri.parse(imageUri.replace("//U", "/U"));
+            uri = Uri.parse(imageUri.replace("//U", "/U").replace("doctoryadmin", "DoctoryIntern"));
         } else {
             uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
         }

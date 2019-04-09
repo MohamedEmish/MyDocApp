@@ -142,7 +142,7 @@ public class AppointmentFragment extends Fragment {
                                     String appointmentId = null;
                                     for (FamilyMember member : mainFamilyList) {
                                         if (member.getName().equals(selectedName)) {
-                                            appointmentId = String.valueOf(member.getId());
+                                            appointmentId = String.valueOf(member.getFamilyMemberId());
                                         }
                                     }
                                     SaveSharedPreference.setAppointmentId(getActivity(), appointmentId);

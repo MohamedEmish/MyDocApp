@@ -234,7 +234,7 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
         Uri uri;
 
         if (image != null && !image.isEmpty()) {
-            uri = Uri.parse(image.replace("//U", "/U"));
+            uri = Uri.parse(image.replace("//U", "/U").replace("doctoryadmin", "DoctoryIntern"));
         } else {
             uri = Uri.parse("android.resource://com.yackeenSolution.mydocapp/drawable/doctor_default");
         }
@@ -370,7 +370,8 @@ public class AddNewFamilyMember extends AppCompatActivity implements BottomSheet
         if (imageUrl != null && !imageUrl.isEmpty()) {
             img = imageUrl.replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
                     .replace("http://yakensolution.cloudapp.net/doctoryadmin//", "")
-                    .replace("\"", "");
+                    .replace("\"", "")
+                    .replace("doctoryadmin", "DoctoryIntern");
         } else {
             img = null;
         }

@@ -26,7 +26,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.yackeenSolution.mydocapp.ActivitiesAndFragments.ActivitiesOfLog.MainScreen;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.Appointment;
 import com.yackeenSolution.mydocapp.Objects.AppointmentToUpload;
@@ -153,7 +152,7 @@ public class AppointmentRequestActivity extends AppCompatActivity {
             } else {
                 for (FamilyMember member : mainFamilyList) {
                     if (familyMembersStrings.get(mAppointRequestUserNameSpinner.getSelectedItemPosition()).equals(member.getName())) {
-                        int fId = member.getId();
+                        int fId = member.getFamilyMemberId();
                         appointmentToUpload.setPatientId(fId);
                     }
                 }
@@ -182,9 +181,6 @@ public class AppointmentRequestActivity extends AppCompatActivity {
                         intent.putExtra("appointmentId", String.valueOf(id));
                         progress.setVisibility(View.GONE);
                         startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(AppointmentRequestActivity.this, MainScreen.class);
-                        startActivity(intent);
                     }
                 }
             });
@@ -199,6 +195,7 @@ public class AppointmentRequestActivity extends AppCompatActivity {
                     public void onChanged(UserData userData) {
                         userFullName = userData.getFirstName() + " " + userData.getLastName();
                         mAppointRequestUserMobile.setText(userData.getMobileNumber());
+                        familyMembersStrings.add(userFullName);
                         setUpData();
                     }
                 }
@@ -220,7 +217,6 @@ public class AppointmentRequestActivity extends AppCompatActivity {
             public void onChanged(List<FamilyMember> familyMembers) {
                 mainFamilyList = familyMembers;
                 familyMembersStrings = new ArrayList<>();
-                familyMembersStrings.add(userFullName);
                 for (FamilyMember member : familyMembers) {
                     familyMembersStrings.add(member.getName());
                 }

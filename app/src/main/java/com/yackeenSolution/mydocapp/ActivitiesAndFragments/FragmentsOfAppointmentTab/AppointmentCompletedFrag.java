@@ -5,23 +5,11 @@ package com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfAppointme
    ALL DONE :)
  */
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.yackeenSolution.mydocapp.Adapters.AppointmentSmallAdapter;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
@@ -31,11 +19,19 @@ import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils.Utils;
 
 import java.util.List;
-import java.util.Objects;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class AppointmentCompletedFrag extends Fragment {
 
-    private static final int STATUS_COMPLETED = 3;
+    private static final int STATUS_COMPLETED = 4;
+    private static final int STATUS_CANCELLED = 3;
+
     private RecyclerView recycleView;
     private AppointmentSmallAdapter adapter;
     private DataViewModel dataViewModel;
@@ -65,6 +61,7 @@ public class AppointmentCompletedFrag extends Fragment {
         adapter = new AppointmentSmallAdapter();
         recycleView.setAdapter(adapter);
 
+
         adapter.setOnItemCallClickListener(new AppointmentSmallAdapter.OnItemCallClickListener() {
             @Override
             public void onItemClick(Appointment appointment) {
@@ -78,19 +75,7 @@ public class AppointmentCompletedFrag extends Fragment {
                 Utils.googleLocation(appointment.getClinicLocation(), getContext(), "");
             }
         });
-
-
-        adapter.setOnItemCancelClickListener(new AppointmentSmallAdapter.OnItemCancelClickListener() {
-            @Override
-            public void onItemClick(Appointment appointment) {
-                cancel(appointment.getId());
-            }
-        });
         return rootView;
-    }
-
-    private void cancel(int id) {
-        showLogOutDialog(Objects.requireNonNull(getContext()), id);
     }
 
     private void setUpData() {
@@ -107,40 +92,5 @@ public class AppointmentCompletedFrag extends Fragment {
             }
         });
     }
-
-    private void showLogOutDialog(Context context, final int id) {
-
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final ViewGroup nullParent = null;
-        View view = inflater.inflate(R.layout.logout_dialog, nullParent, false);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setCancelable(true);
-        builder.setView(view);
-
-        Button yes = view.findViewById(R.id.alert_dialog_yes);
-        Button no = view.findViewById(R.id.alert_dialog_no);
-        TextView text = view.findViewById(R.id.alert_dialog_text);
-        text.setText(context.getResources().getString(R.string.cancel_appointment_msg));
-        final AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-
-        yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dataViewModel.deleteAppointment(id, getContext());
-                adapter.notifyDataSetChanged();
-                alertDialog.cancel();
-            }
-        });
-        no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.cancel();
-
-            }
-        });
-    }
-
 
 }

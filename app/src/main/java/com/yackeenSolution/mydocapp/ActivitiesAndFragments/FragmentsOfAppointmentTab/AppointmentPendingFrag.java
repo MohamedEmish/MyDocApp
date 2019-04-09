@@ -8,13 +8,6 @@ package com.yackeenSolution.mydocapp.ActivitiesAndFragments.FragmentsOfAppointme
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +18,7 @@ import android.widget.TextView;
 import com.yackeenSolution.mydocapp.Adapters.AppointmentSmallAdapter;
 import com.yackeenSolution.mydocapp.Data.DataViewModel;
 import com.yackeenSolution.mydocapp.Objects.Appointment;
+import com.yackeenSolution.mydocapp.Objects.SmallAppointment;
 import com.yackeenSolution.mydocapp.R;
 import com.yackeenSolution.mydocapp.Utils.SaveSharedPreference;
 import com.yackeenSolution.mydocapp.Utils.Utils;
@@ -32,9 +26,18 @@ import com.yackeenSolution.mydocapp.Utils.Utils;
 import java.util.List;
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class AppointmentPendingFrag extends Fragment {
 
     private static final int STATUS_PENDING = 1;
+    private static final int STATUS_CANCELLED = 3;
+
     private RecyclerView recycleView;
     private AppointmentSmallAdapter adapter;
     private DataViewModel dataViewModel;
@@ -79,7 +82,7 @@ public class AppointmentPendingFrag extends Fragment {
         adapter.setOnItemCancelClickListener(new AppointmentSmallAdapter.OnItemCancelClickListener() {
             @Override
             public void onItemClick(Appointment appointment) {
-                cancel(appointment.getId());
+                cancel(appointment.getId(), appointment.getDateTime());
             }
         });
         return rootView;
@@ -100,11 +103,11 @@ public class AppointmentPendingFrag extends Fragment {
         });
     }
 
-    private void cancel(int id) {
-        showLogOutDialog(Objects.requireNonNull(getContext()), id);
+    private void cancel(int id, String date) {
+        showLogOutDialog(Objects.requireNonNull(getContext()), id, date);
     }
 
-    private void showLogOutDialog(Context context, final int id) {
+    private void showLogOutDialog(Context context, final int id, final String date) {
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final ViewGroup nullParent = null;
@@ -124,7 +127,13 @@ public class AppointmentPendingFrag extends Fragment {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataViewModel.deleteAppointment(id, getContext());
+                SmallAppointment appointment = new SmallAppointment();
+                appointment.setAppointmentId(id);
+                appointment.setStatusId(STATUS_CANCELLED);
+                appointment.setDate(date);
+                appointment.setDetailedStatusId(0);
+                appointment.setSlotId(0);
+                dataViewModel.deleteAppointment(appointment, getContext());
                 adapter.notifyDataSetChanged();
                 alertDialog.cancel();
             }

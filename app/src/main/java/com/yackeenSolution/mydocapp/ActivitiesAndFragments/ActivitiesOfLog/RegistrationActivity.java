@@ -220,7 +220,8 @@ public class RegistrationActivity extends AppCompatActivity implements BottomShe
         if (image != null && !image.isEmpty()) {
             image = image.replace("http://yakensolution.cloudapp.net/doctoryadmin/", "")
                     .replace("http://yakensolution.cloudapp.net/doctoryadmin//", "")
-                    .replace("\"", "");
+                    .replace("\"", "")
+                    .replace("doctoryadmin", "DoctoryIntern");
             user.setImageUri(image);
         } else {
             user.setImageUri(null);

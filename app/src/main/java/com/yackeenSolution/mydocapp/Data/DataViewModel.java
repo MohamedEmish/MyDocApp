@@ -25,6 +25,7 @@ import com.yackeenSolution.mydocapp.Objects.NewFavDoctor;
 import com.yackeenSolution.mydocapp.Objects.NewFavFacility;
 import com.yackeenSolution.mydocapp.Objects.PasswordToken;
 import com.yackeenSolution.mydocapp.Objects.Promotion;
+import com.yackeenSolution.mydocapp.Objects.SmallAppointment;
 import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.Objects.UserData;
 import com.yackeenSolution.mydocapp.Objects.UserDataToUpload;
@@ -249,8 +250,8 @@ public class DataViewModel extends AndroidViewModel {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // POSTS :)
-    public void deleteAppointment(int appointmentId, Context context) {
-        retrofitClass.deleteAppointment(appointmentId, context);
+    public void deleteAppointment(SmallAppointment appointment, Context context) {
+        retrofitClass.deleteAppointment(appointment, context);
     }
 
 }

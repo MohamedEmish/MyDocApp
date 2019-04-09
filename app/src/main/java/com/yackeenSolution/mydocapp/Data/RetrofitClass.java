@@ -28,6 +28,7 @@ import com.yackeenSolution.mydocapp.Objects.NewFavDoctor;
 import com.yackeenSolution.mydocapp.Objects.NewFavFacility;
 import com.yackeenSolution.mydocapp.Objects.PasswordToken;
 import com.yackeenSolution.mydocapp.Objects.Promotion;
+import com.yackeenSolution.mydocapp.Objects.SmallAppointment;
 import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.Objects.UserData;
 import com.yackeenSolution.mydocapp.Objects.UserDataToUpload;
@@ -972,11 +973,11 @@ class RetrofitClass {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // DELETES :)
 
-    void deleteAppointment(int appointmentId, final Context context) {
+    void deleteAppointment(SmallAppointment appointment, final Context context) {
         DocApi docApi = RetrofitClass.getDocApi();
-        docApi.deleteAppointment(appointmentId).enqueue(new Callback<String>() {
+        docApi.deleteAppointment(appointment).enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 Log.d(TAG, "onResponse: DeleteAppointment :: " + response);
                 if (response.code() != 200) {
                     Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
@@ -984,7 +985,7 @@ class RetrofitClass {
             }
 
             @Override
-            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: DeleteAppointment :: " + t.getMessage());
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }

@@ -9,11 +9,11 @@ import com.yackeenSolution.mydocapp.Objects.Advice;
 import com.yackeenSolution.mydocapp.Objects.Appointment;
 import com.yackeenSolution.mydocapp.Objects.AppointmentToUpload;
 import com.yackeenSolution.mydocapp.Objects.DoctorResult;
-import com.yackeenSolution.mydocapp.Objects.FamilyMemberToUpload;
-import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
 import com.yackeenSolution.mydocapp.Objects.FacilityResult;
 import com.yackeenSolution.mydocapp.Objects.FamilyMember;
+import com.yackeenSolution.mydocapp.Objects.FamilyMemberToUpload;
 import com.yackeenSolution.mydocapp.Objects.FamilyRelation;
+import com.yackeenSolution.mydocapp.Objects.FavouriteDoctor;
 import com.yackeenSolution.mydocapp.Objects.Insurance;
 import com.yackeenSolution.mydocapp.Objects.MyAboutUs;
 import com.yackeenSolution.mydocapp.Objects.MyArea;
@@ -22,6 +22,7 @@ import com.yackeenSolution.mydocapp.Objects.NewFavDoctor;
 import com.yackeenSolution.mydocapp.Objects.NewFavFacility;
 import com.yackeenSolution.mydocapp.Objects.PasswordToken;
 import com.yackeenSolution.mydocapp.Objects.Promotion;
+import com.yackeenSolution.mydocapp.Objects.SmallAppointment;
 import com.yackeenSolution.mydocapp.Objects.Speciality;
 import com.yackeenSolution.mydocapp.Objects.UserData;
 import com.yackeenSolution.mydocapp.Objects.UserDataToUpload;
@@ -35,12 +36,10 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface DocApi {
@@ -207,12 +206,13 @@ public interface DocApi {
     @POST("api/Appointments/RequestAppointment")
     Call<Appointment> requestAppointment(@Body AppointmentToUpload appointment);
 
+    @POST("api/Appointments/UpdateScheduledAppointmentStatus")
+    Call<ResponseBody> deleteAppointment(@Body SmallAppointment appointment);
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // PUTS :)
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // DELETES :)
-    @DELETE("api/Appointments/Delete/{id}")
-    Call<String> deleteAppointment(@Path("id") int appointmentId);
 }
