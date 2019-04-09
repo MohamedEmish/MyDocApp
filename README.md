@@ -1,6 +1,5 @@
 
-<img src ="DocPoc/Screenshot_20190409-180420.jpg" height = 500>
-<img src ="DocPoc/Screenshot_20190409-180435.jpg" height = 500>
+<img src ="DocPoc/Screenshot_20190409-180420.jpg" height = 500><img src ="DocPoc/Screenshot_20190409-180435.jpg" height = 500>
 <img src ="DocPoc/Screenshot_20190409-180643.jpg" height = 500>
 <img src ="DocPoc/Screenshot_20190409-180823.jpg" height = 500>
 <img src ="DocPoc/Screenshot_20190409-181019.jpg" height = 500>
