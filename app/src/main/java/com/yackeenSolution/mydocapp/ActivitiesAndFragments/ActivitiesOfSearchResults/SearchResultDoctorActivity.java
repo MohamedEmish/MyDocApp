@@ -127,10 +127,10 @@ public class SearchResultDoctorActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        super.onResume();
         progress.setVisibility(View.VISIBLE);
         dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
         setUpData();
-        super.onResume();
     }
 
     private void setUpData() {

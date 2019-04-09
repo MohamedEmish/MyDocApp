@@ -193,10 +193,13 @@ public class AppointmentRequestActivity extends AppCompatActivity {
         dataViewModel.getUserAccountData(Integer.parseInt(SaveSharedPreference.getUserId(this)), this).observe(this, new Observer<UserData>() {
                     @Override
                     public void onChanged(UserData userData) {
-                        userFullName = userData.getFirstName() + " " + userData.getLastName();
-                        mAppointRequestUserMobile.setText(userData.getMobileNumber());
-                        familyMembersStrings.add(userFullName);
-                        setUpData();
+                        if (userData != null) {
+                            userFullName = userData.getFirstName() + " " + userData.getLastName();
+                            mAppointRequestUserMobile.setText(userData.getMobileNumber());
+                            familyMembersStrings = new ArrayList<>();
+                            familyMembersStrings.add(userFullName);
+                            setUpData();
+                        }
                     }
                 }
         );
@@ -216,7 +219,6 @@ public class AppointmentRequestActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<FamilyMember> familyMembers) {
                 mainFamilyList = familyMembers;
-                familyMembersStrings = new ArrayList<>();
                 for (FamilyMember member : familyMembers) {
                     familyMembersStrings.add(member.getName());
                 }
