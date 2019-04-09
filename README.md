@@ -1,4 +1,4 @@
-<font size="+2">My Doc App </font>
+<font size="+12"><B>My Doc App</B></font>
 
 <img src ="DocPoc/Screenshot_20190409-180420.jpg" height = 500><img src ="DocPoc/Screenshot_20190409-180435.jpg" height = 500>
 <img src ="DocPoc/Screenshot_20190409-180643.jpg" height = 500>
