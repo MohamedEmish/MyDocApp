@@ -10,7 +10,6 @@
 
 # Liberaries used
 
-- [Kotlin programing language](#kotlin-stdlib-jdk7:1.3.31)
 - [Retrofit](#Retrofit 2.5.0)
 - [AutoDimension](#AutoDimension:1.0.4)
 - [Facebook](#facebook-login:4.41.0)
