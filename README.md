@@ -1,5 +1,5 @@
 # My DocPoc
-<img src ="DocPoc/Screenshot_20190409-180420.jpg" height = 250 ></a>
+<img src ="DocPoc/app_icon.png" height = 250 ></a>
 
 # DocPoc App
 
