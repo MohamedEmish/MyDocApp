@@ -8,6 +8,14 @@
 - I made some changes in the design and code style.
 - This app is written in Java.
 
+# Liberaries used
+
+- [Kotlin programing language](#kotlin-stdlib-jdk7:1.3.31)
+- [Retrofit](#Retrofit 2.5.0)
+- [AutoDimension](#AutoDimension:1.0.4)
+- [Facebook](#facebook-login:4.41.0)
+- [MVVM design pattern](#lifecycle-viewmodel:2.0.0)
+- [Picasso](#picasso:2.71828)
 
 # Screenshots
 
@@ -25,17 +33,6 @@
 <img src ="DocPoc/Screenshot_20190409-181557.jpg" height = 500>
 <img src ="DocPoc/Screenshot_20190409-181612.jpg" height = 500>
 <img src ="DocPoc/Screenshot_20190409-181617.jpg" height = 500>
-
-# Liberaries used
-
-
-- [Kotlin programing language](#kotlin-stdlib-jdk7:1.3.31)
-- [Retrofit](#Retrofit 2.5.0)
-- [AutoDimension](#AutoDimension:1.0.4)
-- [Facebook](#facebook-login:4.41.0)
-- [MVVM design pattern](#lifecycle-viewmodel:2.0.0)
-- [Picasso](#picasso:2.71828)
-
 
 ## Support
 
