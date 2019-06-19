@@ -11,7 +11,7 @@
 
 # Liberaries used
 
-- [Retrofit](#Retrofit 2.5.0)
+- [Retrofit](#Retrofit:2.5.0)
 - [AutoDimension](#AutoDimension:1.0.4)
 - [Facebook](#facebook-login:4.41.0)
 - [MVVM design pattern](#lifecycle-viewmodel:2.0.0)
